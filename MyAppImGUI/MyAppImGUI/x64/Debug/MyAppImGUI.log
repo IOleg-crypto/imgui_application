@@ -1,15 +1,4 @@
 ﻿  Checking for duplicate filenames...
   main.cpp
-  imgui_impl_dx11.cpp
-  imgui_impl_dx9.cpp
-  imgui_impl_win32.cpp
-  imgui.cpp
-  imgui_demo.cpp
-  imgui_draw.cpp
-  imgui_tables.cpp
-  imgui_widgets.cpp
-  imgui_stdlib.cpp
-  binary_to_compressed_c.cpp
-  Generating Code...
 binary_to_compressed_c.obj : error LNK2005: main already defined in main.obj
 D:\gitnext\CppWithImGUI\MyAppImGUI\x64\Debug\MyAppImGUI.exe : fatal error LNK1169: one or more multiply defined symbols found

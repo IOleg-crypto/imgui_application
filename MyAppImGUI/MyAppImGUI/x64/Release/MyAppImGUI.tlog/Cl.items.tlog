@@ -1,0 +1,8 @@
+D:\gitnext\CppWithImGUI\MyAppImGUI\src\main.cpp;D:\gitnext\CppWithImGUI\MyAppImGUI\MyAppImGUI\x64\Release\main.obj
+D:\gitnext\CppWithImGUI\MyAppImGUI\vendor\imgui\backends\imgui_impl_dx11.cpp;D:\gitnext\CppWithImGUI\MyAppImGUI\MyAppImGUI\x64\Release\imgui_impl_dx11.obj
+D:\gitnext\CppWithImGUI\MyAppImGUI\vendor\imgui\backends\imgui_impl_win32.cpp;D:\gitnext\CppWithImGUI\MyAppImGUI\MyAppImGUI\x64\Release\imgui_impl_win32.obj
+D:\gitnext\CppWithImGUI\MyAppImGUI\vendor\imgui\imgui.cpp;D:\gitnext\CppWithImGUI\MyAppImGUI\MyAppImGUI\x64\Release\imgui.obj
+D:\gitnext\CppWithImGUI\MyAppImGUI\vendor\imgui\imgui_demo.cpp;D:\gitnext\CppWithImGUI\MyAppImGUI\MyAppImGUI\x64\Release\imgui_demo.obj
+D:\gitnext\CppWithImGUI\MyAppImGUI\vendor\imgui\imgui_draw.cpp;D:\gitnext\CppWithImGUI\MyAppImGUI\MyAppImGUI\x64\Release\imgui_draw.obj
+D:\gitnext\CppWithImGUI\MyAppImGUI\vendor\imgui\imgui_tables.cpp;D:\gitnext\CppWithImGUI\MyAppImGUI\MyAppImGUI\x64\Release\imgui_tables.obj
+D:\gitnext\CppWithImGUI\MyAppImGUI\vendor\imgui\imgui_widgets.cpp;D:\gitnext\CppWithImGUI\MyAppImGUI\MyAppImGUI\x64\Release\imgui_widgets.obj
