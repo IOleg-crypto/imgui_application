@@ -1,6 +1,3 @@
 ﻿  Checking for duplicate filenames...
-  Generating code
-  Previous IPDB not found, fall back to full compilation.
-  All 2481 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
-  Finished generating code
-  MyAppImGUI.vcxproj -> D:\gitnext\CppWithImGUI\MyAppImGUI\x64\Release\MyAppImGUI.exe
+  main.cpp
+LINK : fatal error LNK1104: cannot open file 'D:\gitnext\CppWithImGUI\MyAppImGUI\x64\Release\MyAppImGUI.exe'
