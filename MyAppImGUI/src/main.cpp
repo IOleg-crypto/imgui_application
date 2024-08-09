@@ -123,22 +123,42 @@ int main(int, char**)
         ImGui_ImplWin32_NewFrame();
         ImGui::NewFrame();
 
+        //local variables
+		static int counter = 0;
+        static bool close = false;
+        static int choose = 0;
+
         //Setting my window
         ImGui::SetWindowSize(ImVec2(200, 100));
-        if(ImGui::Begin("Calculator"), NULL , ImGuiWindowFlags_NoResize)
-        {
-            static float f = 0.0f;
-            int counter = 0;
-          
+        if(ImGui::Begin("Calculator"), NULL , ImGuiWindowFlags_NoResize || ImGuiWindowFlags_NoCollapse)
+        {    
             if(ImGui::Button("Button"))
 			{
                 counter++;		
 			}
             ImGui::SameLine();
             ImGui::Text("counter = %d", counter);
-            ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / io.Framerate, io.Framerate);
-            ImGui::End();
+            ImGui::Checkbox("Another Window", &close);
+            ImGui::SliderInt("On/off window", &choose, 0, 1);
+            ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / io.Framerate, io.Framerate);          
+        }ImGui::End();
+
+        if (close == true) {
+            show_another_window = true;
+            counter = 0;
         }
+        else {
+            show_another_window = false;
+        }
+        if (choose == 1)
+        {
+            ImGui::SetWindowSize(ImVec2(200, 100));
+            if(ImGui::Begin("Window 2"))
+			{
+				ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / io.Framerate, io.Framerate);          
+			}ImGui::End();
+        }
+        
 
         // 3. Show another simple window.
         if (show_another_window)
