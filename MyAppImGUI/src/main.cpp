@@ -27,6 +27,15 @@ void CreateRenderTarget();
 void CleanupRenderTarget();
 LRESULT WINAPI WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
+void NewWindow(ImGuiIO& io)
+{
+    ImGui::SetWindowSize(ImVec2(200, 100));
+    if (ImGui::Begin("Window 2"))
+    {
+        ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / io.Framerate, io.Framerate);
+    }ImGui::End();
+}
+
 // Main code
 int main(int, char**)
 {
@@ -78,11 +87,15 @@ int main(int, char**)
     //io.Fonts->AddFontFromFileTTF("../../misc/fonts/Cousine-Regular.ttf", 15.0f);
     //ImFont* font = io.Fonts->AddFontFromFileTTF("c:\\Windows\\Fonts\\ArialUni.ttf", 18.0f, nullptr, io.Fonts->GetGlyphRangesJapanese());
     //IM_ASSERT(font != nullptr);
+    
 
     // Our state
     bool show_demo_window = true;
     bool show_another_window = false;
-    ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
+    ImVec4 clear_color = ImVec4(0.45f, 0.70f, 0.60f, 1.00f);
+    ImGuiStyle& style = ImGui::GetStyle();
+    style.Colors[ImGuiCol_WindowBg] = ImVec4(255, 0, 0, 255);
+    
 
     // Main loop
     bool done = false;
@@ -126,37 +139,66 @@ int main(int, char**)
         //local variables
 		static int counter = 0;
         static bool close = false;
-        static int choose = 0;
+        static int a = 0;
+        static int b = 0;
+        static int result = 0;
 
         //Setting my window
         ImGui::SetWindowSize(ImVec2(200, 100));
         if(ImGui::Begin("Calculator"), NULL , ImGuiWindowFlags_NoResize || ImGuiWindowFlags_NoCollapse)
         {    
+            /*
             if(ImGui::Button("Button"))
 			{
                 counter++;		
 			}
             ImGui::SameLine();
             ImGui::Text("counter = %d", counter);
-            ImGui::Checkbox("Another Window", &close);
+            //ImGui::Checkbox("Another Window", &close);
+            ImGui::InputInt("InputInt", &counter);
+            ImGui::BeginTabBar("TabBar");
             ImGui::SliderInt("On/off window", &choose, 0, 1);
-            ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / io.Framerate, io.Framerate);          
+
+            */
+            ImGui::InputInt("a", &a);
+			ImGui::InputInt("b", &b);
+            ImGui::BeginTabBar("TabBar");
+            ImGui::EndTabBar();
+            ImGui::Checkbox("Debug window", &close);
+            if(ImGui::Button("Add"))
+			{
+                if(a == 0 && b == 0)
+					result = 0;
+                else
+				    result = a + b;
+			}
+			if(ImGui::Button("Subtract"))
+			{
+                if (a == 0 && b == 0)
+                    result = 0;
+                else
+                    result = a - b;
+			}
+            if (ImGui::Button("Multiply"))
+            {
+                if (a == 0 && b == 0)
+                    result = 0;
+                else
+                    result = a * b;
+            }
+            if (ImGui::Button("Divide"))
+            {
+                if (a == 0 && b == 0)
+                    result = 0;
+                else
+                    result = a / b;
+            }
+            ImGui::Text("Result = %d", result);
         }ImGui::End();
 
-        if (close == true) {
-            show_another_window = true;
-            counter = 0;
-        }
-        else {
-            show_another_window = false;
-        }
-        if (choose == 1)
+        if (close == true)
         {
-            ImGui::SetWindowSize(ImVec2(200, 100));
-            if(ImGui::Begin("Window 2"))
-			{
-				ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / io.Framerate, io.Framerate);          
-			}ImGui::End();
+            NewWindow(io);
         }
         
 

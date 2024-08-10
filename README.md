@@ -39,6 +39,9 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 For a step-by-step tutorial on setting up and using this project, please refer to the YouTube playlist.
 
+
 [![IMAGE ALT TEXT HERE](hqdefault.jpg)](https://www.youtube.com/playlist?list=PLTykcSMzD4j8O48ZtfciC9ShZnEvvyNvI)
+
+
 
 Feel free to make any additional changes as needed!
