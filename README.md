@@ -42,6 +42,10 @@ For a step-by-step tutorial on setting up and using this project, please refer t
 
 [![IMAGE ALT TEXT HERE](hqdefault.jpg)](https://www.youtube.com/playlist?list=PLTykcSMzD4j8O48ZtfciC9ShZnEvvyNvI)
 
+<<<<<<< HEAD
 
 
 Feel free to make any additional changes as needed!
+=======
+Feel free to make any additional changes as needed!
+>>>>>>> 0902cdd5bd0d3f081001ae5ed840dcb804eed2a5
