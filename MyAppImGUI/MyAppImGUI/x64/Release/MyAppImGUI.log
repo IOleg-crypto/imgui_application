@@ -1,8 +1,9 @@
 ﻿  Checking for duplicate filenames...
   main.cpp
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.40.33807\include\xutility(4672,18): warning C4244: '=': conversion from 'wchar_t' to 'char', possible loss of data
   Generating code
-  0 of 1519 functions ( 0.0%) were compiled, the rest were copied from previous compilation.
+  4 of 1722 functions ( 0.2%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
-    0 functions had inline decision re-evaluated but remain unchanged
+    25 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
   MyAppImGUI.vcxproj -> D:\gitnext\CppWithImGUI\MyAppImGUI\x64\Release\MyAppImGUI.exe

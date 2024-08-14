@@ -3,6 +3,12 @@
 #include "imgui_impl_dx11.h"
 #include <d3d11.h>
 #include <tchar.h>
+#include <commdlg.h> // Include Windows common dialogs header
+#include <shobjidl_core.h> // Include namespace for IFileOpenDialog>
+#include <ShlObj.h>
+#include <Shlwapi.h>
+#include <fstream>
+#include <string>
 
 // Data
 static ID3D11Device* g_pd3dDevice = nullptr;
@@ -45,6 +51,95 @@ void ToggleFullscreen()
     }
 
     fullscreen = !fullscreen;
+}
+
+const wchar_t* ShowSaveFileDialog(const char* text)
+{
+    IFileSaveDialog* pFileSave = nullptr;
+    HRESULT hr = CoCreateInstance(CLSID_FileSaveDialog, NULL, CLSCTX_ALL, IID_IFileSaveDialog, reinterpret_cast<void**>(&pFileSave));
+
+    if (SUCCEEDED(hr))
+    {
+        DWORD dwFlags;
+        hr = pFileSave->GetOptions(&dwFlags);
+        if (SUCCEEDED(hr))
+        {
+            hr = pFileSave->SetOptions(dwFlags | FOS_FORCEFILESYSTEM);
+        }
+
+        hr = pFileSave->Show(NULL);
+        if (SUCCEEDED(hr))
+        {
+            IShellItem* pItem = nullptr;
+            hr = pFileSave->GetResult(&pItem);
+            if (SUCCEEDED(hr))
+            {
+                PWSTR pszFilePath = nullptr;
+                hr = pItem->GetDisplayName(SIGDN_FILESYSPATH, &pszFilePath);
+
+                if (SUCCEEDED(hr))
+                {
+                    // Copy the file path to a static buffer (for simplicity).
+                    static wchar_t szFilePath[260];
+                    wcscpy_s(szFilePath, pszFilePath);
+
+                    // Write the text to the selected file.
+                     // Convert wchar_t path to a narrow string.
+                    std::wstring wideFilePath(szFilePath);
+                    std::string filePath(wideFilePath.begin(), wideFilePath.end());
+
+                    // Write the text to the selected file.
+                    std::ofstream outFile(filePath, std::ios::out | std::ios::binary);
+                    if (outFile.is_open())
+                    {
+                        outFile.write(text, strlen(text));
+                        outFile.close();
+                    }
+                }
+                pItem->Release();
+            }
+        }
+        pFileSave->Release();
+    }
+    return nullptr;
+}
+const wchar_t* ShowOpenFileDialog(const char* text)
+{
+	IFileOpenDialog* pFileOpen = nullptr;
+	HRESULT hr = CoCreateInstance(CLSID_FileOpenDialog, NULL, CLSCTX_ALL, IID_IFileOpenDialog, reinterpret_cast<void**>(&pFileOpen));
+
+	if (SUCCEEDED(hr))
+	{
+		DWORD dwFlags;
+		hr = pFileOpen->GetOptions(&dwFlags);
+		if (SUCCEEDED(hr))
+		{
+			hr = pFileOpen->SetOptions(dwFlags | FOS_FORCEFILESYSTEM);
+		}
+
+		hr = pFileOpen->Show(NULL);
+		if (SUCCEEDED(hr))
+		{
+			IShellItem* pItem = nullptr;
+			hr = pFileOpen->GetResult(&pItem);
+			if (SUCCEEDED(hr))
+			{
+				PWSTR pszFilePath = nullptr;
+				hr = pItem->GetDisplayName(SIGDN_FILESYSPATH, &pszFilePath);
+
+                if (SUCCEEDED(hr))
+                {
+                    // Copy the file path to a static buffer (for simplicity).
+                    static wchar_t szFilePath[260];
+                    wcscpy_s(szFilePath, pszFilePath);
+                }
+
+				pItem->Release();
+			}
+		}
+		pFileOpen->Release();
+	}
+    return nullptr;
 }
 // Main code
 int main(int, char**)
@@ -134,16 +229,23 @@ int main(int, char**)
         static ImGuiInputTextFlags flags = ImGuiInputTextFlags_AllowTabInput;
         static char text[1024 * 16] =
             "Type here...";
-        if (ImGui::Begin("Main Window", NULL, ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoResize))
+        if (ImGui::Begin("Notepad", NULL, ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoResize))
         {
+            //menu
             if (ImGui::BeginMenu("Menu"))
             {
                 if (ImGui::MenuItem("ReadOnly", "Ctrl+M", &read_only))
                 {
+                    read_only = !read_only;
                     if (read_only)
                         flags |= ImGuiInputTextFlags_ReadOnly;
                     else
                         flags &= ~ImGuiInputTextFlags_ReadOnly;
+                }
+                ImGui::Separator();
+                if (ImGui::MenuItem("Save file dialog", "Ctrl+S"))
+                {
+                    ShowSaveFileDialog(text);
                 }
                 ImGui::Separator();
                 ImGui::MenuItem("About", nullptr , &show_demo_window);
@@ -152,14 +254,32 @@ int main(int, char**)
                 {
 					::PostQuitMessage(0);
                 }
+                ImGui::Separator();
                 if (ImGui::MenuItem("Fullscreen", "F5"))
                 {
 					ToggleFullscreen();
                 }
+                ImGui::Separator();
+                if (ImGui::MenuItem("Open file dialog", "Ctrl+O"))
+                {
+                    ShowOpenFileDialog(text);
+                }
+               
                 ImGui::EndMenu();
             }
+            
            // ImGui::InputTextMultiline("##source", NULL, 1024, ImVec2(1000, 300), ImGuiInputTextFlags_AllowTabInput);
             ImGui::InputTextMultiline("##source", text, IM_ARRAYSIZE(text), ImVec2(-FLT_MIN, ImGui::GetTextLineHeight() * 48), flags); 
+			ImGui::Separator();
+            if (ImGui::RadioButton("ReadOnly", &read_only))
+            {
+                read_only = !read_only;
+                if (read_only)
+                    flags |= ImGuiInputTextFlags_ReadOnly;
+                else
+                    flags &= ~ImGuiInputTextFlags_ReadOnly;
+            }
+
         }
         ImGui::End();
         //keyboard shortcuts
@@ -180,7 +300,10 @@ int main(int, char**)
         {
 			ToggleFullscreen();
         }
-
+        if (ImGui::IsKeyPressed(ImGuiKey_LeftCtrl) && ImGui::IsKeyPressed(ImGuiKey_S))
+        {
+			ShowSaveFileDialog(text);
+        }
         // 3. Show another simple window.
         if (show_another_window)
         {
