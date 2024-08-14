@@ -46,7 +46,6 @@ void ToggleFullscreen()
 
     fullscreen = !fullscreen;
 }
-
 // Main code
 int main(int, char**)
 {
@@ -147,19 +146,15 @@ int main(int, char**)
                         flags &= ~ImGuiInputTextFlags_ReadOnly;
                 }
                 ImGui::Separator();
-                if (ImGui::MenuItem("About"))
-                {
-                    ImGui::SetWindowSize(ImVec2(200, 100));
-                    if (ImGui::Begin("Information"))
-                    {
-                        ImGui::Text("The notepad made by I#Oleg");
-                        ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / io.Framerate, io.Framerate);
-                    }
-                }
+                ImGui::MenuItem("About", nullptr , &show_demo_window);
 				ImGui::Separator();
                 if (ImGui::MenuItem("Exit", "Alt+F4"))
                 {
 					::PostQuitMessage(0);
+                }
+                if (ImGui::MenuItem("Fullscreen", "F5"))
+                {
+					ToggleFullscreen();
                 }
                 ImGui::EndMenu();
             }
@@ -168,16 +163,22 @@ int main(int, char**)
         }
         ImGui::End();
         //keyboard shortcuts
-        if (ImGui::IsWindowFocused(ImGuiFocusedFlags_RootAndChildWindows))
+       
+        if(ImGui::IsKeyDown(ImGuiKey_LeftCtrl) && ImGui::IsKeyPressed(ImGuiKey_M))
         {
-            if (ImGui::IsKeyDown(ImGuiKey_LeftCtrl) && ImGui::IsKeyPressed(ImGuiKey_M))
-            {
-                read_only = !read_only;
-                if (read_only)
-                    flags |= ImGuiInputTextFlags_ReadOnly;
-                else
-                    flags &= ~ImGuiInputTextFlags_ReadOnly;
-            }
+           read_only = !read_only;
+           if (read_only)
+              flags |= ImGuiInputTextFlags_ReadOnly;
+           else
+              flags &= ~ImGuiInputTextFlags_ReadOnly;
+        }
+        if (ImGui::IsKeyPressed(ImGuiKey_LeftAlt))
+	    {
+		    ::PostQuitMessage(0);
+		}
+        if (ImGui::IsKeyPressed(ImGuiKey_F5))
+        {
+			ToggleFullscreen();
         }
 
         // 3. Show another simple window.
@@ -188,6 +189,15 @@ int main(int, char**)
             if (ImGui::Button("Close Me"))
                 show_another_window = false;
             ImGui::End();
+        }
+        if (show_demo_window)
+        {
+            ImGui::SetWindowSize(ImVec2(200, 100) , ImGuiCond_FirstUseEver);
+            if (ImGui::Begin("Information"))
+            {
+                ImGui::Text("The notepad made by I#Oleg");
+                ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / io.Framerate, io.Framerate);
+            }
         }
 
 
