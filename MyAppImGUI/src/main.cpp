@@ -47,16 +47,6 @@ void ToggleFullscreen()
     fullscreen = !fullscreen;
 }
 
-void NewWindow(ImGuiIO& io)
-{
-    ImGui::SetWindowSize(ImVec2(200, 100));
-    if (ImGui::Begin("Window 2"))
-    {
-        ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / io.Framerate, io.Framerate);
-    }
-    ImGui::End();
-}
-
 // Main code
 int main(int, char**)
 {
@@ -94,10 +84,10 @@ int main(int, char**)
 
     // Our state
     bool show_another_window = false;
+    static bool show_demo_window = true;
     ImVec4 clear_color = ImVec4(0.45f, 0.60f, 0.60f, 1.00f); // Change clear color to make it more visible
     //ImGuiStyle& style = ImGui::GetStyle();
     //style.Colors[ImGuiCol_WindowBg] = ImVec4(222, 0, 0, 255); // Set window background color
-    bool read_only = false;
 
     // Main loop
     bool done = false;
@@ -137,23 +127,39 @@ int main(int, char**)
         ImGui_ImplWin32_NewFrame();
         ImGui::NewFrame();
 
-        ImGui::SetWindowSize(ImVec2(1920, 1080));
+        ImGui::SetNextWindowSize(ImVec2(1280, 900), ImGuiCond_FirstUseEver);
+       
         //ImGuiWindowFlags window_flags = ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove;
         // Main window
+        static bool read_only = false;
         static ImGuiInputTextFlags flags = ImGuiInputTextFlags_AllowTabInput;
         static char text[1024 * 16] =
             "Type here...";
-        if (ImGui::Begin("Main Window") ,  NULL , ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoResize)
+        if (ImGui::Begin("Main Window", NULL, ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoResize))
         {
             if (ImGui::BeginMenu("Menu"))
             {
-                if (ImGui::MenuItem("ReadOnly", "Ctrl+M"))
+                if (ImGui::MenuItem("ReadOnly", "Ctrl+M", &read_only))
                 {
-                    flags |= ImGuiInputTextFlags_ReadOnly;
+                    if (read_only)
+                        flags |= ImGuiInputTextFlags_ReadOnly;
+                    else
+                        flags &= ~ImGuiInputTextFlags_ReadOnly;
                 }
-                if (ImGui::BeginMenu("Recurse.."))
+                ImGui::Separator();
+                if (ImGui::MenuItem("About"))
                 {
-                    ImGui::EndMenu();
+                    ImGui::SetWindowSize(ImVec2(200, 100));
+                    if (ImGui::Begin("Information"))
+                    {
+                        ImGui::Text("The notepad made by I#Oleg");
+                        ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / io.Framerate, io.Framerate);
+                    }
+                }
+				ImGui::Separator();
+                if (ImGui::MenuItem("Exit", "Alt+F4"))
+                {
+					::PostQuitMessage(0);
                 }
                 ImGui::EndMenu();
             }
@@ -161,6 +167,18 @@ int main(int, char**)
             ImGui::InputTextMultiline("##source", text, IM_ARRAYSIZE(text), ImVec2(-FLT_MIN, ImGui::GetTextLineHeight() * 48), flags); 
         }
         ImGui::End();
+        //keyboard shortcuts
+        if (ImGui::IsWindowFocused(ImGuiFocusedFlags_RootAndChildWindows))
+        {
+            if (ImGui::IsKeyDown(ImGuiKey_LeftCtrl) && ImGui::IsKeyPressed(ImGuiKey_M))
+            {
+                read_only = !read_only;
+                if (read_only)
+                    flags |= ImGuiInputTextFlags_ReadOnly;
+                else
+                    flags &= ~ImGuiInputTextFlags_ReadOnly;
+            }
+        }
 
         // 3. Show another simple window.
         if (show_another_window)
