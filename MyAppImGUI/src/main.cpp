@@ -103,42 +103,58 @@ const wchar_t* ShowSaveFileDialog(const char* text)
     }
     return nullptr;
 }
-const wchar_t* ShowOpenFileDialog(const char* text)
+const wchar_t* ShowOpenFileDialog(char* buffer, size_t bufferSize)
 {
-	IFileOpenDialog* pFileOpen = nullptr;
-	HRESULT hr = CoCreateInstance(CLSID_FileOpenDialog, NULL, CLSCTX_ALL, IID_IFileOpenDialog, reinterpret_cast<void**>(&pFileOpen));
+    IFileOpenDialog* pFileOpen = nullptr;
+    HRESULT hr = CoCreateInstance(CLSID_FileOpenDialog, NULL, CLSCTX_ALL, IID_IFileOpenDialog, reinterpret_cast<void**>(&pFileOpen));
 
-	if (SUCCEEDED(hr))
-	{
-		DWORD dwFlags;
-		hr = pFileOpen->GetOptions(&dwFlags);
-		if (SUCCEEDED(hr))
-		{
-			hr = pFileOpen->SetOptions(dwFlags | FOS_FORCEFILESYSTEM);
-		}
+    if (SUCCEEDED(hr))
+    {
+        DWORD dwFlags;
+        hr = pFileOpen->GetOptions(&dwFlags);
+        if (SUCCEEDED(hr))
+        {
+            hr = pFileOpen->SetOptions(dwFlags | FOS_FORCEFILESYSTEM);
+        }
 
-		hr = pFileOpen->Show(NULL);
-		if (SUCCEEDED(hr))
-		{
-			IShellItem* pItem = nullptr;
-			hr = pFileOpen->GetResult(&pItem);
-			if (SUCCEEDED(hr))
-			{
-				PWSTR pszFilePath = nullptr;
-				hr = pItem->GetDisplayName(SIGDN_FILESYSPATH, &pszFilePath);
+        hr = pFileOpen->Show(NULL);
+        if (SUCCEEDED(hr))
+        {
+            IShellItem* pItem = nullptr;
+            hr = pFileOpen->GetResult(&pItem);
+            if (SUCCEEDED(hr))
+            {
+                PWSTR pszFilePath = nullptr;
+                hr = pItem->GetDisplayName(SIGDN_FILESYSPATH, &pszFilePath);
 
                 if (SUCCEEDED(hr))
                 {
                     // Copy the file path to a static buffer (for simplicity).
                     static wchar_t szFilePath[260];
                     wcscpy_s(szFilePath, pszFilePath);
-                }
 
-				pItem->Release();
-			}
-		}
-		pFileOpen->Release();
-	}
+                    // Convert wchar_t path to a narrow string.
+                    std::wstring wideFilePath(szFilePath);
+                    std::string filePath(wideFilePath.begin(), wideFilePath.end());
+
+                    // Read the content of the selected file.
+                    std::ifstream inFile(filePath, std::ios::in | std::ios::binary);
+                    if (inFile.is_open())
+                    {
+                        inFile.read(buffer, bufferSize - 1);
+                        buffer[inFile.gcount()] = '\0'; // Null-terminate the buffer
+                        inFile.close();
+                    }
+                    CoTaskMemFree(pszFilePath);
+                    pItem->Release();
+                    pFileOpen->Release();
+                    return szFilePath;
+                }
+                pItem->Release();
+            }
+        }
+        pFileOpen->Release();
+    }
     return nullptr;
 }
 // Main code
@@ -221,7 +237,7 @@ int main(int, char**)
         ImGui_ImplWin32_NewFrame();
         ImGui::NewFrame();
 
-        ImGui::SetNextWindowSize(ImVec2(1280, 900), ImGuiCond_FirstUseEver);
+        ImGui::SetNextWindowSize(ImVec2(1000, 700), ImGuiCond_Always);
        
         //ImGuiWindowFlags window_flags = ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove;
         // Main window
@@ -262,14 +278,13 @@ int main(int, char**)
                 ImGui::Separator();
                 if (ImGui::MenuItem("Open file dialog", "Ctrl+O"))
                 {
-                    ShowOpenFileDialog(text);
+                    ShowOpenFileDialog(text, sizeof(text));
                 }
-               
                 ImGui::EndMenu();
             }
             
            // ImGui::InputTextMultiline("##source", NULL, 1024, ImVec2(1000, 300), ImGuiInputTextFlags_AllowTabInput);
-            ImGui::InputTextMultiline("##source", text, IM_ARRAYSIZE(text), ImVec2(-FLT_MIN, ImGui::GetTextLineHeight() * 48), flags); 
+            ImGui::InputTextMultiline ("##source", text, IM_ARRAYSIZE(text), ImVec2(-FLT_MIN, ImGui::GetTextLineHeight() * 48), flags); 
 			ImGui::Separator();
             if (ImGui::RadioButton("ReadOnly", &read_only))
             {
