@@ -182,7 +182,7 @@ int main(int, char**)
     ImGui::CreateContext();
     ImGuiIO& io = ImGui::GetIO(); (void)io;
     io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;     // Enable Keyboard Controls
-    io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // Enable Gamepad Controls
+    //io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // Enable Gamepad Controls
 
     // Setup Dear ImGui style
     ImGui::StyleColorsDark();
@@ -237,7 +237,7 @@ int main(int, char**)
         ImGui_ImplWin32_NewFrame();
         ImGui::NewFrame();
 
-        ImGui::SetNextWindowSize(ImVec2(1000, 700), ImGuiCond_Always);
+        //ImGui::SetNextWindowSize(ImVec2(1000, 700), ImGuiCond_Always);
        
         //ImGuiWindowFlags window_flags = ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove;
         // Main window
@@ -245,46 +245,59 @@ int main(int, char**)
         static ImGuiInputTextFlags flags = ImGuiInputTextFlags_AllowTabInput;
         static char text[1024 * 16] =
             "Type here...";
-        if (ImGui::Begin("Notepad", NULL, ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoResize))
-        {
+       
             //menu
-            if (ImGui::BeginMenu("Menu"))
+            if (ImGui::BeginMainMenuBar())
             {
-                if (ImGui::MenuItem("ReadOnly", "Ctrl+M", &read_only))
+                if (ImGui::BeginMenu("Menu"))
                 {
-                    read_only = !read_only;
-                    if (read_only)
-                        flags |= ImGuiInputTextFlags_ReadOnly;
-                    else
-                        flags &= ~ImGuiInputTextFlags_ReadOnly;
+                    if (ImGui::MenuItem("ReadOnly", "Ctrl+M", &read_only))
+                    {
+                        read_only = !read_only;
+                        if (read_only)
+                            flags |= ImGuiInputTextFlags_ReadOnly;
+                        else
+                            flags &= ~ImGuiInputTextFlags_ReadOnly;
+                    }
+                    ImGui::Separator();
+                    if (ImGui::MenuItem("Save file dialog", "Ctrl+S"))
+                    {
+                        ShowSaveFileDialog(text);
+                    }
+                    ImGui::Separator();
+                    if (ImGui::MenuItem("Open file dialog", "Ctrl+O"))
+                    {
+                        ShowOpenFileDialog(text, sizeof(text));
+                    }
+                    ImGui::Separator();
+                    if (ImGui::MenuItem("Fullscreen", "F5"))
+                    {
+                        ToggleFullscreen();
+                    }
+                    ImGui::Separator();
+                    if (ImGui::MenuItem("Exit", "Alt+F4"))
+                    {
+                        ::PostQuitMessage(0);
+                    }
+                    if (ImGui::MenuItem("Help"))
+                    {
+                        show_demo_window  = true;
+                    }
+                    ImGui::EndMenu();
                 }
-                ImGui::Separator();
-                if (ImGui::MenuItem("Save file dialog", "Ctrl+S"))
+                if (ImGui::BeginMenu("Font and size"))
                 {
-                    ShowSaveFileDialog(text);
+                    if (ImGui::MenuItem("Font"))
+                    {
+                        // Handle font settings
+                    }
+                    ImGui::EndMenu();
                 }
-                ImGui::Separator();
-                ImGui::MenuItem("About", nullptr , &show_demo_window);
-				ImGui::Separator();
-                if (ImGui::MenuItem("Exit", "Alt+F4"))
-                {
-					::PostQuitMessage(0);
-                }
-                ImGui::Separator();
-                if (ImGui::MenuItem("Fullscreen", "F5"))
-                {
-					ToggleFullscreen();
-                }
-                ImGui::Separator();
-                if (ImGui::MenuItem("Open file dialog", "Ctrl+O"))
-                {
-                    ShowOpenFileDialog(text, sizeof(text));
-                }
-                ImGui::EndMenu();
-            }
+                ImGui::EndMainMenuBar();
+        
             
            // ImGui::InputTextMultiline("##source", NULL, 1024, ImVec2(1000, 300), ImGuiInputTextFlags_AllowTabInput);
-            ImGui::InputTextMultiline ("##source", text, IM_ARRAYSIZE(text), ImVec2(-FLT_MIN, ImGui::GetTextLineHeight() * 48), flags); 
+            ImGui::InputTextMultiline("##source", text, IM_ARRAYSIZE(text), ImVec2(-FLT_MAX, ImGui::GetTextLineHeight() * 48), flags);
 			ImGui::Separator();
             if (ImGui::RadioButton("ReadOnly", &read_only))
             {
@@ -328,9 +341,9 @@ int main(int, char**)
                 show_another_window = false;
             ImGui::End();
         }
-        if (show_demo_window)
+        if (show_demo_window == true)
         {
-            ImGui::SetWindowSize(ImVec2(200, 100) , ImGuiCond_FirstUseEver);
+            ImGui::SetWindowSize(ImVec2(200, 100));
             if (ImGui::Begin("Information"))
             {
                 ImGui::Text("The notepad made by I#Oleg");
@@ -431,10 +444,11 @@ LRESULT WINAPI WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
     switch (msg)
     {
     case WM_SIZE:
-        if (wParam == SIZE_MINIMIZED)
-            return 0;
-        g_ResizeWidth = (UINT)LOWORD(lParam); // Queue resize
-        g_ResizeHeight = (UINT)HIWORD(lParam);
+        if (g_pd3dDevice != nullptr && wParam != SIZE_MINIMIZED)
+        {
+            g_ResizeWidth = (UINT)LOWORD(lParam);
+            g_ResizeHeight = (UINT)HIWORD(lParam);
+        }
         return 0;
     case WM_SYSCOMMAND:
         if ((wParam & 0xfff0) == SC_KEYMENU) // Disable ALT application menu
@@ -446,3 +460,5 @@ LRESULT WINAPI WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
     }
     return ::DefWindowProcW(hWnd, msg, wParam, lParam);
 }
+
+
