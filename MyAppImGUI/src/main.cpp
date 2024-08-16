@@ -239,13 +239,19 @@ int main(int, char**)
         ImGui::NewFrame();
 
         //ImGui::SetNextWindowSize(ImVec2(1000, 700), ImGuiCond_Always);
-       
+        const float sizeScalar = 1.5f; // Render a higher quality font texture for when we want to size up the font
+        static float font_size = 0.0f;
+        static bool show_font_window = false;
+
+            
+
         //ImGuiWindowFlags window_flags = ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove;
         // Main window
         static bool read_only = false;
         static ImGuiInputTextFlags flags = ImGuiInputTextFlags_AllowTabInput;
         static char text[1024 * 16] =
             "Type here...";
+        ImGui::SetWindowFontScale(font_size);
         ImGui::Begin("##Window Name", nullptr , ImGuiWindowFlags_NoTitleBar || ImGuiWindowFlags_NoResize || ImGuiWindowFlags_NoMove || ImGuiWindowFlags_NoCollapse);
             //menu
             if (ImGui::BeginMainMenuBar())
@@ -297,8 +303,8 @@ int main(int, char**)
                 if (ImGui::BeginMenu("Font and size"))
                 {
                     if (ImGui::MenuItem("Font"))
-                    {
-                        // Handle font settings
+                    {               
+                       show_font_window = true;
                     }
                     ImGui::EndMenu();
                 }
@@ -357,6 +363,19 @@ int main(int, char**)
             {
                 ImGui::Text("The notepad made by I#Oleg");
                 ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / io.Framerate, io.Framerate);
+            }
+        }
+        if (show_font_window == true)
+        {
+            if (ImGui::Begin("##Font", nullptr, ImGuiWindowFlags_AlwaysAutoResize)) {
+                if (ImGui::SliderFloat("Size", &font_size, 0.0f, 30.0f))
+                {
+                    // Apply the new font size
+                    ImGuiIO& io = ImGui::GetIO();
+                    io.Fonts->Clear();
+                    io.Fonts->AddFontFromFileTTF("C:\\Windows\\Fonts\\Arial.ttf", font_size);
+                    ImGui::NewFrame();
+                }
             }
         }
 
