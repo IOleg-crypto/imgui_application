@@ -163,7 +163,7 @@ int main(int, char**)
     // Create application window
     WNDCLASSEXW wc = { sizeof(wc), CS_CLASSDC, WndProc, 0L, 0L, GetModuleHandle(nullptr), nullptr, nullptr, nullptr, nullptr, L"ImGui Example", nullptr };
     ::RegisterClassExW(&wc);
-    hwnd = ::CreateWindowW(wc.lpszClassName, L"Dear ImGui DirectX11 Example", WS_OVERLAPPEDWINDOW, 100, 100, 1280, 800, nullptr, nullptr, wc.hInstance, nullptr);
+    hwnd = ::CreateWindowW(wc.lpszClassName, L"Notepad", WS_OVERLAPPEDWINDOW, 100, 100, 1280, 800, nullptr, nullptr, wc.hInstance, nullptr);
 
     // Initialize Direct3D
     if (!CreateDeviceD3D(hwnd))
@@ -195,7 +195,8 @@ int main(int, char**)
     // Our state
     bool show_another_window = false;
     static bool show_demo_window = true;
-    ImVec4 clear_color = ImVec4(0.45f, 0.60f, 0.60f, 1.00f); // Change clear color to make it more visible
+    ImVec4 clear_color = ImVec4(0.45f, 0.60f, 0.60f, 1.00f);
+    static bool theme_change = false; // Change clear color to make it more visible
     //ImGuiStyle& style = ImGui::GetStyle();
     //style.Colors[ImGuiCol_WindowBg] = ImVec4(222, 0, 0, 255); // Set window background color
 
@@ -245,7 +246,7 @@ int main(int, char**)
         static ImGuiInputTextFlags flags = ImGuiInputTextFlags_AllowTabInput;
         static char text[1024 * 16] =
             "Type here...";
-       
+        ImGui::Begin("##Window Name", nullptr , ImGuiWindowFlags_NoTitleBar || ImGuiWindowFlags_NoResize || ImGuiWindowFlags_NoMove || ImGuiWindowFlags_NoCollapse);
             //menu
             if (ImGui::BeginMainMenuBar())
             {
@@ -283,6 +284,14 @@ int main(int, char**)
                     {
                         show_demo_window  = true;
                     }
+                    if (ImGui::MenuItem("Theme light/dark") , &theme_change)
+                    {
+						theme_change = !theme_change;
+						if (theme_change)
+							ImGui::StyleColorsLight();
+						else
+							ImGui::StyleColorsDark();
+                    }
                     ImGui::EndMenu();
                 }
                 if (ImGui::BeginMenu("Font and size"))
@@ -297,7 +306,7 @@ int main(int, char**)
         
             
            // ImGui::InputTextMultiline("##source", NULL, 1024, ImVec2(1000, 300), ImGuiInputTextFlags_AllowTabInput);
-            ImGui::InputTextMultiline("##source", text, IM_ARRAYSIZE(text), ImVec2(-FLT_MAX, ImGui::GetTextLineHeight() * 48), flags);
+            ImGui::InputTextMultiline("##source", text, IM_ARRAYSIZE(text), ImVec2(-FLT_MIN, ImGui::GetTextLineHeight() * 48), flags);
 			ImGui::Separator();
             if (ImGui::RadioButton("ReadOnly", &read_only))
             {
@@ -343,7 +352,7 @@ int main(int, char**)
         }
         if (show_demo_window == true)
         {
-            ImGui::SetWindowSize(ImVec2(200, 100));
+            ImGui::SetWindowSize(ImVec2(200, 100) , ImGuiCond_Once);
             if (ImGui::Begin("Information"))
             {
                 ImGui::Text("The notepad made by I#Oleg");
