@@ -9,6 +9,7 @@
 #include <Shlwapi.h>
 #include <fstream>
 #include <string>
+#include <filesystem>
 
 // Data
 static ID3D11Device* g_pd3dDevice = nullptr;
@@ -157,6 +158,44 @@ const wchar_t* ShowOpenFileDialog(char* buffer, size_t bufferSize)
     }
     return nullptr;
 }
+
+
+// Global variables for device and context (assuming they are defined somewhere)
+extern ID3D11Device* g_pd3dDevice;
+extern ID3D11DeviceContext* g_pd3dDeviceContext;
+
+void ApplyFont(int new_font_size)
+{
+    std::filesystem::path fontPath = "C:\\Windows\\Fonts\\Arial.ttf";
+    ImGuiIO& io = ImGui::GetIO();
+    ImFontConfig config;
+
+    io.Fonts->Clear();  // Clear existing fonts
+    io.Fonts->AddFontFromFileTTF(fontPath.string().c_str(), new_font_size, &config);
+    io.Fonts->Build();
+
+    // Reset device objects to apply the new font
+    ImGui_ImplDX11_InvalidateDeviceObjects();
+    ImGui_ImplDX11_CreateDeviceObjects();
+}
+
+void ShowFontWindow(bool& show_font_window, int font_size)
+{
+    static bool font_size_changed = false;
+    static int new_font_size = font_size;
+
+    ApplyFont(font_size);
+    if (show_font_window)
+    {       
+        if (font_size_changed)
+        {
+            font_size = new_font_size;  // Update the font size
+            font_size_changed = false;  // Reset the flag
+        }
+    }
+}
+
+
 // Main code
 int main(int, char**)
 {
@@ -185,7 +224,7 @@ int main(int, char**)
     //io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // Enable Gamepad Controls
 
     // Setup Dear ImGui style
-    ImGui::StyleColorsDark();
+    //ImGui::StyleColorsDark();
     //ImGui::StyleColorsLight();
 
     // Setup Platform/Renderer backends
@@ -240,9 +279,10 @@ int main(int, char**)
 
         //ImGui::SetNextWindowSize(ImVec2(1000, 700), ImGuiCond_Always);
         const float sizeScalar = 1.5f; // Render a higher quality font texture for when we want to size up the font
-        static float font_size = 0.0f;
+        static int font_size = 10;
         static bool show_font_window = false;
-
+        //bool show_font_window = true;
+        //float font_size = 14.0f;
             
 
         //ImGuiWindowFlags window_flags = ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove;
@@ -251,7 +291,7 @@ int main(int, char**)
         static ImGuiInputTextFlags flags = ImGuiInputTextFlags_AllowTabInput;
         static char text[1024 * 16] =
             "Type here...";
-        ImGui::SetWindowFontScale(font_size);
+        //ImGui::SetWindowFontScale(font_size);
         ImGui::Begin("##Window Name", nullptr , ImGuiWindowFlags_NoTitleBar || ImGuiWindowFlags_NoResize || ImGuiWindowFlags_NoMove || ImGuiWindowFlags_NoCollapse);
             //menu
             if (ImGui::BeginMainMenuBar())
@@ -290,7 +330,7 @@ int main(int, char**)
                     {
                         show_demo_window  = true;
                     }
-                    if (ImGui::MenuItem("Theme light/dark") , &theme_change)
+                    if (ImGui::MenuItem("Theme light/dark") , nullptr , &theme_change)
                     {
 						theme_change = !theme_change;
 						if (theme_change)
@@ -358,25 +398,34 @@ int main(int, char**)
         }
         if (show_demo_window == true)
         {
-            ImGui::SetWindowSize(ImVec2(200, 100) , ImGuiCond_Once);
-            if (ImGui::Begin("Information"))
+            ImGui::SetWindowSize(ImVec2(200, 100) ,ImGuiCond_Once);
+            if (ImGui::Begin("Information") , nullptr , ImGuiWindowFlags_AlwaysAutoResize)
             {
                 ImGui::Text("The notepad made by I#Oleg");
                 ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / io.Framerate, io.Framerate);
             }
+            ImGui::End();
         }
         if (show_font_window == true)
         {
             if (ImGui::Begin("##Font", nullptr, ImGuiWindowFlags_AlwaysAutoResize)) {
-                if (ImGui::SliderFloat("Size", &font_size, 0.0f, 30.0f))
+                if (ImGui::SliderInt("Size", &font_size, font_size, 30))
+                { 
+                    ShowFontWindow(show_font_window, font_size);
+
+                }
+                if (ImGui::IsKeyPressed(ImGuiKey_Keypad2))
                 {
-                    // Apply the new font size
-                    ImGuiIO& io = ImGui::GetIO();
-                    io.Fonts->Clear();
-                    io.Fonts->AddFontFromFileTTF("C:\\Windows\\Fonts\\Arial.ttf", font_size);
-                    ImGui::NewFrame();
+                    ShowFontWindow(show_font_window, font_size);
+                    font_size--;
+                }
+                if (ImGui::IsKeyPressed(ImGuiKey_Keypad1))
+                {
+                    ShowFontWindow(show_font_window, font_size);
+                    font_size++;
                 }
             }
+            ImGui::End();
         }
 
 
@@ -485,7 +534,13 @@ LRESULT WINAPI WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
     case WM_DESTROY:
         ::PostQuitMessage(0);
         return 0;
+    case WM_HOTKEY:
+        if (wParam == VK_F5)
+        {
+            ToggleFullscreen();
+        }
     }
+
     return ::DefWindowProcW(hWnd, msg, wParam, lParam);
 }
 
