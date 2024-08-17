@@ -330,7 +330,7 @@ int main(int, char**)
                     {
                         show_demo_window  = true;
                     }
-                    if (ImGui::MenuItem("Theme light/dark") , nullptr , &theme_change)
+                    if (ImGui::MenuItem("Theme light/dark"), "CTRL+R", &theme_change)
                     {
 						theme_change = !theme_change;
 						if (theme_change)
@@ -387,6 +387,14 @@ int main(int, char**)
         {
 			ShowSaveFileDialog(text);
         }
+        if (ImGui::IsKeyPressed(ImGuiKey_LeftCtrl) && ImGui::IsKeyPressed(ImGuiKey_R))
+        {
+            theme_change = !theme_change;
+			if (theme_change)
+				ImGui::StyleColorsLight();
+			else
+				ImGui::StyleColorsDark();
+        }
         // 3. Show another simple window.
         if (show_another_window)
         {
@@ -423,6 +431,10 @@ int main(int, char**)
                 {
                     ShowFontWindow(show_font_window, font_size);
                     font_size++;
+                }
+                if (font_size >= 30 || font_size <= 10)
+                {
+                    font_size = 10;
                 }
             }
             ImGui::End();
