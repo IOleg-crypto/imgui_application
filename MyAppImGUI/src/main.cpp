@@ -10,6 +10,7 @@
 #include <fstream>
 #include <string>
 #include <filesystem>
+#include <vector>
 
 // Data
 static ID3D11Device* g_pd3dDevice = nullptr;
@@ -293,6 +294,33 @@ int main(int, char**)
             "Type here...";
         //ImGui::SetWindowFontScale(font_size);
         ImGui::Begin("##Window Name", nullptr , ImGuiWindowFlags_NoTitleBar || ImGuiWindowFlags_NoResize || ImGuiWindowFlags_NoMove || ImGuiWindowFlags_NoCollapse);
+        int selectedTab = 0;  // Keeps track of which tab is currently selected
+        std::vector<std::string> tabTitles = { "Tab 1" };
+        std::vector<std::string> tabContents = { "Content for Tab 1" };
+      
+
+        if (ImGui::Button("Add Tab"))
+        {
+            // Add a new tab with default content
+            tabTitles.push_back("Tab " + std::to_string(tabTitles.size() + 1));
+            tabContents.push_back("Content for Tab " + std::to_string(tabTitles.size()));
+            selectedTab = tabTitles.size() - 1; // Select the new tab
+        }
+
+        ImGui::BeginTabBar("MyTabBar");
+
+        for (size_t i = 0; i < tabTitles.size(); ++i)
+        {
+            if (ImGui::BeginTabItem(tabTitles[i].c_str()))
+            {
+                // Display the content for the selected tab
+                ImGui::Text("%s", tabContents[i].c_str());
+                // Optionally use ImGui::InputTextMultiline if you want editable content
+                //ImGui::InputTextMultiline("##InputText", tabContents[i].data(), IM_ARRAYSIZE(tabContents[i]), ImVec2(-FLT_MIN, ImGui::GetTextLineHeight() * 48), ImGuiInputTextFlags_AllowTabInput);
+                ImGui::EndTabItem();
+            }
+        }
+
             //menu
             if (ImGui::BeginMainMenuBar())
             {
@@ -352,7 +380,7 @@ int main(int, char**)
         
             
            // ImGui::InputTextMultiline("##source", NULL, 1024, ImVec2(1000, 300), ImGuiInputTextFlags_AllowTabInput);
-            ImGui::InputTextMultiline("##source", text, IM_ARRAYSIZE(text), ImVec2(-FLT_MIN, ImGui::GetTextLineHeight() * 48), flags);
+            //ImGui::InputTextMultiline("##source", text, IM_ARRAYSIZE(text), ImVec2(-FLT_MIN, ImGui::GetTextLineHeight() * 48), flags);
 			ImGui::Separator();
             if (ImGui::RadioButton("ReadOnly", &read_only))
             {
@@ -406,6 +434,7 @@ int main(int, char**)
         }
         if (show_demo_window == true)
         {
+            
             ImGui::SetWindowSize(ImVec2(200, 100) ,ImGuiCond_Once);
             if (ImGui::Begin("Information") , nullptr , ImGuiWindowFlags_AlwaysAutoResize)
             {
