@@ -21,6 +21,8 @@ static UINT g_ResizeWidth = 0, g_ResizeHeight = 0;
 static ID3D11RenderTargetView* g_mainRenderTargetView = nullptr;
 static HWND hwnd = nullptr; // Global variable for window handle
 static bool fullscreen = false; // Toggle for fullscreen mode
+bool always_on_top = false; // Toggle for always-on-top mode
+
 
 // Forward declarations of helper functions
 bool CreateDeviceD3D(HWND hWnd);
@@ -196,6 +198,20 @@ void ShowFontWindow(bool& show_font_window, int font_size , static char fontPath
     }
 }
 
+void ToggleAlwaysOnTop()
+{
+    if (always_on_top)
+    {
+        SetWindowPos(hwnd, HWND_NOTOPMOST, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE);
+    }
+    else
+    {
+        SetWindowPos(hwnd, HWND_TOPMOST, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE);
+    }
+
+    always_on_top = !always_on_top;
+}
+
 
 // Main code
 int main(int, char**)
@@ -232,14 +248,7 @@ int main(int, char**)
     ImGui_ImplWin32_Init(hwnd);
     ImGui_ImplDX11_Init(g_pd3dDevice, g_pd3dDeviceContext);
 
-    // Our state
-    bool show_another_window = false;
-    static bool show_demo_window = true;
-    ImVec4 clear_color = ImVec4(0.45f, 0.60f, 0.60f, 1.00f);
-    static bool theme_change = false; // Change clear color to make it more visible
-    //ImGuiStyle& style = ImGui::GetStyle();
-    //style.Colors[ImGuiCol_WindowBg] = ImVec4(222, 0, 0, 255); // Set window background color
-
+   
     // Main loop
     bool done = false;
     while (!done)
@@ -278,26 +287,30 @@ int main(int, char**)
         ImGui_ImplWin32_NewFrame();
         ImGui::NewFrame();
 
-        //ImGui::SetNextWindowSize(ImVec2(1000, 700), ImGuiCond_Always);
-        const float sizeScalar = 1.5f; // Render a higher quality font texture for when we want to size up the font
+        //local variables
+        bool show_another_window = false;
+        static bool show_demo_window = true;
+        ImVec4 clear_color = ImVec4(0.45f, 0.60f, 0.60f, 1.00f);
+        static bool theme_change = false; // Change clear color to make it more visible
+        //ImGuiStyle& style = ImGui::GetStyle();
+        //style.Colors[ImGuiCol_WindowBg] = ImVec4(222, 0, 0, 255); // Set window background color
+
         static int font_size = 10;
         static bool show_font_window = false;
-        //bool show_font_window = true;
-        //float font_size = 14.0f;
-
-
-        //ImGuiWindowFlags window_flags = ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove;
-        // Main window
         static bool read_only = false;
         static ImGuiInputTextFlags flags = ImGuiInputTextFlags_AllowTabInput;
         static char text[1024 * 16] =
             "Type here...";
-        //ImGui::SetWindowFontScale(font_size);
-        ImGui::Begin("##Window Name", nullptr, ImGuiWindowFlags_NoTitleBar || ImGuiWindowFlags_NoResize || ImGuiWindowFlags_NoMove || ImGuiWindowFlags_NoCollapse);
         static int selectedTab = 0;  // Keeps track of which tab is currently selected
         static std::vector<std::string> tabTitles = { "Page 1" };
-        static std::vector<std::string> tabContents = { "Content for Tab 1" }; //always set static
+        static std::vector<std::string> tabContents = { "Content for Page 1" }; //always set static
         static char path[256] = "C://Windows//Fonts//consola.ttf";
+        static bool enteredPath = ImGuiInputTextFlags_EnterReturnsTrue;
+        static bool enterPressed = false;
+
+        //Main window
+        ImGui::Begin("##Window Name", nullptr, ImGuiWindowFlags_NoTitleBar || ImGuiWindowFlags_NoResize || ImGuiWindowFlags_NoMove || ImGuiWindowFlags_NoCollapse);
+        
 
         if (ImGui::Button("Add page"))
         {
@@ -321,7 +334,7 @@ int main(int, char**)
                 // Display the content for the selected tab
                 ImGui::Text("%s", tabContents[i].c_str());
                 // Optionally use ImGui::InputTextMultiline if you want editable content
-                ImGui::InputTextMultiline("##InputText", tabContents[i].data(), IM_ARRAYSIZE(text), ImVec2(-FLT_MIN, ImGui::GetTextLineHeight() * 48), ImGuiInputTextFlags_AllowTabInput);
+                ImGui::InputTextMultiline("##InputText", tabContents[i].data(), IM_ARRAYSIZE(text), ImVec2(-FLT_MIN, ImGui::GetTextLineHeight() * 48), ImGuiInputTextFlags_AllowTabInput | ImGuiInputTextFlags_CtrlEnterForNewLine | flags);
                 ImGui::EndTabItem();
             }
         }
@@ -359,10 +372,12 @@ int main(int, char**)
                     {
                         ::PostQuitMessage(0);
                     }
+                    ImGui::Separator();
                     if (ImGui::MenuItem("Help"))
                     {
                         show_demo_window  = true;
                     }
+                    ImGui::Separator();
                     if (ImGui::MenuItem("Theme light/dark"), "CTRL+R", &theme_change)
                     {
 						theme_change = !theme_change;
@@ -378,6 +393,10 @@ int main(int, char**)
                     if (ImGui::MenuItem("Font"))
                     {               
                        show_font_window = true;
+                    }
+                    else
+                    {
+                        show_font_window = false;
                     }
                     ImGui::EndMenu();
                 }
@@ -440,8 +459,8 @@ int main(int, char**)
         if (show_demo_window == true)
         {
             
-            ImGui::SetWindowSize(ImVec2(200, 100) ,ImGuiCond_Once);
-            if (ImGui::Begin("Information") , &show_demo_window , ImGuiWindowFlags_AlwaysAutoResize)
+            //ImGui::SetWindowSize(ImVec2(200, 100) ,ImGuiCond_Always);
+            if (ImGui::Begin("Information") , &show_demo_window)
             {
                 ImGui::Text("The notepad made by I#Oleg");
                 ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / io.Framerate, io.Framerate);
@@ -450,12 +469,14 @@ int main(int, char**)
         }
         if (show_font_window == true)
         {
-            if (ImGui::Begin("##Font", &show_font_window, ImGuiWindowFlags_AlwaysAutoResize)) {
+            if (ImGui::Begin("##Font", &show_font_window)) {
+                /*
                 if (ImGui::SliderInt("Size", &font_size, font_size, 30))
                 { 
                     ShowFontWindow(show_font_window, font_size , path);
 
                 }
+                */
                 if (ImGui::IsKeyPressed(ImGuiKey_Keypad2))
                 {
                     ShowFontWindow(show_font_window, font_size , path);
@@ -470,10 +491,24 @@ int main(int, char**)
                 {
                     font_size = 10;
                 }
-                if (ImGui::InputText("Path", path, IM_ARRAYSIZE(path), ImGuiInputTextFlags_EnterReturnsTrue))
+                if (ImGui::InputText("Path to font(e.g. C:\\Windows\\Fonts\\Arial.ttf)", path, IM_ARRAYSIZE(path), ImGuiInputTextFlags_EnterReturnsTrue))
                 {
-					ShowFontWindow(show_font_window, font_size , path);
+                    if (enterPressed)
+                    {
+                        // Only process if Enter was pressed in the previous frame
+                        ShowFontWindow(show_font_window, font_size, path);
+                        enterPressed = false; // Reset the flag after processing
+                    }
+                    else
+                    {
+                        enterPressed = true; // Set the flag to indicate Enter was pressed
+                    }
                 }
+                else
+                {
+                    enterPressed = true; // Reset the flag if the input text field is not active
+                }
+                
             }
             ImGui::End();
         }
@@ -576,7 +611,6 @@ LRESULT WINAPI WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
             g_ResizeWidth = (UINT)LOWORD(lParam);
             g_ResizeHeight = (UINT)HIWORD(lParam);
         }
-        return 0;
     case WM_SYSCOMMAND:
         if ((wParam & 0xfff0) == SC_KEYMENU) // Disable ALT application menu
             return 0;
@@ -589,6 +623,11 @@ LRESULT WINAPI WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
         {
             ToggleFullscreen();
         }
+        if (wParam == VK_ESCAPE)
+		{
+			ToggleAlwaysOnTop();
+		}
+		break;
     }
 
     return ::DefWindowProcW(hWnd, msg, wParam, lParam);
