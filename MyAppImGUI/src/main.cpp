@@ -165,14 +165,14 @@ const wchar_t* ShowOpenFileDialog(char* buffer, size_t bufferSize)
 extern ID3D11Device* g_pd3dDevice;
 extern ID3D11DeviceContext* g_pd3dDeviceContext;
 
-void ApplyFont(int new_font_size)
+void ApplyFont(int new_font_size , static char fontPath[])
 {
-    std::filesystem::path fontPath = "C:\\Windows\\Fonts\\Arial.ttf";
+    static std::filesystem::path font = fontPath;
     ImGuiIO& io = ImGui::GetIO();
     ImFontConfig config;
 
     io.Fonts->Clear();  // Clear existing fonts
-    io.Fonts->AddFontFromFileTTF(fontPath.string().c_str(), new_font_size, &config);
+    io.Fonts->AddFontFromFileTTF(font.string().c_str(), new_font_size, &config);
     io.Fonts->Build();
 
     // Reset device objects to apply the new font
@@ -180,12 +180,12 @@ void ApplyFont(int new_font_size)
     ImGui_ImplDX11_CreateDeviceObjects();
 }
 
-void ShowFontWindow(bool& show_font_window, int font_size)
+void ShowFontWindow(bool& show_font_window, int font_size , static char fontPath[])
 {
     static bool font_size_changed = false;
     static int new_font_size = font_size;
 
-    ApplyFont(font_size);
+    ApplyFont(font_size , fontPath);
     if (show_font_window)
     {       
         if (font_size_changed)
@@ -284,7 +284,7 @@ int main(int, char**)
         static bool show_font_window = false;
         //bool show_font_window = true;
         //float font_size = 14.0f;
-            
+
 
         //ImGuiWindowFlags window_flags = ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove;
         // Main window
@@ -293,11 +293,11 @@ int main(int, char**)
         static char text[1024 * 16] =
             "Type here...";
         //ImGui::SetWindowFontScale(font_size);
-        ImGui::Begin("##Window Name", nullptr , ImGuiWindowFlags_NoTitleBar || ImGuiWindowFlags_NoResize || ImGuiWindowFlags_NoMove || ImGuiWindowFlags_NoCollapse);
+        ImGui::Begin("##Window Name", nullptr, ImGuiWindowFlags_NoTitleBar || ImGuiWindowFlags_NoResize || ImGuiWindowFlags_NoMove || ImGuiWindowFlags_NoCollapse);
         static int selectedTab = 0;  // Keeps track of which tab is currently selected
-        static std::vector<std::string> tabTitles = { "Page 1" }; 
+        static std::vector<std::string> tabTitles = { "Page 1" };
         static std::vector<std::string> tabContents = { "Content for Tab 1" }; //always set static
-      
+        static char path[256] = "C://Windows//Fonts//consola.ttf";
 
         if (ImGui::Button("Add page"))
         {
@@ -305,6 +305,11 @@ int main(int, char**)
             tabTitles.push_back("Page" + std::to_string(tabTitles.size() + 1));
             tabContents.push_back("Content for Tab " + std::to_string(tabTitles.size()));
             selectedTab = tabTitles.size() - 1; // Select the new tab
+            if (selectedTab >= 30)
+            {
+				tabTitles.erase(tabTitles.begin() + 30, tabTitles.end());
+				tabContents.erase(tabContents.begin() + 30, tabContents.end());
+            }
         }
 
         ImGui::BeginTabBar("MyTabBar");
@@ -436,7 +441,7 @@ int main(int, char**)
         {
             
             ImGui::SetWindowSize(ImVec2(200, 100) ,ImGuiCond_Once);
-            if (ImGui::Begin("Information") , nullptr , ImGuiWindowFlags_AlwaysAutoResize)
+            if (ImGui::Begin("Information") , &show_demo_window , ImGuiWindowFlags_AlwaysAutoResize)
             {
                 ImGui::Text("The notepad made by I#Oleg");
                 ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / io.Framerate, io.Framerate);
@@ -445,25 +450,29 @@ int main(int, char**)
         }
         if (show_font_window == true)
         {
-            if (ImGui::Begin("##Font", nullptr, ImGuiWindowFlags_AlwaysAutoResize)) {
+            if (ImGui::Begin("##Font", &show_font_window, ImGuiWindowFlags_AlwaysAutoResize)) {
                 if (ImGui::SliderInt("Size", &font_size, font_size, 30))
                 { 
-                    ShowFontWindow(show_font_window, font_size);
+                    ShowFontWindow(show_font_window, font_size , path);
 
                 }
                 if (ImGui::IsKeyPressed(ImGuiKey_Keypad2))
                 {
-                    ShowFontWindow(show_font_window, font_size);
+                    ShowFontWindow(show_font_window, font_size , path);
                     font_size--;
                 }
                 if (ImGui::IsKeyPressed(ImGuiKey_Keypad1))
                 {
-                    ShowFontWindow(show_font_window, font_size);
+                    ShowFontWindow(show_font_window, font_size , path);
                     font_size++;
                 }
                 if (font_size >= 30 || font_size <= 10)
                 {
                     font_size = 10;
+                }
+                if (ImGui::InputText("Path", path, IM_ARRAYSIZE(path), ImGuiInputTextFlags_EnterReturnsTrue))
+                {
+					ShowFontWindow(show_font_window, font_size , path);
                 }
             }
             ImGui::End();
