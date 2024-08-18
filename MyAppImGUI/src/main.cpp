@@ -294,15 +294,15 @@ int main(int, char**)
             "Type here...";
         //ImGui::SetWindowFontScale(font_size);
         ImGui::Begin("##Window Name", nullptr , ImGuiWindowFlags_NoTitleBar || ImGuiWindowFlags_NoResize || ImGuiWindowFlags_NoMove || ImGuiWindowFlags_NoCollapse);
-        int selectedTab = 0;  // Keeps track of which tab is currently selected
-        std::vector<std::string> tabTitles = { "Tab 1" };
-        std::vector<std::string> tabContents = { "Content for Tab 1" };
+        static int selectedTab = 0;  // Keeps track of which tab is currently selected
+        static std::vector<std::string> tabTitles = { "Page 1" }; 
+        static std::vector<std::string> tabContents = { "Content for Tab 1" }; //always set static
       
 
-        if (ImGui::Button("Add Tab"))
+        if (ImGui::Button("Add page"))
         {
             // Add a new tab with default content
-            tabTitles.push_back("Tab " + std::to_string(tabTitles.size() + 1));
+            tabTitles.push_back("Page" + std::to_string(tabTitles.size() + 1));
             tabContents.push_back("Content for Tab " + std::to_string(tabTitles.size()));
             selectedTab = tabTitles.size() - 1; // Select the new tab
         }
@@ -316,7 +316,7 @@ int main(int, char**)
                 // Display the content for the selected tab
                 ImGui::Text("%s", tabContents[i].c_str());
                 // Optionally use ImGui::InputTextMultiline if you want editable content
-                //ImGui::InputTextMultiline("##InputText", tabContents[i].data(), IM_ARRAYSIZE(tabContents[i]), ImVec2(-FLT_MIN, ImGui::GetTextLineHeight() * 48), ImGuiInputTextFlags_AllowTabInput);
+                ImGui::InputTextMultiline("##InputText", tabContents[i].data(), IM_ARRAYSIZE(text), ImVec2(-FLT_MIN, ImGui::GetTextLineHeight() * 48), ImGuiInputTextFlags_AllowTabInput);
                 ImGui::EndTabItem();
             }
         }
