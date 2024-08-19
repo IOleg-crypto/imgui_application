@@ -183,7 +183,7 @@ void ToggleAlwaysOnTop()
     always_on_top = !always_on_top;
 }
 
-void ShowFontWindow(char *path, bool show_font_window)
+void ShowFontWindow(char *path, bool show_font_window , float &font_size)
 {
     ImGuiIO& io = ImGui::GetIO();
 
@@ -196,6 +196,10 @@ void ShowFontWindow(char *path, bool show_font_window)
         // Input text to get the font path from the user
         ImGui::InputText("Path to font (e.g. C:\\Windows\\Fonts\\Arial.ttf)", path, 260);
 
+        ImGui::Text("Choose the font size: ");
+
+        if (ImGui::SliderFloat("Font size", &font_size, 10.0f, 32.0f));
+        ImGui::SameLine();
         // Button to load the font
         if (ImGui::Button("Load font"))
         {
@@ -218,7 +222,7 @@ void ShowFontWindow(char *path, bool show_font_window)
             {
                 // Clear previous fonts and add new one
                 io.Fonts->Clear();
-                ImFont* newFont = io.Fonts->AddFontFromFileTTF(path, 18.0f);
+                ImFont* newFont = io.Fonts->AddFontFromFileTTF(path, font_size);
                 if (newFont != nullptr)
                 {
                     // Invalidate and recreate device objects to apply the new font
@@ -295,7 +299,7 @@ int main(int, char**)
     ImGui_ImplDX11_Init(g_pd3dDevice, g_pd3dDeviceContext);
 
     static bool show_font_window = false;
-    static float font_size = 16.0f; // Example font size, modify as needed
+    static float font_size = 10.0f;
     static bool read_only = false;
     static ImGuiInputTextFlags flags = ImGuiInputTextFlags_AllowTabInput;
     static char text[1024 * 16] =
@@ -304,7 +308,6 @@ int main(int, char**)
     static std::vector<std::string> tabTitles = { "Page 1" };
     static std::vector<std::string> tabContents = { "Content for Page 1" }; //always set static
     static char path[256] = "";
-    static bool enteredPath = ImGuiInputTextFlags_EnterReturnsTrue;
     static bool enterPressed = false;
     static ImGuiInputTextFlags inputTextFlags = ImGuiInputTextFlags_EnterReturnsTrue;
    
@@ -515,7 +518,7 @@ int main(int, char**)
         }
         if (show_font_window == true)
         {
-            ShowFontWindow(path , show_font_window);
+            ShowFontWindow(path , show_font_window , font_size);
             ImGui::End();
         }
 
