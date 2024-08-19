@@ -167,36 +167,7 @@ const wchar_t* ShowOpenFileDialog(char* buffer, size_t bufferSize)
 extern ID3D11Device* g_pd3dDevice;
 extern ID3D11DeviceContext* g_pd3dDeviceContext;
 
-void ApplyFont(int new_font_size , static char fontPath[])
-{
-    static std::filesystem::path font = fontPath;
-    ImGuiIO& io = ImGui::GetIO();
-    ImFontConfig config;
 
-    io.Fonts->Clear();  // Clear existing fonts
-    io.Fonts->AddFontFromFileTTF(font.string().c_str(), new_font_size, &config);
-    io.Fonts->Build();
-
-    // Reset device objects to apply the new font
-    ImGui_ImplDX11_InvalidateDeviceObjects();
-    ImGui_ImplDX11_CreateDeviceObjects();
-}
-
-void ShowFontWindow(bool& show_font_window, int font_size , static char fontPath[])
-{
-    static bool font_size_changed = false;
-    static int new_font_size = font_size;
-
-    ApplyFont(font_size , fontPath);
-    if (show_font_window)
-    {       
-        if (font_size_changed)
-        {
-            font_size = new_font_size;  // Update the font size
-            font_size_changed = false;  // Reset the flag
-        }
-    }
-}
 
 void ToggleAlwaysOnTop()
 {
@@ -212,6 +183,81 @@ void ToggleAlwaysOnTop()
     always_on_top = !always_on_top;
 }
 
+void ShowFontWindow(char *path, bool show_font_window)
+{
+    ImGuiIO& io = ImGui::GetIO();
+
+    if (show_font_window)
+    {
+        ImGui::Begin("##Font", &show_font_window);
+
+        ImGui::Text("Enter the path to the font:");
+
+        // Input text to get the font path from the user
+        ImGui::InputText("Path to font (e.g. C:\\Windows\\Fonts\\Arial.ttf)", path, 260);
+
+        // Button to load the font
+        if (ImGui::Button("Load font"))
+        {
+            if (strlen(path) == 0)
+            {
+                // If the path is empty, load the default font
+                io.Fonts->Clear();
+                ImFont* newFont = io.Fonts->AddFontDefault();
+                if (newFont != nullptr)
+                {
+                    // Invalidate and recreate device objects to apply the new font
+                    ImGui_ImplDX11_InvalidateDeviceObjects();
+                    ImGui_ImplDX11_CreateDeviceObjects();
+
+                    // Set the new font as default
+                    io.FontDefault = newFont;
+                }
+            }
+            else
+            {
+                // Clear previous fonts and add new one
+                io.Fonts->Clear();
+                ImFont* newFont = io.Fonts->AddFontFromFileTTF(path, 18.0f);
+                if (newFont != nullptr)
+                {
+                    // Invalidate and recreate device objects to apply the new font
+                    ImGui_ImplDX11_InvalidateDeviceObjects();
+                    ImGui_ImplDX11_CreateDeviceObjects();
+
+                    // Set the new font as default
+                    io.FontDefault = newFont;
+                }
+                else
+                {
+                    // If the font loading fails, load the default font
+                    io.Fonts->Clear();
+                    ImFont* defaultFont = io.Fonts->AddFontDefault();
+                    if (defaultFont != nullptr)
+                    {
+                        // Invalidate and recreate device objects to apply the default font
+                        ImGui_ImplDX11_InvalidateDeviceObjects();
+                        ImGui_ImplDX11_CreateDeviceObjects();
+
+                        // Set the default font as default
+                        io.FontDefault = defaultFont;
+                    }
+                }
+            }
+        }
+        ImGui::End();
+    }
+}
+
+void AboutWindow(bool &show_demo_window , ImGuiIO& io)
+{
+    if (ImGui::Begin("##About" , &show_demo_window))
+    {
+        ImGui::Text("The notepad made by I#Oleg");
+        ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / io.Framerate, io.Framerate);
+    }
+    ImGui::End();
+}
 
 // Main code
 int main(int, char**)
@@ -248,6 +294,19 @@ int main(int, char**)
     ImGui_ImplWin32_Init(hwnd);
     ImGui_ImplDX11_Init(g_pd3dDevice, g_pd3dDeviceContext);
 
+    static bool show_font_window = false;
+    static float font_size = 16.0f; // Example font size, modify as needed
+    static bool read_only = false;
+    static ImGuiInputTextFlags flags = ImGuiInputTextFlags_AllowTabInput;
+    static char text[1024 * 16] =
+        "Type here...";
+    static int selectedTab = 0;  // Keeps track of which tab is currently selected
+    static std::vector<std::string> tabTitles = { "Page 1" };
+    static std::vector<std::string> tabContents = { "Content for Page 1" }; //always set static
+    static char path[256] = "";
+    static bool enteredPath = ImGuiInputTextFlags_EnterReturnsTrue;
+    static bool enterPressed = false;
+    static ImGuiInputTextFlags inputTextFlags = ImGuiInputTextFlags_EnterReturnsTrue;
    
     // Main loop
     bool done = false;
@@ -295,19 +354,9 @@ int main(int, char**)
         //ImGuiStyle& style = ImGui::GetStyle();
         //style.Colors[ImGuiCol_WindowBg] = ImVec4(222, 0, 0, 255); // Set window background color
 
-        static int font_size = 10;
-        static bool show_font_window = false;
-        static bool read_only = false;
-        static ImGuiInputTextFlags flags = ImGuiInputTextFlags_AllowTabInput;
-        static char text[1024 * 16] =
-            "Type here...";
-        static int selectedTab = 0;  // Keeps track of which tab is currently selected
-        static std::vector<std::string> tabTitles = { "Page 1" };
-        static std::vector<std::string> tabContents = { "Content for Page 1" }; //always set static
-        static char path[256] = "C://Windows//Fonts//consola.ttf";
-        static bool enteredPath = ImGuiInputTextFlags_EnterReturnsTrue;
-        static bool enterPressed = false;
+       
 
+        //extern void ShowFontWindow(bool& show_font_window, int font_size, static char fontPath[]);
         //Main window
         ImGui::Begin("##Window Name", nullptr, ImGuiWindowFlags_NoTitleBar || ImGuiWindowFlags_NoResize || ImGuiWindowFlags_NoMove || ImGuiWindowFlags_NoCollapse);
         
@@ -377,15 +426,7 @@ int main(int, char**)
                     {
                         show_demo_window  = true;
                     }
-                    ImGui::Separator();
-                    if (ImGui::MenuItem("Theme light/dark"), "CTRL+R", &theme_change)
-                    {
-						theme_change = !theme_change;
-						if (theme_change)
-							ImGui::StyleColorsLight();
-						else
-							ImGui::StyleColorsDark();
-                    }
+                    
                     ImGui::EndMenu();
                 }
                 if (ImGui::BeginMenu("Font and size"))
@@ -399,6 +440,17 @@ int main(int, char**)
                         show_font_window = false;
                     }
                     ImGui::EndMenu();
+                }
+                if (ImGui::BeginMenu("Theme"))
+                {
+                    if (ImGui::MenuItem("Theme light/dark"), "CTRL+R")
+                    {
+                        theme_change = !theme_change;
+                        if (theme_change)
+                            ImGui::StyleColorsLight();
+                        else
+                            ImGui::StyleColorsDark();
+                    }
                 }
                 ImGui::EndMainMenuBar();
         
@@ -458,58 +510,12 @@ int main(int, char**)
         }
         if (show_demo_window == true)
         {
-            
-            //ImGui::SetWindowSize(ImVec2(200, 100) ,ImGuiCond_Always);
-            if (ImGui::Begin("Information") , &show_demo_window)
-            {
-                ImGui::Text("The notepad made by I#Oleg");
-                ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / io.Framerate, io.Framerate);
-            }
-            ImGui::End();
+            AboutWindow(show_demo_window, io);
+			ImGui::End();
         }
         if (show_font_window == true)
         {
-            if (ImGui::Begin("##Font", &show_font_window)) {
-                /*
-                if (ImGui::SliderInt("Size", &font_size, font_size, 30))
-                { 
-                    ShowFontWindow(show_font_window, font_size , path);
-
-                }
-                */
-                if (ImGui::IsKeyPressed(ImGuiKey_Keypad2))
-                {
-                    ShowFontWindow(show_font_window, font_size , path);
-                    font_size--;
-                }
-                if (ImGui::IsKeyPressed(ImGuiKey_Keypad1))
-                {
-                    ShowFontWindow(show_font_window, font_size , path);
-                    font_size++;
-                }
-                if (font_size >= 30 || font_size <= 10)
-                {
-                    font_size = 10;
-                }
-                if (ImGui::InputText("Path to font(e.g. C:\\Windows\\Fonts\\Arial.ttf)", path, IM_ARRAYSIZE(path), ImGuiInputTextFlags_EnterReturnsTrue))
-                {
-                    if (enterPressed)
-                    {
-                        // Only process if Enter was pressed in the previous frame
-                        ShowFontWindow(show_font_window, font_size, path);
-                        enterPressed = false; // Reset the flag after processing
-                    }
-                    else
-                    {
-                        enterPressed = true; // Set the flag to indicate Enter was pressed
-                    }
-                }
-                else
-                {
-                    enterPressed = true; // Reset the flag if the input text field is not active
-                }
-                
-            }
+            ShowFontWindow(path , show_font_window);
             ImGui::End();
         }
 
