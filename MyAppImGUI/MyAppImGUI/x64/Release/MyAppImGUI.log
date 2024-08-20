@@ -1,11 +1,12 @@
 ﻿  Checking for duplicate filenames...
   main.cpp
-D:\gitnext\CppWithImGUI\MyAppImGUI\src\main.cpp(201,71): warning C4390: ';': empty controlled statement found; is this the intent?
-D:\gitnext\CppWithImGUI\MyAppImGUI\src\main.cpp(372,44): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+D:\gitnext\CppWithImGUI\MyAppImGUI\src\main.cpp(369,44): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+D:\gitnext\CppWithImGUI\MyAppImGUI\src\main.cpp(440,64): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+D:\gitnext\CppWithImGUI\MyAppImGUI\src\main.cpp(527,52): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
 C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.40.33807\include\xutility(4672,18): warning C4244: '=': conversion from 'wchar_t' to 'char', possible loss of data
   Generating code
-  2 of 2005 functions (<0.1%) were compiled, the rest were copied from previous compilation.
+  10 of 2006 functions ( 0.5%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
-    35 functions had inline decision re-evaluated but remain unchanged
+    44 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
   MyAppImGUI.vcxproj -> D:\gitnext\CppWithImGUI\MyAppImGUI\x64\Release\MyAppImGUI.exe

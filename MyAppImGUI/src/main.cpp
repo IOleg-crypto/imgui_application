@@ -183,7 +183,7 @@ void ToggleAlwaysOnTop()
     always_on_top = !always_on_top;
 }
 
-void ShowFontWindow(char *path, bool show_font_window , float &font_size)
+void ShowFontWindow(char* path, bool show_font_window, float& font_size)
 {
     ImGuiIO& io = ImGui::GetIO();
 
@@ -196,56 +196,53 @@ void ShowFontWindow(char *path, bool show_font_window , float &font_size)
         // Input text to get the font path from the user
         ImGui::InputText("Path to font (e.g. C:\\Windows\\Fonts\\Arial.ttf)", path, 260);
 
-        ImGui::Text("Choose the font size: ");
+        ImGui::Text("Choose the font size:");
 
-        if (ImGui::SliderFloat("Font size", &font_size, 10.0f, 32.0f));
+        // Slider to choose the font size
+        ImGui::SliderFloat("Font size", &font_size,10.0f, 32.0f);
         ImGui::SameLine();
         // Button to load the font
-        if (ImGui::Button("Load font"))
+        if (ImGui::Button("Load font/Change font size"))
         {
+            io.Fonts->Clear();
+            ImFont* newFont = nullptr;
+
             if (strlen(path) == 0)
             {
-                // If the path is empty, load the default font
-                io.Fonts->Clear();
-                ImFont* newFont = io.Fonts->AddFontDefault();
-                if (newFont != nullptr)
-                {
-                    // Invalidate and recreate device objects to apply the new font
-                    ImGui_ImplDX11_InvalidateDeviceObjects();
-                    ImGui_ImplDX11_CreateDeviceObjects();
-
-                    // Set the new font as default
-                    io.FontDefault = newFont;
-                }
+                // If the path is empty, load the default font with the selected size
+                ImFontConfig config;
+                config.SizePixels = font_size;
+                // Disable oversampling to reduce blurriness
+                newFont = io.Fonts->AddFontDefault(&config);
             }
             else
             {
-                // Clear previous fonts and add new one
-                io.Fonts->Clear();
-                ImFont* newFont = io.Fonts->AddFontFromFileTTF(path, font_size);
+                // Load the font from the specified path with the selected size
+                newFont = io.Fonts->AddFontFromFileTTF(path, font_size);
+            }
+
+            if (newFont != nullptr)
+            {
+                // Invalidate and recreate device objects to apply the new font
+                ImGui_ImplDX11_InvalidateDeviceObjects();
+                ImGui_ImplDX11_CreateDeviceObjects();
+
+                // Set the new font as the default
+                io.FontDefault = newFont;
+            }
+            else
+            {
+                // If font loading fails, reload the default font with the selected size
+                ImFontConfig config;
+                config.SizePixels = font_size;
+
+                newFont = io.Fonts->AddFontDefault(&config);
+
                 if (newFont != nullptr)
                 {
-                    // Invalidate and recreate device objects to apply the new font
                     ImGui_ImplDX11_InvalidateDeviceObjects();
                     ImGui_ImplDX11_CreateDeviceObjects();
-
-                    // Set the new font as default
                     io.FontDefault = newFont;
-                }
-                else
-                {
-                    // If the font loading fails, load the default font
-                    io.Fonts->Clear();
-                    ImFont* defaultFont = io.Fonts->AddFontDefault();
-                    if (defaultFont != nullptr)
-                    {
-                        // Invalidate and recreate device objects to apply the default font
-                        ImGui_ImplDX11_InvalidateDeviceObjects();
-                        ImGui_ImplDX11_CreateDeviceObjects();
-
-                        // Set the default font as default
-                        io.FontDefault = defaultFont;
-                    }
                 }
             }
         }
@@ -368,7 +365,7 @@ int main(int, char**)
         {
             // Add a new tab with default content
             tabTitles.push_back("Page" + std::to_string(tabTitles.size() + 1));
-            tabContents.push_back("Content for Tab " + std::to_string(tabTitles.size()));
+            tabContents.push_back("Content for Page" + std::to_string(tabTitles.size()));
             selectedTab = tabTitles.size() - 1; // Select the new tab
             if (selectedTab >= 30)
             {
@@ -376,7 +373,7 @@ int main(int, char**)
 				tabContents.erase(tabContents.begin() + 30, tabContents.end());
             }
         }
-
+        ImGui::SameLine();
         ImGui::BeginTabBar("MyTabBar");
 
         for (size_t i = 0; i < tabTitles.size(); ++i)
@@ -428,6 +425,21 @@ int main(int, char**)
                     if (ImGui::MenuItem("Help"))
                     {
                         show_demo_window  = true;
+                    }
+                    ImGui::Separator();
+                    if (ImGui::MenuItem("Remove page" , "Delete"))
+                    {
+                        if (selectedTab >= 0 && selectedTab < tabTitles.size()) // Ensure selectedTab is within valid range
+                        {
+                            tabTitles.erase(tabTitles.begin() + selectedTab);
+                            tabContents.erase(tabContents.begin() + selectedTab);
+
+                            // Optionally, update the selectedTab index to a valid one after deletion
+                            if (selectedTab >= tabTitles.size())
+                            {
+                                selectedTab = tabTitles.size() - 1; // Move to the last tab if the deleted tab was the last one
+                            }
+                        }
                     }
                     
                     ImGui::EndMenu();
@@ -501,6 +513,20 @@ int main(int, char**)
 				ImGui::StyleColorsLight();
 			else
 				ImGui::StyleColorsDark();
+        }
+        if (ImGui::IsKeyPressed(ImGuiKey_Delete))
+        {
+            if (selectedTab >= 0 && selectedTab < tabTitles.size()) // Ensure selectedTab is within valid range
+            {
+                tabTitles.erase(tabTitles.begin() + selectedTab);
+                tabContents.erase(tabContents.begin() + selectedTab);
+
+                // Optionally, update the selectedTab index to a valid one after deletion
+                if (selectedTab >= tabTitles.size())
+                {
+                    selectedTab = tabTitles.size() - 1; // Move to the last tab if the deleted tab was the last one
+                }
+            }
         }
         // 3. Show another simple window.
         if (show_another_window)
