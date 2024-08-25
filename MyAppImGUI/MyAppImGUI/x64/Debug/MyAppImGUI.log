@@ -1,4 +1,3 @@
 ﻿  Checking for duplicate filenames...
-  main.cpp
 binary_to_compressed_c.obj : error LNK2005: main already defined in main.obj
-D:\gitnext\CppWithImGUI\MyAppImGUI\x64\Debug\MyAppImGUI.exe : fatal error LNK1169: one or more multiply defined symbols found
+D:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\x64\Debug\MyAppImGUI.exe : fatal error LNK1169: one or more multiply defined symbols found

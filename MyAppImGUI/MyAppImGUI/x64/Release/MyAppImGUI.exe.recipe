@@ -2,7 +2,7 @@
 <Project>
   <ProjectOutputs>
     <ProjectOutput>
-      <FullPath>D:\gitnext\CppWithImGUI\MyAppImGUI\x64\Release\MyAppImGUI.exe</FullPath>
+      <FullPath>D:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\x64\Release\MyAppImGUI.exe</FullPath>
     </ProjectOutput>
   </ProjectOutputs>
   <ContentFiles />
