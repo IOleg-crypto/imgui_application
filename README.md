@@ -41,6 +41,7 @@ For a step-by-step tutorial on setting up and using this project, please refer t
 
 
 [![IMAGE ALT TEXT HERE](hqdefault.jpg)](https://www.youtube.com/playlist?list=PLTykcSMzD4j8O48ZtfciC9ShZnEvvyNvI)
+[![For setup in Visual Studio][https://www.youtube.com/watch?v=SP6Djf6ku1E]
 
 <<<<<<< HEAD
 
