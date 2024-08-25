@@ -41,15 +41,7 @@ For a step-by-step tutorial on setting up and using this project, please refer t
 
 
 [![IMAGE ALT TEXT HERE](hqdefault.jpg)](https://www.youtube.com/playlist?list=PLTykcSMzD4j8O48ZtfciC9ShZnEvvyNvI)
-<iframe
-  width="640"
-  height="480"
-  src="https://www.youtube.com/watch?v=SP6Djf6ku1E"
-  frameborder="0"
-  allow="autoplay; encrypted-media"
-  allowfullscreen
->
-</iframe>
+[![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/SP6Djf6ku1E/0.jpg)](https://www.youtube.com/watch?v=SP6Djf6ku1E)
 
 
 Feel free to make any additional changes as needed!
