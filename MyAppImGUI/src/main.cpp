@@ -11,6 +11,8 @@
 #include <string>
 #include <filesystem>
 #include <vector>
+#include "resource.h"
+
 
 // Data
 static ID3D11Device* g_pd3dDevice = nullptr;
@@ -169,26 +171,12 @@ extern ID3D11DeviceContext* g_pd3dDeviceContext;
 
 
 
-void ToggleAlwaysOnTop()
-{
-    if (always_on_top)
-    {
-        SetWindowPos(hwnd, HWND_NOTOPMOST, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE);
-    }
-    else
-    {
-        SetWindowPos(hwnd, HWND_TOPMOST, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE);
-    }
 
-    always_on_top = !always_on_top;
-}
-
-void ShowFontWindow(char* path, bool show_font_window, float& font_size)
-{
+void ShowFontWindow(char* path, bool show_font_window, float& font_size) {
     ImGuiIO& io = ImGui::GetIO();
-
-    if (show_font_window)
-    {
+    io.Fonts->TexDesiredWidth = 2048;
+    io.Fonts->Flags |= ImFontAtlasFlags_NoPowerOfTwoHeight;
+    if (show_font_window) {
         ImGui::Begin("##Font", &show_font_window);
 
         ImGui::Text("Enter the path to the font:");
@@ -199,30 +187,27 @@ void ShowFontWindow(char* path, bool show_font_window, float& font_size)
         ImGui::Text("Choose the font size:");
 
         // Slider to choose the font size
-        ImGui::SliderFloat("Font size", &font_size,10.0f, 32.0f);
+        ImGui::SliderFloat("Font size", &font_size, 10.0f, 32.0f);
         ImGui::SameLine();
+
         // Button to load the font
-        if (ImGui::Button("Load font/Change font size"))
-        {
+        if (ImGui::Button("Load font/Change font size")) {
             io.Fonts->Clear();
             ImFont* newFont = nullptr;
 
-            if (strlen(path) == 0)
-            {
+            if (strlen(path) == 0) {
                 // If the path is empty, load the default font with the selected size
                 ImFontConfig config;
                 config.SizePixels = font_size;
                 // Disable oversampling to reduce blurriness
                 newFont = io.Fonts->AddFontDefault(&config);
             }
-            else
-            {
+            else {
                 // Load the font from the specified path with the selected size
                 newFont = io.Fonts->AddFontFromFileTTF(path, font_size);
             }
 
-            if (newFont != nullptr)
-            {
+            if (newFont != nullptr) {
                 // Invalidate and recreate device objects to apply the new font
                 ImGui_ImplDX11_InvalidateDeviceObjects();
                 ImGui_ImplDX11_CreateDeviceObjects();
@@ -230,16 +215,14 @@ void ShowFontWindow(char* path, bool show_font_window, float& font_size)
                 // Set the new font as the default
                 io.FontDefault = newFont;
             }
-            else
-            {
+            else {
                 // If font loading fails, reload the default font with the selected size
                 ImFontConfig config;
                 config.SizePixels = font_size;
 
                 newFont = io.Fonts->AddFontDefault(&config);
 
-                if (newFont != nullptr)
-                {
+                if (newFont != nullptr) {
                     ImGui_ImplDX11_InvalidateDeviceObjects();
                     ImGui_ImplDX11_CreateDeviceObjects();
                     io.FontDefault = newFont;
@@ -264,7 +247,20 @@ void AboutWindow(bool &show_demo_window , ImGuiIO& io)
 int main(int, char**)
 {
     // Create application window
-    WNDCLASSEXW wc = { sizeof(wc), CS_CLASSDC, WndProc, 0L, 0L, GetModuleHandle(nullptr), nullptr, nullptr, nullptr, nullptr, L"ImGui Example", nullptr };
+    WNDCLASSEXW wc = {
+     sizeof(wc),              // cbSize
+     CS_HREDRAW | CS_VREDRAW, // style
+     WndProc,                 // lpfnWndProc
+     0,                       // cbClsExtra
+     0,                       // cbWndExtra
+     GetModuleHandle(nullptr),// hInstance
+     LoadIcon(GetModuleHandle(nullptr), MAKEINTRESOURCE(IDI_ICON1)), // hIcon
+     LoadCursor(nullptr, IDC_ARROW), // hCursor
+     (HBRUSH)(COLOR_WINDOW + 1),    // hbrBackground
+     nullptr,                     // lpszMenuName
+     L"Notepad",           // lpszClassName
+     LoadIcon(GetModuleHandle(nullptr), MAKEINTRESOURCE(IDI_ICON1)) // hIconSm
+    };
     ::RegisterClassExW(&wc);
     hwnd = ::CreateWindowW(wc.lpszClassName, L"Notepad", WS_OVERLAPPEDWINDOW, 100, 100, 1280, 800, nullptr, nullptr, wc.hInstance, nullptr);
 
@@ -366,7 +362,7 @@ int main(int, char**)
             // Add a new tab with default content
             tabTitles.push_back("Page" + std::to_string(tabTitles.size() + 1));
             tabContents.push_back("Content for Page" + std::to_string(tabTitles.size()));
-            selectedTab = tabTitles.size() - 1; // Select the new tab
+            selectedTab = int(tabTitles.size()) - 1; // Select the new tab
             if (selectedTab >= 30)
             {
 				tabTitles.erase(tabTitles.begin() + 30, tabTitles.end());
@@ -658,10 +654,6 @@ LRESULT WINAPI WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
         {
             ToggleFullscreen();
         }
-        if (wParam == VK_ESCAPE)
-		{
-			ToggleAlwaysOnTop();
-		}
 		break;
     }
 
