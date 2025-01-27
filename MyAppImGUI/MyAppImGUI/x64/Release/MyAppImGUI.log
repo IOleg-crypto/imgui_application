@@ -1,11 +1,211 @@
-﻿  Checking for duplicate filenames...
-  main.cpp
-D:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\src\main.cpp(436,64): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
-D:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\src\main.cpp(523,52): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.40.33807\include\xutility(4672,18): warning C4244: '=': conversion from 'wchar_t' to 'char', possible loss of data
-  Generating code
-  3 of 2012 functions ( 0.1%) were compiled, the rest were copied from previous compilation.
-    0 functions were new in current compilation
-    35 functions had inline decision re-evaluated but remain unchanged
-  Finished generating code
-  MyAppImGUI.vcxproj -> D:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\x64\Release\MyAppImGUI.exe
+﻿Build started 27.01.2025 21:24:15.
+Logging verbosity is set to: Normal.     1>Project "D:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\MyAppImGUI.vcxproj" on node 2 (Build target(s)).
+     1>PrepareForBuild:
+         Structured output is enabled. The formatting of compiler diagnostics will reflect the error hierarchy. See https://aka.ms/cpp/structured-output for more details.
+       InitializeBuildStatus:
+         Touching "MyAppImGUI\x64\Release\MyAppImGUI.tlog\unsuccessfulbuild".
+       ClCompile:
+         C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.42.34433\bin\HostX64\x64\CL.exe /c /Zi /nologo /W3 /WX- /diagnostics:column /sdl /O2 /Oi /GL /D NDEBUG /D _CONSOLE /D _CRT_SECURE_NO_WARNINGS /D _UNICODE /D UNICODE /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /std:c++17 /permissive- /Fo"MyAppImGUI\x64\Release\\" /Fd"MyAppImGUI\x64\Release\vc143.pdb" /external:W3 /Gd /TP /FC /errorReport:prompt src\main.cpp
+         main.cpp
+     1>D:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\src\main.cpp(364,19): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+     1>D:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\src\main.cpp(423,61): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+     1>D:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\src\main.cpp(506,52): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+     1>C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.42.34433\include\xutility(4710,18): warning C4244: '=': conversion from 'wchar_t' to 'char', possible loss of data
+         (compiling source file 'src/main.cpp')
+             C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.42.34433\include\xutility(4710,18):
+             the template instantiation context (the oldest one first) is
+                 D:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\src\main.cpp(136,25):
+                 see reference to function template instantiation 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>::basic_string<std::_String_iterator<std::_String_val<std::_Simple_types<_Elem>>>,0>(_Iter,_Iter,const _Alloc &)' being compiled
+                 with
+                 [
+                     _Elem=wchar_t,
+                     _Iter=std::_String_iterator<std::_String_val<std::_Simple_types<wchar_t>>>,
+                     _Alloc=std::allocator<char>
+                 ]
+                     D:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\src\main.cpp(136,25):
+                     see the first reference to 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>::basic_string' in 'ShowOpenFileDialog'
+                 C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.42.34433\include\xstring(793,17):
+                 see reference to function template instantiation 'void std::basic_string<char,std::char_traits<char>,std::allocator<char>>::_Construct_from_iter<wchar_t*,wchar_t*,_Size_type>(_Iter,const _Sent,_Size)' being compiled
+                 with
+                 [
+                     _Size_type=unsigned __int64,
+                     _Iter=wchar_t *,
+                     _Sent=wchar_t *,
+                     _Size=unsigned __int64
+                 ]
+                 C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.42.34433\include\xstring(949,18):
+                 see reference to function template instantiation '_OutIt *std::_Copy_n_unchecked4<wchar_t*,_Size,char*>(_InIt,_SizeTy,_OutIt)' being compiled
+                 with
+                 [
+                     _OutIt=char *,
+                     _Size=unsigned __int64,
+                     _InIt=wchar_t *,
+                     _SizeTy=unsigned __int64
+                 ]
+         
+       ResourceCompile:
+         All outputs are up-to-date.
+       Link:
+         C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.42.34433\bin\HostX64\x64\link.exe /ERRORREPORT:PROMPT /OUT:"D:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\x64\Release\MyAppImGUI.exe" /NOLOGO /LIBPATH:"D:\gitnext\CppWithImGUI\MyAppImGUI\glfw-3.4.bin.WIN64\lib-vc2022" d3d11.lib comdlg32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"D:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\x64\Release\MyAppImGUI.pdb" /SUBSYSTEM:CONSOLE /OPT:REF /OPT:ICF /LTCG:incremental /LTCGOUT:"MyAppImGUI\x64\Release\MyAppImGUI.iobj" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"D:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\x64\Release\MyAppImGUI.lib" /MACHINE:X64 MyAppImGUI\x64\Release\main.obj
+         MyAppImGUI\x64\Release\imgui_impl_dx11.obj
+         MyAppImGUI\x64\Release\imgui_impl_win32.obj
+         MyAppImGUI\x64\Release\imgui.obj
+         MyAppImGUI\x64\Release\imgui_demo.obj
+         MyAppImGUI\x64\Release\imgui_draw.obj
+         MyAppImGUI\x64\Release\imgui_tables.obj
+         MyAppImGUI\x64\Release\imgui_widgets.obj
+         MyAppImGUI\x64\Release\imgui_stdlib.obj
+         Generating code
+         5 of 2044 functions ( 0.2%) were compiled, the rest were copied from previous compilation.
+           1 functions were new in current compilation
+           37 functions had inline decision re-evaluated but remain unchanged
+         Finished generating code
+         MyAppImGUI.vcxproj -> D:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\x64\Release\MyAppImGUI.exe
+       FinalizeBuildStatus:
+         Deleting file "MyAppImGUI\x64\Release\MyAppImGUI.tlog\unsuccessfulbuild".
+         Touching "MyAppImGUI\x64\Release\MyAppImGUI.tlog\MyAppImGUI.lastbuildstate".
+     1>Done Building Project "D:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\MyAppImGUI.vcxproj" (Build target(s)).
+
+Project Performance Summary:
+     8855 ms  D:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\MyAppImGUI.vcxproj   1 calls
+               8855 ms  Build                                      1 calls
+
+Target Performance Summary:
+        0 ms  _CheckForInvalidConfigurationAndPlatform   1 calls
+        0 ms  _ALink                                     1 calls
+        0 ms  _Link                                      1 calls
+        0 ms  AfterLink                                  1 calls
+        0 ms  ComputeLinkSwitches                        1 calls
+        0 ms  PreLinkEvent                               1 calls
+        0 ms  PrepareResourceNames                       1 calls
+        0 ms  CreateCustomManifestResourceNames          1 calls
+        0 ms  SplitResourcesByCulture                    1 calls
+        0 ms  ComputeManifestInputsTargets               1 calls
+        0 ms  ComputeLinkInputsFromProject               1 calls
+        0 ms  ComputeCLGeneratedLinkInputs               1 calls
+        0 ms  ComputeManifestGeneratedLinkerInputs       1 calls
+        0 ms  ComputeRCGeneratedLinkInputs               1 calls
+        0 ms  BeforeLink                                 1 calls
+        0 ms  ComputeLegacyManifestEmbedding             1 calls
+        0 ms  BuildLinkTraverse                          1 calls
+        0 ms  BuildCompile                               1 calls
+        0 ms  _BuildCompileAction                        1 calls
+        0 ms  AfterBuildCompileEvent                     1 calls
+        0 ms  _ResourceCompile                           1 calls
+        0 ms  SelectResourceCompile                      1 calls
+        0 ms  MakeDirsForResourceCompile                 1 calls
+        0 ms  BeforeResourceCompile                      1 calls
+        0 ms  _Manifest                                  1 calls
+        0 ms  RegisterOutput                             1 calls
+        0 ms  ResolvedXDCMake                            1 calls
+        0 ms  ComputeCLCompileGeneratedXDCFiles          1 calls
+        0 ms  IncrementalClean                           1 calls
+        0 ms  AfterBuild                                 1 calls
+        0 ms  BuildLink                                  1 calls
+        0 ms  _BuildLinkAction                           1 calls
+        0 ms  PostBuildEvent                             1 calls
+        0 ms  PrepareForRun                              1 calls
+        0 ms  CopyFilesToOutputDirectory                 1 calls
+        0 ms  _CheckForCompileOutputs                    1 calls
+        0 ms  _CopySourceItemsToOutputDirectory          1 calls
+        0 ms  _GetCopyToOutputDirectoryItemsFromThisProject   1 calls
+        0 ms  GetCopyToOutputDirectoryXamlAppDefs        1 calls
+        0 ms  _ClCompile                                 1 calls
+        0 ms  _PopulateCommonStateForGetCopyToOutputDirectoryItems   1 calls
+        0 ms  _Appverifier                               1 calls
+        0 ms  CreateSatelliteAssemblies                  1 calls
+        0 ms  _GenerateSatelliteAssemblyInputs           1 calls
+        0 ms  ContentFilesProjectOutputGroup             1 calls
+        0 ms  MakeDirsForFxc                             1 calls
+        0 ms  SatelliteDllsProjectOutputGroup            1 calls
+        0 ms  BuiltProjectOutputGroup                    1 calls
+        0 ms  _BscMake                                   1 calls
+        0 ms  MakeDirsForBscMake                         1 calls
+        0 ms  ComputeCLCompileGeneratedSbrFiles          1 calls
+        0 ms  _XdcMake                                   1 calls
+        0 ms  _Deploy                                    1 calls
+        0 ms  AfterClCompile                             1 calls
+        0 ms  AfterResourceCompile                       1 calls
+        0 ms  SelectClCompile                            1 calls
+        0 ms  _SelectedFiles                             1 calls
+        0 ms  PreBuildEvent                              1 calls
+        0 ms  BuildGenerateSourcesTraverse               1 calls
+        0 ms  ResolveReferences                          1 calls
+        0 ms  AfterResolveReferences                     1 calls
+        0 ms  ResolveAssemblyReferences                  1 calls
+        0 ms  ExpandSDKReferences                        1 calls
+        0 ms  ResolveSDKReferences                       1 calls
+        0 ms  PrepareForBuild                            1 calls
+        0 ms  SetCABuildNativeEnvironmentVariables       1 calls
+        0 ms  _CheckWindowsSDKInstalled                  1 calls
+        0 ms  GetResolvedWinMD                           1 calls
+        0 ms  SetBuildDefaultEnvironmentVariables        1 calls
+        0 ms  AddExternalIncludDirectoriesToPaths        1 calls
+        0 ms  GetReferenceAssemblyPaths                  1 calls
+        0 ms  GetFrameworkPaths                          1 calls
+        0 ms  PrepareProjectReferences                   1 calls
+        0 ms  _GetProjectReferenceTargetFrameworkProperties   1 calls
+        0 ms  _AddOutputPathToGlobalPropertiesToRemove   1 calls
+        0 ms  _SplitProjectReferencesByFileExistence     1 calls
+        0 ms  AssignProjectConfiguration                 1 calls
+        0 ms  IgnoreJavaScriptOutputAssembly             1 calls
+        0 ms  BeforeResolveReferences                    1 calls
+        0 ms  _PrepareForReferenceResolution             1 calls
+        0 ms  _PrepareForBuild                           1 calls
+        0 ms  SelectCustomBuild                          1 calls
+        0 ms  ComputeCustomBuildOutput                   1 calls
+        0 ms  BeforeBuildGenerateSources                 1 calls
+        0 ms  BuildGenerateSources                       1 calls
+        0 ms  MakeDirsForCl                              1 calls
+        0 ms  ComputeStdModulesCompileInputs             1 calls
+        0 ms  GetReferencedVCProjectsInfo                1 calls
+        0 ms  FindReferenceAssembliesForReferences       1 calls
+        0 ms  ComputeCLInputPDBName                      1 calls
+        0 ms  BeforeClCompile                            1 calls
+        0 ms  BuildCompileTraverse                       1 calls
+        0 ms  _BuildGenerateSourcesAction                1 calls
+        0 ms  AfterBuildGenerateSourcesEvent             1 calls
+        0 ms  _Midl                                      1 calls
+        0 ms  Build                                      1 calls
+        0 ms  CopyFileToFolders                          1 calls
+        0 ms  _Xsd                                       1 calls
+        0 ms  ComputeMIDLGeneratedCompileInputs          1 calls
+        0 ms  AfterMidl                                  1 calls
+        0 ms  MakeDirsForMidl                            1 calls
+        1 ms  WarnCompileDuplicatedFilename              1 calls
+        1 ms  _GetCopyToOutputDirectoryItemsFromTransitiveProjectReferences   1 calls
+        2 ms  DoLinkOutputFilesMatch                     1 calls
+        2 ms  AfterBuildGenerateSources                  1 calls
+        2 ms  ComputeReferenceCLInput                    1 calls
+        3 ms  FinalizeBuildStatus                        1 calls
+        4 ms  CustomBuild                                1 calls
+        4 ms  FixupCLCompileOptions                      1 calls
+        5 ms  MakeDirsForXdcMake                         1 calls
+        8 ms  ResolveProjectReferences                   1 calls
+        8 ms  SetTelemetryEnvironmentVariables           1 calls
+        9 ms  _CleanGetCurrentAndPriorFileWrites         1 calls
+        9 ms  InitializeBuildStatus                      1 calls
+       15 ms  MakeDirsForLink                            1 calls
+       16 ms  ComputeCLOutputs                           1 calls
+       16 ms  ComputeRCOutputs                           1 calls
+       19 ms  TlogCleanup                                1 calls
+       19 ms  ResourceCompile                            1 calls
+       31 ms  AssignTargetPaths                          1 calls
+       44 ms  GetCopyToOutputDirectoryItems              1 calls
+      106 ms  CreateRecipeFile                           1 calls
+     2638 ms  Link                                       1 calls
+     5868 ms  ClCompile                                  1 calls
+
+Build succeeded.
+
+       "D:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\MyAppImGUI.vcxproj" (Build target) (1) ->
+       (ClCompile target) -> 
+         D:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\src\main.cpp(364,19): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+         D:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\src\main.cpp(423,61): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+         D:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\src\main.cpp(506,52): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+         C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.42.34433\include\xutility(4710,18): warning C4244: '=': conversion from 'wchar_t' to 'char', possible loss of data
+
+    4 Warning(s)
+    0 Error(s)
+
+Time Elapsed 00:00:08.85
