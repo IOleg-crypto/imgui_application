@@ -21,7 +21,6 @@
 
 #define MAX_LENGTH_MULTILINE 1024 * 30
 #define MAX_LENGTH_PATH 256
-#define MULTILINE_SIZE 32
 
 // Data
 static ID3D11Device* g_pd3dDevice = nullptr;
@@ -73,7 +72,7 @@ void ShowSaveFileDialog(std::vector<std::string>& tabContents , int selectedTab)
 {
     IFileSaveDialog* pFileSave = nullptr;
     if (FAILED(CoCreateInstance(CLSID_FileSaveDialog, NULL, CLSCTX_ALL, IID_IFileSaveDialog, reinterpret_cast<void**>(&pFileSave))))
-        return;
+        return ;
 
     COMDLG_FILTERSPEC fileTypes[] = {
        {L"Text Files (*.txt)", L"*.txt"},
@@ -195,17 +194,16 @@ extern ID3D11Device* g_pd3dDevice;
 extern ID3D11DeviceContext* g_pd3dDeviceContext;
 
 
-void ShowFontWindow(char* path, bool& show_font_window, float& font_size) {
+void ShowFontWindow(char* path, bool show_font_window, float& font_size) {
     ImGuiIO& io = ImGui::GetIO();
-    float dpi_scale = io.DisplayFramebufferScale.x;
-    io.Fonts->TexDesiredWidth = 2048 * dpi_scale;
+    io.Fonts->TexDesiredWidth = 2048;
     io.Fonts->Flags |= ImFontAtlasFlags_NoPowerOfTwoHeight;
 
+    float dpi_scale = io.DisplayFramebufferScale.x;
 
     if (show_font_window) {
         ImGui::Begin("##Font", &show_font_window);
 
-        // Text for font path input
         ImGui::Text("Enter the path to the font:");
 
         // Input text to get the font path from the user
@@ -217,39 +215,40 @@ void ShowFontWindow(char* path, bool& show_font_window, float& font_size) {
         ImGui::SliderFloat("Font size", &font_size, 14.0f, 32.0f);
         ImGui::SameLine();
 
-       
         // Button to load the font
         if (ImGui::Button("Load font/Change font size")) {
-            // Clear the existing font
             io.Fonts->Clear();
             ImFont* newFont = nullptr;
 
-            // Font config setup
-            ImFontConfig config;
-            config.SizePixels = font_size * dpi_scale;  // DPI scaling for font size
-
-            // Check if a path is provided or not
             if (strlen(path) == 0) {
-                // If the path is empty, load the default font
+                // If the path is empty, load the default font with the selected size
+                ImFontConfig config;
+                config.SizePixels = font_size;
+                // Disable oversampling to reduce blurriness
                 newFont = io.Fonts->AddFontDefault(&config);
             }
             else {
-                // Load the font from the specified path
-                newFont = io.Fonts->AddFontFromFileTTF(path, font_size * dpi_scale, &config, io.Fonts->GetGlyphRangesDefault());
+                // Load the font from the specified path with the selected size
+                //font_size *= dpi_scale;
+                ImGui::PushFont(newFont);
+                newFont = io.Fonts->AddFontFromFileTTF(path, font_size , nullptr, io.Fonts->GetGlyphRangesDefault());
             }
 
-            // Check if the font is successfully loaded
             if (newFont != nullptr) {
                 // Invalidate and recreate device objects to apply the new font
                 ImGui_ImplDX11_InvalidateDeviceObjects();
                 ImGui_ImplDX11_CreateDeviceObjects();
 
-                // Set the new font as the default font
+                // Set the new font as the default
                 io.FontDefault = newFont;
             }
             else {
-                // If loading failed, reset to the default font
+                // If font loading fails, reload the default font with the selected size
+                ImFontConfig config;
+                config.SizePixels = font_size;
+
                 newFont = io.Fonts->AddFontDefault(&config);
+
                 if (newFont != nullptr) {
                     ImGui_ImplDX11_InvalidateDeviceObjects();
                     ImGui_ImplDX11_CreateDeviceObjects();
@@ -257,10 +256,6 @@ void ShowFontWindow(char* path, bool& show_font_window, float& font_size) {
                 }
             }
         }
-
-        // Add some color customization for the font window
-       
-
         ImGui::End();
     }
 }
@@ -294,7 +289,7 @@ int main(void)
      LoadIcon(GetModuleHandle(nullptr), MAKEINTRESOURCE(IDI_ICON1)) // hIconSm
     };
     ::RegisterClassExW(&wc);
-    hwnd = ::CreateWindowW(wc.lpszClassName, L"Notepad", WS_SIZEBOX, 100, 100, 1280, 800, nullptr, nullptr, wc.hInstance, nullptr);
+    hwnd = ::CreateWindowW(wc.lpszClassName, L"Notepad", WS_OVERLAPPEDWINDOW, 100, 100, 1280, 800, nullptr, nullptr, wc.hInstance, nullptr);
 
     // Initialize Direct3D
     if (!CreateDeviceD3D(hwnd))
@@ -329,7 +324,7 @@ int main(void)
     static ImGuiInputTextFlags flags = ImGuiInputTextFlags_AllowTabInput;
     static ImGuiInputTextFlags inputTextFlags = ImGuiInputTextFlags_EnterReturnsTrue;
     // Static variables
-    static float font_size = 25.0f;
+    static float font_size = 14.0f;
     static int selectedTab = 0;  // Keeps track of which tab is currently selected
     // TabTitle
     static std::vector<std::string> tabTitles = { "Page 1" };
@@ -407,7 +402,7 @@ int main(void)
             {
 				selectedTab = i;
                 ImGui::Text("Content for %s", tabTitles[i].c_str());
-                ImGui::InputTextMultiline("##InputText", tabContents[i].data(), MAX_LENGTH_MULTILINE, ImVec2(-FLT_MIN, ImGui::GetTextLineHeight() * MULTILINE_SIZE), ImGuiInputTextFlags_AllowTabInput | ImGuiInputTextFlags_CtrlEnterForNewLine | ImGuiInputTextFlags_EnterReturnsTrue);
+                ImGui::InputTextMultiline("##InputText", tabContents[i].data(), MAX_LENGTH_MULTILINE, ImVec2(-FLT_MIN, ImGui::GetTextLineHeight() * 48), ImGuiInputTextFlags_AllowTabInput | ImGuiInputTextFlags_CtrlEnterForNewLine | ImGuiInputTextFlags_EnterReturnsTrue);
                 ImGui::EndTabItem();
                 tabContents[i] = std::string(tabContents[i].data());
             }
@@ -659,8 +654,6 @@ extern IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg
 // Win32 message handler
 LRESULT WINAPI WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
-    SetProcessDpiAwarenessContext(DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE);
-
     if (ImGui_ImplWin32_WndProcHandler(hWnd, msg, wParam, lParam))
         return true;
 

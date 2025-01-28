@@ -176,6 +176,7 @@
     <ClInclude Include="vendor\imgui\misc\single_file\imgui_single_file.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include=".gitignore" />
     <None Include="vendor\imgui\backends\imgui_impl_metal.mm" />
   </ItemGroup>
   <ItemGroup>

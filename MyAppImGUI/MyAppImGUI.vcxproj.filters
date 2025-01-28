@@ -80,6 +80,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="vendor\imgui\backends\imgui_impl_metal.mm" />
+    <None Include=".gitignore" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="icon1.ico">
