@@ -31,6 +31,7 @@ bool CreateDeviceD3D(HWND hWnd);
 void CleanupDeviceD3D();
 void CreateRenderTarget();
 void CleanupRenderTarget();
+
 LRESULT WINAPI WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
 void ToggleFullscreen()
@@ -91,11 +92,14 @@ void ShowSaveFileDialog(std::vector<std::string>& tabContents , int selectedTab)
     wcscpy_s(szFilePath, pszFilePath); 
 
     std::ofstream outFile(pszFilePath, std::ios::out);
-    if (outFile.is_open())
-    {
-        outFile.write(tabContents[selectedTab].c_str(), tabContents[selectedTab].length());    
-        outFile.put('\n'); 
-        outFile.close();
+    if (outFile.is_open()) {
+
+        // Iterate through each line of the selected tab
+        for (const auto& line : tabContents[selectedTab]) {
+          
+            outFile << line << '\n'; 
+        }
+        outFile.close(); 
     }
 
     CoTaskMemFree(pszFilePath);
@@ -143,7 +147,7 @@ void ShowOpenFileDialog(std::vector<std::string>& tabContents, int selectedTab) 
         tabContents[selectedTab] = "";
         while (std::getline(inFile, line))
         {
-            tabContents[selectedTab] += line + '\n';  // Add content to the selected tab
+            tabContents[selectedTab] += line; 
         }
         inFile.close();
     }
@@ -262,6 +266,8 @@ int main(void)
     // Show the window
     ::ShowWindow(hwnd, SW_SHOWDEFAULT);
     ::UpdateWindow(hwnd);
+    //hide console window
+    ShowWindow(GetConsoleWindow (), SW_HIDE);
 
     // Setup Dear ImGui context
     IMGUI_CHECKVERSION();

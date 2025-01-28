@@ -1,0 +1,8 @@
+# disable stuff that is not needed in repository
+
+# .gitignore
+
+# Windows
+# *.o
+# *.obj
+# *.exe
