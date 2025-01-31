@@ -23,7 +23,7 @@ To build and run this project, you need the following installed:
 Clone the repository using the following command:
 
 ```bash
-git clone https://github.com/IOleg-crypto/imgui_application.git
+git clone --recursive https://github.com/IOleg-crypto/imgui_application.git
 cd imgui_application
 ```
 
