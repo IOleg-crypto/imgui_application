@@ -78,7 +78,7 @@ void ShowSaveFileDialog(std::vector<std::string>& tabContents , int selectedTab)
     COMDLG_FILTERSPEC fileTypes[] = {
        {L"Text Files (*.txt)", L"*.txt"},
        {L"All Files (*.*)", L"*.*"},
-       {L"Binary Files (*.bin)", L"*.bin"}
+       {L"Binary Files (*.bin)", L"*.bin"} // maybe i add other file types soon...
     };
 
     pFileSave->SetFileTypes(ARRAYSIZE(fileTypes), fileTypes);
@@ -197,7 +197,7 @@ extern ID3D11DeviceContext* g_pd3dDeviceContext;
 std::string GetFontPath() {
     IFileOpenDialog* pFileOpen = nullptr;
     if (FAILED(CoCreateInstance(CLSID_FileOpenDialog, NULL, CLSCTX_ALL, IID_IFileOpenDialog, reinterpret_cast<void**>(&pFileOpen))))
-        return NULL;
+        return 0;
 
     COMDLG_FILTERSPEC fileTypes[] = {
        {L"TrueType Fonts (*.ttf)", L"*.ttf"},
