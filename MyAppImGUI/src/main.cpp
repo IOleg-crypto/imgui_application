@@ -197,7 +197,7 @@ extern ID3D11DeviceContext* g_pd3dDeviceContext;
 std::string GetFontPath() {
     IFileOpenDialog* pFileOpen = nullptr;
     if (FAILED(CoCreateInstance(CLSID_FileOpenDialog, NULL, CLSCTX_ALL, IID_IFileOpenDialog, reinterpret_cast<void**>(&pFileOpen))))
-        return 0;
+        return "Failed to open file dialog";
 
     COMDLG_FILTERSPEC fileTypes[] = {
        {L"TrueType Fonts (*.ttf)", L"*.ttf"},
@@ -322,12 +322,12 @@ int main(void)
      0,                       // cbClsExtra
      0,                       // cbWndExtra
      GetModuleHandle(nullptr),// hInstance
-     LoadIcon(GetModuleHandle(nullptr), MAKEINTRESOURCE(IDI_ICON1)), // hIcon
+    LoadIcon(GetModuleHandle(nullptr), MAKEINTRESOURCE(nullptr)), // hIcon
      LoadCursor(nullptr, IDC_ARROW), // hCursor
      (HBRUSH)(COLOR_WINDOW + 1),    // hbrBackground
      nullptr,                     // lpszMenuName
      L"Notepad",           // lpszClassName
-     LoadIcon(GetModuleHandle(nullptr), MAKEINTRESOURCE(IDI_ICON1)) // hIconSm
+    LoadIcon(GetModuleHandle(nullptr), MAKEINTRESOURCE(nullptr)) // hIconSm
     };
     ::RegisterClassExW(&wc);
     hwnd = ::CreateWindowW(wc.lpszClassName, L"Notepad", WS_SIZEBOX, 100, 100, 1280, 800, nullptr, nullptr, wc.hInstance, nullptr);
@@ -425,7 +425,7 @@ int main(void)
         //Main window
         ImGui::SetNextWindowSize(ImVec2(x, y));
         ImGui::Begin("##Window Name", nullptr, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoCollapse);
-
+        
         if (ImGui::Button("Add page"))
         {
             // Add a new tab with default content
