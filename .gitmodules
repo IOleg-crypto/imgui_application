@@ -1,0 +1,3 @@
+[submodule "MyAppImGUI/vendor/imgui_application"]
+	path = MyAppImGUI/vendor/imgui_application
+	url = git@github.com:IOleg-crypto/imgui_application.git
