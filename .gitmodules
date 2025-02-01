@@ -1,6 +1,4 @@
-[submodule "MyAppImGUI/vendor/imgui_application"]
-	path = MyAppImGUI/vendor/imgui_application
-	url = git@github.com:IOleg-crypto/imgui_application.git
+
 [submodule "MyAppImGUI/imgui"]
 	path = MyAppImGUI/imgui
 	url = git@github.com:ocornut/imgui.git
