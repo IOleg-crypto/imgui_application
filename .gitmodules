@@ -1,4 +1,4 @@
 
 [submodule "MyAppImGUI/imgui"]
-	path = MyAppImGUI/imgui
+	path = MyAppImGUI/vendor
 	url = git@github.com:ocornut/imgui.git

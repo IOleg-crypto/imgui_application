@@ -17,7 +17,7 @@
 #include <string>
 #include <filesystem>
 #include <vector>
-#include "resource.h"
+//#include "resource.h"
 
 #define MAX_LENGTH_MULTILINE 1024 * 30
 #define MAX_LENGTH_PATH 256
