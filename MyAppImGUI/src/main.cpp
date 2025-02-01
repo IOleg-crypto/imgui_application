@@ -1,6 +1,5 @@
 // main.cpp - for Imgui Application with Direct3D 11  , info see: https://github.com/ocornut/imgui
 
-#define _CRT_SECURE_NO_WARNINGS
 
 #include "imgui.h"
 #include "imgui_impl_win32.h"
@@ -19,7 +18,7 @@
 #include <vector>
 //#include "resource.h"
 
-#define MAX_LENGTH_MULTILINE 1024 * 30
+#define MAX_LENGTH_MULTILINE 1024 * 50
 #define MAX_LENGTH_PATH 256
 #define MULTILINE_SIZE 32
 
@@ -209,14 +208,14 @@ std::string GetFontPath() {
     if (FAILED(pFileOpen->GetOptions(&dwFlags)) || FAILED(pFileOpen->SetOptions(dwFlags | FOS_FORCEFILESYSTEM)) || FAILED(pFileOpen->Show(NULL)))
     {
         pFileOpen->Release();
-        return NULL;
+        return "Failed to get file path";
     }
 
     IShellItem* pItem = nullptr;
     if (FAILED(pFileOpen->GetResult(&pItem)))
     {
         pFileOpen->Release();
-        return NULL;
+        return "Failed to get file item";
     }
 
     PWSTR pszFilePath = nullptr;
@@ -235,7 +234,7 @@ std::string GetFontPath() {
 void ShowFontWindow(char* path, bool& show_font_window, float& font_size) {
     ImGuiIO& io = ImGui::GetIO();
     float dpi_scale = io.DisplayFramebufferScale.x;
-    io.Fonts->TexDesiredWidth = 2048 * dpi_scale;
+    io.Fonts->TexDesiredWidth = static_cast<int>(2048 * dpi_scale);
     io.Fonts->Flags |= ImFontAtlasFlags_NoPowerOfTwoHeight;
 
 
@@ -360,10 +359,11 @@ int main(void)
     //Flags
     static bool show_font_window = false;
     static bool enterPressed = false;
-    static bool read_only = false;
+    static bool read_only;
 
-    static ImGuiInputTextFlags flags = ImGuiInputTextFlags_AllowTabInput;
-    static ImGuiInputTextFlags inputTextFlags = ImGuiInputTextFlags_EnterReturnsTrue;
+    static ImGuiInputTextFlags flags = ImGuiInputTextFlags_AllowTabInput |
+        ImGuiInputTextFlags_CtrlEnterForNewLine |
+        ImGuiInputTextFlags_EnterReturnsTrue;
     // Static variables
     static float font_size = 25.0f;
     static int selectedTab = 0;  // Keeps track of which tab is currently selected
@@ -373,8 +373,8 @@ int main(void)
     static char pathFont[MAX_LENGTH_PATH];
 
     //get screen width and height
-    int x = GetSystemMetrics(SM_CXSCREEN);
-    int y = GetSystemMetrics(SM_CYSCREEN);
+    float x = GetSystemMetrics(SM_CXSCREEN);
+    float y = GetSystemMetrics(SM_CYSCREEN);
 
     // Main loop
     bool done = false;
@@ -417,14 +417,14 @@ int main(void)
 
         //local variables
         bool show_another_window = false;
-        static bool show_demo_window = true;
+        static bool show_demo_window = false;
         ImVec4 clear_color = ImVec4(0.45f, 0.60f, 0.60f, 1.00f);
         static bool theme_change = false; // Change clear color to make it more visible
 
         int selectedTab = 0;
         //Main window
         ImGui::SetNextWindowSize(ImVec2(x, y));
-        ImGui::Begin("##Window Name", nullptr, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoCollapse);
+        ImGui::Begin("##Window Name", nullptr, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse);
         
         if (ImGui::Button("Add page"))
         {
@@ -448,11 +448,20 @@ int main(void)
             {
 				selectedTab = i;
                 ImGui::Text("Content for %s", tabTitles[i].c_str());
-                ImGui::InputTextMultiline("##InputText", tabContents[i].data(), MAX_LENGTH_MULTILINE, ImVec2(-FLT_MIN, ImGui::GetTextLineHeight() * MULTILINE_SIZE), ImGuiInputTextFlags_AllowTabInput | ImGuiInputTextFlags_CtrlEnterForNewLine | ImGuiInputTextFlags_EnterReturnsTrue);
+                ImGui::InputTextMultiline("##InputText", tabContents[i].data(), MAX_LENGTH_MULTILINE, ImVec2(-FLT_MIN, ImGui::GetTextLineHeight() * MULTILINE_SIZE), flags);
                 ImGui::EndTabItem();
                 tabContents[i] = std::string(tabContents[i].data());
             }
         }
+
+        if(ImGui::RadioButton("Read Only", &read_only))
+		{
+            read_only = !read_only;
+			if (read_only)
+				flags |= ImGuiInputTextFlags_ReadOnly;
+			else
+				flags &= ~ImGuiInputTextFlags_ReadOnly;
+		}
 
         ImGui::EndTabBar();
         ImGui::End();
@@ -464,7 +473,7 @@ int main(void)
             {
                 if (ImGui::MenuItem("ReadOnly", "Ctrl+M", &read_only))
                 {
-                    read_only = !read_only;
+                   // read_only = !read_only;
                     if (read_only)
                         flags |= ImGuiInputTextFlags_ReadOnly;
                     else
@@ -491,7 +500,7 @@ int main(void)
                         // Optionally, update the selectedTab index to a valid one after deletion
                         if (selectedTab >= tabTitles.size())
                         {
-                            selectedTab = static_cast<size_t>(tabTitles.size() - 1); // Move to the last tab if the deleted tab was the last one
+                            selectedTab = static_cast<int>(tabTitles.size() - 1); // Move to the last tab if the deleted tab was the last one
                         }
                     }
                 }
@@ -538,16 +547,9 @@ int main(void)
             }
             ImGui::EndMainMenuBar();
             ImGui::Separator();
-            if (ImGui::RadioButton("ReadOnly", &read_only))
-            {
-                read_only = !read_only;
-                if (read_only)
-                    flags |= ImGuiInputTextFlags_ReadOnly;
-                else
-                    flags &= ~ImGuiInputTextFlags_ReadOnly;
-            }
         }
-        ImGui::End();
+        //ImGui::End(); // This make errors(To be fixed)
+       
         //keyboard shortcuts
 
         if (ImGui::IsKeyDown(ImGuiKey_LeftCtrl) && ImGui::IsKeyPressed(ImGuiKey_M))
@@ -588,7 +590,7 @@ int main(void)
                 // Optionally, update the selectedTab index to a valid one after deletion
                 if (selectedTab >= tabTitles.size())
                 {
-                    selectedTab = static_cast<size_t>(tabTitles.size() - 1); // Move to the last tab if the deleted tab was the last one
+                    selectedTab = static_cast<int>(tabTitles.size() - 1); // Move to the last tab if the deleted tab was the last one
                 }
             }
         }
@@ -601,15 +603,13 @@ int main(void)
                 show_another_window = false;
             ImGui::End();
         }
-        if (show_demo_window == true)
+        if (show_demo_window)
         {
             AboutWindow(show_demo_window, io);
-            ImGui::End();
         }
-        if (show_font_window == true)
+        if (show_font_window)
         {
             ShowFontWindow(pathFont, show_font_window, font_size);
-            ImGui::End();
         }
 
 
@@ -712,9 +712,6 @@ LRESULT WINAPI WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
             g_ResizeWidth = (UINT)LOWORD(lParam);
             g_ResizeHeight = (UINT)HIWORD(lParam);
         }
-    case WM_SYSCOMMAND:
-        if ((wParam & 0xfff0) == SC_KEYMENU) // Disable ALT application menu
-            return 0;
         break;
     case WM_DESTROY:
         ::PostQuitMessage(0);
