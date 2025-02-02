@@ -1,0 +1,56 @@
+{
+    "version": 4,
+    "configurations": [
+      {
+        "name": "Windows",
+        "includePath": [
+          "${workspaceFolder}/**",                              // Include all project files
+          "C:/Program Files (x86)/Windows Kits/10/include/10.0.26100.0", // Windows SDK headers
+          "C:/Program Files (x86)/Windows Kits/10/Include/10.0.26100.0/um", // DirectX include files
+          "${workspaceFolder}/MyAppImGUI/vendor/imgui",         // Include ImGui folder
+          "${workspaceFolder}/MyAppImGUI/vendor/imgui/backends" // Include ImGui backend folder
+        ],
+        "defines": [],
+        "windowsSdkVersion": "10.0.26100.0",
+        "intelliSenseMode": "clang-x86",
+        "compilerPath": "E:/LLVM/bin/clang-cl.exe",  // Path to your Clang compiler
+        "cStandard": "c11",
+        "cppStandard": "c++17",
+        "compilerArgs": 
+        [
+          "/std:c++17",
+          "/EHsc",
+          "-v",  // verbose output
+          "/Zi", // debugging info
+          "/Fe${fileDirname}\\${fileBasenameNoExtension}.exe",
+          "${file}",
+          "${workspaceFolder}/MyAppImGUI/vendor/imgui/backends/imgui_impl_win32.cpp",
+          "${workspaceFolder}/MyAppImGUI/vendor/imgui/backends/imgui_impl_dx11.cpp",
+          "${workspaceFolder}/MyAppImGUI/vendor/imgui/imgui_draw.cpp",
+          "${workspaceFolder}/MyAppImGUI/vendor/imgui/imgui_widgets.cpp",
+          "${workspaceFolder}/MyAppImGUI/vendor/imgui/imgui.cpp",
+          "${workspaceFolder}/MyAppImGUI/vendor/imgui/imgui_tables.cpp",
+          "/I", "${workspaceFolder}/MyAppImGUI/vendor/imgui",
+          "/I", "${workspaceFolder}/MyAppImGUI/vendor/imgui/backends",
+          "/I", "${workspaceFolder}/MyAppImGUI/vendor/imgui/misc",
+          "/I", "C:/Program Files (x86)/Windows Kits/10/include/10.0.26100.0",
+          "/link",
+          "d3d11.lib",
+          "dwmapi.lib",
+          "gdi32.lib",
+          "user32.lib",
+          "d3dcompiler.lib",
+          "dxgi.lib"
+        ],
+        "browse": {
+          "path": [
+            "${workspaceFolder}/**",
+            "C:/Program Files (x86)/Windows Kits/10/include/10.0.26100.0",
+            "C:/Program Files (x86)/Windows Kits/10/Include/10.0.26100.0/um"
+          ],
+          "limitSymbolsToIncludedHeaders": true
+        }
+      }
+    ]
+  }
+  

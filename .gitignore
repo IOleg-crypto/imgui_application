@@ -1,3 +1,4 @@
 # block visual studio garbage
 
 .vs
+.exe
