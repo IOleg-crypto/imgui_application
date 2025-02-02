@@ -359,7 +359,7 @@ int main(void)
     //Flags
     static bool show_font_window = false;
     static bool enterPressed = false;
-    static bool read_only = 0;
+    static bool read_only = false;
 
     static ImGuiInputTextFlags flags = ImGuiInputTextFlags_AllowTabInput |
         ImGuiInputTextFlags_CtrlEnterForNewLine |
@@ -545,9 +545,10 @@ int main(void)
                         ImGui::StyleColorsDark();
                 }
             }
-            ImGui::EndMainMenuBar();
             ImGui::Separator();
+            ImGui::EndMainMenuBar();
         }
+        
         //ImGui::End(); // This make errors(To be fixed)
        
         //keyboard shortcuts
