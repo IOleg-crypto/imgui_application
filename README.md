@@ -16,6 +16,7 @@ To build and run this project, ensure the following tools are installed:
 
 - A C++ compiler (e.g., GCC, Clang, LLVM)
 - Git for version control
+- Visual Studio 2022
 - Visual Studio Code (VSCode) with the necessary extensions for C++ development (C++ extension by Microsoft)
 - ImGui library (included as a submodule)
 
