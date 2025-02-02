@@ -522,6 +522,7 @@ int main(void)
                 ImGui::Separator();
                 ImGui::EndMenu();
             }
+            
             if (ImGui::BeginMenu("Font and size"))
             {
                 if (ImGui::MenuItem("Font"))
@@ -544,12 +545,13 @@ int main(void)
                     else
                         ImGui::StyleColorsDark();
                 }
+                ImGui::EndMenu();
             }
             ImGui::Separator();
             ImGui::EndMainMenuBar();
         }
         
-        //ImGui::End(); // This make errors(To be fixed)
+        //ImGui::End(); 
        
         //keyboard shortcuts
 
