@@ -1,5 +1,6 @@
 // main.cpp - for Imgui Application with Direct3D 11  , info see: https://github.com/ocornut/imgui
 
+#define _CRT_SECURE_NO_WARNINGS
 
 #include "imgui.h"
 #include "imgui_impl_win32.h"
@@ -223,7 +224,7 @@ std::string GetFontPath() {
     {
         pItem->Release();
         pFileOpen->Release();
-        return NULL;
+        return "Failed to get file path";
     }
 
     // Convert to std::string
@@ -321,12 +322,12 @@ int main(void)
      0,                       // cbClsExtra
      0,                       // cbWndExtra
      GetModuleHandle(nullptr),// hInstance
-    LoadIcon(GetModuleHandle(nullptr), MAKEINTRESOURCE(nullptr)), // hIcon
+    LoadIcon(GetModuleHandle(nullptr), MAKEINTRESOURCE(NULL)), // hIcon
      LoadCursor(nullptr, IDC_ARROW), // hCursor
      (HBRUSH)(COLOR_WINDOW + 1),    // hbrBackground
      nullptr,                     // lpszMenuName
      L"Notepad",           // lpszClassName
-    LoadIcon(GetModuleHandle(nullptr), MAKEINTRESOURCE(nullptr)) // hIconSm
+    LoadIcon(GetModuleHandle(nullptr), MAKEINTRESOURCE(NULL)) // hIconSm
     };
     ::RegisterClassExW(&wc);
     hwnd = ::CreateWindowW(wc.lpszClassName, L"Notepad", WS_SIZEBOX, 100, 100, 1280, 800, nullptr, nullptr, wc.hInstance, nullptr);
@@ -350,7 +351,6 @@ int main(void)
     ImGui::CreateContext();
     ImGuiIO& io = ImGui::GetIO(); (void)io;
     io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;     // Enable Keyboard Controls
-    //io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // Enable Gamepad Controls
 
 
     // Setup Platform/Renderer backends
@@ -359,7 +359,7 @@ int main(void)
     //Flags
     static bool show_font_window = false;
     static bool enterPressed = false;
-    static bool read_only;
+    static bool read_only = 0;
 
     static ImGuiInputTextFlags flags = ImGuiInputTextFlags_AllowTabInput |
         ImGuiInputTextFlags_CtrlEnterForNewLine |
