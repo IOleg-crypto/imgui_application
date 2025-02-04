@@ -69,30 +69,7 @@ void ToggleFullscreen()
     fullscreen = !fullscreen;
 }
 
-void writeStringToBinaryFile(const std::string &lines, const std::string &filePath)
-{
-    std::ofstream outFile(filePath, std::ios::binary | std::ios::trunc); // Перезаписуємо файл
-    if (outFile.is_open())
-    {
-        size_t numLines = lines.size();
-        outFile.write(reinterpret_cast<const char *>(&numLines), sizeof(numLines));
-
-        if (outFile.is_open())
-        {
-            size_t length = lines.size();
-            outFile.write(reinterpret_cast<const char *>(&length), sizeof(length)); // Записуємо довжину рядка
-            outFile.write(lines.data(), length);                                    // Записуємо сам рядок
-            outFile.close();
-        }
-        outFile.close();
-    }
-    else
-    {
-        std::cout << "Cannot open file for writing." << std::endl;
-    }
-}
-
-void ShowSaveFileDialog(const std::vector<std::string> &tabContents, int selectedTab)
+void ShowSaveFileDialog(std::vector<std::string> &tabContents, int selectedTab)
 {
     IFileSaveDialog *pFileSave = nullptr;
     if (FAILED(CoCreateInstance(CLSID_FileSaveDialog, NULL, CLSCTX_ALL, IID_IFileSaveDialog, reinterpret_cast<void **>(&pFileSave))))
@@ -104,18 +81,31 @@ void ShowSaveFileDialog(const std::vector<std::string> &tabContents, int selecte
         {L"All Files (*.*)", L"*.*"}};
 
     pFileSave->SetFileTypes(ARRAYSIZE(fileTypes), fileTypes);
-
-    UINT selectedFilterIndex = 1; // Default to text file
-    pFileSave->GetFileTypeIndex(&selectedFilterIndex);
-    selectedFilterIndex--; // Convert 1-based to 0-based index
+    pFileSave->SetFileTypeIndex(1); // Default to Text Files
 
     DWORD dwFlags;
-    if (FAILED(pFileSave->GetOptions(&dwFlags)) ||
-        FAILED(pFileSave->SetOptions(dwFlags | FOS_FORCEFILESYSTEM)) ||
-        FAILED(pFileSave->Show(NULL)))
+    if (FAILED(pFileSave->GetOptions(&dwFlags)) || FAILED(pFileSave->SetOptions(dwFlags | FOS_FORCEFILESYSTEM)) || FAILED(pFileSave->Show(NULL)))
     {
         pFileSave->Release();
         return;
+    }
+
+    UINT selectedFilterIndex = 1; // Default
+    pFileSave->GetFileTypeIndex(&selectedFilterIndex);
+    std::cout << "selectedFilterIndex: " << selectedFilterIndex << std::endl;
+
+    // Set the correct file extension based on user choice
+    switch (selectedFilterIndex)
+    {
+    case 1:
+        pFileSave->SetDefaultExtension(L"txt");
+        break;
+    case 2:
+        pFileSave->SetDefaultExtension(L"bin");
+        break;
+    default:
+        pFileSave->SetDefaultExtension(L"txt");
+        break;
     }
 
     IShellItem *pItem = nullptr;
@@ -133,41 +123,26 @@ void ShowSaveFileDialog(const std::vector<std::string> &tabContents, int selecte
         return;
     }
 
-    switch (selectedFilterIndex)
-    {
-    case 1: // Text Files
-        pFileSave->SetDefaultExtension(L"txt");
-        break;
-    case 2: // Binary Files
-        pFileSave->SetDefaultExtension(L"bin");
-        break;
-    default:
-        pFileSave->SetDefaultExtension(L"txt");
-        break;
-    }
+    // Determine file open mode
+    std::ios::openmode mode = (selectedFilterIndex == 2) ? (std::ios::binary | std::ios::trunc) : (std::ios::out | std::ios::trunc);
 
-    if (selectedFilterIndex == 1) // Binary File
+    std::ofstream file(pszFilePath, mode);
+    if (file.is_open())
     {
-        std::ofstream outFile(filePath, std::ios::binary | std::ios::trunc);
-        if (outFile.is_open())
+        if (selectedFilterIndex == 2) // Binary file
         {
-            const std::string &str = tabContents[selectedTab];
-            size_t length = str.size();
-            outFile.write(reinterpret_cast<const char *>(&length), sizeof(length));
-            outFile.write(str.data(), length);
+            size_t size = tabContents[selectedTab].size();
+            // file.write(reinterpret_cast<const char *>(&size), sizeof(size));
+            file.write(tabContents[selectedTab].data(), size);
         }
-    }
-    else if (selectedFilterIndex == 0)
-    {
-        std::ofstream outFile(filePath, std::ios::out | std::ios::trunc);
-        if (outFile.is_open())
+        else // Text file
         {
-            for (const auto &line : tabContents)
+            for (const auto &line : tabContents[selectedTab])
             {
-                outFile << line << '\n';
+                file << line << '\n';
             }
         }
-        outFile.close();
+        file.close();
     }
 
     CoTaskMemFree(pszFilePath);
@@ -175,54 +150,106 @@ void ShowSaveFileDialog(const std::vector<std::string> &tabContents, int selecte
     pFileSave->Release();
 }
 
-void ShowOpenFileDialog(std::vector<std::string> &tabContents, int selectedTab)
+void SaveFileDialog(HWND hwnd, const std::vector<std::string> tabContents, int selectedTab)
 {
-    IFileOpenDialog *pFileOpen = nullptr;
-    if (FAILED(CoCreateInstance(CLSID_FileOpenDialog, NULL, CLSCTX_ALL, IID_IFileOpenDialog, reinterpret_cast<void **>(&pFileOpen))))
-        return;
+    OPENFILENAME ofn;
+    TCHAR szFile[MAX_PATH] = _T(""); // Buffer to store the selected file name
 
-    DWORD dwFlags;
-    if (FAILED(pFileOpen->GetOptions(&dwFlags)) || FAILED(pFileOpen->SetOptions(dwFlags | FOS_FORCEFILESYSTEM)) || FAILED(pFileOpen->Show(NULL)))
+    ZeroMemory(&ofn, sizeof(ofn));
+    ofn.lStructSize = sizeof(ofn);
+    ofn.hwndOwner = hwnd;
+    ofn.lpstrFilter = _T("Text Files (*.txt)\0*.txt\0Binary Files (*.bin)\0*.bin\0All Files (*.*)\0*.*\0");
+    ofn.lpstrFile = szFile;
+    ofn.nMaxFile = MAX_PATH;
+    ofn.Flags = OFN_OVERWRITEPROMPT | OFN_PATHMUSTEXIST;
+    ofn.lpstrDefExt = _T("txt");
+
+    if (GetSaveFileName(&ofn))
     {
-        pFileOpen->Release();
-        return;
-    }
+        bool isBinary = (_tcsstr(szFile, _T(".bin")) != NULL);
 
-    IShellItem *pItem = nullptr;
-    if (FAILED(pFileOpen->GetResult(&pItem)))
-    {
-        pFileOpen->Release();
-        return;
-    }
-
-    PWSTR pszFilePath = nullptr;
-    if (FAILED(pItem->GetDisplayName(SIGDN_FILESYSPATH, &pszFilePath)))
-    {
-        pItem->Release();
-        pFileOpen->Release();
-        return;
-    }
-
-    // Convert to std::string
-    std::wstring wideFilePath(pszFilePath);
-    std::string filePath(wideFilePath.begin(), wideFilePath.end());
-
-    // Open the file for reading
-    std::ifstream inFile(filePath);
-    if (inFile.is_open())
-    {
-        std::string line;
-        tabContents[selectedTab].clear();
-        while (std::getline(inFile, line))
+        if (isBinary)
         {
-            tabContents[selectedTab] += line;
+            // Save in binary format
+            std::ofstream outFile(szFile, std::ios::binary);
+            if (outFile)
+            {
+                size_t size = tabContents.size();
+                outFile.write(reinterpret_cast<const char *>(&size), sizeof(size));
+                for (const auto &content : tabContents)
+                {
+                    outFile.write(content.data(), content.size());
+                }
+                outFile.close();
+            }
         }
-        inFile.close();
+        else
+        {
+            // Save as a text file
+            std::ofstream outFile(szFile);
+            if (outFile)
+            {
+                for (const auto &content : tabContents)
+                {
+                    outFile << content << std::endl;
+                }
+                outFile.close();
+            }
+        }
+    }
+    MessageBox(hwnd, szFile, _T("File Saved"), MB_OK);
+}
+
+void ShowOpenFileDialog(HWND hwnd, std::vector<std::string> &tabContents, int selectedTab)
+{
+    OPENFILENAME ofn;                // Structure for the file dialog
+    TCHAR szFile[MAX_PATH] = _T(""); // Buffer to store the selected file name
+
+    ZeroMemory(&ofn, sizeof(ofn));
+    ofn.lStructSize = sizeof(ofn);
+    ofn.hwndOwner = hwnd;
+    ofn.lpstrFilter = _T("Text Files (*.txt)\0*.txt\0Binary Files (*.bin)\0*.bin\0All Files (*.*)\0*.*\0");
+    ofn.lpstrFile = szFile;
+    ofn.nMaxFile = MAX_PATH;
+    ofn.Flags = OFN_PATHMUSTEXIST | OFN_FILEMUSTEXIST;
+    ofn.lpstrDefExt = _T("txt"); // Default extension is .txt
+
+    if (GetOpenFileName(&ofn))
+    {
+        bool isBinary = (_tcsstr(szFile, _T(".bin")) != NULL);
+
+        if (isBinary)
+        {
+            // Open and read binary file
+            std::ifstream inFile(szFile, std::ios::binary);
+            if (inFile)
+            {
+                tabContents[selectedTab].clear(); // Clear current content
+
+                std::vector<char> fileData((std::istreambuf_iterator<char>(inFile)), std::istreambuf_iterator<char>());
+                tabContents[selectedTab] = std::string(fileData.begin(), fileData.end());
+                inFile.close();
+                inFile.close();
+            }
+        }
+        else
+        {
+            // Open and read text file
+            std::ifstream inFile(szFile);
+            if (inFile)
+            {
+                tabContents[selectedTab].clear(); // Clear current content
+                std::string line;
+                while (std::getline(inFile, line))
+                {
+                    tabContents[selectedTab] += line + "\n"; // Append each line with newline
+                }
+                inFile.close();
+            }
+        }
     }
 
-    CoTaskMemFree(pszFilePath);
-    pItem->Release();
-    pFileOpen->Release();
+    MessageBox(hwnd, szFile, _T("File Opened"), MB_OK);
 }
 
 // Global variables for device and context (assuming they are defined somewhere)
@@ -387,7 +414,7 @@ int main(void)
     ::ShowWindow(hwnd, SW_SHOWDEFAULT);
     ::UpdateWindow(hwnd);
     // hide console window
-    ShowWindow(GetConsoleWindow(), SW_HIDE);
+    // ShowWindow(GetConsoleWindow(), SW_HIDE);
 
     // Setup Dear ImGui context
     IMGUI_CHECKVERSION();
@@ -525,12 +552,13 @@ int main(void)
                 ImGui::Separator();
                 if (ImGui::MenuItem("Save file dialog", "Ctrl+S"))
                 {
-                    ShowSaveFileDialog(tabContents, selectedTab);
+                    // ShowSaveFileDialog(tabContents, selectedTab);
+                    SaveFileDialog(hwnd, tabContents);
                 }
                 ImGui::Separator();
                 if (ImGui::MenuItem("Open file dialog", "Ctrl+O"))
                 {
-                    ShowOpenFileDialog(tabContents, selectedTab);
+                    ShowOpenFileDialog(hwnd, tabContents, selectedTab);
                 }
 
                 ImGui::Separator();
@@ -617,7 +645,7 @@ int main(void)
         }
         if (ImGui::IsKeyPressed(ImGuiKey_LeftCtrl) && ImGui::IsKeyPressed(ImGuiKey_S))
         {
-            ShowSaveFileDialog(tabContents, selectedTab);
+            // ShowSaveFileDialog(tabContents, selectedTab);
         }
         if (ImGui::IsKeyPressed(ImGuiKey_LeftCtrl) && ImGui::IsKeyPressed(ImGuiKey_R))
         {
