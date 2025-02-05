@@ -18,19 +18,21 @@
 #include <string>
 #include <tchar.h>
 #include <vector>
+#include <locale>
+#include <cstring>
 // #include "resource.h"
 
-#define MAX_LENGTH_MULTILINE 1024 * 50
+#define MAX_LENGTH_MULTILINE 2048 * 150
 #define MAX_LENGTH_PATH 256
-#define MULTILINE_SIZE 32
+#define MULTILINE_SIZE 48
 
 // Data
-static ID3D11Device *g_pd3dDevice = nullptr;
-static ID3D11DeviceContext *g_pd3dDeviceContext = nullptr;
-static IDXGISwapChain *g_pSwapChain = nullptr;
+static ID3D11Device* g_pd3dDevice = nullptr;
+static ID3D11DeviceContext* g_pd3dDeviceContext = nullptr;
+static IDXGISwapChain* g_pSwapChain = nullptr;
 static bool g_SwapChainOccluded = false;
 static UINT g_ResizeWidth = 0, g_ResizeHeight = 0;
-static ID3D11RenderTargetView *g_mainRenderTargetView = nullptr;
+static ID3D11RenderTargetView* g_mainRenderTargetView = nullptr;
 static HWND hwnd = nullptr;     // Global variable for window handle
 static bool fullscreen = false; // Toggle for fullscreen mode
 bool always_on_top = false;     // Toggle for always-on-top mode
@@ -45,7 +47,7 @@ LRESULT WINAPI WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
 void ToggleFullscreen()
 {
-    static WINDOWPLACEMENT prevPlacement = {sizeof(prevPlacement)};
+    static WINDOWPLACEMENT prevPlacement = { sizeof(prevPlacement) };
     static bool wasFullscreen = fullscreen;
 
     if (fullscreen)
@@ -69,86 +71,7 @@ void ToggleFullscreen()
     fullscreen = !fullscreen;
 }
 
-void ShowSaveFileDialog(std::vector<std::string> &tabContents, int selectedTab)
-{
-    IFileSaveDialog *pFileSave = nullptr;
-    if (FAILED(CoCreateInstance(CLSID_FileSaveDialog, NULL, CLSCTX_ALL, IID_IFileSaveDialog, reinterpret_cast<void **>(&pFileSave))))
-        return;
 
-    COMDLG_FILTERSPEC fileTypes[] = {
-        {L"Text Files (*.txt)", L"*.txt"},
-        {L"Binary Files (*.bin)", L"*.bin"},
-        {L"All Files (*.*)", L"*.*"}};
-
-    pFileSave->SetFileTypes(ARRAYSIZE(fileTypes), fileTypes);
-    pFileSave->SetFileTypeIndex(1); // Default to Text Files
-
-    DWORD dwFlags;
-    if (FAILED(pFileSave->GetOptions(&dwFlags)) || FAILED(pFileSave->SetOptions(dwFlags | FOS_FORCEFILESYSTEM)) || FAILED(pFileSave->Show(NULL)))
-    {
-        pFileSave->Release();
-        return;
-    }
-
-    UINT selectedFilterIndex = 1; // Default
-    pFileSave->GetFileTypeIndex(&selectedFilterIndex);
-    std::cout << "selectedFilterIndex: " << selectedFilterIndex << std::endl;
-
-    // Set the correct file extension based on user choice
-    switch (selectedFilterIndex)
-    {
-    case 1:
-        pFileSave->SetDefaultExtension(L"txt");
-        break;
-    case 2:
-        pFileSave->SetDefaultExtension(L"bin");
-        break;
-    default:
-        pFileSave->SetDefaultExtension(L"txt");
-        break;
-    }
-
-    IShellItem *pItem = nullptr;
-    if (FAILED(pFileSave->GetResult(&pItem)))
-    {
-        pFileSave->Release();
-        return;
-    }
-
-    PWSTR pszFilePath = nullptr;
-    if (FAILED(pItem->GetDisplayName(SIGDN_FILESYSPATH, &pszFilePath)))
-    {
-        pItem->Release();
-        pFileSave->Release();
-        return;
-    }
-
-    // Determine file open mode
-    std::ios::openmode mode = (selectedFilterIndex == 2) ? (std::ios::binary | std::ios::trunc) : (std::ios::out | std::ios::trunc);
-
-    std::ofstream file(pszFilePath, mode);
-    if (file.is_open())
-    {
-        if (selectedFilterIndex == 2) // Binary file
-        {
-            size_t size = tabContents[selectedTab].size();
-            // file.write(reinterpret_cast<const char *>(&size), sizeof(size));
-            file.write(tabContents[selectedTab].data(), size);
-        }
-        else // Text file
-        {
-            for (const auto &line : tabContents[selectedTab])
-            {
-                file << line << '\n';
-            }
-        }
-        file.close();
-    }
-
-    CoTaskMemFree(pszFilePath);
-    pItem->Release();
-    pFileSave->Release();
-}
 
 void SaveFileDialog(HWND hwnd, const std::vector<std::string> tabContents, int selectedTab)
 {
@@ -158,7 +81,7 @@ void SaveFileDialog(HWND hwnd, const std::vector<std::string> tabContents, int s
     ZeroMemory(&ofn, sizeof(ofn));
     ofn.lStructSize = sizeof(ofn);
     ofn.hwndOwner = hwnd;
-    ofn.lpstrFilter = _T("Text Files (*.txt)\0*.txt\0Binary Files (*.bin)\0*.bin\0All Files (*.*)\0*.*\0");
+    ofn.lpstrFilter = _T("Text Files (*.txt)\0*.txt\0");
     ofn.lpstrFile = szFile;
     ofn.nMaxFile = MAX_PATH;
     ofn.Flags = OFN_OVERWRITEPROMPT | OFN_PATHMUSTEXIST;
@@ -175,8 +98,8 @@ void SaveFileDialog(HWND hwnd, const std::vector<std::string> tabContents, int s
             if (outFile)
             {
                 size_t size = tabContents.size();
-                outFile.write(reinterpret_cast<const char *>(&size), sizeof(size));
-                for (const auto &content : tabContents)
+                outFile.write(reinterpret_cast<const char*>(&size), sizeof(size));
+                for (const auto& content : tabContents)
                 {
                     outFile.write(content.data(), content.size());
                 }
@@ -189,7 +112,7 @@ void SaveFileDialog(HWND hwnd, const std::vector<std::string> tabContents, int s
             std::ofstream outFile(szFile);
             if (outFile)
             {
-                for (const auto &content : tabContents)
+                for (const auto& content : tabContents)
                 {
                     outFile << content << std::endl;
                 }
@@ -200,66 +123,49 @@ void SaveFileDialog(HWND hwnd, const std::vector<std::string> tabContents, int s
     MessageBox(hwnd, szFile, _T("File Saved"), MB_OK);
 }
 
-void ShowOpenFileDialog(HWND hwnd, std::vector<std::string> &tabContents, int selectedTab)
-{
-    OPENFILENAME ofn;                // Structure for the file dialog
+
+ 
+// Функція для показу діалогового вікна відкриття файлу
+void ShowOpenFileDialog(HWND hwnd, std::vector<std::string>& tabContents, int selectedTab) noexcept {
+    OPENFILENAME ofn;               
     TCHAR szFile[MAX_PATH] = _T(""); // Buffer to store the selected file name
 
     ZeroMemory(&ofn, sizeof(ofn));
     ofn.lStructSize = sizeof(ofn);
     ofn.hwndOwner = hwnd;
-    ofn.lpstrFilter = _T("Text Files (*.txt)\0*.txt\0Binary Files (*.bin)\0*.bin\0All Files (*.*)\0*.*\0");
+    ofn.lpstrFilter = L"Text Files (*.txt)\0*.txt\0";
     ofn.lpstrFile = szFile;
     ofn.nMaxFile = MAX_PATH;
     ofn.Flags = OFN_PATHMUSTEXIST | OFN_FILEMUSTEXIST;
-    ofn.lpstrDefExt = _T("txt"); // Default extension is .txt
+    ofn.lpstrDefExt = L"txt"; 
 
-    if (GetOpenFileName(&ofn))
-    {
-        bool isBinary = (_tcsstr(szFile, _T(".bin")) != NULL);
-
-        if (isBinary)
-        {
-            // Open and read binary file
-            std::ifstream inFile(szFile, std::ios::binary);
-            if (inFile)
-            {
-                tabContents[selectedTab].clear(); // Clear current content
-
-                std::vector<char> fileData((std::istreambuf_iterator<char>(inFile)), std::istreambuf_iterator<char>());
-                tabContents[selectedTab] = std::string(fileData.begin(), fileData.end());
-                inFile.close();
-                inFile.close();
-            }
-        }
-        else
-        {
-            // Open and read text file
+    if (GetOpenFileName(&ofn)) {
+        std::cout << "File selected: " << szFile << std::endl;
+       
             std::ifstream inFile(szFile);
-            if (inFile)
-            {
-                tabContents[selectedTab].clear(); // Clear current content
+            if (inFile.is_open()) {
+                tabContents[selectedTab].clear(); // Очистити поточний вміст
                 std::string line;
-                while (std::getline(inFile, line))
-                {
-                    tabContents[selectedTab] += line + "\n"; // Append each line with newline
+                while (std::getline(inFile, line)) {
+                    tabContents[selectedTab] += line + "\n"; // Додати кожен рядок з новим рядком
                 }
                 inFile.close();
             }
-        }
+            else {
+                std::cerr << "Failed to open text file." << std::endl;
+            }
     }
-
     MessageBox(hwnd, szFile, _T("File Opened"), MB_OK);
 }
 
 // Global variables for device and context (assuming they are defined somewhere)
-extern ID3D11Device *g_pd3dDevice;
-extern ID3D11DeviceContext *g_pd3dDeviceContext;
+extern ID3D11Device* g_pd3dDevice;
+extern ID3D11DeviceContext* g_pd3dDeviceContext;
 
 std::string GetFontPath()
 {
-    IFileOpenDialog *pFileOpen = nullptr;
-    if (FAILED(CoCreateInstance(CLSID_FileOpenDialog, NULL, CLSCTX_ALL, IID_IFileOpenDialog, reinterpret_cast<void **>(&pFileOpen))))
+    IFileOpenDialog* pFileOpen = nullptr;
+    if (FAILED(CoCreateInstance(CLSID_FileOpenDialog, NULL, CLSCTX_ALL, IID_IFileOpenDialog, reinterpret_cast<void**>(&pFileOpen))))
         return "Failed to open file dialog";
 
     COMDLG_FILTERSPEC fileTypes[] = {
@@ -275,7 +181,7 @@ std::string GetFontPath()
         return "Failed to get file path";
     }
 
-    IShellItem *pItem = nullptr;
+    IShellItem* pItem = nullptr;
     if (FAILED(pFileOpen->GetResult(&pItem)))
     {
         pFileOpen->Release();
@@ -295,9 +201,9 @@ std::string GetFontPath()
     std::string filePath(wideFilePath.begin(), wideFilePath.end());
     return filePath;
 }
-void ShowFontWindow(char *path, bool &show_font_window, float &font_size)
+void ShowFontWindow(char* path, bool& show_font_window, float& font_size)
 {
-    ImGuiIO &io = ImGui::GetIO();
+    ImGuiIO& io = ImGui::GetIO();
     float dpi_scale = io.DisplayFramebufferScale.x;
     io.Fonts->TexDesiredWidth = static_cast<int>(2048 * dpi_scale);
     io.Fonts->Flags |= ImFontAtlasFlags_NoPowerOfTwoHeight;
@@ -327,11 +233,12 @@ void ShowFontWindow(char *path, bool &show_font_window, float &font_size)
         {
             // Clear the existing font
             io.Fonts->Clear();
-            ImFont *newFont = nullptr;
+            ImFont* newFont = nullptr;
 
             // Font config setup
             ImFontConfig config;
             config.SizePixels = font_size * dpi_scale; // DPI scaling for font size
+          
 
             // Check if a path is provided or not
             if (strlen(path) == 0)
@@ -342,7 +249,7 @@ void ShowFontWindow(char *path, bool &show_font_window, float &font_size)
             else
             {
                 // Load the font from the specified path
-                newFont = io.Fonts->AddFontFromFileTTF(path, font_size * dpi_scale, &config, io.Fonts->GetGlyphRangesDefault());
+                newFont = io.Fonts->AddFontFromFileTTF(path, font_size * dpi_scale, &config, io.Fonts->GetGlyphRangesCyrillic());
             }
 
             // Check if the font is successfully loaded
@@ -371,7 +278,7 @@ void ShowFontWindow(char *path, bool &show_font_window, float &font_size)
     }
 }
 
-void AboutWindow(bool &show_demo_window, ImGuiIO &io)
+void AboutWindow(bool& show_demo_window, ImGuiIO& io)
 {
     if (ImGui::Begin("##About", &show_demo_window))
     {
@@ -400,7 +307,7 @@ int main(void)
         LoadIcon(GetModuleHandle(nullptr), MAKEINTRESOURCE(NULL))  // hIconSm
     };
     ::RegisterClassExW(&wc);
-    hwnd = ::CreateWindowW(wc.lpszClassName, L"Notepad", WS_SIZEBOX, 100, 100, 1280, 800, nullptr, nullptr, wc.hInstance, nullptr);
+    hwnd = ::CreateWindowW(wc.lpszClassName, L"Notepad", WS_OVERLAPPEDWINDOW, 100, 100, 1280, 800, nullptr, nullptr, wc.hInstance, nullptr);
 
     // Initialize Direct3D
     if (!CreateDeviceD3D(hwnd))
@@ -419,9 +326,11 @@ int main(void)
     // Setup Dear ImGui context
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();
-    ImGuiIO &io = ImGui::GetIO();
+    ImGuiIO& io = ImGui::GetIO();
     (void)io;
     io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard; // Enable Keyboard Controls
+    //set font by default
+    io.Fonts->AddFontFromFileTTF("C:\\Windows\\Fonts\\Comic Sans MS.ttf", 20, NULL, io.Fonts->GetGlyphRangesCyrillic());
 
     // Setup Platform/Renderer backends
     ImGui_ImplWin32_Init(hwnd);
@@ -432,13 +341,13 @@ int main(void)
     static bool read_only = false;
 
     static ImGuiInputTextFlags flags = ImGuiInputTextFlags_AllowTabInput |
-                                       ImGuiInputTextFlags_CtrlEnterForNewLine |
-                                       ImGuiInputTextFlags_EnterReturnsTrue;
+        ImGuiInputTextFlags_CtrlEnterForNewLine |
+        ImGuiInputTextFlags_EnterReturnsTrue;
     // Static variables
     static float font_size = 25.0f;
     static int selectedTab = 0; // Keeps track of which tab is currently selected
     // TabTitle
-    static std::vector<std::string> tabTitles = {"Page 1"};
+    static std::vector<std::string> tabTitles = { "Page 1" };
     // Buffers
     static char pathFont[MAX_LENGTH_PATH];
 
@@ -450,7 +359,7 @@ int main(void)
     bool done = false;
     while (!done)
     {
-        static std::vector<std::string> tabContents = {"Content for Page 1"};
+        static std::vector<std::string> tabContents = { u8"" };
         // Poll and handle messages (inputs, window resize, etc.)
         MSG msg;
         while (::PeekMessage(&msg, nullptr, 0U, 0U, PM_REMOVE))
@@ -491,7 +400,7 @@ int main(void)
         ImVec4 clear_color = ImVec4(0.45f, 0.60f, 0.60f, 1.00f);
         static bool theme_change = false; // Change clear color to make it more visible
 
-        int selectedTab = 0;
+      
         // Main window
         ImGui::SetNextWindowSize(ImVec2(x, y));
         ImGui::Begin("##Window Name", nullptr, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse);
@@ -500,7 +409,7 @@ int main(void)
         {
             // Add a new tab with default content
             tabTitles.push_back("Page" + std::to_string(tabTitles.size() + 1));
-            tabContents.push_back("Content of Page " + std::to_string(tabTitles.size()));
+            tabContents.push_back("" + std::to_string(tabTitles.size()));
             selectedTab = int(tabTitles.size()) - 1; // Select the new tab
             if (selectedTab >= 30)
             {
@@ -543,7 +452,6 @@ int main(void)
             {
                 if (ImGui::MenuItem("ReadOnly", "Ctrl+M", &read_only))
                 {
-                    // read_only = !read_only;
                     if (read_only)
                         flags |= ImGuiInputTextFlags_ReadOnly;
                     else
@@ -552,8 +460,8 @@ int main(void)
                 ImGui::Separator();
                 if (ImGui::MenuItem("Save file dialog", "Ctrl+S"))
                 {
-                    // ShowSaveFileDialog(tabContents, selectedTab);
-                    SaveFileDialog(hwnd, tabContents);
+                  
+                    SaveFileDialog(hwnd, tabContents , selectedTab);
                 }
                 ImGui::Separator();
                 if (ImGui::MenuItem("Open file dialog", "Ctrl+O"))
@@ -609,7 +517,7 @@ int main(void)
             }
             if (ImGui::BeginMenu("Theme"))
             {
-                if (ImGui::MenuItem("Theme light/dark"), "CTRL+R")
+                if (ImGui::MenuItem("Theme light/dark", "CTRL+R"))
                 {
                     theme_change = !theme_change;
                     if (theme_change)
@@ -645,7 +553,7 @@ int main(void)
         }
         if (ImGui::IsKeyPressed(ImGuiKey_LeftCtrl) && ImGui::IsKeyPressed(ImGuiKey_S))
         {
-            // ShowSaveFileDialog(tabContents, selectedTab);
+            SaveFileDialog(hwnd, tabContents, selectedTab);
         }
         if (ImGui::IsKeyPressed(ImGuiKey_LeftCtrl) && ImGui::IsKeyPressed(ImGuiKey_R))
         {
@@ -669,6 +577,10 @@ int main(void)
                 }
             }
         }
+        if (ImGui::IsKeyPressed(ImGuiKey_F5))
+        {
+            ToggleFullscreen();
+        }
         // 3. Show another simple window.
         if (show_another_window)
         {
@@ -689,7 +601,7 @@ int main(void)
 
         // Rendering
         ImGui::Render();
-        const float clear_color_with_alpha[4] = {clear_color.x * clear_color.w, clear_color.y * clear_color.w, clear_color.z * clear_color.w, clear_color.w};
+        const float clear_color_with_alpha[4] = { clear_color.x * clear_color.w, clear_color.y * clear_color.w, clear_color.z * clear_color.w, clear_color.w };
         g_pd3dDeviceContext->OMSetRenderTargets(1, &g_mainRenderTargetView, nullptr);
         g_pd3dDeviceContext->ClearRenderTargetView(g_mainRenderTargetView, clear_color_with_alpha);
         ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
@@ -771,7 +683,7 @@ void CleanupDeviceD3D()
 
 void CreateRenderTarget()
 {
-    ID3D11Texture2D *pBackBuffer;
+    ID3D11Texture2D* pBackBuffer;
     g_pSwapChain->GetBuffer(0, IID_PPV_ARGS(&pBackBuffer));
     g_pd3dDevice->CreateRenderTargetView(pBackBuffer, NULL, &g_mainRenderTargetView);
     pBackBuffer->Release();

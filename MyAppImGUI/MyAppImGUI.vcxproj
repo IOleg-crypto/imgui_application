@@ -142,7 +142,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>d3d11.lib;comdlg32.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>d3d11.lib;comdlg32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <EntryPointSymbol>mainCRTStartup</EntryPointSymbol>
       <AdditionalLibraryDirectories>$(ProjectDir)vendor\imgui\examples\libs\glfw;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
@@ -154,8 +154,6 @@
   <ItemGroup>
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="vendor\imgui\backends\imgui_impl_dx11.cpp" />
-    <ClCompile Include="vendor\imgui\backends\imgui_impl_glfw.cpp" />
-    <ClCompile Include="vendor\imgui\backends\imgui_impl_opengl2.cpp" />
     <ClCompile Include="vendor\imgui\backends\imgui_impl_win32.cpp" />
     <ClCompile Include="vendor\imgui\examples\libs\usynergy\uSynergy.c" />
     <ClCompile Include="vendor\imgui\imgui.cpp" />
@@ -168,8 +166,6 @@
   <ItemGroup>
     <ClInclude Include="resource.h" />
     <ClInclude Include="vendor\imgui\backends\imgui_impl_dx11.h" />
-    <ClInclude Include="vendor\imgui\backends\imgui_impl_glfw.h" />
-    <ClInclude Include="vendor\imgui\backends\imgui_impl_opengl2.h" />
     <ClInclude Include="vendor\imgui\backends\imgui_impl_win32.h" />
     <ClInclude Include="vendor\imgui\examples\libs\emscripten\emscripten_mainloop_stub.h" />
     <ClInclude Include="vendor\imgui\examples\libs\glfw\include\GLFW\glfw3.h" />

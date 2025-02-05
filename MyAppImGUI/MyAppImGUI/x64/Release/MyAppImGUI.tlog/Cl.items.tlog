@@ -1,6 +1,7 @@
 D:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\src\main.cpp;D:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\MyAppImGUI\x64\Release\main.obj
 D:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\vendor\imgui\backends\imgui_impl_dx11.cpp;D:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\MyAppImGUI\x64\Release\imgui_impl_dx11.obj
 D:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\vendor\imgui\backends\imgui_impl_win32.cpp;D:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\MyAppImGUI\x64\Release\imgui_impl_win32.obj
+D:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\vendor\imgui\examples\libs\usynergy\uSynergy.c;D:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\MyAppImGUI\x64\Release\uSynergy.obj
 D:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\vendor\imgui\imgui.cpp;D:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\MyAppImGUI\x64\Release\imgui.obj
 D:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\vendor\imgui\imgui_demo.cpp;D:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\MyAppImGUI\x64\Release\imgui_demo.obj
 D:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\vendor\imgui\imgui_draw.cpp;D:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\MyAppImGUI\x64\Release\imgui_draw.obj
