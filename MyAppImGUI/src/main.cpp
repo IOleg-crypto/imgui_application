@@ -448,12 +448,12 @@ int main(void)
 
 
                     size_t current_size = tabContents[i].size();
-                    size_t required_size = current_size + 128; // Increase dynamically by chunks (e.g., 256 characters)
+                    size_t required_size = current_size + 16; // Increase dynamically by chunks (e.g., 256 characters)
 
                     if (tabContents[i].capacity() < required_size) {
                         tabContents[i].resize(required_size, '\0');
                     }
-                    currentTabInfo = tabContents[selectedTab];
+                    currentTabInfo = tabContents[i];
                     
                     ImGui::InputTextMultiline("##InputText", &tabContents[i][0], MAX_LENGTH_MULTILINE, ImVec2(-FLT_MIN, ImGui::GetTextLineHeight()* MULTILINE_SIZE), flags);
                    
