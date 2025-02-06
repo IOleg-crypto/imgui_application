@@ -77,9 +77,6 @@
     <ClInclude Include="vendor\imgui\misc\single_file\imgui_single_file.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="resource.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="vendor\imgui\examples\libs\glfw\include\GLFW\glfw3.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -92,6 +89,12 @@
     <ClInclude Include="vendor\imgui\examples\libs\usynergy\uSynergy.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="resource1.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="vendor\imgui\backends\imgui_impl_metal.mm" />
@@ -102,16 +105,16 @@
     <Image Include="icon1.ico">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="assets\images.ico">
+    <Image Include="assets\icon\images.ico">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="Resource.rc">
-      <Filter>Resource Files</Filter>
-    </ResourceCompile>
+    <Library Include="vendor\imgui\examples\libs\glfw\lib-vc2010-64\glfw3.lib" />
   </ItemGroup>
   <ItemGroup>
-    <Library Include="vendor\imgui\examples\libs\glfw\lib-vc2010-64\glfw3.lib" />
+    <ResourceCompile Include="MyAppImGUI.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
   </ItemGroup>
 </Project>

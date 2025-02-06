@@ -20,9 +20,10 @@
 #include <vector>
 #include <locale>
 #include <cstring>
-// #include "resource.h"
+//Header to load icon
 
-#define MAX_LENGTH_MULTILINE 2048 * 150
+
+#define MAX_LENGTH_MULTILINE 2048 * 30
 #define MAX_LENGTH_PATH 256
 #define MULTILINE_SIZE 48
 
@@ -73,7 +74,7 @@ void ToggleFullscreen()
 
 
 
-void SaveFileDialog(HWND hwnd, const std::vector<std::string> tabContents, int selectedTab)
+void SaveFileDialog(HWND hwnd, std::string &CurrentTabInfo)
 {
     OPENFILENAME ofn;
     TCHAR szFile[MAX_PATH] = _T(""); // Buffer to store the selected file name
@@ -81,7 +82,7 @@ void SaveFileDialog(HWND hwnd, const std::vector<std::string> tabContents, int s
     ZeroMemory(&ofn, sizeof(ofn));
     ofn.lStructSize = sizeof(ofn);
     ofn.hwndOwner = hwnd;
-    ofn.lpstrFilter = _T("Text Files (*.txt)\0*.txt\0");
+    ofn.lpstrFilter = _T("Text Files (*.txt)\0*.txt\0Binary Files (*.bin)\0*.bin\0All Files (*.*)\0*.*\0");
     ofn.lpstrFile = szFile;
     ofn.nMaxFile = MAX_PATH;
     ofn.Flags = OFN_OVERWRITEPROMPT | OFN_PATHMUSTEXIST;
@@ -93,16 +94,12 @@ void SaveFileDialog(HWND hwnd, const std::vector<std::string> tabContents, int s
 
         if (isBinary)
         {
-            // Save in binary format
-            std::ofstream outFile(szFile, std::ios::binary);
+            std::ofstream outFile(szFile, std::ios::out | std::ios::binary);
             if (outFile)
-            {
-                size_t size = tabContents.size();
-                outFile.write(reinterpret_cast<const char*>(&size), sizeof(size));
-                for (const auto& content : tabContents)
-                {
-                    outFile.write(content.data(), content.size());
-                }
+            {   
+                size_t length = CurrentTabInfo.length();
+				//outFile.write(reinterpret_cast<char*>(&length), sizeof(length));
+                outFile.write(reinterpret_cast<const char*>(CurrentTabInfo.c_str()), length);
                 outFile.close();
             }
         }
@@ -112,7 +109,7 @@ void SaveFileDialog(HWND hwnd, const std::vector<std::string> tabContents, int s
             std::ofstream outFile(szFile);
             if (outFile)
             {
-                for (const auto& content : tabContents)
+                for (const auto& content : CurrentTabInfo)
                 {
                     outFile << content << std::endl;
                 }
@@ -120,42 +117,64 @@ void SaveFileDialog(HWND hwnd, const std::vector<std::string> tabContents, int s
             }
         }
     }
-    MessageBox(hwnd, szFile, _T("File Saved"), MB_OK);
+    //Fix to show message
+    if (szFile)
+    {
+        MessageBox(hwnd, szFile, _T("File Saved"), MB_OK);
+    }
+   
 }
 
 
  
-// Функція для показу діалогового вікна відкриття файлу
-void ShowOpenFileDialog(HWND hwnd, std::vector<std::string>& tabContents, int selectedTab) noexcept {
-    OPENFILENAME ofn;               
+void ShowOpenFileDialog(HWND hwnd, std::string& tabContents)
+{
+    OPENFILENAME ofn;                // Structure for the file dialog
     TCHAR szFile[MAX_PATH] = _T(""); // Buffer to store the selected file name
 
     ZeroMemory(&ofn, sizeof(ofn));
     ofn.lStructSize = sizeof(ofn);
     ofn.hwndOwner = hwnd;
-    ofn.lpstrFilter = L"Text Files (*.txt)\0*.txt\0";
+    ofn.lpstrFilter = _T("Text Files (*.txt)\0*.txt\0Binary Files (*.bin)\0*.bin\0All Files (*.*)\0*.*\0");
     ofn.lpstrFile = szFile;
     ofn.nMaxFile = MAX_PATH;
     ofn.Flags = OFN_PATHMUSTEXIST | OFN_FILEMUSTEXIST;
-    ofn.lpstrDefExt = L"txt"; 
+    ofn.lpstrDefExt = _T("txt"); // Default extension is .txt
 
-    if (GetOpenFileName(&ofn)) {
-        std::cout << "File selected: " << szFile << std::endl;
-       
-            std::ifstream inFile(szFile);
-            if (inFile.is_open()) {
-                tabContents[selectedTab].clear(); // Очистити поточний вміст
-                std::string line;
-                while (std::getline(inFile, line)) {
-                    tabContents[selectedTab] += line + "\n"; // Додати кожен рядок з новим рядком
-                }
+    if (GetOpenFileName(&ofn))
+    {
+        bool isBinary = (_tcsstr(szFile, _T(".bin")) != NULL);
+
+        if (isBinary)
+        {
+            // Open and read binary file
+            std::ifstream inFile(szFile, std::ios::in | std::ios::binary);
+            if (inFile)
+            {             
+                inFile.read(reinterpret_cast<char*>(tabContents.data()), tabContents.size());
                 inFile.close();
             }
-            else {
-                std::cerr << "Failed to open text file." << std::endl;
+        }
+        else
+        {
+            // Open and read text file
+            std::ifstream inFile(szFile);
+            if (inFile)
+            {
+                std::string line;
+				while (std::getline(inFile, line))
+				{
+					tabContents += line + "\n";
+				}
+                inFile.close();
             }
+        }
     }
-    MessageBox(hwnd, szFile, _T("File Opened"), MB_OK);
+
+    if (szFile)
+    {
+        MessageBox(hwnd, szFile, _T("File opened"), MB_OK);
+    }
 }
 
 // Global variables for device and context (assuming they are defined somewhere)
@@ -278,7 +297,7 @@ void ShowFontWindow(char* path, bool& show_font_window, float& font_size)
     }
 }
 
-void AboutWindow(bool& show_demo_window, ImGuiIO& io)
+void AboutWindow(bool& show_demo_window, const ImGuiIO& io)
 {
     if (ImGui::Begin("##About", &show_demo_window))
     {
@@ -320,8 +339,6 @@ int main(void)
     // Show the window
     ::ShowWindow(hwnd, SW_SHOWDEFAULT);
     ::UpdateWindow(hwnd);
-    // hide console window
-    // ShowWindow(GetConsoleWindow(), SW_HIDE);
 
     // Setup Dear ImGui context
     IMGUI_CHECKVERSION();
@@ -330,7 +347,7 @@ int main(void)
     (void)io;
     io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard; // Enable Keyboard Controls
     //set font by default
-    io.Fonts->AddFontFromFileTTF("C:\\Windows\\Fonts\\Comic Sans MS.ttf", 20, NULL, io.Fonts->GetGlyphRangesCyrillic());
+    io.Fonts->AddFontFromFileTTF("C:\\Windows\\Fonts\\Arial.ttf", 20, NULL, io.Fonts->GetGlyphRangesCyrillic());
 
     // Setup Platform/Renderer backends
     ImGui_ImplWin32_Init(hwnd);
@@ -348,18 +365,18 @@ int main(void)
     static int selectedTab = 0; // Keeps track of which tab is currently selected
     // TabTitle
     static std::vector<std::string> tabTitles = { "Page 1" };
+    static std::string currentTabInfo;
     // Buffers
     static char pathFont[MAX_LENGTH_PATH];
 
     // get screen width and height
     float x = GetSystemMetrics(SM_CXSCREEN);
     float y = GetSystemMetrics(SM_CYSCREEN);
-
     // Main loop
     bool done = false;
     while (!done)
     {
-        static std::vector<std::string> tabContents = { u8"" };
+        static std::vector<std::string> tabContents = {u8""};
         // Poll and handle messages (inputs, window resize, etc.)
         MSG msg;
         while (::PeekMessage(&msg, nullptr, 0U, 0U, PM_REMOVE))
@@ -400,50 +417,133 @@ int main(void)
         ImVec4 clear_color = ImVec4(0.45f, 0.60f, 0.60f, 1.00f);
         static bool theme_change = false; // Change clear color to make it more visible
 
-      
+        
+
         // Main window
-        ImGui::SetNextWindowSize(ImVec2(x, y));
-        ImGui::Begin("##Window Name", nullptr, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse);
+        ImGui::SetNextWindowSize(ImVec2(x, y) , ImGuiCond_FirstUseEver);
+        if (ImGui::Begin("##Window Name", nullptr, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize)) {
 
-        if (ImGui::Button("Add page"))
-        {
-            // Add a new tab with default content
-            tabTitles.push_back("Page" + std::to_string(tabTitles.size() + 1));
-            tabContents.push_back("" + std::to_string(tabTitles.size()));
-            selectedTab = int(tabTitles.size()) - 1; // Select the new tab
-            if (selectedTab >= 30)
+            if (ImGui::Button("Add page"))
             {
-                tabTitles.erase(tabTitles.begin() + 30, tabTitles.end());
-                tabContents.erase(tabContents.begin() + 30, tabContents.end());
+                // Add a new tab with default content
+                tabTitles.push_back("Page" + std::to_string(tabTitles.size() + 1));
+                tabContents.push_back(std::to_string(tabTitles.size()));
+                selectedTab = int(tabTitles.size()) - 1; // Select the new tab
+                if (selectedTab >= 30)
+                {
+                    tabTitles.erase(tabTitles.begin() + 30, tabTitles.end());
+                    tabContents.erase(tabContents.begin() + 30, tabContents.end());
+                }
+            }
+
+            ImGui::SameLine();
+            ImGui::BeginTabBar("MyTabBar");
+
+            for (size_t i = 0; i < tabTitles.size(); ++i)
+            {
+                if (ImGui::BeginTabItem(tabTitles[i].c_str()))
+                {
+                    selectedTab = i;
+                    ImGui::Text("Content for %s", tabTitles[i].c_str());
+
+
+                    size_t current_size = tabContents[i].size();
+                    size_t required_size = current_size + 128; // Increase dynamically by chunks (e.g., 256 characters)
+
+                    if (tabContents[i].capacity() < required_size) {
+                        tabContents[i].resize(required_size, '\0');
+                    }
+                    currentTabInfo = tabContents[selectedTab];
+                    
+                    ImGui::InputTextMultiline("##InputText", &tabContents[i][0], MAX_LENGTH_MULTILINE, ImVec2(-FLT_MIN, ImGui::GetTextLineHeight()* MULTILINE_SIZE), flags);
+                   
+                    ImGui::EndTabItem();
+   
+                }
+            }
+
+            if (ImGui::RadioButton("Read Only", &read_only))
+            {
+                read_only = !read_only;
+                if (read_only)
+                    flags |= ImGuiInputTextFlags_ReadOnly;
+                else
+                    flags &= ~ImGuiInputTextFlags_ReadOnly;
+            }
+
+            ImGui::EndTabBar();
+            ImGui::End();
+
+            
+
+            // ImGui::End();
+
+            // keyboard shortcuts
+
+            if (ImGui::IsKeyDown(ImGuiKey_LeftCtrl) && ImGui::IsKeyPressed(ImGuiKey_M))
+            {
+                read_only = !read_only;
+                if (read_only)
+                    flags |= ImGuiInputTextFlags_ReadOnly;
+                else
+                    flags &= ~ImGuiInputTextFlags_ReadOnly;
+            }
+            if (ImGui::IsKeyPressed(ImGuiKey_LeftAlt))
+            {
+                ::PostQuitMessage(0);
+            }
+            if (ImGui::IsKeyPressed(ImGuiKey_F5))
+            {
+                ToggleFullscreen();
+            }
+            if (ImGui::IsKeyPressed(ImGuiKey_LeftCtrl) && ImGui::IsKeyPressed(ImGuiKey_S))
+            {
+               SaveFileDialog(hwnd, currentTabInfo);
+            }
+            if (ImGui::IsKeyPressed(ImGuiKey_LeftCtrl) && ImGui::IsKeyPressed(ImGuiKey_R))
+            {
+                theme_change = !theme_change;
+                if (theme_change)
+                    ImGui::StyleColorsLight();
+                else
+                    ImGui::StyleColorsDark();
+            }
+            if (ImGui::IsKeyPressed(ImGuiKey_Delete))
+            {
+                if (selectedTab >= 0 && selectedTab < tabTitles.size()) // Ensure selectedTab is within valid range
+                {
+                    tabTitles.erase(tabTitles.begin() + selectedTab);
+                    tabContents.erase(tabContents.begin() + selectedTab);
+
+                    // Optionally, update the selectedTab index to a valid one after deletion
+                    if (selectedTab >= tabTitles.size())
+                    {
+                        selectedTab = static_cast<int>(tabTitles.size() - 1); // Move to the last tab if the deleted tab was the last one
+                    }
+                }
+            }
+            if (ImGui::IsKeyPressed(ImGuiKey_F5))
+            {
+                ToggleFullscreen();
+            }
+            // 3. Show another simple window.
+            if (show_another_window)
+            {
+                ImGui::Begin("Another Window", &show_another_window); // Pass a pointer to our bool variable (the window will have a closing button that will clear the bool when clicked)
+                ImGui::Text("Hello from another window!");
+                if (ImGui::Button("Close Me"))
+                    show_another_window = false;
+                ImGui::End();
+            }
+            if (show_demo_window)
+            {
+                AboutWindow(show_demo_window, io);
+            }
+            if (show_font_window)
+            {
+                ShowFontWindow(pathFont, show_font_window, font_size);
             }
         }
-
-        ImGui::SameLine();
-        ImGui::BeginTabBar("MyTabBar");
-
-        for (size_t i = 0; i < tabTitles.size(); ++i)
-        {
-            if (ImGui::BeginTabItem(tabTitles[i].c_str()))
-            {
-                selectedTab = i;
-                ImGui::Text("Content for %s", tabTitles[i].c_str());
-                ImGui::InputTextMultiline("##InputText", tabContents[i].data(), MAX_LENGTH_MULTILINE, ImVec2(-FLT_MIN, ImGui::GetTextLineHeight() * MULTILINE_SIZE), flags);
-                ImGui::EndTabItem();
-                tabContents[i] = std::string(tabContents[i].data());
-            }
-        }
-
-        if (ImGui::RadioButton("Read Only", &read_only))
-        {
-            read_only = !read_only;
-            if (read_only)
-                flags |= ImGuiInputTextFlags_ReadOnly;
-            else
-                flags &= ~ImGuiInputTextFlags_ReadOnly;
-        }
-
-        ImGui::EndTabBar();
-        ImGui::End();
 
         // menu
         if (ImGui::BeginMainMenuBar())
@@ -460,13 +560,13 @@ int main(void)
                 ImGui::Separator();
                 if (ImGui::MenuItem("Save file dialog", "Ctrl+S"))
                 {
-                  
-                    SaveFileDialog(hwnd, tabContents , selectedTab);
+                    SaveFileDialog(hwnd, currentTabInfo);
                 }
                 ImGui::Separator();
                 if (ImGui::MenuItem("Open file dialog", "Ctrl+O"))
                 {
-                    ShowOpenFileDialog(hwnd, tabContents, selectedTab);
+                    ShowOpenFileDialog(hwnd, currentTabInfo);
+                    tabContents[selectedTab] = currentTabInfo;
                 }
 
                 ImGui::Separator();
@@ -531,77 +631,9 @@ int main(void)
             ImGui::EndMainMenuBar();
         }
 
-        // ImGui::End();
-
-        // keyboard shortcuts
-
-        if (ImGui::IsKeyDown(ImGuiKey_LeftCtrl) && ImGui::IsKeyPressed(ImGuiKey_M))
-        {
-            read_only = !read_only;
-            if (read_only)
-                flags |= ImGuiInputTextFlags_ReadOnly;
-            else
-                flags &= ~ImGuiInputTextFlags_ReadOnly;
-        }
-        if (ImGui::IsKeyPressed(ImGuiKey_LeftAlt))
-        {
-            ::PostQuitMessage(0);
-        }
-        if (ImGui::IsKeyPressed(ImGuiKey_F5))
-        {
-            ToggleFullscreen();
-        }
-        if (ImGui::IsKeyPressed(ImGuiKey_LeftCtrl) && ImGui::IsKeyPressed(ImGuiKey_S))
-        {
-            SaveFileDialog(hwnd, tabContents, selectedTab);
-        }
-        if (ImGui::IsKeyPressed(ImGuiKey_LeftCtrl) && ImGui::IsKeyPressed(ImGuiKey_R))
-        {
-            theme_change = !theme_change;
-            if (theme_change)
-                ImGui::StyleColorsLight();
-            else
-                ImGui::StyleColorsDark();
-        }
-        if (ImGui::IsKeyPressed(ImGuiKey_Delete))
-        {
-            if (selectedTab >= 0 && selectedTab < tabTitles.size()) // Ensure selectedTab is within valid range
-            {
-                tabTitles.erase(tabTitles.begin() + selectedTab);
-                tabContents.erase(tabContents.begin() + selectedTab);
-
-                // Optionally, update the selectedTab index to a valid one after deletion
-                if (selectedTab >= tabTitles.size())
-                {
-                    selectedTab = static_cast<int>(tabTitles.size() - 1); // Move to the last tab if the deleted tab was the last one
-                }
-            }
-        }
-        if (ImGui::IsKeyPressed(ImGuiKey_F5))
-        {
-            ToggleFullscreen();
-        }
-        // 3. Show another simple window.
-        if (show_another_window)
-        {
-            ImGui::Begin("Another Window", &show_another_window); // Pass a pointer to our bool variable (the window will have a closing button that will clear the bool when clicked)
-            ImGui::Text("Hello from another window!");
-            if (ImGui::Button("Close Me"))
-                show_another_window = false;
-            ImGui::End();
-        }
-        if (show_demo_window)
-        {
-            AboutWindow(show_demo_window, io);
-        }
-        if (show_font_window)
-        {
-            ShowFontWindow(pathFont, show_font_window, font_size);
-        }
-
         // Rendering
         ImGui::Render();
-        const float clear_color_with_alpha[4] = { clear_color.x * clear_color.w, clear_color.y * clear_color.w, clear_color.z * clear_color.w, clear_color.w };
+        const float clear_color_with_alpha[4] = { 0.0f , 0.0f , 0.0f , 0.0f };
         g_pd3dDeviceContext->OMSetRenderTargets(1, &g_mainRenderTargetView, nullptr);
         g_pd3dDeviceContext->ClearRenderTargetView(g_mainRenderTargetView, clear_color_with_alpha);
         ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
@@ -660,6 +692,9 @@ bool CreateDeviceD3D(HWND hWnd)
     CreateRenderTarget();
     return true;
 }
+
+// Helper functions
+
 
 void CleanupDeviceD3D()
 {
