@@ -152,6 +152,7 @@
     </ResourceCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\FileDialog.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="vendor\imgui\backends\imgui_impl_dx11.cpp" />
     <ClCompile Include="vendor\imgui\backends\imgui_impl_win32.cpp" />
@@ -164,8 +165,7 @@
     <ClCompile Include="vendor\imgui\misc\cpp\imgui_stdlib.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="resource.h" />
-    <ClInclude Include="resource1.h" />
+    <ClInclude Include="src\FileDialog.h" />
     <ClInclude Include="vendor\imgui\backends\imgui_impl_dx11.h" />
     <ClInclude Include="vendor\imgui\backends\imgui_impl_win32.h" />
     <ClInclude Include="vendor\imgui\examples\libs\emscripten\emscripten_mainloop_stub.h" />
@@ -192,9 +192,6 @@
   </ItemGroup>
   <ItemGroup>
     <Library Include="vendor\imgui\examples\libs\glfw\lib-vc2010-64\glfw3.lib" />
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="MyAppImGUI.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

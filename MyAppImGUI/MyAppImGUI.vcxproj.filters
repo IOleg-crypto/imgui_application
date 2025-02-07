@@ -45,6 +45,9 @@
     <ClCompile Include="vendor\imgui\examples\libs\usynergy\uSynergy.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\FileDialog.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="vendor\imgui\imgui.h">
@@ -89,10 +92,7 @@
     <ClInclude Include="vendor\imgui\examples\libs\usynergy\uSynergy.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="resource.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="resource1.h">
+    <ClInclude Include="src\FileDialog.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -111,10 +111,5 @@
   </ItemGroup>
   <ItemGroup>
     <Library Include="vendor\imgui\examples\libs\glfw\lib-vc2010-64\glfw3.lib" />
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="MyAppImGUI.rc">
-      <Filter>Resource Files</Filter>
-    </ResourceCompile>
   </ItemGroup>
 </Project>
