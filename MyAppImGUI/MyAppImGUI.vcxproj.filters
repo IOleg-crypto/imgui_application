@@ -45,9 +45,6 @@
     <ClCompile Include="vendor\imgui\examples\libs\usynergy\uSynergy.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\FileDialog.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="vendor\imgui\imgui.h">
@@ -90,9 +87,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="vendor\imgui\examples\libs\usynergy\uSynergy.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\FileDialog.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
