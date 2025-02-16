@@ -152,7 +152,7 @@
     </ResourceCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\Notepad.cpp" />
     <ClCompile Include="vendor\imgui\backends\imgui_impl_dx11.cpp" />
     <ClCompile Include="vendor\imgui\backends\imgui_impl_win32.cpp" />
     <ClCompile Include="vendor\imgui\examples\libs\usynergy\uSynergy.c" />
@@ -164,6 +164,8 @@
     <ClCompile Include="vendor\imgui\misc\cpp\imgui_stdlib.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\FileDialog\FileDialog.h" />
+    <ClInclude Include="src\FileDialog\Font.h" />
     <ClInclude Include="vendor\imgui\backends\imgui_impl_dx11.h" />
     <ClInclude Include="vendor\imgui\backends\imgui_impl_win32.h" />
     <ClInclude Include="vendor\imgui\examples\libs\emscripten\emscripten_mainloop_stub.h" />
