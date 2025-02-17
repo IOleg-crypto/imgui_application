@@ -104,9 +104,13 @@ void ShowOpenFileDialog(HWND hwnd, std::string& tabContents)
                 tabContents.resize(fileSize); // Resize string buffer
                 if (fileSize > 0)
                 {
-                    std::cout << "Reading file binary";
+#if _DEBUG
+                    std::cout << "Reading file binary"; // Just for debugging
+#endif
                     inFile.read(&tabContents[0], fileSize);
+#if _DEBUG
                     std::cout << "TabContents : " << tabContents << std::endl;
+#endif
                 }
                 inFile.close();
             }

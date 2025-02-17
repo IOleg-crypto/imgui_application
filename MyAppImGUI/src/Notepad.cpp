@@ -139,7 +139,7 @@ int main(void)
     (void)io;
     io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard; // Enable Keyboard Controls
     // set font by default
-    char path[] = "C:\\Windows\\Fonts\\Arial.ttf";
+    char path[] = "D:\\IntelliJ IDEA Community Edition 2024.3.1.1\\jbr\\lib\\fonts\\Roboto-Light.ttf";
     io.Fonts->AddFontFromFileTTF(path, 20, nullptr, io.Fonts->GetGlyphRangesCyrillic());
 
     // Setup Platform/Renderer backends
