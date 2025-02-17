@@ -108,7 +108,7 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;CHECK_MEMORYALLOC;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <AdditionalIncludeDirectories>$(ProjectDir)/imgui</AdditionalIncludeDirectories>
@@ -136,6 +136,7 @@
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <AdditionalIncludeDirectories>$(ProjectDir)/vendor</AdditionalIncludeDirectories>
+      <Optimization>Full</Optimization>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -164,8 +165,10 @@
     <ClCompile Include="vendor\imgui\misc\cpp\imgui_stdlib.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="resource.h" />
     <ClInclude Include="src\FileDialog\FileDialog.h" />
     <ClInclude Include="src\FileDialog\Font.h" />
+    <ClInclude Include="src\Memory.h" />
     <ClInclude Include="vendor\imgui\backends\imgui_impl_dx11.h" />
     <ClInclude Include="vendor\imgui\backends\imgui_impl_win32.h" />
     <ClInclude Include="vendor\imgui\examples\libs\emscripten\emscripten_mainloop_stub.h" />
@@ -187,11 +190,15 @@
     <None Include="vendor\imgui\examples\libs\emscripten\shell_minimal.html" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="assets\icon\icon.ico" />
     <Image Include="assets\icon\images.ico" />
     <Image Include="icon1.ico" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="vendor\imgui\examples\libs\glfw\lib-vc2010-64\glfw3.lib" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="MyAppImGUI.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

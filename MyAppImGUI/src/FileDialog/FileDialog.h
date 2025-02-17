@@ -1,4 +1,5 @@
-#pragma once
+#ifndef FILEDIALOG_H
+#define FILEDIALOG_H
 
 #include "imgui.h"
 #include "imgui_impl_dx11.h"
@@ -23,7 +24,7 @@ static HWND hwnd = nullptr;     // Global variable for window handle
 static bool fullscreen = false; // Toggle for fullscreen mode
 
 
-void SaveFileDialog(HWND hwnd, std::string& CurrentTabInfo)
+void SaveFileDialog(HWND hwnd, const std::string& CurrentTabInfo)
 {
     OPENFILENAME ofn;
     TCHAR szFile[MAX_PATH] = _T(""); // Buffer to store the selected file name
@@ -43,11 +44,12 @@ void SaveFileDialog(HWND hwnd, std::string& CurrentTabInfo)
 
         if (isBinary)
         {
-            std::ofstream outFile(szFile, std::ios::out | std::ios::binary);
+            std::ofstream outFile(szFile, std::ios::out | std::ios::binary | std::ios::trunc);
             if (outFile)
             {
                 size_t length = CurrentTabInfo.length();
-                outFile.write(reinterpret_cast<const char*>(CurrentTabInfo.c_str()), length);
+                //outFile.write(reinterpret_cast<const char*>(&length), sizeof(size_t));
+                outFile.write(CurrentTabInfo.c_str(), length);
                 outFile.close();
             }
         }
@@ -93,10 +95,19 @@ void ShowOpenFileDialog(HWND hwnd, std::string& tabContents)
         if (isBinary)
         {
             // Open and read binary file
-            std::ifstream inFile(szFile, std::ios::in | std::ios::binary);
+            std::ifstream inFile(szFile, std::ios::binary | std::ios::ate);
             if (inFile)
             {
-                inFile.read(reinterpret_cast<char*>(tabContents.data()), tabContents.size());
+                size_t fileSize = inFile.tellg();
+                inFile.seekg(0, std::ios::beg);
+
+                tabContents.resize(fileSize); // Resize string buffer
+                if (fileSize > 0)
+                {
+                    std::cout << "Reading file binary";
+                    inFile.read(&tabContents[0], fileSize);
+                    std::cout << "TabContents : " << tabContents << std::endl;
+                }
                 inFile.close();
             }
         }
@@ -116,8 +127,10 @@ void ShowOpenFileDialog(HWND hwnd, std::string& tabContents)
         }
     }
 
-    if (szFile != NULL)
+    if (szFile[0]!='\0')
     {
         MessageBox(hwnd, szFile, _T("File opened"), MB_OK);
     }
 }
+
+#endif

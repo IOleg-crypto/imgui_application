@@ -95,6 +95,12 @@
     <ClInclude Include="src\FileDialog\Font.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\Memory.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="vendor\imgui\backends\imgui_impl_metal.mm" />
@@ -108,8 +114,16 @@
     <Image Include="assets\icon\images.ico">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="assets\icon\icon.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <Library Include="vendor\imgui\examples\libs\glfw\lib-vc2010-64\glfw3.lib" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="MyAppImGUI.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
   </ItemGroup>
 </Project>

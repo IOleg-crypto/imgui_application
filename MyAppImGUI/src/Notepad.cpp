@@ -25,6 +25,15 @@
 #include "FileDialog/FileDialog.h"
 #include "FileDialog/Font.h"
 
+// To add custom icon
+
+#include "resource.h"
+
+
+#if CHECK_MEMORYALLOC
+#include "Memory.h"
+#endif
+
 #define MAX_LENGTH_MULTILINE 2048 * 25
 #define MAX_LENGTH_PATH 256
 #define MULTILINE_SIZE 32
@@ -101,12 +110,12 @@ int main(void)
         0,                                                         // cbClsExtra
         0,                                                         // cbWndExtra
         GetModuleHandle(nullptr),                                  // hInstance
-        LoadIcon(GetModuleHandle(nullptr), MAKEINTRESOURCE(NULL)), // hIcon
+        LoadIcon(wc.hInstance, MAKEINTRESOURCE(IDI_ICON1)), // hIcon
         LoadCursor(nullptr, IDC_ARROW),                            // hCursor
         (HBRUSH)(COLOR_WINDOW + 1),                                // hbrBackground
         nullptr,                                                   // lpszMenuName
         L"Notepad",                                                // lpszClassName
-        LoadIcon(GetModuleHandle(nullptr), MAKEINTRESOURCE(NULL))  // hIconSm
+        LoadIcon(wc.hInstance, MAKEINTRESOURCE(IDI_ICON1))  // hIconSm
     };
     ::RegisterClassExW(&wc);
     hwnd = ::CreateWindowW(wc.lpszClassName, L"Notepad", WS_OVERLAPPEDWINDOW, 100, 100, 1280, 800, nullptr, nullptr, wc.hInstance, nullptr);
@@ -228,13 +237,15 @@ int main(void)
                     ImGui::Text("Content for %s", tabTitles[i].c_str());
 
                     size_t current_size = tabContents[i].size();
-                    size_t required_size = current_size + 16; // Increase dynamically by chunks (e.g., 256 characters)
+                    size_t required_size = current_size + 256; // Increase dynamically by chunks (e.g., 256 characters)
 
                     if (tabContents[i].capacity() < required_size)
                     {
                         tabContents[i].resize(required_size, '\0');
                     }
                     currentTabInfo = tabContents[i];
+
+                    ImGui::TextUnformatted(tabContents[selectedTab].c_str());
 
                     ImGui::InputTextMultiline("##InputText", &tabContents[i][0], MAX_LENGTH_MULTILINE, ImVec2(-FLT_MIN, ImGui::GetTextLineHeight() * MULTILINE_SIZE), flags);
 
@@ -298,7 +309,7 @@ int main(void)
                 if (ImGui::MenuItem("Open file dialog", "Ctrl+O"))
                 {
                     ShowOpenFileDialog(hwnd, currentTabInfo);
-                    tabContents[selectedTab] = currentTabInfo;
+                    tabContents[selectedTab] = std::string(currentTabInfo);
                 }
 
                 ImGui::Separator();
