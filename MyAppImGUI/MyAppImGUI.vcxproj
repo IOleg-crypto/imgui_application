@@ -153,6 +153,8 @@
     </ResourceCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\FileDialog\FileDialog.cpp" />
+    <ClCompile Include="src\FileDialog\Font.cpp" />
     <ClCompile Include="src\Notepad.cpp" />
     <ClCompile Include="vendor\imgui\backends\imgui_impl_dx11.cpp" />
     <ClCompile Include="vendor\imgui\backends\imgui_impl_win32.cpp" />

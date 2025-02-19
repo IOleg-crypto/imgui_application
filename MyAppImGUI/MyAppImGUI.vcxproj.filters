@@ -45,6 +45,12 @@
     <ClCompile Include="vendor\imgui\examples\libs\usynergy\uSynergy.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\FileDialog\FileDialog.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\FileDialog\Font.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="vendor\imgui\imgui.h">
