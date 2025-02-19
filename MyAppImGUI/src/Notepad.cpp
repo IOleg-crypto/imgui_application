@@ -24,10 +24,10 @@
 #include "FileDialog/FileDialog.h"
 #include "FileDialog/Font.h"
 
+
 // To add custom icon
 
 #include "../resource.h"
-
 
 #if CHECK_MEMORYALLOC
 #include "Memory.h"
@@ -37,7 +37,6 @@
 #define MAX_LENGTH_PATH 256
 #define MULTILINE_SIZE 32
 
-
 // Data
 static ID3D11Device *g_pd3dDevice = nullptr;
 static ID3D11DeviceContext *g_pd3dDeviceContext = nullptr;
@@ -45,9 +44,11 @@ static IDXGISwapChain *g_pSwapChain = nullptr;
 static bool g_SwapChainOccluded = false;
 static UINT g_ResizeWidth = 0, g_ResizeHeight = 0;
 static ID3D11RenderTargetView *g_mainRenderTargetView = nullptr;
-//static HWND hwnd = nullptr;     // Global variable for window handle
-//static bool fullscreen = false; // Toggle for fullscreen mode
-bool always_on_top = false;     // Toggle for always-on-top mode
+// static HWND hwnd = nullptr;     // Global variable for window handle
+// static bool fullscreen = false; // Toggle for fullscreen mode
+bool always_on_top = false; // Toggle for always-on-top mode
+
+LRESULT WINAPI WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
 // Forward declarations of helper functions
 bool CreateDeviceD3D(HWND hWnd);
@@ -55,11 +56,9 @@ void CleanupDeviceD3D();
 void CreateRenderTarget();
 void CleanupRenderTarget();
 
-LRESULT WINAPI WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
-
 void ToggleFullscreen()
 {
-    static WINDOWPLACEMENT prevPlacement = { sizeof(prevPlacement) };
+    static WINDOWPLACEMENT prevPlacement = {sizeof(prevPlacement)};
     static bool wasFullscreen = fullscreen;
 
     if (fullscreen)
@@ -81,7 +80,6 @@ void ToggleFullscreen()
     }
     fullscreen = !fullscreen;
 }
-
 
 // Global variables for device and context (assuming they are defined somewhere)
 extern ID3D11Device *g_pd3dDevice;
@@ -118,9 +116,15 @@ int main(void)
     };
     ::RegisterClassExW(&wc);
     // Old window
-    hwnd = ::CreateWindowW(wc.lpszClassName, L"Notepad", WS_OVERLAPPEDWINDOW, 100, 100, 1280, 800, nullptr, nullptr, wc.hInstance, nullptr);
-    ///hwnd = CreateWindowEx(WS_EX_LAYERED | WS_EX_TOPMOST | WS_EX_NOACTIVATE,_T("Notepad") , NULL, WS_POPUP , 0 , 0 , 1280 , 720 , NULL, NULL, wc.hInstance, NULL);
-    SetLayeredWindowAttributes(hwnd, RGB(0, 0, 0), 0, ULW_COLORKEY);
+    //hwnd = ::CreateWindowW(wc.lpszClassName, L"Notepad", WS_OVERLAPPEDWINDOW, 100, 100, 1280, 800, nullptr, nullptr, wc.hInstance, nullptr);
+    hwnd = CreateWindowExW(
+        WS_EX_LAYERED | WS_EX_TOPMOST, // Transparent Layered Window
+        wc.lpszClassName, L"Notepad",
+        WS_POPUP, // Removes the title bar and border
+        100, 100, 1280, 800,
+        nullptr, nullptr, wc.hInstance, nullptr);
+    /// hwnd = CreateWindowEx(WS_EX_LAYERED | WS_EX_TOPMOST | WS_EX_NOACTIVATE,_T("Notepad") , NULL, WS_POPUP , 0 , 0 , 1280 , 720 , NULL, NULL, wc.hInstance, NULL);
+    SetLayeredWindowAttributes(hwnd, 0, 255, LWA_ALPHA);
     // Initialize Direct3D
     if (!CreateDeviceD3D(hwnd))
     {
@@ -130,8 +134,8 @@ int main(void)
     }
 
     // Show the window
-    ::ShowWindow(hwnd, SW_SHOWDEFAULT);
-    ::UpdateWindow(hwnd);
+    ShowWindow(hwnd, SW_SHOW);
+    UpdateWindow(hwnd);
 
     // Setup Dear ImGui context
     IMGUI_CHECKVERSION();
@@ -139,6 +143,7 @@ int main(void)
     ImGuiIO &io = ImGui::GetIO();
     (void)io;
     io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard; // Enable Keyboard Controls
+    io.WantCaptureMouse = true;
     // set font by default
     char path[] = "C:\\Windows\\Fonts\\Arial.ttf";
     io.Fonts->AddFontFromFileTTF(path, 20, nullptr, io.Fonts->GetGlyphRangesCyrillic());
@@ -161,19 +166,16 @@ int main(void)
     static std::vector<std::string> tabTitles = {"Page 1"};
     static std::string currentTabInfo;
 
-    //Resize
+    // Resize
     static std::vector<std::string> tabContents = {u8""};
 
-    // get screen width and height
-    float x = GetSystemMetrics(SM_CXSCREEN);
-    float y = GetSystemMetrics(SM_CYSCREEN);
     // Main loop
     bool done = false;
     while (!done)
     {
         // Poll and handle messages (inputs, window resize, etc.)
         MSG msg;
-        while (::PeekMessage(&msg, nullptr, 0U, 0U, PM_REMOVE))
+        while (PeekMessage(&msg, nullptr, 0U, 0U, PM_REMOVE))
         {
             ::TranslateMessage(&msg);
             ::DispatchMessage(&msg);
@@ -211,54 +213,157 @@ int main(void)
         ImVec4 clear_color = ImVec4(0.32f, 0.60f, 0.60f, 1.00f);
         static bool theme_change = false; // Change clear color to make it more visible
 
+        // menu
+        if (ImGui::BeginMainMenuBar())
+        {
+            if (ImGui::BeginMenu("Menu"))
+            {
+                if (ImGui::MenuItem("ReadOnly", "Ctrl+M", &read_only))
+                {
+                    if (read_only)
+                        flags |= ImGuiInputTextFlags_ReadOnly;
+                    else
+                        flags &= ~ImGuiInputTextFlags_ReadOnly;
+                }
+                ImGui::Separator();
+                if (ImGui::MenuItem("Save file dialog", "Ctrl+S"))
+                {
+                    SaveFileDialog(hwnd, currentTabInfo);
+                }
+                ImGui::Separator();
+                if (ImGui::MenuItem("Open file dialog", "Ctrl+O"))
+                {
+                    ShowOpenFileDialog(hwnd, currentTabInfo);
+                    tabContents[selectedTab] = std::string(currentTabInfo);
+                }
 
-        
+                ImGui::Separator();
+                if (ImGui::MenuItem("Remove page", "Delete"))
+                {
+                    if (selectedTab >= 0 && selectedTab < tabTitles.size()) // Ensure selectedTab is within valid range
+                    {
+                        tabTitles.erase(tabTitles.begin() + selectedTab);
+                        tabContents.erase(tabContents.begin() + selectedTab);
+
+                        // Optionally, update the selectedTab index to a valid one after deletion
+                        if (selectedTab >= tabTitles.size())
+                        {
+                            selectedTab = static_cast<int>(tabTitles.size() - 1); // Move to the last tab if the deleted tab was the last one
+                        }
+                    }
+                }
+                ImGui::Separator();
+                if (ImGui::MenuItem("Fullscreen", "F5"))
+                {
+                    ToggleFullscreen();
+                }
+                ImGui::Separator();
+                if (ImGui::MenuItem("Exit", "Alt+F4"))
+                {
+                    ::PostQuitMessage(0);
+                }
+                ImGui::Separator();
+                if (ImGui::MenuItem("Help"))
+                {
+                    show_demo_window = true;
+                }
+                ImGui::Separator();
+                ImGui::EndMenu();
+            }
+
+            if (ImGui::BeginMenu("Font and size"))
+            {
+                if (ImGui::MenuItem("Font"))
+                {
+                    show_font_window = true;
+                }
+                else
+                {
+                    show_font_window = false;
+                }
+                ImGui::EndMenu();
+            }
+            if (ImGui::BeginMenu("Theme"))
+            {
+                if (ImGui::MenuItem("Theme light/dark", "CTRL+R"))
+                {
+                    theme_change = !theme_change;
+                    if (theme_change)
+                        ImGui::StyleColorsLight();
+                    else
+                        ImGui::StyleColorsDark();
+                }
+                ImGui::EndMenu();
+            }
+            ImGui::Separator();
+            ImGui::EndMainMenuBar();
+        }
+
+        // Reserve space below the menu bar
+        ImVec2 windowSize = ImGui::GetWindowSize();
+        float menuBarHeight = ImGui::GetFrameHeight();  // Height of menu bar
+
+        // Adjust position of InputTextMultiline
+        ImGui::SetNextWindowPos(ImVec2(0, menuBarHeight)); // Start below menu bar
+        ImGui::SetNextWindowSize(ImVec2(windowSize.x, windowSize.y - menuBarHeight));
 
         // Main window
-        ImGui::SetNextWindowSize(ImVec2(800, 600), ImGuiCond_FirstUseEver);
-        if (ImGui::Begin("Notepad", nullptr , ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoTitleBar))
+        ImGui::SetNextWindowSize(ImVec2(800, 400), ImGuiCond_FirstUseEver);
+        if (ImGui::Begin("##label", nullptr , ImGuiWindowFlags_NoTitleBar))
         {
-
             if (ImGui::Button("Add page"))
             {
-                // Add a new tab with default content
                 tabTitles.push_back("Page" + std::to_string(tabTitles.size() + 1));
                 tabContents.push_back(std::to_string(tabTitles.size()));
-                selectedTab = int(tabTitles.size()) - 1; // Select the new tab
-                if (selectedTab >= 30)
+                selectedTab = static_cast<int>(tabTitles.size()) - 1;
+
+                if (tabTitles.size() > 30)
                 {
-                    tabTitles.erase(tabTitles.begin() + 30, tabTitles.end());
-                    tabContents.erase(tabContents.begin() + 30, tabContents.end());
+                    tabTitles.resize(30);
+                    tabContents.resize(30);
                 }
             }
 
             ImGui::SameLine();
+            if (ImGui::Button("Exit"))
+            {
+                exit(0);
+            }
+
             ImGui::BeginTabBar("MyTabBar");
 
             for (size_t i = 0; i < tabTitles.size(); ++i)
             {
-                if (ImGui::BeginTabItem(tabTitles[i].c_str()))
+                bool open = true;
+                if (ImGui::BeginTabItem(tabTitles[i].c_str(), &open))
                 {
-                    selectedTab = i;
+                    selectedTab = static_cast<int>(i);
                     ImGui::Text("Content for %s", tabTitles[i].c_str());
 
-                    size_t current_size = tabContents[i].size();
-                    size_t required_size = current_size + 32; // Increase dynamically by chunks (e.g., 256 characters)
-
+                    size_t required_size = tabContents[i].size() + 32;
                     if (tabContents[i].capacity() < required_size)
                     {
-                        tabContents[i].reserve(required_size);
+                        tabContents[i].reserve(tabContents[i].capacity() * 2);
                     }
 
                     currentTabInfo = tabContents[i];
 
-                    ImVec2 available = ImGui::GetContentRegionAvail(); // Dynamic size of the input box
-     
-                    ImGui::InputTextMultiline("##InputText", tabContents[i].data(), MAX_LENGTH_MULTILINE, available, flags);
+                    ImGui::InputTextMultiline("##InputText", tabContents[i].data(), MAX_LENGTH_MULTILINE,
+                        ImGui::GetContentRegionAvail(), flags);
 
                     ImGui::EndTabItem();
                 }
+
+                // If tab is closed, remove it
+                if (!open && i < tabTitles.size())
+                {
+                    tabTitles.erase(tabTitles.begin() + i);
+                    tabContents.erase(tabContents.begin() + i);
+                    selectedTab = (selectedTab >= tabTitles.size()) ? static_cast<int>(tabTitles.size()) - 1 : selectedTab;
+                }
             }
+
+            
 
             if (ImGui::RadioButton("Read Only", &read_only))
             {
@@ -292,95 +397,7 @@ int main(void)
                 ShowFontWindow(path, show_font_window, font_size);
             }
 
-            if (ImGui::BeginChild("##child", ImVec2(0, 0), true, ImGuiWindowFlags_AlwaysVerticalScrollbar | ImGuiWindowFlags_AlwaysHorizontalScrollbar)) {
-
-                // menu
-                if (ImGui::BeginMainMenuBar())
-                {
-                    if (ImGui::BeginMenu("Menu"))
-                    {
-                        if (ImGui::MenuItem("ReadOnly", "Ctrl+M", &read_only))
-                        {
-                            if (read_only)
-                                flags |= ImGuiInputTextFlags_ReadOnly;
-                            else
-                                flags &= ~ImGuiInputTextFlags_ReadOnly;
-                        }
-                        ImGui::Separator();
-                        if (ImGui::MenuItem("Save file dialog", "Ctrl+S"))
-                        {
-                            SaveFileDialog(hwnd, currentTabInfo);
-                        }
-                        ImGui::Separator();
-                        if (ImGui::MenuItem("Open file dialog", "Ctrl+O"))
-                        {
-                            ShowOpenFileDialog(hwnd, currentTabInfo);
-                            tabContents[selectedTab] = std::string(currentTabInfo);
-                        }
-
-                        ImGui::Separator();
-                        if (ImGui::MenuItem("Remove page", "Delete"))
-                        {
-                            if (selectedTab >= 0 && selectedTab < tabTitles.size()) // Ensure selectedTab is within valid range
-                            {
-                                tabTitles.erase(tabTitles.begin() + selectedTab);
-                                tabContents.erase(tabContents.begin() + selectedTab);
-
-                                // Optionally, update the selectedTab index to a valid one after deletion
-                                if (selectedTab >= tabTitles.size())
-                                {
-                                    selectedTab = static_cast<int>(tabTitles.size() - 1); // Move to the last tab if the deleted tab was the last one
-                                }
-                            }
-                        }
-                        ImGui::Separator();
-                        if (ImGui::MenuItem("Fullscreen", "F5"))
-                        {
-                            ToggleFullscreen();
-                        }
-                        ImGui::Separator();
-                        if (ImGui::MenuItem("Exit", "Alt+F4"))
-                        {
-                            ::PostQuitMessage(0);
-                        }
-                        ImGui::Separator();
-                        if (ImGui::MenuItem("Help"))
-                        {
-                            show_demo_window = true;
-                        }
-                        ImGui::Separator();
-                        ImGui::EndMenu();
-                    }
-
-                    if (ImGui::BeginMenu("Font and size"))
-                    {
-                        if (ImGui::MenuItem("Font"))
-                        {
-                            show_font_window = true;
-                        }
-                        else
-                        {
-                            show_font_window = false;
-                        }
-                        ImGui::EndMenu();
-                    }
-                    if (ImGui::BeginMenu("Theme"))
-                    {
-                        if (ImGui::MenuItem("Theme light/dark", "CTRL+R"))
-                        {
-                            theme_change = !theme_change;
-                            if (theme_change)
-                                ImGui::StyleColorsLight();
-                            else
-                                ImGui::StyleColorsDark();
-                        }
-                        ImGui::EndMenu();
-                    }
-                    ImGui::Separator();
-                    ImGui::EndMainMenuBar();
-                }
-            }
-            ImGui::EndChild();
+            
 
             if (ImGui::IsKeyDown(ImGuiKey_LeftCtrl) && ImGui::IsKeyPressed(ImGuiKey_M))
             {
@@ -427,7 +444,7 @@ int main(void)
 
             // Rendering
             ImGui::Render();
-            const float clear_color_with_alpha[4] = { 0.0f, 0.0f, 0.0f, 0.0f };
+            const float clear_color_with_alpha[4] = {0.0f, 0.0f, 0.0f, 0.0f};
             g_pd3dDeviceContext->OMSetRenderTargets(1, &g_mainRenderTargetView, nullptr);
             g_pd3dDeviceContext->ClearRenderTargetView(g_mainRenderTargetView, clear_color_with_alpha);
             ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
@@ -444,8 +461,8 @@ int main(void)
     ImGui::DestroyContext();
 
     CleanupDeviceD3D();
-    ::DestroyWindow(hwnd);
-    ::UnregisterClassW(wc.lpszClassName, wc.hInstance);
+    DestroyWindow(hwnd);
+    UnregisterClassW(wc.lpszClassName, wc.hInstance);
 
     return 0;
 }
@@ -512,7 +529,7 @@ void CleanupDeviceD3D()
 
 void CreateRenderTarget()
 {
-    ID3D11Texture2D* pBackBuffer = nullptr;
+    ID3D11Texture2D *pBackBuffer = nullptr;
     g_pSwapChain->GetBuffer(0, IID_PPV_ARGS(&pBackBuffer));
     g_pd3dDevice->CreateRenderTargetView(pBackBuffer, NULL, &g_mainRenderTargetView);
     pBackBuffer->Release();
@@ -547,9 +564,27 @@ LRESULT WINAPI WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
             g_ResizeHeight = (UINT)HIWORD(lParam);
         }
         break;
+
+    case WM_NCHITTEST:
+    {
+        LRESULT hit = DefWindowProc(hwnd, msg, wParam, lParam);
+
+        // Allow window dragging only when ImGui is NOT hovered
+        if (hit == HTCLIENT && !ImGui::IsAnyItemHovered() && !ImGui::IsWindowHovered(ImGuiHoveredFlags_AnyWindow))
+        {
+            return HTCAPTION; // Allow dragging in empty areas
+        }
+
+        return hit;
+    }
+
+    case WM_MOUSEACTIVATE:
+        return MA_ACTIVATE; // Ensures mouse clicks activate the window
+
     case WM_DESTROY:
         ::PostQuitMessage(0);
         return 0;
+
     case WM_HOTKEY:
         if (wParam == VK_F5)
         {

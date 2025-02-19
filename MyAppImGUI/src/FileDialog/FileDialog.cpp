@@ -1,6 +1,6 @@
 #include "FileDialog.h"
 
-void SaveFileDialog(HWND hwnd, const std::string& CurrentTabInfo)
+void SaveFileDialog(HWND hwnd, const std::string &CurrentTabInfo)
 {
     OPENFILENAME ofn;
     TCHAR szFile[MAX_PATH] = _T(""); // Buffer to store the selected file name
@@ -24,7 +24,7 @@ void SaveFileDialog(HWND hwnd, const std::string& CurrentTabInfo)
             if (outFile)
             {
                 size_t length = CurrentTabInfo.length();
-                //outFile.write(reinterpret_cast<const char*>(&length), sizeof(size_t));
+                // outFile.write(reinterpret_cast<const char*>(&length), sizeof(size_t));
                 outFile.write(CurrentTabInfo.c_str(), length);
                 outFile.close();
             }
@@ -35,7 +35,7 @@ void SaveFileDialog(HWND hwnd, const std::string& CurrentTabInfo)
             std::ofstream outFile(szFile);
             if (outFile)
             {
-                for (const auto& content : CurrentTabInfo)
+                for (const auto &content : CurrentTabInfo)
                 {
                     outFile << content << std::endl;
                 }
@@ -44,13 +44,13 @@ void SaveFileDialog(HWND hwnd, const std::string& CurrentTabInfo)
         }
     }
     // Fix to show message
-    if (szFile != NULL)
+    if (szFile[0] != '\0')
     {
         MessageBox(hwnd, szFile, _T("File Saved"), MB_OK);
     }
 }
 
-void ShowOpenFileDialog(HWND hwnd, std::string& tabContents)
+void ShowOpenFileDialog(HWND hwnd, std::string &tabContents)
 {
     OPENFILENAME ofn;                // Structure for the file dialog
     TCHAR szFile[MAX_PATH] = _T(""); // Buffer to store the selected file name
