@@ -216,7 +216,7 @@ int main(void)
 
         // Main window
         ImGui::SetNextWindowSize(ImVec2(800, 600), ImGuiCond_FirstUseEver);
-        if (ImGui::Begin("Notepad", nullptr , ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoTitleBar))
+        if (ImGui::Begin("Notepad", nullptr , ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoTitleBar))
         {
 
             if (ImGui::Button("Add page"))
