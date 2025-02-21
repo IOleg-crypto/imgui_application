@@ -15,9 +15,8 @@ void* operator new(size_t size)
 	return malloc(size);
 }
 
-void operator delete(void* ptr)
-{
-	std::cout << "Freeing memory" << std::endl;
+void operator delete(void* ptr, size_t size) noexcept {
+	std::cout << "Freeing " << size << " bytes\n";
 	free(ptr);
 }
 

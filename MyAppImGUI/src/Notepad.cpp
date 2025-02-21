@@ -19,11 +19,11 @@
 #include <string>
 #include <tchar.h>
 #include <vector>
+#include <algorithm>
 
 // For file dialog
 #include "FileDialog/FileDialog.h"
 #include "FileDialog/Font.h"
-
 
 // To add custom icon
 
@@ -101,22 +101,22 @@ int main(void)
 {
     // Create application window
     WNDCLASSEXW wc = {
-        sizeof(wc),                                                // cbSize
-        CS_HREDRAW | CS_VREDRAW,                                   // style
-        WndProc,                                                   // lpfnWndProc
-        0,                                                         // cbClsExtra
-        0,                                                         // cbWndExtra
-        GetModuleHandle(nullptr),                                  // hInstance
+        sizeof(wc),                                         // cbSize
+        CS_HREDRAW | CS_VREDRAW,                            // style
+        WndProc,                                            // lpfnWndProc
+        0,                                                  // cbClsExtra
+        0,                                                  // cbWndExtra
+        GetModuleHandle(nullptr),                           // hInstance
         LoadIcon(wc.hInstance, MAKEINTRESOURCE(IDI_ICON1)), // hIcon
-        LoadCursor(nullptr, IDC_ARROW),                            // hCursor
-        (HBRUSH)(COLOR_WINDOW + 1),                                // hbrBackground
-        nullptr,                                                   // lpszMenuName
-        L"Notepad",                                                // lpszClassName
+        LoadCursor(nullptr, IDC_ARROW),                     // hCursor
+        (HBRUSH)(COLOR_WINDOW + 1),                         // hbrBackground
+        nullptr,                                            // lpszMenuName
+        L"Notepad",                                         // lpszClassName
         LoadIcon(wc.hInstance, MAKEINTRESOURCE(IDI_ICON1))  // hIconSm
     };
     ::RegisterClassExW(&wc);
     // Old window
-    //hwnd = ::CreateWindowW(wc.lpszClassName, L"Notepad", WS_OVERLAPPEDWINDOW, 100, 100, 1280, 800, nullptr, nullptr, wc.hInstance, nullptr);
+    // hwnd = ::CreateWindowW(wc.lpszClassName, L"Notepad", WS_OVERLAPPEDWINDOW, 100, 100, 1280, 800, nullptr, nullptr, wc.hInstance, nullptr);
     hwnd = CreateWindowExW(
         WS_EX_LAYERED | WS_EX_TOPMOST, // Transparent Layered Window
         wc.lpszClassName, L"Notepad",
@@ -147,7 +147,7 @@ int main(void)
     // set font by default
     char path[] = "C:\\Windows\\Fonts\\Arial.ttf";
     io.Fonts->AddFontFromFileTTF(path, 20, nullptr, io.Fonts->GetGlyphRangesCyrillic());
-
+  
     // Setup Platform/Renderer backends
     ImGui_ImplWin32_Init(hwnd);
     ImGui_ImplDX11_Init(g_pd3dDevice, g_pd3dDeviceContext);
@@ -164,10 +164,10 @@ int main(void)
     static int selectedTab = 0; // Keeps track of which tab is currently selected
     // TabTitle
     static std::vector<std::string> tabTitles = {"Page 1"};
-    static std::string currentTabInfo;
 
     // Resize
     static std::vector<std::string> tabContents = {u8""};
+    std::string currentTabInfo = tabContents[0];
 
     // Main loop
     bool done = false;
@@ -207,38 +207,231 @@ int main(void)
         ImGui_ImplWin32_NewFrame();
         ImGui::NewFrame();
 
+        // For dynamic resize
+        //  get screen width and height
+        float x = GetSystemMetrics(SM_CXSCREEN);
+        float y = GetSystemMetrics(SM_CYSCREEN);
+
         // local variables
         bool show_another_window = false;
         static bool show_demo_window = false;
         ImVec4 clear_color = ImVec4(0.32f, 0.60f, 0.60f, 1.00f);
         static bool theme_change = false; // Change clear color to make it more visible
 
-        // menu
-        if (ImGui::BeginMainMenuBar())
-        {
-            if (ImGui::BeginMenu("Menu"))
+
+            // menu
+            if (ImGui::BeginMainMenuBar())
             {
-                if (ImGui::MenuItem("ReadOnly", "Ctrl+M", &read_only))
+                if (ImGui::BeginMenu("Menu"))
                 {
+                    if (ImGui::MenuItem("ReadOnly", "Ctrl+M", &read_only))
+                    {
+                        if (read_only)
+                            flags |= ImGuiInputTextFlags_ReadOnly;
+                        else
+                            flags &= ~ImGuiInputTextFlags_ReadOnly;
+                    }
+                    ImGui::Separator();
+                    if (ImGui::MenuItem("Save file dialog", "Ctrl+S"))
+                    {
+                        SaveFileDialog(hwnd, currentTabInfo);
+                    }
+                    ImGui::Separator();
+                    if (ImGui::MenuItem("Open file dialog", "Ctrl+O"))
+                    {
+                        ShowOpenFileDialog(hwnd, currentTabInfo);
+                        tabContents[selectedTab] = std::string(currentTabInfo);
+                    }
+
+                    ImGui::Separator();
+                    if (ImGui::MenuItem("Remove page", "Delete"))
+                    {
+                        if (selectedTab >= 0 && selectedTab < tabTitles.size()) // Ensure selectedTab is within valid range
+                        {
+                            tabTitles.erase(tabTitles.begin() + selectedTab);
+                            tabContents.erase(tabContents.begin() + selectedTab);
+
+                            // Optionally, update the selectedTab index to a valid one after deletion
+                            if (selectedTab >= tabTitles.size())
+                            {
+                                selectedTab = static_cast<int>(tabTitles.size() - 1); // Move to the last tab if the deleted tab was the last one
+                            }
+                        }
+                    }
+                    ImGui::Separator();
+                    if (ImGui::MenuItem("Fullscreen", "F5"))
+                    {
+                        ToggleFullscreen();
+                    }
+                    ImGui::Separator();
+                    if (ImGui::MenuItem("Exit", "Alt+F4"))
+                    {
+                        ::PostQuitMessage(0);
+                    }
+                    ImGui::Separator();
+                    if (ImGui::MenuItem("Help"))
+                    {
+                        show_demo_window = true;
+                    }
+                    ImGui::Separator();
+                    ImGui::EndMenu();
+                }
+
+                if (ImGui::BeginMenu("Font and size"))
+                {
+                    if (ImGui::MenuItem("Font"))
+                    {
+                        show_font_window = true;
+                    }
+                    else
+                    {
+                        show_font_window = false;
+                    }
+                    ImGui::EndMenu();
+                }
+                if (ImGui::BeginMenu("Theme"))
+                {
+                    if (ImGui::MenuItem("Theme light/dark", "CTRL+R"))
+                    {
+                        theme_change = !theme_change;
+                        if (theme_change)
+                            ImGui::StyleColorsLight();
+                        else
+                            ImGui::StyleColorsDark();
+                    }
+                    ImGui::EndMenu();
+                }
+                ImGui::Separator();
+                ImGui::EndMainMenuBar();
+            }
+
+            // Reserve space below the menu bar
+            //ImVec2 windowSize = ImGui::GetWindowSize();
+
+            // Main window
+           // ImGui::SetNextWindowSize(ImVec2(800, 400), ImGuiCond_FirstUseEver);
+            if (ImGui::Begin("##label", nullptr, ImGuiWindowFlags_NoTitleBar))
+            {
+                ImGui::BeginChild(("##scrollable_area", ImVec2(0, 100), true, ImGuiWindowFlags_HorizontalScrollbar));
+                if (ImGui::Button("Add page"))
+                {
+                    tabTitles.emplace_back("Page" + std::to_string(tabTitles.size() + 1));
+                    tabContents.emplace_back(std::to_string(tabTitles.size()));
+                    selectedTab = static_cast<int>(tabTitles.size()) - 1;
+
+                    if (tabTitles.size() > 30)
+                    {
+                        tabTitles.resize(30);
+                        tabContents.resize(30);
+                    }
+                }
+
+                ImGui::SameLine();
+                if (ImGui::Button("Exit"))
+                {
+                    exit(0);
+                }
+                ImGui::Separator();
+                ImGui::BeginTabBar("MyTabBar");
+
+                for (int i = 0; i < tabTitles.size(); ++i) // Reverse loop for safer deletion
+                {
+                    bool open = true;
+                    if (ImGui::BeginTabItem(tabTitles[i].c_str(), &open))
+                    {
+                        selectedTab = i;
+                        ImGui::Text("Content for %s", tabTitles[i].c_str());
+
+                        currentTabInfo = tabContents[i];
+
+                        // Optimize string allocation: only reserve when growing significantly
+                        size_t required_size = tabContents[i].size() + 16;
+                        if (tabContents[i].capacity() < required_size)
+                        {
+                            tabContents[i].reserve(max(tabContents[i].capacity() * 2, required_size));
+                        }
+
+                        ImGui::InputTextMultiline("##InputText", tabContents[i].data(), MAX_LENGTH_MULTILINE,
+                            ImVec2(x , y), flags);
+
+                        ImGui::EndTabItem();
+                    }
+
+                    // If tab is closed, remove it (using reverse iteration to avoid shifting)
+                    if (!open)
+                    {
+                        tabTitles.erase(tabTitles.begin() + i);
+                        tabContents.erase(tabContents.begin() + i);
+                        if (selectedTab >= static_cast<int>(tabTitles.size())) {
+                            selectedTab = max(0, static_cast<int>(tabTitles.size()) - 1);
+                        }
+                    }
+                    
+                }
+                ImGui::Separator();
+
+                if (ImGui::RadioButton("Read Only", &read_only))
+                {
+                    read_only = !read_only;
                     if (read_only)
                         flags |= ImGuiInputTextFlags_ReadOnly;
                     else
                         flags &= ~ImGuiInputTextFlags_ReadOnly;
                 }
-                ImGui::Separator();
-                if (ImGui::MenuItem("Save file dialog", "Ctrl+S"))
+
+                ImGui::EndTabBar();
+                ImGui::EndChild();
+                ImGui::End();
+
+                // keyboard shortcuts
+
+                // 3. Show another simple window.
+                if (show_another_window)
+                {
+                    ImGui::Begin("Another Window", &show_another_window); // Pass a pointer to our bool variable (the window will have a closing button that will clear the bool when clicked)
+                    ImGui::Text("Hello from another window!");
+                    if (ImGui::Button("Close Me"))
+                        show_another_window = false;
+                    ImGui::End();
+                }
+                if (show_demo_window)
+                {
+                    AboutWindow(show_demo_window, io);
+                }
+                if (show_font_window)
+                {
+                    ShowFontWindow(path, show_font_window, font_size);
+                }
+
+                if (ImGui::IsKeyDown(ImGuiKey_LeftCtrl) && ImGui::IsKeyPressed(ImGuiKey_M))
+                {
+                    read_only = !read_only;
+                    if (read_only)
+                        flags |= ImGuiInputTextFlags_ReadOnly;
+                    else
+                        flags &= ~ImGuiInputTextFlags_ReadOnly;
+                }
+                if (ImGui::IsKeyPressed(ImGuiKey_LeftAlt))
+                {
+                    ::PostQuitMessage(0);
+                }
+                if (ImGui::IsKeyPressed(ImGuiKey_F5))
+                {
+                    ToggleFullscreen();
+                }
+                if (ImGui::IsKeyPressed(ImGuiKey_LeftCtrl) && ImGui::IsKeyPressed(ImGuiKey_S))
                 {
                     SaveFileDialog(hwnd, currentTabInfo);
                 }
-                ImGui::Separator();
-                if (ImGui::MenuItem("Open file dialog", "Ctrl+O"))
+                if (ImGui::IsKeyPressed(ImGuiKey_LeftCtrl) && ImGui::IsKeyPressed(ImGuiKey_R))
                 {
-                    ShowOpenFileDialog(hwnd, currentTabInfo);
-                    tabContents[selectedTab] = std::string(currentTabInfo);
+                    theme_change = !theme_change;
+                    if (theme_change)
+                        ImGui::StyleColorsLight();
+                    else
+                        ImGui::StyleColorsDark();
                 }
-
-                ImGui::Separator();
-                if (ImGui::MenuItem("Remove page", "Delete"))
+                if (ImGui::IsKeyPressed(ImGuiKey_Delete))
                 {
                     if (selectedTab >= 0 && selectedTab < tabTitles.size()) // Ensure selectedTab is within valid range
                     {
@@ -252,208 +445,19 @@ int main(void)
                         }
                     }
                 }
-                ImGui::Separator();
-                if (ImGui::MenuItem("Fullscreen", "F5"))
-                {
-                    ToggleFullscreen();
-                }
-                ImGui::Separator();
-                if (ImGui::MenuItem("Exit", "Alt+F4"))
-                {
-                    ::PostQuitMessage(0);
-                }
-                ImGui::Separator();
-                if (ImGui::MenuItem("Help"))
-                {
-                    show_demo_window = true;
-                }
-                ImGui::Separator();
-                ImGui::EndMenu();
-            }
 
-            if (ImGui::BeginMenu("Font and size"))
-            {
-                if (ImGui::MenuItem("Font"))
-                {
-                    show_font_window = true;
-                }
-                else
-                {
-                    show_font_window = false;
-                }
-                ImGui::EndMenu();
+                // Rendering
+                ImGui::Render();
+                const float clear_color_with_alpha[4] = { 0.0f, 0.0f, 0.0f, 0.0f };
+                g_pd3dDeviceContext->OMSetRenderTargets(1, &g_mainRenderTargetView, nullptr);
+                g_pd3dDeviceContext->ClearRenderTargetView(g_mainRenderTargetView, clear_color_with_alpha);
+                ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
+
+                // Present
+                HRESULT hr = g_pSwapChain->Present(1, 0); // Present with vsync
+                g_SwapChainOccluded = (hr == DXGI_STATUS_OCCLUDED);
             }
-            if (ImGui::BeginMenu("Theme"))
-            {
-                if (ImGui::MenuItem("Theme light/dark", "CTRL+R"))
-                {
-                    theme_change = !theme_change;
-                    if (theme_change)
-                        ImGui::StyleColorsLight();
-                    else
-                        ImGui::StyleColorsDark();
-                }
-                ImGui::EndMenu();
-            }
-            ImGui::Separator();
-            ImGui::EndMainMenuBar();
         }
-
-        // Reserve space below the menu bar
-        ImVec2 windowSize = ImGui::GetWindowSize();
-        float menuBarHeight = ImGui::GetFrameHeight();  // Height of menu bar
-
-        // Adjust position of InputTextMultiline
-        ImGui::SetNextWindowPos(ImVec2(0, menuBarHeight)); // Start below menu bar
-        ImGui::SetNextWindowSize(ImVec2(windowSize.x, windowSize.y - menuBarHeight));
-
-        // Main window
-        ImGui::SetNextWindowSize(ImVec2(800, 400), ImGuiCond_FirstUseEver);
-        if (ImGui::Begin("##label", nullptr , ImGuiWindowFlags_NoTitleBar))
-        {
-            if (ImGui::Button("Add page"))
-            {
-                tabTitles.push_back("Page" + std::to_string(tabTitles.size() + 1));
-                tabContents.push_back(std::to_string(tabTitles.size()));
-                selectedTab = static_cast<int>(tabTitles.size()) - 1;
-
-                if (tabTitles.size() > 30)
-                {
-                    tabTitles.resize(30);
-                    tabContents.resize(30);
-                }
-            }
-
-            ImGui::SameLine();
-            if (ImGui::Button("Exit"))
-            {
-                exit(0);
-            }
-
-            ImGui::BeginTabBar("MyTabBar");
-
-            for (size_t i = 0; i < tabTitles.size(); ++i)
-            {
-                bool open = true;
-                if (ImGui::BeginTabItem(tabTitles[i].c_str(), &open))
-                {
-                    selectedTab = static_cast<int>(i);
-                    ImGui::Text("Content for %s", tabTitles[i].c_str());
-
-                    size_t required_size = tabContents[i].size() + 32;
-                    if (tabContents[i].capacity() < required_size)
-                    {
-                        tabContents[i].reserve(tabContents[i].capacity() * 2);
-                    }
-
-                    currentTabInfo = tabContents[i];
-
-                    ImGui::InputTextMultiline("##InputText", tabContents[i].data(), MAX_LENGTH_MULTILINE,
-                        ImGui::GetContentRegionAvail(), flags);
-
-                    ImGui::EndTabItem();
-                }
-
-                // If tab is closed, remove it
-                if (!open && i < tabTitles.size())
-                {
-                    tabTitles.erase(tabTitles.begin() + i);
-                    tabContents.erase(tabContents.begin() + i);
-                    selectedTab = (selectedTab >= tabTitles.size()) ? static_cast<int>(tabTitles.size()) - 1 : selectedTab;
-                }
-            }
-
-            
-
-            if (ImGui::RadioButton("Read Only", &read_only))
-            {
-                read_only = !read_only;
-                if (read_only)
-                    flags |= ImGuiInputTextFlags_ReadOnly;
-                else
-                    flags &= ~ImGuiInputTextFlags_ReadOnly;
-            }
-
-            ImGui::EndTabBar();
-            ImGui::End();
-
-            // keyboard shortcuts
-
-            // 3. Show another simple window.
-            if (show_another_window)
-            {
-                ImGui::Begin("Another Window", &show_another_window); // Pass a pointer to our bool variable (the window will have a closing button that will clear the bool when clicked)
-                ImGui::Text("Hello from another window!");
-                if (ImGui::Button("Close Me"))
-                    show_another_window = false;
-                ImGui::End();
-            }
-            if (show_demo_window)
-            {
-                AboutWindow(show_demo_window, io);
-            }
-            if (show_font_window)
-            {
-                ShowFontWindow(path, show_font_window, font_size);
-            }
-
-            
-
-            if (ImGui::IsKeyDown(ImGuiKey_LeftCtrl) && ImGui::IsKeyPressed(ImGuiKey_M))
-            {
-                read_only = !read_only;
-                if (read_only)
-                    flags |= ImGuiInputTextFlags_ReadOnly;
-                else
-                    flags &= ~ImGuiInputTextFlags_ReadOnly;
-            }
-            if (ImGui::IsKeyPressed(ImGuiKey_LeftAlt))
-            {
-                ::PostQuitMessage(0);
-            }
-            if (ImGui::IsKeyPressed(ImGuiKey_F5))
-            {
-                ToggleFullscreen();
-            }
-            if (ImGui::IsKeyPressed(ImGuiKey_LeftCtrl) && ImGui::IsKeyPressed(ImGuiKey_S))
-            {
-                SaveFileDialog(hwnd, currentTabInfo);
-            }
-            if (ImGui::IsKeyPressed(ImGuiKey_LeftCtrl) && ImGui::IsKeyPressed(ImGuiKey_R))
-            {
-                theme_change = !theme_change;
-                if (theme_change)
-                    ImGui::StyleColorsLight();
-                else
-                    ImGui::StyleColorsDark();
-            }
-            if (ImGui::IsKeyPressed(ImGuiKey_Delete))
-            {
-                if (selectedTab >= 0 && selectedTab < tabTitles.size()) // Ensure selectedTab is within valid range
-                {
-                    tabTitles.erase(tabTitles.begin() + selectedTab);
-                    tabContents.erase(tabContents.begin() + selectedTab);
-
-                    // Optionally, update the selectedTab index to a valid one after deletion
-                    if (selectedTab >= tabTitles.size())
-                    {
-                        selectedTab = static_cast<int>(tabTitles.size() - 1); // Move to the last tab if the deleted tab was the last one
-                    }
-                }
-            }
-
-            // Rendering
-            ImGui::Render();
-            const float clear_color_with_alpha[4] = {0.0f, 0.0f, 0.0f, 0.0f};
-            g_pd3dDeviceContext->OMSetRenderTargets(1, &g_mainRenderTargetView, nullptr);
-            g_pd3dDeviceContext->ClearRenderTargetView(g_mainRenderTargetView, clear_color_with_alpha);
-            ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
-
-            // Present
-            HRESULT hr = g_pSwapChain->Present(1, 0); // Present with vsync
-            g_SwapChainOccluded = (hr == DXGI_STATUS_OCCLUDED);
-        }
-    }
 
     // Cleanup
     ImGui_ImplDX11_Shutdown();
