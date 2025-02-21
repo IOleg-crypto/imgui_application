@@ -71,7 +71,7 @@ void ShowOpenFileDialog(HWND hwnd, std::string &tabContents)
         if (isBinary)
         {
             // Open and read binary file
-            std::ifstream inFile(szFile, std::ios::binary | std::ios::ate);
+            std::ifstream inFile(szFile, std::ios::binary | std::ios::in | std::ios::ate);
             if (inFile)
             {
                 size_t fileSize = inFile.tellg();
@@ -110,5 +110,46 @@ void ShowOpenFileDialog(HWND hwnd, std::string &tabContents)
     if (szFile[0] != '\0')
     {
         MessageBox(hwnd, szFile, _T("File opened"), MB_OK);
+    }
+}
+
+/*
+*  Additional function to save file(binary or text) - for not save as button(opening filedialog);
+*/
+void SaveFileToPath(const std::string& path, const std::string& content) {
+    // Check if directory exist
+    std::filesystem::path filePath(path);
+    if (!std::filesystem::exists(filePath.parent_path())) {
+        std::cerr << "Directory don`t exist!" << std::endl;
+        return;
+    }
+
+    // Check if file has .bin or .txt 
+    bool isBinary = path.find(".bin") != std::string::npos;
+
+    if (isBinary) {
+        std::ofstream outFile(path, std::ios::out | std::ios::binary | std::ios::trunc);
+        if (outFile) {
+            size_t length = content.length();
+            //outFile.write(reinterpret_cast<const char*>(&length), sizeof(size_t));
+            outFile.write(content.c_str(), length);
+            outFile.close();
+            MessageBoxA(hwnd, path.c_str(), "File Saved", MB_OK);  // Show path in MessageBox
+        }
+        else {
+            MessageBoxA(hwnd, path.c_str(), "File not saved" , MB_OK);
+        }
+    }
+    else {
+        // Збереження як текстовий файл
+        std::ofstream outFile(path, std::ios::out | std::ios::trunc);
+        if (outFile) {
+            outFile << content;
+            outFile.close();
+            MessageBoxA(hwnd, path.c_str(), "File Saved", MB_OK);   // Show path in MessageBox
+        }
+        else {
+            MessageBoxA(hwnd, path.c_str(), "File not saved", MB_OK);
+        }
     }
 }

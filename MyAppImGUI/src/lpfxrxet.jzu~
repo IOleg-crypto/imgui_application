@@ -99,10 +99,6 @@ void AboutWindow(bool &show_demo_window, const ImGuiIO &io)
 // Main code
 int main(void)
 {
-#if _DEBUG
-    setlocale(LC_ALL, "C.UTF-8");
-    SetConsoleOutputCP(65001);
-#endif
     // Create application window
     WNDCLASSEXW wc = {
         sizeof(wc),                                         // cbSize
@@ -222,8 +218,14 @@ int main(void)
         ImVec4 clear_color = ImVec4(0.32f, 0.60f, 0.60f, 1.00f);
         static bool theme_change = false; // Change clear color to make it more visible
 
+
+            
+
+            // Reserve space below the menu bar
+            //ImVec2 windowSize = ImGui::GetWindowSize();
+
             // Main window
-        ImGui::SetNextWindowSize(ImVec2(800, 400), ImGuiCond_FirstUseEver);
+            ImGui::SetNextWindowSize(ImVec2(800, 400), ImGuiCond_FirstUseEver);
             if (ImGui::Begin("Notepad", nullptr, ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_HorizontalScrollbar))
             {
                 // menu
@@ -342,15 +344,13 @@ int main(void)
                         selectedTab = i;
                         ImGui::Text("Content for %s", tabTitles[i].c_str());                     
 
+                        currentTabInfo = tabContents[selectedTab];
                         // Optimize string allocation: only reserve when growing significantly
-                        size_t current_size = tabContents[i].size();
-                        size_t required_size = current_size + 32; // Increase dynamically by chunks (e.g., 256 characters)
-
+                        size_t required_size = tabContents[i].size() + 32;
                         if (tabContents[i].capacity() < required_size)
                         {
-                            tabContents[i].resize(required_size);
+                            tabContents[i].reserve(required_size);
                         }
-                        currentTabInfo = tabContents[i];
 
                         ImGui::InputTextMultiline("##InputText", tabContents[i].data(), MAX_LENGTH_MULTILINE,
                             ImVec2(x , y), flags);
@@ -361,11 +361,13 @@ int main(void)
                     
 
                     // If tab is closed, remove it (using reverse iteration to avoid shifting)
-                    if (!open && i < tabTitles.size())
+                    if (!open)
                     {
                         tabTitles.erase(tabTitles.begin() + i);
                         tabContents.erase(tabContents.begin() + i);
-                        selectedTab = (selectedTab >= tabTitles.size()) ? static_cast<int>(tabTitles.size()) - 1 : selectedTab;
+                        if (selectedTab >= static_cast<int>(tabTitles.size())) {
+                            selectedTab = max(0, static_cast<int>(tabTitles.size()) - 1);
+                        }
                     }
                     
                 }
