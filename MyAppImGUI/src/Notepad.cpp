@@ -167,7 +167,7 @@ int main(void)
 
     // Resize
     static std::vector<std::string> tabContents = {u8""};
-    std::string currentTabInfo = tabContents[0];
+    static std::string currentTabInfo;
 
     // Main loop
     bool done = false;
@@ -315,8 +315,8 @@ int main(void)
                 ImGui::BeginChild(("##scrollable_area", ImVec2(0, 100), true, ImGuiWindowFlags_HorizontalScrollbar));
                 if (ImGui::Button("Add page"))
                 {
-                    tabTitles.emplace_back("Page" + std::to_string(tabTitles.size() + 1));
-                    tabContents.emplace_back(std::to_string(tabTitles.size()));
+                    tabTitles.push_back("Page" + std::to_string(tabTitles.size() + 1));
+                    tabContents.push_back(std::to_string(tabTitles.size()));
                     selectedTab = static_cast<int>(tabTitles.size()) - 1;
 
                     if (tabTitles.size() > 30)
@@ -340,10 +340,9 @@ int main(void)
                     if (ImGui::BeginTabItem(tabTitles[i].c_str(), &open))
                     {
                         selectedTab = i;
-                        ImGui::Text("Content for %s", tabTitles[i].c_str());
+                        ImGui::Text("Content for %s", tabTitles[i].c_str());                     
 
-                        currentTabInfo = tabContents[i];
-
+                        currentTabInfo = tabContents[selectedTab];
                         // Optimize string allocation: only reserve when growing significantly
                         size_t required_size = tabContents[i].size() + 16;
                         if (tabContents[i].capacity() < required_size)
@@ -357,6 +356,8 @@ int main(void)
                         ImGui::EndTabItem();
                     }
 
+                    
+
                     // If tab is closed, remove it (using reverse iteration to avoid shifting)
                     if (!open)
                     {
@@ -368,6 +369,8 @@ int main(void)
                     }
                     
                 }
+
+               
                 ImGui::Separator();
 
                 if (ImGui::RadioButton("Read Only", &read_only))
