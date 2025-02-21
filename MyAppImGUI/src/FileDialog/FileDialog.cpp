@@ -1,22 +1,23 @@
 #include "FileDialog.h"
 
-void SaveFileDialog(HWND hwnd, const std::string &CurrentTabInfo)
+
+void SaveFileDialog(HWND hwnd, const std::string& CurrentTabInfo)
 {
-    OPENFILENAME ofn;
-    TCHAR szFile[MAX_PATH] = _T(""); // Buffer to store the selected file name
+    OPENFILENAMEA ofn;  // Structure for the file dialog
+    char szFile[MAX_PATH] = "";  // Buffer to store the selected file name
 
     ZeroMemory(&ofn, sizeof(ofn));
     ofn.lStructSize = sizeof(ofn);
     ofn.hwndOwner = hwnd;
-    ofn.lpstrFilter = _T("Text Files (*.txt)\0*.txt\0Binary Files (*.bin)\0*.bin\0All Files (*.*)\0*.*\0");
+    ofn.lpstrFilter = "Text Files (*.txt)\0*.txt\0Binary Files (*.bin)\0*.bin\0All Files (*.*)\0*.*\0";
     ofn.lpstrFile = szFile;
     ofn.nMaxFile = MAX_PATH;
     ofn.Flags = OFN_OVERWRITEPROMPT | OFN_PATHMUSTEXIST;
-    ofn.lpstrDefExt = _T("txt");
+    ofn.lpstrDefExt = "txt";
 
-    if (GetSaveFileName(&ofn))
+    if (GetSaveFileNameA(&ofn))
     {
-        bool isBinary = (_tcsstr(szFile, _T(".bin")) != NULL);
+        bool isBinary = (strstr(szFile, ".bin") != NULL);
 
         if (isBinary)
         {
@@ -24,9 +25,14 @@ void SaveFileDialog(HWND hwnd, const std::string &CurrentTabInfo)
             if (outFile)
             {
                 size_t length = CurrentTabInfo.length();
-                // outFile.write(reinterpret_cast<const char*>(&length), sizeof(size_t));
-                outFile.write(CurrentTabInfo.c_str(), length);
+                //outFile.write(reinterpret_cast<const char*>(&length), sizeof(size_t));  // Writing length as binary
+                outFile.write(CurrentTabInfo.c_str(), length);  // Writing the content as binary
                 outFile.close();
+                MessageBoxA(hwnd, szFile, "File Saved", MB_OK);  // Show path in MessageBox
+            }
+            else
+            {
+                MessageBoxA(hwnd, szFile, "File not saved", MB_OK);
             }
         }
         else
@@ -35,38 +41,40 @@ void SaveFileDialog(HWND hwnd, const std::string &CurrentTabInfo)
             std::ofstream outFile(szFile);
             if (outFile)
             {
-                for (const auto &content : CurrentTabInfo)
-                {
-                    outFile << content << std::endl;
-                }
+                outFile << CurrentTabInfo;  // Save content directly as text
                 outFile.close();
+                MessageBoxA(hwnd, szFile, "File Saved", MB_OK);  // Show path in MessageBox
+            }
+            else
+            {
+                MessageBoxA(hwnd, szFile, "File not saved", MB_OK);
             }
         }
     }
-    // Fix to show message
-    if (szFile[0] != '\0')
-    {
-        MessageBox(hwnd, szFile, _T("File Saved"), MB_OK);
-    }
 }
 
-void ShowOpenFileDialog(HWND hwnd, std::string &tabContents)
+void ShowOpenFileDialog(HWND hwnd, std::string &tabContents , std::string &pathFile)
 {
-    OPENFILENAME ofn;                // Structure for the file dialog
-    TCHAR szFile[MAX_PATH] = _T(""); // Buffer to store the selected file name
+    OPENFILENAMEA ofn;                // Structure for the file dialog
+    char szFile[MAX_PATH] = (""); // Buffer to store the selected file name
 
     ZeroMemory(&ofn, sizeof(ofn));
     ofn.lStructSize = sizeof(ofn);
     ofn.hwndOwner = hwnd;
-    ofn.lpstrFilter = _T("Text Files (*.txt)\0*.txt\0Binary Files (*.bin)\0*.bin\0All Files (*.*)\0*.*\0");
+    ofn.lpstrFilter = ("Text Files (*.txt)\0*.txt\0Binary Files (*.bin)\0*.bin\0All Files (*.*)\0*.*\0");
     ofn.lpstrFile = szFile;
     ofn.nMaxFile = MAX_PATH;
     ofn.Flags = OFN_PATHMUSTEXIST | OFN_FILEMUSTEXIST;
-    ofn.lpstrDefExt = _T("txt"); // Default extension is .txt
+    ofn.lpstrDefExt = ("txt"); // Default extension is .txt
 
-    if (GetOpenFileName(&ofn))
+    
+
+    if (GetOpenFileNameA(&ofn))
     {
-        bool isBinary = (_tcsstr(szFile, _T(".bin")) != NULL);
+        // For save file func
+        pathFile = szFile;
+
+        bool isBinary = (strstr(szFile, ".bin") != NULL);
 
         if (isBinary)
         {
@@ -109,47 +117,34 @@ void ShowOpenFileDialog(HWND hwnd, std::string &tabContents)
 
     if (szFile[0] != '\0')
     {
-        MessageBox(hwnd, szFile, _T("File opened"), MB_OK);
+        MessageBoxA(hwnd, szFile, ("File opened"), MB_OK);
     }
 }
 
 /*
 *  Additional function to save file(binary or text) - for not save as button(opening filedialog);
 */
-void SaveFileToPath(const std::string& path, const std::string& content) {
-    // Check if directory exist
-    std::filesystem::path filePath(path);
-    if (!std::filesystem::exists(filePath.parent_path())) {
-        std::cerr << "Directory don`t exist!" << std::endl;
+void SaveFile(HWND hwnd , const std::string& path, const std::string& content)
+{
+    if (!std::filesystem::exists(path)) { // Check if directory exists
+#if _DEBUG
+        std::cerr << "Directory doesn't exist: " << path << std::endl;
+#endif
+        MessageBoxA(hwnd, "No path to file found", "File not saved", MB_OK);
         return;
     }
 
-    // Check if file has .bin or .txt 
-    bool isBinary = path.find(".bin") != std::string::npos;
+    bool isBinary = (path.find(".bin") != std::string::npos);
 
-    if (isBinary) {
-        std::ofstream outFile(path, std::ios::out | std::ios::binary | std::ios::trunc);
-        if (outFile) {
-            size_t length = content.length();
-            //outFile.write(reinterpret_cast<const char*>(&length), sizeof(size_t));
-            outFile.write(content.c_str(), length);
-            outFile.close();
-            MessageBoxA(hwnd, path.c_str(), "File Saved", MB_OK);  // Show path in MessageBox
-        }
-        else {
-            MessageBoxA(hwnd, path.c_str(), "File not saved" , MB_OK);
-        }
-    }
-    else {
-        // Збереження як текстовий файл
-        std::ofstream outFile(path, std::ios::out | std::ios::trunc);
-        if (outFile) {
+    std::ofstream outFile(path, isBinary ? (std::ios::binary | std::ios::trunc) : std::ios::trunc);
+    if (outFile)
+    {
+        if (isBinary)
+            outFile.write(content.c_str(), content.size());
+        else
             outFile << content;
-            outFile.close();
-            MessageBoxA(hwnd, path.c_str(), "File Saved", MB_OK);   // Show path in MessageBox
-        }
-        else {
-            MessageBoxA(hwnd, path.c_str(), "File not saved", MB_OK);
-        }
+
+        outFile.close();
+        MessageBoxA(hwnd, path.c_str(), "File Saved", MB_OK);
     }
 }

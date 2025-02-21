@@ -12,7 +12,6 @@
 
 // Include default C++ libraries
 #include <cstring>
-#include <filesystem>
 #include <fstream>
 #include <iostream>
 #include <locale>

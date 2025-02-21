@@ -21,6 +21,7 @@
 #include <vector>
 #include <algorithm>
 
+
 // For file dialog
 #include "FileDialog/FileDialog.h"
 #include "FileDialog/Font.h"
@@ -96,7 +97,6 @@ void AboutWindow(bool &show_demo_window, const ImGuiIO &io)
 }
 
 // Main code
-// Main code
 int main(void)
 {
 #if _DEBUG
@@ -125,7 +125,7 @@ int main(void)
         WS_EX_LAYERED | WS_EX_TOPMOST, // Transparent Layered Window
         wc.lpszClassName, L"Notepad",
         WS_POPUP, // Removes the title bar and border
-        100, 100, 1280, 800,
+        150, 150, 1920, 1080,
         nullptr, nullptr, wc.hInstance, nullptr);
     /// hwnd = CreateWindowEx(WS_EX_LAYERED | WS_EX_TOPMOST | WS_EX_NOACTIVATE,_T("Notepad") , NULL, WS_POPUP , 0 , 0 , 1280 , 720 , NULL, NULL, wc.hInstance, NULL);
     SetLayeredWindowAttributes(hwnd, 0, 255, LWA_COLORKEY);
@@ -172,6 +172,9 @@ int main(void)
     // Resize
     static std::vector<std::string> tabContents = {u8""};
     static std::string currentTabInfo;
+
+    // Path for function(Save file)
+    std::string pathFile = "\0";
 
     // Main loop
     bool done = false;
@@ -239,17 +242,21 @@ int main(void)
                                 flags &= ~ImGuiInputTextFlags_ReadOnly;
                         }
                         ImGui::Separator();
-                        if (ImGui::MenuItem("Save file dialog", "Ctrl+S"))
+                        if (ImGui::MenuItem("Save file as", "Ctrl+S"))
                         {
                             SaveFileDialog(hwnd, currentTabInfo);
                         }
                         ImGui::Separator();
-                        if (ImGui::MenuItem("Open file dialog", "Ctrl+O"))
+                        if (ImGui::MenuItem("Save file", "Ctrl+A"))
                         {
-                            ShowOpenFileDialog(hwnd, currentTabInfo);
-                            tabContents[selectedTab] = std::string(currentTabInfo);
+                            SaveFile(hwnd , pathFile, currentTabInfo);
                         }
-
+                        ImGui::Separator();
+                        if (ImGui::MenuItem("Open file", "Ctrl+O"))
+                        {
+                            ShowOpenFileDialog(hwnd, currentTabInfo, pathFile);
+                            tabContents[selectedTab] = currentTabInfo;
+                        }
                         ImGui::Separator();
                         if (ImGui::MenuItem("Remove page", "Delete"))
                         {
@@ -312,7 +319,7 @@ int main(void)
                     ImGui::EndMenuBar();
                 }
 
-                ImGui::BeginChild(("##scrollable_area", ImVec2(0, 100), true, ImGuiWindowFlags_HorizontalScrollbar));
+                //ImGui::BeginChild(("##scrollable_area", ImVec2(0, 100), true, ImGuiWindowFlags_HorizontalScrollbar));
                 if (ImGui::Button("Add page"))
                 {
                     tabTitles.push_back("Page" + std::to_string(tabTitles.size() + 1));
@@ -383,7 +390,6 @@ int main(void)
                 }
 
                 ImGui::EndTabBar();
-                ImGui::EndChild();
                 ImGui::End();
 
                 // keyboard shortcuts
@@ -448,6 +454,10 @@ int main(void)
                         }
                     }
                 }
+                if (ImGui::IsKeyPressed(ImGuiKey_LeftCtrl) && ImGui::IsKeyPressed(ImGuiKey_A))
+                {
+                    SaveFile(hwnd, pathFile, currentTabInfo);
+                }
 
                 // Rendering
                 ImGui::Render();
@@ -460,7 +470,9 @@ int main(void)
                 HRESULT hr = g_pSwapChain->Present(1, 0); // Present with vsync
                 g_SwapChainOccluded = (hr == DXGI_STATUS_OCCLUDED);
                 
+              
             }
+           
         }
 
     // Cleanup

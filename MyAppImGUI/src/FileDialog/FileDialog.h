@@ -16,11 +16,15 @@
 #include <iostream>
 #include <string>
 #include <tchar.h>
+// For save file 
+#include <filesystem>
+
 
 static HWND hwnd = nullptr;     // Global variable for window handle
 static bool fullscreen = false; // Toggle for fullscreen mode
 
 void SaveFileDialog(HWND hwnd, const std::string& CurrentTabInfo);
-void ShowOpenFileDialog(HWND hwnd, std::string& tabContents);
+void ShowOpenFileDialog(HWND hwnd, std::string& tabContents, std::string &path);
+void SaveFile(HWND hwnd , const std::string &path, const std::string& content);
 
 #endif
