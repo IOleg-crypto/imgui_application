@@ -1,0 +1,440 @@
+{
+  "version": "2.1.0",
+  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.5.json",
+  "runs": [
+    {
+      "results": [
+        {
+          "ruleId": "C28251",
+          "message": {
+            "text": "Inconsistent annotation for 'new': this instance has no annotations. See d:\\gitnext\\cppwithimgui\\imgui_application\\myappimgui\\predefined c++ types (compiler internal)(43). The first user-provided annotation on this built-in function is at line c:\\program files\\microsoft visual studio\\2022\\community\\vc\\tools\\msvc\\14.43.34808\\include\\vcruntime_new.h(44). "
+          },
+          "analysisTarget": {
+            "uri": "file:///d:/gitnext/cppwithimgui/imgui_application/myappimgui/src/notepad.cpp"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/src/Memory.h"
+                },
+                "region": {
+                  "startLine": 10,
+                  "startColumn": 7
+                }
+              },
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "new",
+                  "decoratedName": "??2@YAPEAX_K@Z",
+                  "kind": "function"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "C28196",
+          "message": {
+            "text": "The requirement that '(_Param_(1)>0)?(return!=0):(1)' is not satisfied. (The expression does not evaluate to true.)"
+          },
+          "analysisTarget": {
+            "uri": "file:///d:/gitnext/cppwithimgui/imgui_application/myappimgui/src/notepad.cpp"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/src/Memory.h"
+                },
+                "region": {
+                  "startLine": 10,
+                  "startColumn": 7
+                }
+              },
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "new",
+                  "decoratedName": "??2@YAPEAX_K@Z",
+                  "kind": "function"
+                }
+              ]
+            }
+          ],
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///d:/gitnext/cppwithimgui/imgui_application/myappimgui/src/memory.h"
+                          },
+                          "region": {
+                            "startLine": 12,
+                            "startColumn": 14
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///d:/gitnext/cppwithimgui/imgui_application/myappimgui/src/memory.h"
+                          },
+                          "region": {
+                            "startLine": 13,
+                            "startColumn": 47
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///d:/gitnext/cppwithimgui/imgui_application/myappimgui/src/memory.h"
+                          },
+                          "region": {
+                            "startLine": 14,
+                            "startColumn": 49
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///d:/gitnext/cppwithimgui/imgui_application/myappimgui/src/memory.h"
+                          },
+                          "region": {
+                            "startLine": 15,
+                            "startColumn": 2
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "C6387",
+          "message": {
+            "text": "'return' could be '0':  this does not adhere to the specification for the function 'new'. "
+          },
+          "analysisTarget": {
+            "uri": "file:///d:/gitnext/cppwithimgui/imgui_application/myappimgui/src/notepad.cpp"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/src/Memory.h"
+                },
+                "region": {
+                  "startLine": 10,
+                  "startColumn": 7
+                }
+              },
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "new",
+                  "decoratedName": "??2@YAPEAX_K@Z",
+                  "kind": "function"
+                }
+              ]
+            }
+          ],
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/src/Memory.h"
+                          },
+                          "region": {
+                            "startLine": 12,
+                            "startColumn": 14
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/src/Memory.h"
+                          },
+                          "region": {
+                            "startLine": 13,
+                            "startColumn": 47
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/src/Memory.h"
+                          },
+                          "region": {
+                            "startLine": 14,
+                            "startColumn": 49
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/src/Memory.h"
+                          },
+                          "region": {
+                            "startLine": 15,
+                            "startColumn": 2
+                          }
+                        },
+                        "message": {
+                          "text": "'return' may be NULL"
+                        }
+                      },
+                      "kinds": [
+                        "declaration"
+                      ],
+                      "importance": "essential"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/src/Memory.h"
+                          },
+                          "region": {
+                            "startLine": 10,
+                            "startColumn": 7
+                          }
+                        },
+                        "message": {
+                          "text": "'return' should not be NULL, because this is not consistent with the SAL annotation on 'new'"
+                        }
+                      },
+                      "kinds": [
+                        "usage"
+                      ],
+                      "importance": "essential"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "C6387",
+          "message": {
+            "text": "'pBackBuffer' could be '0':  this does not adhere to the specification for the function 'ID3D11Device::CreateRenderTargetView'. See line 0 for an earlier location where this can occur"
+          },
+          "analysisTarget": {
+            "uri": "file:///d:/gitnext/cppwithimgui/imgui_application/myappimgui/src/notepad.cpp"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/src/Notepad.cpp"
+                },
+                "region": {
+                  "startLine": 579,
+                  "startColumn": 5,
+                  "endLine": 579,
+                  "endColumn": 62
+                }
+              },
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "CreateRenderTarget",
+                  "decoratedName": "?CreateRenderTarget@@YAXXZ",
+                  "kind": "function"
+                }
+              ]
+            }
+          ],
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/src/Notepad.cpp"
+                          },
+                          "region": {
+                            "startLine": 577,
+                            "startColumn": 22
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/src/Notepad.cpp"
+                          },
+                          "region": {
+                            "startLine": 578,
+                            "startColumn": 28
+                          }
+                        },
+                        "message": {
+                          "text": "'pBackBuffer' may be NULL"
+                        }
+                      },
+                      "kinds": [
+                        "declaration"
+                      ],
+                      "importance": "essential"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/src/Notepad.cpp"
+                          },
+                          "region": {
+                            "startLine": 579,
+                            "startColumn": 41
+                          }
+                        },
+                        "message": {
+                          "text": "'pBackBuffer' should not be NULL, because this is not consistent with the SAL annotation on 'ID3D11Device::CreateRenderTargetView'"
+                        }
+                      },
+                      "kinds": [
+                        "usage"
+                      ],
+                      "importance": "essential"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "tool": {
+        "driver": {
+          "name": "PREfast",
+          "fullName": "PREfast Code Analysis",
+          "version": "14.43.34808.0",
+          "informationUri": "https://aka.ms/cpp/ca"
+        }
+      },
+      "invocations": [
+        {
+          "executionSuccessful": true
+        }
+      ],
+      "artifacts": [
+        {
+          "location": {
+            "uri": "file:///d:/gitnext/cppwithimgui/imgui_application/myappimgui/src/notepad.cpp"
+          },
+          "roles": [
+            "analysisTarget",
+            "resultFile"
+          ],
+          "hashes": {
+            "sha-256": "9526c565117a2d9f99089973087490c1f0e2f66503ba28260f5765183648b4aa"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/src/Memory.h"
+          },
+          "roles": [
+            "resultFile"
+          ],
+          "hashes": {
+            "sha-256": "34c7497282689709d90343ee362c5be9a595f848e9de2f731e96b963b0eab1be"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/gitnext/cppwithimgui/imgui_application/myappimgui/vendor/imgui/imgui.h"
+          },
+          "hashes": {
+            "sha-256": "b42aa6ffa805685eb86e286a9d1fb0f2ec94e90e93bf2295d9c309ff8bce18ef"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/gitnext/cppwithimgui/imgui_application/myappimgui/vendor/imgui/imconfig.h"
+          },
+          "hashes": {
+            "sha-256": "b198e51703a5b08bcf3763ba114f98a460edc172b6ba88efcbb3bbb8ac843f38"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/gitnext/cppwithimgui/imgui_application/myappimgui/vendor/imgui/backends/imgui_impl_dx11.h"
+          },
+          "hashes": {
+            "sha-256": "4092c8ecc6b788740ae696ca320ceb36ee2c894adec4b64f019e72abf912a443"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/gitnext/cppwithimgui/imgui_application/myappimgui/vendor/imgui/backends/imgui_impl_win32.h"
+          },
+          "hashes": {
+            "sha-256": "9e19241514035268764253b39384e02bc267ebe4fd6de31c5b0c3b3d576bd410"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/gitnext/cppwithimgui/imgui_application/myappimgui/src/filedialog/filedialog.h"
+          },
+          "hashes": {
+            "sha-256": "4eac838bc0553e78784b68ffeb74b2e79742e9dfe2b49a9f79661cd531f1c68f"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/gitnext/cppwithimgui/imgui_application/myappimgui/src/filedialog/font.h"
+          },
+          "hashes": {
+            "sha-256": "dcb828ac4da0d0202729d2d3ad744c4f447907892478733780738b7765d82380"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/gitnext/cppwithimgui/imgui_application/myappimgui/resource.h"
+          },
+          "hashes": {
+            "sha-256": "7c58f8359179986d55b59571ea55d0524702b73cacb9aaff575b8971990d2611"
+          }
+        }
+      ]
+    }
+  ]
+}

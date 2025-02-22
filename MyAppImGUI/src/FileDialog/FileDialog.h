@@ -23,7 +23,7 @@
 static HWND hwnd = nullptr;     // Global variable for window handle
 static bool fullscreen = false; // Toggle for fullscreen mode
 
-void SaveFileDialog(HWND hwnd, const std::string& CurrentTabInfo);
+void SaveFileDialog(HWND hwnd, const std::string& CurrentTabInfo ,std::string& path);
 void ShowOpenFileDialog(HWND hwnd, std::string& tabContents, std::string &path);
 void SaveFile(HWND hwnd , const std::string &path, const std::string& content);
 

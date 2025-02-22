@@ -1,0 +1,455 @@
+{
+  "version": "2.1.0",
+  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.5.json",
+  "runs": [
+    {
+      "results": [
+        {
+          "ruleId": "C33010",
+          "message": {
+            "text": "Unchecked lower bound for enum source used as index.."
+          },
+          "analysisTarget": {
+            "uri": "file:///d:/gitnext/cppwithimgui/imgui_application/myappimgui/vendor/imgui/imgui.cpp"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui/imgui.cpp"
+                },
+                "region": {
+                  "startLine": 9726,
+                  "startColumn": 5,
+                  "endLine": 9726,
+                  "endColumn": 37
+                }
+              },
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "GetInputSourceName",
+                  "decoratedName": "?GetInputSourceName@@YAPEBDW4ImGuiInputSource@@@Z",
+                  "kind": "function"
+                }
+              ]
+            }
+          ],
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui/imgui.cpp"
+                          },
+                          "region": {
+                            "startLine": 9722,
+                            "startColumn": 20
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui/imgui.cpp"
+                          },
+                          "region": {
+                            "startLine": 9724,
+                            "startColumn": 17
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui/imgui.cpp"
+                          },
+                          "region": {
+                            "startLine": 9724,
+                            "startColumn": 40
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui/imgui.cpp"
+                          },
+                          "region": {
+                            "startLine": 9725,
+                            "startColumn": 5
+                          }
+                        },
+                        "message": {
+                          "text": "Branching based on condition '1'. 'true' branch is taken"
+                        }
+                      },
+                      "kinds": [
+                        "Branch"
+                      ]
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui/imgui.cpp"
+                          },
+                          "region": {
+                            "startLine": 9725,
+                            "startColumn": 5
+                          }
+                        },
+                        "message": {
+                          "text": "Branching based on condition '0 <= source'. 'false' branch is taken\nEnum value 'source' is checked for upper bound."
+                        }
+                      },
+                      "kinds": [
+                        "Combination"
+                      ],
+                      "importance": "essential"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui/imgui.cpp"
+                          },
+                          "region": {
+                            "startLine": 9725,
+                            "startColumn": 5
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui/imgui.cpp"
+                          },
+                          "region": {
+                            "startLine": 9725,
+                            "startColumn": 5
+                          }
+                        },
+                        "message": {
+                          "text": "Branching based on condition '0'. 'false' branch is taken"
+                        }
+                      },
+                      "kinds": [
+                        "Branch"
+                      ]
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui/imgui.cpp"
+                          },
+                          "region": {
+                            "startLine": 9725,
+                            "startColumn": 5
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui/imgui.cpp"
+                          },
+                          "region": {
+                            "startLine": 9725,
+                            "startColumn": 5
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui/imgui.cpp"
+                          },
+                          "region": {
+                            "startLine": 9726,
+                            "startColumn": 5
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "C33010",
+          "message": {
+            "text": "Unchecked lower bound for enum source used as index.."
+          },
+          "analysisTarget": {
+            "uri": "file:///d:/gitnext/cppwithimgui/imgui_application/myappimgui/vendor/imgui/imgui.cpp"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui/imgui.cpp"
+                },
+                "region": {
+                  "startLine": 9732,
+                  "startColumn": 5,
+                  "endLine": 9732,
+                  "endColumn": 37
+                }
+              },
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "GetMouseSourceName",
+                  "decoratedName": "?GetMouseSourceName@@YAPEBDW4ImGuiMouseSource@@@Z",
+                  "kind": "function"
+                }
+              ]
+            }
+          ],
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui/imgui.cpp"
+                          },
+                          "region": {
+                            "startLine": 9728,
+                            "startColumn": 20
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui/imgui.cpp"
+                          },
+                          "region": {
+                            "startLine": 9730,
+                            "startColumn": 17
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui/imgui.cpp"
+                          },
+                          "region": {
+                            "startLine": 9730,
+                            "startColumn": 40
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui/imgui.cpp"
+                          },
+                          "region": {
+                            "startLine": 9731,
+                            "startColumn": 5
+                          }
+                        },
+                        "message": {
+                          "text": "Branching based on condition '1'. 'true' branch is taken"
+                        }
+                      },
+                      "kinds": [
+                        "Branch"
+                      ]
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui/imgui.cpp"
+                          },
+                          "region": {
+                            "startLine": 9731,
+                            "startColumn": 5
+                          }
+                        },
+                        "message": {
+                          "text": "Branching based on condition '0 <= source'. 'false' branch is taken\nEnum value 'source' is checked for upper bound."
+                        }
+                      },
+                      "kinds": [
+                        "Combination"
+                      ],
+                      "importance": "essential"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui/imgui.cpp"
+                          },
+                          "region": {
+                            "startLine": 9731,
+                            "startColumn": 5
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui/imgui.cpp"
+                          },
+                          "region": {
+                            "startLine": 9731,
+                            "startColumn": 5
+                          }
+                        },
+                        "message": {
+                          "text": "Branching based on condition '0'. 'false' branch is taken"
+                        }
+                      },
+                      "kinds": [
+                        "Branch"
+                      ]
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui/imgui.cpp"
+                          },
+                          "region": {
+                            "startLine": 9731,
+                            "startColumn": 5
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui/imgui.cpp"
+                          },
+                          "region": {
+                            "startLine": 9731,
+                            "startColumn": 5
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui/imgui.cpp"
+                          },
+                          "region": {
+                            "startLine": 9732,
+                            "startColumn": 5
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "tool": {
+        "driver": {
+          "name": "PREfast",
+          "fullName": "PREfast Code Analysis",
+          "version": "14.43.34808.0",
+          "informationUri": "https://aka.ms/cpp/ca"
+        }
+      },
+      "invocations": [
+        {
+          "executionSuccessful": true
+        }
+      ],
+      "artifacts": [
+        {
+          "location": {
+            "uri": "file:///d:/gitnext/cppwithimgui/imgui_application/myappimgui/vendor/imgui/imgui.cpp"
+          },
+          "roles": [
+            "analysisTarget",
+            "resultFile"
+          ],
+          "hashes": {
+            "sha-256": "ea2a2394c4f340a6fdca826d10bf6067b0cc023653e9d225af26586f41b11517"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/gitnext/cppwithimgui/imgui_application/myappimgui/vendor/imgui/imgui.h"
+          },
+          "hashes": {
+            "sha-256": "b42aa6ffa805685eb86e286a9d1fb0f2ec94e90e93bf2295d9c309ff8bce18ef"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/gitnext/cppwithimgui/imgui_application/myappimgui/vendor/imgui/imconfig.h"
+          },
+          "hashes": {
+            "sha-256": "b198e51703a5b08bcf3763ba114f98a460edc172b6ba88efcbb3bbb8ac843f38"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/gitnext/cppwithimgui/imgui_application/myappimgui/vendor/imgui/imgui_internal.h"
+          },
+          "hashes": {
+            "sha-256": "792aa2ce624c497ad4700ea06f246de88c58cb6ed706f60b7e81a62a75d51bad"
+          }
+        }
+      ]
+    }
+  ]
+}

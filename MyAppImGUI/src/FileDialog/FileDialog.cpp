@@ -1,7 +1,7 @@
 #include "FileDialog.h"
 
 
-void SaveFileDialog(HWND hwnd, const std::string& CurrentTabInfo)
+void SaveFileDialog(HWND hwnd, const std::string& CurrentTabInfo, std::string& path)
 {
     OPENFILENAMEA ofn;  // Structure for the file dialog
     char szFile[MAX_PATH] = "";  // Buffer to store the selected file name
@@ -17,6 +17,7 @@ void SaveFileDialog(HWND hwnd, const std::string& CurrentTabInfo)
 
     if (GetSaveFileNameA(&ofn))
     {
+        path = std::string(szFile);
         bool isBinary = (strstr(szFile, ".bin") != NULL);
 
         if (isBinary)
@@ -38,10 +39,13 @@ void SaveFileDialog(HWND hwnd, const std::string& CurrentTabInfo)
         else
         {
             // Save as a text file
-            std::ofstream outFile(szFile);
+            std::ofstream outFile(szFile, std::ios::out | std::ios::trunc);
             if (outFile)
             {
-                outFile << CurrentTabInfo;  // Save content directly as text
+                for (const auto& c : CurrentTabInfo)
+                {
+                    outFile << c;
+                }
                 outFile.close();
                 MessageBoxA(hwnd, szFile, "File Saved", MB_OK);  // Show path in MessageBox
             }
@@ -72,7 +76,7 @@ void ShowOpenFileDialog(HWND hwnd, std::string &tabContents , std::string &pathF
     if (GetOpenFileNameA(&ofn))
     {
         // For save file func
-        pathFile = szFile;
+        pathFile = std::string(szFile);
 
         bool isBinary = (strstr(szFile, ".bin") != NULL);
 
@@ -139,10 +143,15 @@ void SaveFile(HWND hwnd , const std::string& path, const std::string& content)
     std::ofstream outFile(path, isBinary ? (std::ios::binary | std::ios::trunc) : std::ios::trunc);
     if (outFile)
     {
-        if (isBinary)
+        if (isBinary) {
+            for (const auto& c : content)
+            {
+                outFile << c;
+            }
+        }
+        else {
             outFile.write(content.c_str(), content.size());
-        else
-            outFile << content;
+        }
 
         outFile.close();
         MessageBoxA(hwnd, path.c_str(), "File Saved", MB_OK);
