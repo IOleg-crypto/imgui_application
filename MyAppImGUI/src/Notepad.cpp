@@ -157,11 +157,9 @@ int main(void)
 
     // Resize
     static std::vector<std::string> tabContents = {u8""};
-    static std::string currentTabInfo;
-
     // Path for function(Save file)
     std::string pathFile = "\0";
-
+    std::string currentTabInfo;
 
     // Main loop
     bool done = false;
@@ -212,11 +210,12 @@ int main(void)
         ImVec4 clear_color = ImVec4(0.32f, 0.60f, 0.60f, 1.00f);
         static bool theme_change = false; // Change clear color to make it more visible
 
-        bool hide_window = true;
+        static bool hide_window = true;
 
+        
             // Main window
         ImGui::SetNextWindowSize(ImVec2(800, 400), ImGuiCond_FirstUseEver);
-            if (ImGui::Begin("Notepad", &hide_window, ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_HorizontalScrollbar))
+            if(ImGui::Begin("Notepad", &hide_window, ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_HorizontalScrollbar))
             {
                 // menu
                 if (ImGui::BeginMenuBar()) // Connect menu bar with ImGuiWindowFlags_MenuBar
@@ -313,7 +312,10 @@ int main(void)
                 if (ImGui::Button("Add page"))
                 {
                     tabTitles.push_back("Page" + std::to_string(tabTitles.size() + 1));
-                    tabContents.push_back("");
+                    if (tabContents.empty())
+                    {
+                        tabContents.push_back("");
+                    }
                     selectedTab = static_cast<int>(tabTitles.size()) - 1;
 
                     if (tabTitles.size() > 30)
@@ -339,32 +341,16 @@ int main(void)
                         selectedTab = i;
                         ImGui::Text("Content for %s", tabTitles[i].c_str());
 
-                        // Ensure the vector has enough elements to accommodate the current tab index.
-                        if (tabContents.size() <= i)
-                        {
-                            tabContents.resize(i + 1); // Resize vector to hold the tab content
-                        }
-
-                        // Optimize string allocation: reserve memory only when needed
-                        size_t current_size = tabContents[i].size();
-                        size_t required_size = current_size + 256; // Increase dynamically by chunks (e.g., 64 characters)
-
-                        // Check if the current string's capacity is less than the required size and reserve more space
+                        // Only allocate space if necessary and use a sensible growth factor
+                        size_t required_size = tabContents[i].size() + 64;
                         if (tabContents[i].capacity() < required_size)
                         {
-                            // Reserve space to avoid reallocations
-                            tabContents[i].reserve(required_size);
-                        }
-
-                        // Ensure that the string does not exceed MAX_LENGTH_MULTILINE
-                        if (tabContents[i].size() > MAX_LENGTH_MULTILINE)
-                        {
-                            tabContents[i].resize(MAX_LENGTH_MULTILINE); // Trim the string to fit within bounds
+                            tabContents[i].reserve(max(tabContents[i].capacity() * 2, required_size));
                         }
 
                         currentTabInfo = tabContents[i]; // Assign current tab content safely
 
-                        // Pass the data to InputTextMultiline (ensure the buffer is within bounds)
+                        // Handle input with InputTextMultiline
                         if (tabContents[i].size() <= MAX_LENGTH_MULTILINE)
                         {
                             ImGui::InputTextMultiline("##InputText", tabContents[i].data(), MAX_LENGTH_MULTILINE,
@@ -373,6 +359,8 @@ int main(void)
 
                         ImGui::EndTabItem();
                     }
+
+                   
 
                     // If tab is closed, remove it (using reverse iteration to avoid shifting)
                     if (!open && i < tabTitles.size())
