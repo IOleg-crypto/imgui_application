@@ -1,5 +1,4 @@
 // main.cpp - for Imgui Application with Direct3D 11  , info see: https://github.com/ocornut/imgui
-
 #define _CRT_SECURE_NO_WARNINGS
 
 #include "imgui.h"
@@ -19,6 +18,8 @@
 #include <string>
 #include <tchar.h>
 #include <vector>
+#include <deque>
+#include <memory>
 
 
 
@@ -34,7 +35,7 @@
 #include "Memory.h"
 #endif
 
-#define MAX_LENGTH_MULTILINE 2048 * 19
+
 #define MAX_LENGTH_PATH 256
 #define MULTILINE_SIZE 32
 
@@ -48,6 +49,11 @@ static ID3D11RenderTargetView *g_mainRenderTargetView = nullptr;
 // static HWND hwnd = nullptr;     // Global variable for window handle
 // static bool fullscreen = false; // Toggle for fullscreen mode
 bool always_on_top = false; // Toggle for always-on-top mode
+
+
+
+//global buffer
+constexpr size_t MAX_LENGTH_MULTILINE = 16384;
 
 LRESULT WINAPI WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
@@ -79,6 +85,7 @@ void AboutWindow(bool &show_demo_window, const ImGuiIO &io)
     }
     ImGui::End();
 }
+
 
 // Main code
 int main(void)
@@ -147,19 +154,19 @@ int main(void)
     static bool read_only = false;
 
     static ImGuiInputTextFlags flags = ImGuiInputTextFlags_AllowTabInput |
-                                       ImGuiInputTextFlags_CtrlEnterForNewLine |
-                                       ImGuiInputTextFlags_EnterReturnsTrue;
+                                       ImGuiInputTextFlags_CtrlEnterForNewLine;
     // Static variables
     static int font_size = 16;
     static int selectedTab = 0; // Keeps track of which tab is currently selected
     // TabTitle
     static std::vector<std::string> tabTitles = {"Page 1"};
 
-    // Resize
-    static std::vector<std::string> tabContents = {u8""};
+    // Resize(set  size as default)
+    static std::vector<std::vector<char>> tabContents = { std::vector<char>(16384, u8'\0') };
+
     // Path for function(Save file)
-    std::string pathFile = "\0";
-    std::string currentTabInfo;
+    std::string pathFile = "";
+    static std::string currentTabInfo;
 
     // Main loop
     bool done = false;
@@ -201,8 +208,8 @@ int main(void)
 
         // For dynamic resize
         //  get screen width and height
-        float x = GetSystemMetrics(SM_CXSCREEN);
-        float y = GetSystemMetrics(SM_CYSCREEN);
+        float x = static_cast<float>(GetSystemMetrics(SM_CXSCREEN));
+        float y = static_cast<float>(GetSystemMetrics(SM_CYSCREEN));
 
         // local variables
         bool show_another_window = false;
@@ -249,7 +256,9 @@ int main(void)
                                     // Only takes the file name
                                     std::filesystem::path filePath(pathFile);
                                     tabTitles[selectedTab] = filePath.filename().string();
-                                    tabContents[selectedTab] = std::move(currentTabInfo);
+                                    tabContents[selectedTab].resize(currentTabInfo.size() + 1); // +1 for null terminator
+                                    std::memcpy(tabContents[selectedTab].data(), currentTabInfo.c_str(), currentTabInfo.size() + 1);
+
                                 }
                             }    
                         }
@@ -309,19 +318,22 @@ int main(void)
                     ImGui::EndMenuBar();
                 }
 
-                if (ImGui::Button("Add page"))
-                {
+                // Add page logic
+                if (ImGui::Button("Add page")) {
                     tabTitles.push_back("Page" + std::to_string(tabTitles.size() + 1));
-                    if (tabContents.empty())
-                    {
-                        tabContents.push_back("");
+
+                    // Resize tabContents if necessary
+                    if (tabContents.size() <= tabTitles.size()) {
+                        tabContents.push_back(std::vector<char>());
                     }
+
                     selectedTab = static_cast<int>(tabTitles.size()) - 1;
 
-                    if (tabTitles.size() > 30)
-                    {
-                        tabTitles.resize(30);
-                        tabContents.resize(30);
+                    const size_t maxTabs = 30;
+                    // Optional: Restrict the maximum number of tabs to 30
+                    if (tabTitles.size() > maxTabs) {
+                        tabTitles.resize(maxTabs);
+                        tabContents.resize(maxTabs);
                     }
                 }
 
@@ -333,49 +345,37 @@ int main(void)
                 ImGui::Separator();
                 ImGui::BeginTabBar("MyTabBar");
 
-                for (int i = 0; i < tabTitles.size(); ++i) // Reverse loop for safer deletion
+                
+
+                for (int i = 0; i < static_cast<int>(tabTitles.size()); ++i) // Reverse loop for safer deletion
                 {
                     bool open = true;
                     if (ImGui::BeginTabItem(tabTitles[i].c_str(), &open))
                     {
                         selectedTab = i;
+
                         ImGui::Text("Content for %s", tabTitles[i].c_str());
 
-                        // Only allocate space if necessary and use a sensible growth factor
-                        size_t required_size = tabContents[i].size() + 64;
-                        if (tabContents[i].capacity() < required_size)
-                        {
-                            tabContents[i].reserve(max(tabContents[i].capacity() * 2, required_size));
-                        }
+                       
+					    
+                                
+                        
+                        ImGui::InputTextMultiline("##InputText", tabContents[i].data(), MAX_LENGTH_MULTILINE,
+                               ImVec2(x, y), flags);
+                        
 
-                        currentTabInfo = tabContents[i]; // Assign current tab content safely
-
-                        // Handle input with InputTextMultiline
-                        if (tabContents[i].size() <= MAX_LENGTH_MULTILINE)
-                        {
-                            ImGui::InputTextMultiline("##InputText", tabContents[i].data(), MAX_LENGTH_MULTILINE,
-                                ImVec2(x, y), flags);
-                        }
+                        currentTabInfo = std::string(tabContents[i].data());
 
                         ImGui::EndTabItem();
                     }
-
-                   
-
-                    // If tab is closed, remove it (using reverse iteration to avoid shifting)
                     if (!open && i < tabTitles.size())
                     {
-                        tabTitles[i] = std::move(tabTitles.back());  // Move last item into current position
-                        tabContents[i] = std::move(tabContents.back());
-                        // O(1) instead of O(n) 
-                        tabTitles.pop_back();
-                        tabContents.pop_back();
-                        selectedTab = (selectedTab >= tabTitles.size()) ? tabTitles.size() - 1 : selectedTab;
+                        tabTitles.erase(tabTitles.begin() + i);
+                        tabContents.erase(tabContents.begin() + i);
+                        selectedTab = (selectedTab >= tabTitles.size()) ? static_cast<int>(tabTitles.size()) - 1 : selectedTab;
                     }
-                    
                 }
-
-               
+             
                 ImGui::Separator();
 
                 if (ImGui::RadioButton("Read Only", &read_only))
@@ -465,6 +465,7 @@ int main(void)
                 {
                     SaveFile(hwnd, pathFile, currentTabInfo);
                 }
+
 
                 // Rendering
                 ImGui::Render();
@@ -624,3 +625,4 @@ LRESULT WINAPI WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
     return ::DefWindowProcW(hWnd, msg, wParam, lParam);
 }
+#pragma endregion
