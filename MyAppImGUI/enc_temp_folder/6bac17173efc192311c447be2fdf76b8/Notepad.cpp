@@ -90,17 +90,18 @@ int InputTextCallback(ImGuiInputTextCallbackData* data)
         // Retrieve our std::string pointer from UserData.
         std::string* str = static_cast<std::string*>(data->UserData);
 
-        std::cout << "BufferText : " << data->BufTextLen << std::endl;
-
-        if (data->BufTextLen == 0)
+        // If the string is empty, preallocate a minimum of 10 bytes.
+        if (str->capacity() > 2 * str->size())
         {
-            // When the text is empty, free extra memory by swapping with an empty string.
-            std::string().swap(*str);
+            // Force a reallocation to trim extra capacity.
+            *str = std::string(str->c_str());
         }
-        else if (data->BufTextLen + 1 > str->size())
+
+        // If the new required size (plus one for the null terminator) is greater than current size,
+        // then resize the string to accommodate the new text.
+        if (data->BufTextLen + 1 > str->size())
         {
-            // When text is non-empty, ensure there's enough room for the new text plus null terminator.
-            str->resize(data->BufTextLen + 1);
+            str->resize(data->BufTextLen);
         }
 
         // Update the buffer pointer so that ImGui writes into the resized buffer.
@@ -108,7 +109,6 @@ int InputTextCallback(ImGuiInputTextCallbackData* data)
     }
     return 0;
 }
-
 
 
 // Main code
@@ -189,7 +189,7 @@ int main(void)
     static std::vector<std::string> tabContents = { u8"" };
     // Path for function(Save file)
     std::string pathFile = "";
-    std::string currentTabInfo;
+    std::string& currentTabInfo = tabContents[0];
  
     // Main loop
     bool done = false;
@@ -344,15 +344,14 @@ int main(void)
                 // Add page logic
                 if (ImGui::Button("Add page")) {
                     tabTitles.push_back("Page" + std::to_string(tabTitles.size() + 1));
-                    tabContents.push_back(std::string());
+                    tabContents.emplace_back("");
 
                     selectedTab = static_cast<int>(tabTitles.size()) - 1;
 
                     const size_t maxTabs = 30;
                     if (tabTitles.size() > maxTabs) {
-                        tabTitles.reserve(maxTabs);
-
-                        tabContents.reserve(maxTabs);
+                        tabTitles.resize(maxTabs);
+                        tabContents.resize(maxTabs);
                     }
                 }
 
