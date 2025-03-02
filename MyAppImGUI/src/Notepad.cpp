@@ -18,7 +18,6 @@
 #include <string>
 #include <tchar.h>
 #include <vector>
-#include <deque>
 #include <memory>
 
 
@@ -52,9 +51,6 @@ bool always_on_top = false; // Toggle for always-on-top mode
 
 
 
-//global buffer
-constexpr size_t MAX_LENGTH_MULTILINE = 16384;
-
 LRESULT WINAPI WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
 // Forward declarations of helper functions
@@ -62,6 +58,7 @@ bool CreateDeviceD3D(HWND hWnd);
 void CleanupDeviceD3D();
 void CreateRenderTarget();
 void CleanupRenderTarget();
+
 
 void ToggleFullscreen(const ImGuiIO &io)
 {
@@ -84,6 +81,33 @@ void AboutWindow(bool &show_demo_window, const ImGuiIO &io)
         ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / io.Framerate, io.Framerate);
     }
     ImGui::End();
+}
+
+int InputTextCallback(ImGuiInputTextCallbackData* data)
+{
+    if (data->EventFlag == ImGuiInputTextFlags_CallbackResize)
+    {
+        // Retrieve our std::string pointer from UserData.
+        std::string* str = static_cast<std::string*>(data->UserData);
+
+        // If the string is empty, preallocate a minimum of 10 bytes.
+        if (str->capacity() > 2 * str->size())
+        {
+            // Force a reallocation to trim extra capacity.
+            *str = std::string(str->c_str());
+        }
+
+        // If the new required size (plus one for the null terminator) is greater than current size,
+        // then resize the string to accommodate the new text.
+        if (data->BufTextLen + 1 > str->size())
+        {
+            str->resize(data->BufTextLen);
+        }
+
+        // Update the buffer pointer so that ImGui writes into the resized buffer.
+        data->Buf = str->data();
+    }
+    return 0;
 }
 
 
@@ -114,12 +138,12 @@ int main(void)
     /*
        hwnd = ::CreateWindowW(wc.lpszClassName, L"Notepad", WS_OVERLAPPEDWINDOW, 100, 100, 1280, 800, nullptr, nullptr, wc.hInstance, nullptr);
     */
-    
+
     hwnd = CreateWindowExW(
         WS_EX_LAYERED | WS_EX_TOPMOST, // Transparent Layered Window
         wc.lpszClassName, L"Notepad",
         WS_POPUP, // Removes the title bar and border
-        150, 150, 1920, 1200,
+        150, 150, 2100, 1200,
         nullptr, nullptr, wc.hInstance, nullptr);
     SetLayeredWindowAttributes(hwnd, 0, 255, LWA_COLORKEY);
     // Initialize Direct3D
@@ -137,14 +161,14 @@ int main(void)
     // Setup Dear ImGui context
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();
-    ImGuiIO &io = ImGui::GetIO();
+    ImGuiIO& io = ImGui::GetIO();
     (void)io;
     io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard; // Enable Keyboard Controls
     io.WantCaptureMouse = true;
     // set font by default
     char path[] = "C:\\Windows\\Fonts\\Arial.ttf";
     io.Fonts->AddFontFromFileTTF(path, 20, nullptr, io.Fonts->GetGlyphRangesCyrillic());
-  
+
     // Setup Platform/Renderer backends
     ImGui_ImplWin32_Init(hwnd);
     ImGui_ImplDX11_Init(g_pd3dDevice, g_pd3dDeviceContext);
@@ -154,20 +178,19 @@ int main(void)
     static bool read_only = false;
 
     static ImGuiInputTextFlags flags = ImGuiInputTextFlags_AllowTabInput |
-                                       ImGuiInputTextFlags_CtrlEnterForNewLine;
+        ImGuiInputTextFlags_CtrlEnterForNewLine;
     // Static variables
     static int font_size = 16;
     static int selectedTab = 0; // Keeps track of which tab is currently selected
     // TabTitle
-    static std::vector<std::string> tabTitles = {"Page 1"};
+    static std::vector<std::string> tabTitles = { "Page 1" };
 
     // Resize(set  size as default)
-    static std::vector<std::vector<char>> tabContents = { std::vector<char>(16384, u8'\0') };
-
+    static std::vector<std::string> tabContents = { u8"" };
     // Path for function(Save file)
     std::string pathFile = "";
-    static std::string currentTabInfo;
-
+    std::string& currentTabInfo = tabContents[0];
+ 
     // Main loop
     bool done = false;
     while (!done)
@@ -321,16 +344,11 @@ int main(void)
                 // Add page logic
                 if (ImGui::Button("Add page")) {
                     tabTitles.push_back("Page" + std::to_string(tabTitles.size() + 1));
-
-                    // Resize tabContents if necessary
-                    if (tabContents.size() <= tabTitles.size()) {
-                        tabContents.push_back(std::vector<char>());
-                    }
+                    tabContents.emplace_back("");
 
                     selectedTab = static_cast<int>(tabTitles.size()) - 1;
 
                     const size_t maxTabs = 30;
-                    // Optional: Restrict the maximum number of tabs to 30
                     if (tabTitles.size() > maxTabs) {
                         tabTitles.resize(maxTabs);
                         tabContents.resize(maxTabs);
@@ -347,34 +365,46 @@ int main(void)
 
                 
 
-                for (int i = 0; i < static_cast<int>(tabTitles.size()); ++i) // Reverse loop for safer deletion
+                // Відображення вкладок
+                for (int i = 0; i < tabTitles.size(); ++i) 
                 {
                     bool open = true;
                     if (ImGui::BeginTabItem(tabTitles[i].c_str(), &open))
                     {
                         selectedTab = i;
-
                         ImGui::Text("Content for %s", tabTitles[i].c_str());
 
-                       
-					    
-                                
-                        
-                        ImGui::InputTextMultiline("##InputText", tabContents[i].data(), MAX_LENGTH_MULTILINE,
-                               ImVec2(x, y), flags);
+                 
+                        currentTabInfo = tabContents[i]; // Assign current tab content safely
+
+                      
+                        ImGui::InputTextMultiline("##InputText", tabContents[i].data(), tabContents[i].capacity(),
+                            ImVec2(x, y), flags | ImGuiInputTextFlags_CallbackResize, InputTextCallback, static_cast<void*>(&tabContents[i]));
+                     
+                        //std::cout << "Size : " << tabContents[i].size() << std::endl;
                         
 
-                        currentTabInfo = std::string(tabContents[i].data());
+                        
 
                         ImGui::EndTabItem();
                     }
+
+
+
+                    // If tab is closed, remove it (using reverse iteration to avoid shifting)
                     if (!open && i < tabTitles.size())
                     {
-                        tabTitles.erase(tabTitles.begin() + i);
-                        tabContents.erase(tabContents.begin() + i);
-                        selectedTab = (selectedTab >= tabTitles.size()) ? static_cast<int>(tabTitles.size()) - 1 : selectedTab;
+                        tabTitles[i] = std::move(tabTitles.back());  // Move last item into current position
+                        tabContents[i] = std::move(tabContents.back());
+                        // O(1) instead of O(n) 
+                        tabTitles.pop_back();
+                        tabContents.pop_back();
+                        selectedTab = (selectedTab >= tabTitles.size()) ? tabTitles.size() - 1 : selectedTab;
                     }
+
                 }
+
+               
              
                 ImGui::Separator();
 

@@ -18,7 +18,7 @@ void SaveFileDialog(HWND hwnd, const std::string& CurrentTabInfo, std::string& p
     if (GetSaveFileNameA(&ofn))
     {
         path = std::string(szFile);
-        bool isBinary = (path.find(".bin") != NULL);
+        bool isBinary = strstr(szFile, (".bin"));
 
         std::ofstream outFile(szFile, isBinary ? (std::ios::binary | std::ios::trunc) : std::ios::trunc);
         if (outFile)
