@@ -25,7 +25,7 @@ void SaveFileDialog(HWND hwnd, const std::string& CurrentTabInfo, std::string& p
         {
             if (isBinary)
             {
-                outFile.write(CurrentTabInfo.c_str(), CurrentTabInfo.size());
+                outFile.write(CurrentTabInfo.c_str(), CurrentTabInfo.size() + 4);
             }
             else
             {
@@ -75,7 +75,7 @@ void ShowOpenFileDialog(HWND hwnd, std::string &tabContents , std::string &pathF
                 size_t fileSize = inFile.tellg();
                 inFile.seekg(0, std::ios::beg);
 
-                std::string content(fileSize, '\0'); // Resize string to fit the content
+                std::string content(fileSize + 4, '\0'); // Resize string to fit the content
                 inFile.read(&content[0], fileSize);
 
 #if _DEBUG

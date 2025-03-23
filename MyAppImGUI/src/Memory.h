@@ -1,8 +1,11 @@
 #ifndef MEMORY_H
 #define MEMORY_H
 
+
+#define _CRTDBG_MAP_ALLOC
 #include <memory>
 #include <iostream>
+#include <crtdbg.h>
 
 
 static uint32_t s_allocation = 0;
