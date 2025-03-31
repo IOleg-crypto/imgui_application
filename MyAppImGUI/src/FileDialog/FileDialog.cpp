@@ -1,7 +1,7 @@
 #include "FileDialog.h"
 
 
-void SaveFileDialog(HWND hwnd, const std::string& CurrentTabInfo, std::string& path)
+void SaveFileDialog(const HWND& hwnd, const std::string& CurrentTabInfo, std::string& path)
 {
     OPENFILENAMEA ofn;  // Structure for the file dialog
     char szFile[MAX_PATH] = "";  // Buffer to store the selected file name
@@ -42,7 +42,7 @@ void SaveFileDialog(HWND hwnd, const std::string& CurrentTabInfo, std::string& p
     }
 }
 
-void ShowOpenFileDialog(HWND hwnd, std::string &tabContents , std::string &pathFile)
+void ShowOpenFileDialog(const HWND &hwnd, std::string &tabContents , std::string &pathFile)
 {
     OPENFILENAMEA ofn;                // Structure for the file dialog
     char szFile[MAX_PATH] = (""); // Buffer to store the selected file name
@@ -74,9 +74,11 @@ void ShowOpenFileDialog(HWND hwnd, std::string &tabContents , std::string &pathF
                 inFile.seekg(0, std::ios::end);
                 size_t fileSize = inFile.tellg();
                 inFile.seekg(0, std::ios::beg);
-
+                //+ 2 for cyrilic symbols
                 std::string content(fileSize + 4, '\0'); // Resize string to fit the content
                 inFile.read(&content[0], fileSize);
+                // Assign the read data to tabContents
+                tabContents = content.substr(0, fileSize);
 
 #if _DEBUG
                 std::cout << "Reading file binary"; // Just for debugging
@@ -111,7 +113,7 @@ void ShowOpenFileDialog(HWND hwnd, std::string &tabContents , std::string &pathF
 /*
 *  Additional function to save file(binary or text) - for not save as button(opening filedialog);
 */
-void SaveFile(HWND hwnd , const std::string& path, const std::string& content)
+void SaveFile(const HWND& hwnd , const std::string& path, const std::string& content)
 {
     if (!std::filesystem::exists(std::filesystem::path(path).parent_path())) { // Check directory instead
 #if _DEBUG
@@ -139,15 +141,4 @@ void SaveFile(HWND hwnd , const std::string& path, const std::string& content)
     {
         MessageBoxA(hwnd, "Error saving file", "File not saved", MB_OK);
     }
-}
-
-bool checkCyrilicInString(const std::string& str)
-{
-    for (size_t i = 0; i < str.size(); ++i) {
-        unsigned char ch = str[i];
-        if ((ch >= 0xD0 && ch <= 0xD1) && (i + 1 < str.size())) { 
-            return true;
-        }
-    }
-    return false;     
 }

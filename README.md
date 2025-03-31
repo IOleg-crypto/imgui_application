@@ -139,7 +139,7 @@ To run the executable from within VSCode, you can use the integrated terminal.
 
 You can refer to the official ImGui documentation ([ImGui GitHub](https://github.com/ocornut/imgui)) for more setup details.
 
-## 📷 Screenshots
+## 📷 Screenshots ( For Visual Studio)
 
 Sample GUI in Action:
 ![Sample GUI](image.png)
