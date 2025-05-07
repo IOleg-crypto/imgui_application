@@ -4,28 +4,28 @@
 void SaveFileDialog(const HWND& hwnd, const std::string& CurrentTabInfo, std::string& path)
 {
     OPENFILENAMEA ofn;  // Structure for the file dialog
-    char szFile[MAX_PATH] = "";  // Buffer to store the selected file name
+    char sz_file[MAX_PATH];  // Buffer to store the selected file name
 
     ZeroMemory(&ofn, sizeof(ofn));
     ofn.lStructSize = sizeof(ofn);
     ofn.hwndOwner = hwnd;
     ofn.lpstrFilter = "Text Files (*.txt)\0*.txt\0Binary Files (*.bin)\0*.bin\0All Files (*.*)\0*.*\0";
-    ofn.lpstrFile = szFile;
+    ofn.lpstrFile = sz_file;
     ofn.nMaxFile = MAX_PATH;
     ofn.Flags = OFN_OVERWRITEPROMPT | OFN_PATHMUSTEXIST;
     ofn.lpstrDefExt = "txt";
 
     if (GetSaveFileNameA(&ofn))
     {
-        path = std::string(szFile);
-        bool isBinary = strstr(szFile, (".bin"));
+        path = std::string(sz_file);
+        bool isBinary = strstr(sz_file, (".bin"));
 
-        std::ofstream outFile(szFile, isBinary ? (std::ios::binary | std::ios::trunc) : std::ios::trunc);
+        std::ofstream outFile(sz_file, isBinary ? (std::ios::binary | std::ios::trunc) : std::ios::trunc);
         if (outFile)
         {
             if (isBinary)
             {
-                outFile.write(CurrentTabInfo.c_str(), CurrentTabInfo.size() + 4);
+                outFile.write(CurrentTabInfo.c_str(), 4 + CurrentTabInfo.size());
             }
             else
             {
@@ -33,7 +33,7 @@ void SaveFileDialog(const HWND& hwnd, const std::string& CurrentTabInfo, std::st
             }
 
             outFile.close();
-            MessageBoxA(hwnd, szFile, "File Saved", MB_OK);
+            MessageBoxA(hwnd, sz_file, "File Saved", MB_OK);
         }
         else
         {
@@ -63,9 +63,7 @@ void ShowOpenFileDialog(const HWND &hwnd, std::string &tabContents , std::string
         // For save file func
         pathFile = std::string(szFile);
 
-        bool isBinary = (strstr(szFile, ".bin") != NULL);
-
-        if (isBinary)
+        if (bool isBinary = (strstr(szFile, ".bin") != nullptr))
         {
             // Open and read binary file
             std::ifstream inFile(szFile, std::ios::binary | std::ios::in | std::ios::ate);
@@ -113,7 +111,7 @@ void ShowOpenFileDialog(const HWND &hwnd, std::string &tabContents , std::string
 /*
 *  Additional function to save file(binary or text) - for not save as button(opening filedialog);
 */
-void SaveFile(const HWND& hwnd , const std::string& path, const std::string& content)
+void SaveFile(const HWND& hwnd,const std::string& path, const std::string& content)
 {
     if (!std::filesystem::exists(std::filesystem::path(path).parent_path())) { // Check directory instead
 #if _DEBUG

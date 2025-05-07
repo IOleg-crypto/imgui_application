@@ -1,174 +1,131 @@
-﻿Build started 30.03.2025 14:09:13.
+﻿Build started 08.04.2025 21:16:20.
 Logging verbosity is set to: Normal.     1>Project "D:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\MyAppImGUI.vcxproj" on node 2 (Build target(s)).
      1>PrepareForBuild:
          Structured output is enabled. The formatting of compiler diagnostics will reflect the error hierarchy. See https://aka.ms/cpp/structured-output for more details.
        InitializeBuildStatus:
-         Creating "MyAppImGUI\x64\Release\MyAppImGUI.tlog\unsuccessfulbuild" because "AlwaysCreate" was specified.
          Touching "MyAppImGUI\x64\Release\MyAppImGUI.tlog\unsuccessfulbuild".
+       ComputeStdModulesCompileInputs:
+         Reading library manifest file 'C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.43.34808\modules\modules.json' which provides data for library 'microsoft/STL'.
+         Adding module source 'C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.43.34808\modules\std.ixx' from library 'microsoft/STL' to be built with this project.
+         Adding module source 'C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.43.34808\modules\std.compat.ixx' from library 'microsoft/STL' to be built with this project.
        ClCompile:
-         C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.43.34808\bin\HostX64\x64\CL.exe /c /ID:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\/vendor /Zi /nologo /W3 /WX- /diagnostics:column /sdl /Ox /Oi /GL /D NDEBUG /D _CONSOLE /D _CRT_SECURE_NO_WARNINGS /D CHECK_MEMORYALLOC /D _UNICODE /D UNICODE /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /std:c++17 /permissive- /Fo"MyAppImGUI\x64\Release\\" /Fd"MyAppImGUI\x64\Release\vc143.pdb" /external:W3 /Gd /TP /FC /errorReport:prompt src\FileDialog\FileDialog.cpp
-         FileDialog.cpp
-         All outputs are up-to-date.
-       ResourceCompile:
-         All outputs are up-to-date.
-       Link:
-         C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.43.34808\bin\HostX64\x64\link.exe /ERRORREPORT:PROMPT /OUT:"D:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\x64\Release\MyAppImGUI.exe" /NOLOGO /LIBPATH:D:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\vendor\imgui\examples\libs\glfw d3d11.lib comdlg32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"D:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\x64\Release\MyAppImGUI.pdb" /SUBSYSTEM:CONSOLE /OPT:REF /OPT:ICF /LTCG:incremental /LTCGOUT:"MyAppImGUI\x64\Release\MyAppImGUI.iobj" /TLBID:1 /ENTRY:"mainCRTStartup" /DYNAMICBASE /NXCOMPAT /IMPLIB:"D:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\x64\Release\MyAppImGUI.lib" /MACHINE:X64 MyAppImGUI\x64\Release\FileDialog.obj
-         MyAppImGUI\x64\Release\Font.obj
-         MyAppImGUI\x64\Release\Notepad.obj
-         MyAppImGUI\x64\Release\imgui_impl_dx11.obj
-         MyAppImGUI\x64\Release\imgui_impl_win32.obj
-         MyAppImGUI\x64\Release\uSynergy.obj
-         MyAppImGUI\x64\Release\imgui.obj
-         MyAppImGUI\x64\Release\imgui_demo.obj
-         MyAppImGUI\x64\Release\imgui_draw.obj
-         MyAppImGUI\x64\Release\imgui_tables.obj
-         MyAppImGUI\x64\Release\imgui_widgets.obj
-         MyAppImGUI\x64\Release\imgui_stdlib.obj
-         "vendor\imgui\examples\libs\glfw\lib-vc2010-64\glfw3.lib"
-         Generating code
-         1 of 2339 functions (<0.1%) were compiled, the rest were copied from previous compilation.
-           0 functions were new in current compilation
-           41 functions had inline decision re-evaluated but remain unchanged
-         Finished generating code
-         MyAppImGUI.vcxproj -> D:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\x64\Release\MyAppImGUI.exe
-       FinalizeBuildStatus:
-         Deleting file "MyAppImGUI\x64\Release\MyAppImGUI.tlog\unsuccessfulbuild".
-         Touching "MyAppImGUI\x64\Release\MyAppImGUI.tlog\MyAppImGUI.lastbuildstate".
-     1>Done Building Project "D:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\MyAppImGUI.vcxproj" (Build target(s)).
+         C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.43.34808\bin\HostX64\x64\CL.exe /c /ID:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\/vendor /Zi /nologo /W3 /WX- /diagnostics:column /sdl /Ox /Oi /GL /D NDEBUG /D _CONSOLE /D _CRT_SECURE_NO_WARNINGS /D CHECK_MEMORYALLOC /D _UNICODE /D UNICODE /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /std:c++latest /permissive- /Fo"MyAppImGUI\x64\Release\\" /Fd"MyAppImGUI\x64\Release\vc143.pdb" /external:W3 /Gd /TP /FC /errorReport:prompt src\Notepad.cpp
+         Notepad.cpp
+     1>D:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\src\Render.h(24,36): warning C4244: '=': conversion from 'const float' to 'UINT', possible loss of data
+         (compiling source file 'src/Notepad.cpp')
+         
+     1>D:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\src\Render.h(25,37): warning C4244: '=': conversion from 'const float' to 'UINT', possible loss of data
+         (compiling source file 'src/Notepad.cpp')
+         
+     1>D:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\src\Memory.h(13,14): warning C4595: 'operator new': non-member operator new or delete functions may not be declared inline
+         (compiling source file 'src/Notepad.cpp')
+         
+     1>D:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\src\Memory.h(21,13): warning C4595: 'operator delete': non-member operator new or delete functions may not be declared inline
+         (compiling source file 'src/Notepad.cpp')
+         
+     1>D:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\src\Notepad.cpp(209,51): error C2440: 'initializing': cannot convert from 'initializer list' to 'std::vector<std::string,std::allocator<std::string>>'
+             D:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\src\Notepad.cpp(209,51):
+             'std::vector<std::string,std::allocator<std::string>>::vector(std::initializer_list<_Ty>,const _Alloc &)': cannot convert argument 1 from 'initializer list' to 'std::initializer_list<_Ty>'
+                 with
+                 [
+                     _Ty=std::string,
+                     _Alloc=std::allocator<std::string>
+                 ]
+                 and
+                 [
+                     _Ty=std::string
+                 ]
+                 D:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\src\Notepad.cpp(209,51):
+                 Element '1': no conversion from 'const char8_t [1]' to '_Ty'
+                 with
+                 [
+                     _Ty=std::string
+                 ]
+                 D:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\src\Notepad.cpp(209,51):
+                 while trying to match the argument list '(initializer list)'
+         
+     1>D:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\src\Notepad.cpp(438,52): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+     1>Done Building Project "D:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\MyAppImGUI.vcxproj" (Build target(s)) -- FAILED.
 
 Project Performance Summary:
-     4654 ms  D:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\MyAppImGUI.vcxproj   1 calls
-               4654 ms  Build                                      1 calls
+     5443 ms  D:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\MyAppImGUI.vcxproj   1 calls
+               5443 ms  Build                                      1 calls
 
 Target Performance Summary:
-        0 ms  _CheckForInvalidConfigurationAndPlatform   1 calls
-        0 ms  MakeDirsForLink                            1 calls
-        0 ms  PrepareResourceNames                       1 calls
-        0 ms  CreateCustomManifestResourceNames          1 calls
-        0 ms  SplitResourcesByCulture                    1 calls
-        0 ms  AssignTargetPaths                          1 calls
-        0 ms  ComputeManifestInputsTargets               1 calls
-        0 ms  ComputeCLGeneratedLinkInputs               1 calls
-        0 ms  ComputeCLOutputs                           1 calls
-        0 ms  ComputeManifestGeneratedLinkerInputs       1 calls
-        0 ms  ComputeRCGeneratedLinkInputs               1 calls
-        0 ms  ComputeRCOutputs                           1 calls
-        0 ms  BeforeLink                                 1 calls
-        0 ms  ComputeLegacyManifestEmbedding             1 calls
-        0 ms  BuildLinkTraverse                          1 calls
-        0 ms  BuildCompile                               1 calls
-        0 ms  _BuildCompileAction                        1 calls
-        0 ms  AfterBuildCompileEvent                     1 calls
-        0 ms  _ResourceCompile                           1 calls
-        0 ms  ResourceCompile                            1 calls
-        0 ms  SelectResourceCompile                      1 calls
-        0 ms  MakeDirsForResourceCompile                 1 calls
-        0 ms  BeforeResourceCompile                      1 calls
-        0 ms  _ClCompile                                 1 calls
-        0 ms  DoLinkOutputFilesMatch                     1 calls
-        0 ms  PreLinkEvent                               1 calls
-        0 ms  ComputeLinkSwitches                        1 calls
-        0 ms  AfterLink                                  1 calls
-        0 ms  AfterBuild                                 1 calls
-        0 ms  BuildLink                                  1 calls
-        0 ms  _BuildLinkAction                           1 calls
-        0 ms  PostBuildEvent                             1 calls
-        0 ms  PrepareForRun                              1 calls
-        0 ms  _CopySourceItemsToOutputDirectory          1 calls
-        0 ms  GetCopyToOutputDirectoryXamlAppDefs        1 calls
-        0 ms  _PopulateCommonStateForGetCopyToOutputDirectoryItems   1 calls
-        0 ms  _Appverifier                               1 calls
-        0 ms  CreateSatelliteAssemblies                  1 calls
-        0 ms  _GenerateSatelliteAssemblyInputs           1 calls
-        0 ms  AfterClCompile                             1 calls
-        0 ms  ContentFilesProjectOutputGroup             1 calls
-        0 ms  SatelliteDllsProjectOutputGroup            1 calls
-        0 ms  BuiltProjectOutputGroup                    1 calls
-        0 ms  _BscMake                                   1 calls
-        0 ms  MakeDirsForBscMake                         1 calls
-        0 ms  ComputeCLCompileGeneratedSbrFiles          1 calls
-        0 ms  _XdcMake                                   1 calls
-        0 ms  MakeDirsForXdcMake                         1 calls
-        0 ms  ResolvedXDCMake                            1 calls
-        0 ms  _Manifest                                  1 calls
-        0 ms  _ALink                                     1 calls
-        0 ms  _Link                                      1 calls
-        0 ms  MakeDirsForFxc                             1 calls
+        0 ms  PreBuildEvent                              1 calls
+        0 ms  BeforeBuildGenerateSources                 1 calls
         0 ms  SelectClCompile                            1 calls
-        0 ms  AfterResourceCompile                       1 calls
-        0 ms  ResolveAssemblyReferences                  1 calls
+        0 ms  _SelectedFiles                             1 calls
+        0 ms  SelectCustomBuild                          1 calls
+        0 ms  ComputeCustomBuildOutput                   1 calls
+        0 ms  CustomBuild                                1 calls
+        0 ms  CopyFileToFolders                          1 calls
+        0 ms  _Xsd                                       1 calls
+        0 ms  MakeDirsForMidl                            1 calls
+        0 ms  ComputeMIDLGeneratedCompileInputs          1 calls
+        0 ms  AfterMidl                                  1 calls
+        0 ms  _Midl                                      1 calls
+        0 ms  AfterBuildGenerateSources                  1 calls
+        0 ms  AfterBuildGenerateSourcesEvent             1 calls
+        0 ms  _BuildGenerateSourcesAction                1 calls
+        0 ms  BuildGenerateSources                       1 calls
+        0 ms  BuildCompileTraverse                       1 calls
+        0 ms  BeforeClCompile                            1 calls
+        0 ms  ComputeCLInputPDBName                      1 calls
+        0 ms  FindReferenceAssembliesForReferences       1 calls
+        0 ms  GetReferencedVCProjectsInfo                1 calls
+        0 ms  BuildGenerateSourcesTraverse               1 calls
+        0 ms  ComputeStdModulesCompileInputs             1 calls
         0 ms  ResolveReferences                          1 calls
         0 ms  AfterResolveReferences                     1 calls
-        0 ms  MakeDirsForCl                              1 calls
-        0 ms  ExpandSDKReferences                        1 calls
-        0 ms  ResolveSDKReferences                       1 calls
-        0 ms  PrepareForBuild                            1 calls
-        0 ms  SetCABuildNativeEnvironmentVariables       1 calls
-        0 ms  _CheckWindowsSDKInstalled                  1 calls
-        0 ms  GetResolvedWinMD                           1 calls
-        0 ms  SetBuildDefaultEnvironmentVariables        1 calls
-        0 ms  AddExternalIncludDirectoriesToPaths        1 calls
-        0 ms  GetReferenceAssemblyPaths                  1 calls
-        0 ms  GetFrameworkPaths                          1 calls
-        0 ms  ResolveProjectReferences                   1 calls
-        0 ms  PrepareProjectReferences                   1 calls
-        0 ms  _GetProjectReferenceTargetFrameworkProperties   1 calls
-        0 ms  _AddOutputPathToGlobalPropertiesToRemove   1 calls
-        0 ms  _SplitProjectReferencesByFileExistence     1 calls
-        0 ms  AssignProjectConfiguration                 1 calls
-        0 ms  IgnoreJavaScriptOutputAssembly             1 calls
-        0 ms  BeforeResolveReferences                    1 calls
-        0 ms  _PrepareForBuild                           1 calls
         0 ms  SetTelemetryEnvironmentVariables           1 calls
-        0 ms  BuildGenerateSourcesTraverse               1 calls
-        0 ms  BeforeBuildGenerateSources                 1 calls
-        0 ms  Build                                      1 calls
-        0 ms  BeforeClCompile                            1 calls
-        0 ms  SelectCustomBuild                          1 calls
+        0 ms  _PrepareForBuild                           1 calls
+        0 ms  _PrepareForReferenceResolution             1 calls
+        0 ms  BeforeResolveReferences                    1 calls
+        0 ms  IgnoreJavaScriptOutputAssembly             1 calls
+        0 ms  AssignProjectConfiguration                 1 calls
+        0 ms  _SplitProjectReferencesByFileExistence     1 calls
+        0 ms  _AddOutputPathToGlobalPropertiesToRemove   1 calls
+        0 ms  _GetProjectReferenceTargetFrameworkProperties   1 calls
+        0 ms  PrepareProjectReferences                   1 calls
+        0 ms  ComputeReferenceCLInput                    1 calls
+        0 ms  ResolveProjectReferences                   1 calls
+        0 ms  GetReferenceAssemblyPaths                  1 calls
+        0 ms  AddExternalIncludDirectoriesToPaths        1 calls
+        0 ms  SetBuildDefaultEnvironmentVariables        1 calls
+        0 ms  GetResolvedWinMD                           1 calls
+        0 ms  _CheckWindowsSDKInstalled                  1 calls
+        0 ms  SetCABuildNativeEnvironmentVariables       1 calls
+        0 ms  MakeDirsForCl                              1 calls
+        0 ms  ResolveSDKReferences                       1 calls
+        0 ms  ExpandSDKReferences                        1 calls
+        0 ms  ResolveAssemblyReferences                  1 calls
+        0 ms  GetFrameworkPaths                          1 calls
         0 ms  SetCppLanguageStandardCapabilities         1 calls
-        0 ms  FindReferenceAssembliesForReferences       1 calls
-        0 ms  _SelectedFiles                             1 calls
-        0 ms  BuildGenerateSources                       1 calls
-        0 ms  _Xsd                                       1 calls
-        0 ms  _BuildGenerateSourcesAction                1 calls
-        0 ms  AfterBuildGenerateSourcesEvent             1 calls
-        0 ms  AfterBuildGenerateSources                  1 calls
-        0 ms  _Midl                                      1 calls
-        0 ms  AfterMidl                                  1 calls
-        0 ms  ComputeCustomBuildOutput                   1 calls
-        0 ms  PreBuildEvent                              1 calls
-        0 ms  _CheckForCompileOutputs                    1 calls
-        1 ms  _Deploy                                    1 calls
-        1 ms  ComputeCLCompileGeneratedXDCFiles          1 calls
-        1 ms  ComputeStdModulesCompileInputs             1 calls
-        1 ms  CopyFileToFolders                          1 calls
-        1 ms  ComputeReferenceCLInput                    1 calls
-        1 ms  MakeDirsForMidl                            1 calls
-        1 ms  BuildCompileTraverse                       1 calls
-        1 ms  ComputeCLInputPDBName                      1 calls
-        1 ms  GetReferencedVCProjectsInfo                1 calls
-        1 ms  ComputeMIDLGeneratedCompileInputs          1 calls
-        1 ms  _GetCopyToOutputDirectoryItemsFromThisProject   1 calls
-        1 ms  CopyFilesToOutputDirectory                 1 calls
-        1 ms  _GetCopyToOutputDirectoryItemsFromTransitiveProjectReferences   1 calls
-        1 ms  IncrementalClean                           1 calls
-        2 ms  CustomBuild                                1 calls
-        2 ms  TlogCleanup                                1 calls
-        2 ms  WarnCompileDuplicatedFilename              1 calls
-        2 ms  FinalizeBuildStatus                        1 calls
-        3 ms  RegisterOutput                             1 calls
-        3 ms  FixupCLCompileOptions                      1 calls
-        3 ms  GetCopyToOutputDirectoryItems              1 calls
-        4 ms  _CleanGetCurrentAndPriorFileWrites         1 calls
-        5 ms  CreateRecipeFile                           1 calls
-       16 ms  _PrepareForReferenceResolution             1 calls
-       16 ms  ComputeLinkInputsFromProject               1 calls
-       19 ms  InitializeBuildStatus                      1 calls
-     1477 ms  Link                                       1 calls
-     3091 ms  ClCompile                                  1 calls
+        9 ms  _CheckForInvalidConfigurationAndPlatform   1 calls
+       16 ms  InitializeBuildStatus                      1 calls
+       16 ms  FixupCLCompileOptions                      1 calls
+       16 ms  WarnCompileDuplicatedFilename              1 calls
+       16 ms  SetModuleDependencies                      1 calls
+       16 ms  PrepareForBuild                            1 calls
+     5339 ms  ClCompile                                  1 calls
 
-Build succeeded.
-    0 Warning(s)
-    0 Error(s)
+Build FAILED.
 
-Time Elapsed 00:00:04.65
+       "D:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\MyAppImGUI.vcxproj" (Build target) (1) ->
+       (ClCompile target) -> 
+         D:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\src\Render.h(24,36): warning C4244: '=': conversion from 'const float' to 'UINT', possible loss of data
+         D:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\src\Render.h(25,37): warning C4244: '=': conversion from 'const float' to 'UINT', possible loss of data
+         D:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\src\Memory.h(13,14): warning C4595: 'operator new': non-member operator new or delete functions may not be declared inline
+         D:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\src\Memory.h(21,13): warning C4595: 'operator delete': non-member operator new or delete functions may not be declared inline
+         D:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\src\Notepad.cpp(438,52): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+
+
+       "D:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\MyAppImGUI.vcxproj" (Build target) (1) ->
+       (ClCompile target) -> 
+         D:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\src\Notepad.cpp(209,51): error C2440: 'initializing': cannot convert from 'initializer list' to 'std::vector<std::string,std::allocator<std::string>>'
+
+    5 Warning(s)
+    1 Error(s)
+
+Time Elapsed 00:00:05.44

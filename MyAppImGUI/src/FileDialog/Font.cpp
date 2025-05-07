@@ -33,7 +33,7 @@ void ShowFontWindow(char* path, bool& show_font_window, int& font_size)
 
             ImFontConfig config;
             config.OversampleH = 3;
-            config.SizePixels = font_size * dpi_scale;
+            config.SizePixels = static_cast<float>(font_size) * dpi_scale;
 
             ImFont* newFont = nullptr;
 
@@ -43,7 +43,7 @@ void ShowFontWindow(char* path, bool& show_font_window, int& font_size)
             }
             else
             {
-                newFont = io.Fonts->AddFontFromFileTTF(path, font_size * dpi_scale, &config, io.Fonts->GetGlyphRangesCyrillic());
+                newFont = io.Fonts->AddFontFromFileTTF(path, static_cast<float>(font_size) * dpi_scale, &config, io.Fonts->GetGlyphRangesCyrillic());
             }
 
             if (newFont)
