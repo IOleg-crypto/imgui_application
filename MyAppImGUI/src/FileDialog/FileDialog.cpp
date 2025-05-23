@@ -1,5 +1,8 @@
 #include "FileDialog.h"
 
+#include <iostream>
+#include <fstream>
+
 
 void SaveFileDialog(const HWND& hwnd, const std::string& CurrentTabInfo, std::string& path)
 {

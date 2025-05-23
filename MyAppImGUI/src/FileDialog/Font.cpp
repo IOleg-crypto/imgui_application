@@ -1,9 +1,15 @@
 #include "Font.h"
 
+#include "imgui.h"
+#include "imgui_impl_dx11.h"
+#include <ShlObj.h>
+#include <d3d11.h>// Include namespace for IFileOpenDialog>
+#include <string>
+
 void ShowFontWindow(char* path, bool& show_font_window, int& font_size)
 {
     ImGuiIO& io = ImGui::GetIO();
-    float dpi_scale = io.DisplayFramebufferScale.x;
+    const float dpi_scale = io.DisplayFramebufferScale.x;
 
     io.Fonts->TexDesiredWidth = static_cast<int>(2048 * dpi_scale);
     io.Fonts->Flags |= ImFontAtlasFlags_NoPowerOfTwoHeight;
@@ -61,7 +67,7 @@ void ShowFontWindow(char* path, bool& show_font_window, int& font_size)
 std::string GetFontPath()
 {
     IFileOpenDialog* pFileOpen = nullptr;
-    if (FAILED(CoCreateInstance(CLSID_FileOpenDialog, NULL, CLSCTX_ALL, IID_IFileOpenDialog, reinterpret_cast<void**>(&pFileOpen))))
+    if (FAILED(CoCreateInstance(CLSID_FileOpenDialog, nullptr, CLSCTX_ALL, IID_IFileOpenDialog, reinterpret_cast<void**>(&pFileOpen))))
         return "Failed to open file dialog";
 
     COMDLG_FILTERSPEC fileTypes[] = {
@@ -71,7 +77,7 @@ std::string GetFontPath()
     pFileOpen->SetFileTypes(ARRAYSIZE(fileTypes), fileTypes);
 
     DWORD dwFlags;
-    if (FAILED(pFileOpen->GetOptions(&dwFlags)) || FAILED(pFileOpen->SetOptions(dwFlags | FOS_FORCEFILESYSTEM)) || FAILED(pFileOpen->Show(NULL)))
+    if (FAILED(pFileOpen->GetOptions(&dwFlags)) || FAILED(pFileOpen->SetOptions(dwFlags | FOS_FORCEFILESYSTEM)) || FAILED(pFileOpen->Show(nullptr)))
     {
         pFileOpen->Release();
         return "Failed to get file path";

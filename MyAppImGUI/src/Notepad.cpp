@@ -1,4 +1,4 @@
-// main.cpp - for Imgui Application with Direct3D 11  , info see: https://github.com/ocornut/imgui
+// main.cpp - for ImGUI Application with Direct3D 11  , info see: https://github.com/ocornut/imgui
 #if !defined(_CRT_SECURE_NO_WARNINGS)
 #define _CRT_SECURE_NO_WARNINGS
 #endif
@@ -6,18 +6,17 @@
 #include "imgui_impl_dx11.h"
 #include "imgui_impl_win32.h"
 #include <ShlObj.h>
-#include <Shlwapi.h>
+#include <filesystem>
 
 // Include default C++ libraries
 #include <Windows.h>
-#include <cstring>
 #include <iostream>
+#include <vector>
 #ifndef _DEBUG
 #include <locale>
 #endif
 #include <string>
 #include <tchar.h>
-#include <vector>
 
 // For file dialog
 #include "FileDialog/FileDialog.h"
@@ -33,9 +32,6 @@
 #include "Memory.h"
 #endif
 
-#pragma comment(lib, "d3d11.lib")
-#pragma comment(lib, "dxgi.lib")
-#pragma comment(lib, "d3d11.lib")
 
 // Used to define max path - now unused
 constexpr int g_MAX_LENGTH_PATH = 256;
@@ -92,7 +88,7 @@ int InputTextCallback(ImGuiInputTextCallbackData *data)
 }
 
 // Main code
-int main(void)
+int main()
 {
 #if _DEBUG // NOLINT(clang-diagnostic-undef)
     std::setlocale(LC_ALL, "C.UTF-8");
@@ -132,8 +128,8 @@ int main(void)
     */
     // For dynamic resize
     //  get screen width and height
-    float x = static_cast<float>(GetSystemMetrics(SM_CXSCREEN));
-    float y = static_cast<float>(GetSystemMetrics(SM_CYSCREEN));
+    auto x = static_cast<float>(GetSystemMetrics(SM_CXSCREEN));
+    auto y = static_cast<float>(GetSystemMetrics(SM_CYSCREEN));
 
     hwnd = CreateWindowExW(
         WS_EX_LAYERED | WS_EX_TOPMOST, // Transparent Layered Window

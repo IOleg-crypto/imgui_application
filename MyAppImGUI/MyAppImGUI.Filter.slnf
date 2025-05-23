@@ -1,0 +1,8 @@
+﻿{
+  "solution": {
+    "path": "MyAppImGUI.sln",
+    "projects": [
+      "MyAppImGUI.vcxproj"
+    ]
+  }
+}
