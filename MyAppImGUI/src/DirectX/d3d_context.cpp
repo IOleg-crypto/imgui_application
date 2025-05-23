@@ -1,6 +1,5 @@
 ﻿#include "d3d_context.h"
 
-#include "imgui_impl_dx11.h"
 #include "imgui_impl_win32.h"
 #include "winuser.h"
 #include <windows.h>
