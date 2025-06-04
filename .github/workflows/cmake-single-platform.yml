@@ -2,6 +2,8 @@ name: ImGUI Notepad (Windows)
 
 on:
   push:
+    tags:
+      - ImGUI Notepad
     branches: [ imgui_application ]
 
 jobs:
@@ -24,8 +26,8 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        tag_name: ${{ github.sha }}
-        name: Release ${{ github.sha }}
+        tag_name: ${{ github.ref_name }}
+        name: Release ${{ github.ref_name }}
         draft: false
         prerelease: false
 
@@ -34,7 +36,8 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        tag_name: ${{ github.sha }}
+        tag_name: ${{ github.ref_name }}
         asset_path: build\Release\MyAppImGUI.exe
         name: MyAppImGUI.exe
+
 
