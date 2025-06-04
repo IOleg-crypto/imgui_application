@@ -1,0 +1,22 @@
+name: ImGUI Notepad (Windows)
+
+on:
+  push:
+    branches: [ imgui_application ]
+  pull_request:
+    branches: [ imgui_application ]
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Configure CMake
+      run: cmake -S . -B build -G "Visual Studio 17 2022"
+
+    - name: Build project
+      run: cmake --build build --config Release
+
