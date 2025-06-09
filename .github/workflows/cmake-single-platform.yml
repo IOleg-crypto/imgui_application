@@ -3,9 +3,9 @@ name: ImGUI Notepad (Windows)
 on:
   push:
     tags:
-      - 'ImGUI-Notepad-*'
+      - 'imgui_application'
     branches:
-      - imgui_application
+       - imgui_application
 
 jobs:
   build_and_release:
