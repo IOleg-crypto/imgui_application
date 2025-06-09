@@ -4,8 +4,7 @@ on:
   push:
     tags:
       - 'imgui_application'
-    branches:
-       - imgui_application
+    branches: [ "imgui_application" ]
 
 jobs:
   build_and_release:
