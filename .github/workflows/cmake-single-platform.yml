@@ -4,7 +4,8 @@ on:
   push:
     tags:
       - ImGUI Notepad
-    branches: [ imgui_application ]
+    branches:
+      - imgui_application
 
 jobs:
   build_and_release:
@@ -20,6 +21,11 @@ jobs:
     - name: Build project
       run: cmake --build build --config Release
 
+    - name: Get commit message
+      id: commit_message
+      run: |
+        echo "message=$(git log -1 --pretty=%B)" >> $GITHUB_OUTPUT
+
     - name: Create Release
       id: create_release
       uses: softprops/action-gh-release@v1
@@ -28,6 +34,9 @@ jobs:
       with:
         tag_name: ${{ github.ref_name }}
         name: Release ${{ github.ref_name }}
+        body: |
+          Commit message:
+          ${{ steps.commit_message.outputs.message }}
         draft: false
         prerelease: false
 
@@ -38,6 +47,3 @@ jobs:
       with:
         tag_name: ${{ github.ref_name }}
         files: ./build/Release/MyAppImGUI.exe
-
-
-
