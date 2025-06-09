@@ -15,6 +15,15 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v3
 
+    - name: Cache CMake build
+      uses: actions/cache@v4.2.3
+      with:
+        path: |
+          build
+        key: ${{ runner.os }}-cmake-${{ hashFiles('myAppImGUI/CMakeLists.txt') }}
+        restore-keys: |
+          ${{ runner.os }}-cmake-
+
     - name: Configure CMake
       run: cmake -S myAppImGUI -B build -G "Visual Studio 17 2022"
 
@@ -25,7 +34,7 @@ jobs:
       id: commit_message
       run: echo "message=$(git log -1 --pretty=%B)" >> $GITHUB_OUTPUT
 
-    - name: Debug commit message
+    - name: Debug commit message (optional)
       run: echo "${{ steps.commit_message.outputs.message }}"
 
     - name: Check if file exists
