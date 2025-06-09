@@ -1,0 +1,13 @@
+{
+    "version": 1,
+    "revision": 0,
+    "rules": [
+        {
+            "primary-output": "MyAppImGUI.dir\\Release\\imgui_stdlib.obj",
+            "outputs": [
+                "MyAppImGUI.dir\\Release\\"
+            ],
+            "requires": []
+        }
+    ]
+}

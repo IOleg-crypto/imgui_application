@@ -1,0 +1,12 @@
+D:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\src\DirectX\d3d_context.cpp;D:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\MyAppImGUI.dir\Release\d3d_context.obj
+D:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\src\FileDialog\FileDialog.cpp;D:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\MyAppImGUI.dir\Release\FileDialog.obj
+D:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\src\FileDialog\Font.cpp;D:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\MyAppImGUI.dir\Release\Font.obj
+D:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\src\Notepad.cpp;D:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\MyAppImGUI.dir\Release\Notepad.obj
+D:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\vendor\imgui\imgui.cpp;D:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\MyAppImGUI.dir\Release\imgui.obj
+D:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\vendor\imgui\imgui_draw.cpp;D:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\MyAppImGUI.dir\Release\imgui_draw.obj
+D:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\vendor\imgui\imgui_tables.cpp;D:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\MyAppImGUI.dir\Release\imgui_tables.obj
+D:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\vendor\imgui\imgui_widgets.cpp;D:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\MyAppImGUI.dir\Release\imgui_widgets.obj
+D:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\vendor\imgui\imgui_demo.cpp;D:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\MyAppImGUI.dir\Release\imgui_demo.obj
+D:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\vendor\imgui\backends\imgui_impl_dx11.cpp;D:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\MyAppImGUI.dir\Release\imgui_impl_dx11.obj
+D:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\vendor\imgui\backends\imgui_impl_win32.cpp;D:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\MyAppImGUI.dir\Release\imgui_impl_win32.obj
+D:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\vendor\imgui\misc\cpp\imgui_stdlib.cpp;D:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\MyAppImGUI.dir\Release\imgui_stdlib.obj

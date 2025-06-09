@@ -1,6 +1,6 @@
 // main.cpp - for ImGUI Application with Direct3D 11  , info see: https://github.com/ocornut/imgui
 #if !defined(_CRT_SECURE_NO_WARNINGS)
-#define _CRT_SECURE_NO_WARNINGS
+#define CRT_SECURE_NO_WARNINGS
 #endif
 #include "imgui.h"
 #include "imgui_impl_dx11.h"
@@ -33,9 +33,6 @@
 #endif
 
 
-// Used to define max path - now unused
-constexpr int g_MAX_LENGTH_PATH = 256;
-
 static void ToggleFullscreen(const ImGuiIO &io)
 {
     // Special for ImGui window
@@ -45,11 +42,8 @@ static void ToggleFullscreen(const ImGuiIO &io)
     ImGui::SetNextWindowSize(displaySize);
 }
 
-// Global variables for device and context (assuming they are defined somewhere)
-// extern ID3D11Device *g_pd3dDevice;
-// extern ID3D11DeviceContext *g_pd3dDeviceContext;
 
-void AboutWindow(bool &show_demo_window, const ImGuiIO &io)
+static void AboutWindow(bool &show_demo_window, const ImGuiIO &io)
 {
     if (ImGui::Begin("##About", &show_demo_window))
     {
@@ -59,14 +53,12 @@ void AboutWindow(bool &show_demo_window, const ImGuiIO &io)
     ImGui::End();
 }
 
-
-
-int InputTextCallback(ImGuiInputTextCallbackData *data)
+static int InputTextCallback(ImGuiInputTextCallbackData *data)
 {
     if (data->EventFlag == ImGuiInputTextFlags_CallbackResize)
     {
         // Retrieve our std::string pointer from UserData.
-        std::string *str = static_cast<std::string *>(data->UserData);
+        auto *str = static_cast<std::string *>(data->UserData);
 
         std::cout << "BufferText : " << data->BufTextLen << "\n";
 
@@ -95,15 +87,6 @@ int main()
     SetConsoleOutputCP(65001);
 
 #endif
-    //// Load icon from file
-    // hIcon = static_cast<HICON>(LoadImage(
-    //  GetModuleHandle(nullptr), // or wc.hInstance after it's declared
-    //  L"icon.ico",
-    //  IMAGE_ICON,
-    //  32, 32,
-    //  LR_LOADFROMFILE | LR_DEFAULTSIZE
-    //));
-    // Create application window
     WNDCLASSEXW wc = {
         sizeof(wc),                                   // cbSize
         CS_HREDRAW | CS_VREDRAW,                      // style
@@ -118,18 +101,10 @@ int main()
         L"Notepad",                                   // lpszClassName
         nullptr};
     ::RegisterClassExW(&wc);
-    /*SendMessage(hwnd, WM_SETICON, ICON_BIG, reinterpret_cast<LPARAM>(hIcon));
-    SendMessage(hwnd, WM_SETICON, ICON_SMALL, reinterpret_cast<LPARAM>(hIcon));
-    LoadImage(wc.hInstance, L"icon.ico", IMAGE_ICON, 32, 32, LR_LOADFROMFILE);*/
 
-    // Old window
-    /*
-       hwnd = ::CreateWindowW(wc.lpszClassName, L"Notepad", WS_OVERLAPPEDWINDOW, 100, 100, 1280, 800, nullptr, nullptr, wc.hInstance, nullptr);
-    */
-    // For dynamic resize
-    //  get screen width and height
-    auto x = static_cast<float>(GetSystemMetrics(SM_CXSCREEN));
-    auto y = static_cast<float>(GetSystemMetrics(SM_CYSCREEN));
+
+    float x = static_cast<float>(GetSystemMetrics(SM_CXSCREEN));
+    float y = static_cast<float>(GetSystemMetrics(SM_CYSCREEN));
 
     hwnd = CreateWindowExW(
         WS_EX_LAYERED | WS_EX_TOPMOST, // Transparent Layered Window
@@ -454,11 +429,12 @@ int main()
                 else
                     flags &= ~ImGuiInputTextFlags_ReadOnly;
             }
+#if _DEBUG  // Let it debug  , cause , you kill program
             if (ImGui::IsKeyPressed(ImGuiKey_F, false))
             {
                 hide_window = !hide_window;
             }
-#if _DEBUG
+
             if (ImGui::IsKeyPressed(ImGuiKey_LeftAlt, false))
             {
                 ::PostQuitMessage(0);

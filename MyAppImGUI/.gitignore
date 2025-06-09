@@ -3,6 +3,10 @@
 # .gitignore
 
 # Windows
-# *.o
-# *.obj
-# *.exe
+*.o
+*.obj
+*.exe
+
+# Files
+*.bin
+*.txt
