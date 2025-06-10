@@ -50,6 +50,7 @@ jobs:
         body: |
           Commit message:
           ${{ steps.commit_message.outputs.message }}
+        files: ./build/Release/MyAppImGUI.exe
         draft: false
         prerelease: false
 
