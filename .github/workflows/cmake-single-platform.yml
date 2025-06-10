@@ -39,11 +39,11 @@ jobs:
     - name: Create GitHub Release
       uses: softprops/action-gh-release@v1
       with:
-        tag_name: ${{ github.ref_name }}
-        name: ImGUI Notepad ${{ github.ref_name }}
+        tag_name: build-${{ github.run_number }}
+        name: "imgui_notepad_application"
         body: |
-          📝 Commit message:
-          ${{ steps.commit_message.outputs.message }}
+          • Commit: ${{ github.sha }}
+          • Message: ${{ github.event.head_commit.message }}
         files: build/Release/MyAppImGUI.exe
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
