@@ -7,7 +7,7 @@
 void SaveFileDialog(const HWND& hwnd, const std::string& CurrentTabInfo, std::string& path)
 {
     OPENFILENAMEA ofn;  // Structure for the file dialog
-    char sz_file[MAX_PATH];  // Buffer to store the selected file name
+    char sz_file[MAX_PATH] = ("\0");  // Buffer to store the selected file name
 
     ZeroMemory(&ofn, sizeof(ofn));
     ofn.lStructSize = sizeof(ofn);

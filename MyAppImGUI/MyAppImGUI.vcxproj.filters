@@ -4,6 +4,9 @@
     <ClCompile Include="D:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\src\DirectX\d3d_context.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="D:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\src\DirectX\Render.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="D:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\src\FileDialog\FileDialog.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>

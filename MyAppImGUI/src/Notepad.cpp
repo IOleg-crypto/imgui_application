@@ -12,7 +12,7 @@
 #include <Windows.h>
 #include <iostream>
 #include <vector>
-#ifndef _DEBUG
+#ifdef _DEBUG
 #include <locale>
 #endif
 #include <string>
@@ -122,7 +122,7 @@ int main()
     }
 
     // Show the window
-    ShowWindow(hwnd, SW_SHOW);
+	ShowWindow(hwnd, SW_SHOW);
     UpdateWindow(hwnd);
 
     // Setup Dear ImGui context
@@ -137,7 +137,7 @@ int main()
     char path[] = R"(C:\Windows\Fonts\Arial.ttf)";
     io.Fonts->AddFontFromFileTTF(path, 20, nullptr, io.Fonts->GetGlyphRangesCyrillic());
 
-    // Setup Platform/Renderer backends
+    // Setup Platform/Renderer backend
     ImGui_ImplWin32_Init(hwnd);
     ImGui_ImplDX11_Init(g_pd3dDevice, g_pd3dDeviceContext);
     // Flags
@@ -571,8 +571,14 @@ void CleanupDeviceD3D()
 
 void CreateRenderTarget()
 {
-    ID3D11Texture2D *pBackBuffer = nullptr;
+    ID3D11Texture2D * pBackBuffer = nullptr;
     g_pSwapChain->GetBuffer(0, IID_PPV_ARGS(&pBackBuffer));
+    /*
+    *  pBackBuffer - could be nullptr
+    */
+    if (pBackBuffer == nullptr) {
+        return;
+    }
     g_pd3dDevice->CreateRenderTargetView(pBackBuffer, nullptr, &g_mainRenderTargetView);
     pBackBuffer->Release();
 }

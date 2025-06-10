@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.31)
+cmake_minimum_required(VERSION 3.29)
 project(MyAppImGUI)
 
 set(CMAKE_CXX_STANDARD 20)
@@ -8,6 +8,7 @@ add_executable(MyAppImGUI
         src/DirectX/d3d_context.cpp
         src/DirectX/d3d_context.h
         src/DirectX/Render.h
+        src/DirectX/Render.cpp
         src/FileDialog/FileDialog.cpp
         src/FileDialog/FileDialog.h
         src/FileDialog/Font.cpp
@@ -50,3 +51,9 @@ target_link_libraries(MyAppImGUI PUBLIC
         shell32
         user32
 )
+
+if (WIN32)
+    set_target_properties(MyAppImGUI PROPERTIES
+        WIN32_EXECUTABLE $<$<CONFIG:Release>:ON>
+    )
+endif()
