@@ -1,0 +1,14 @@
+{
+    "version": 1,
+    "revision": 0,
+    "rules": [
+        {
+            "primary-output": "MyAppImGUI.dir\\Debug\\imgui_draw.obj",
+            "outputs": [
+                "D:\\gitnext\\CppWithImGUI\\imgui_application\\MyAppImGUI\\MyAppImGUI.dir\\Debug\\vc143.pdb",
+                "MyAppImGUI.dir\\Debug\\"
+            ],
+            "requires": []
+        }
+    ]
+}

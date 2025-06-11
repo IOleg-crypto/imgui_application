@@ -33,16 +33,18 @@
 #endif
 
 
-static void ToggleFullscreen(const ImGuiIO &io)
-{
-    // Special for ImGui window
-    ImVec2 displaySize = io.DisplaySize;
 
-    ImGui::SetNextWindowPos(ImVec2(0, 0));
-    ImGui::SetNextWindowSize(displaySize);
+/*
+*  Function to toggle fullscreen
+*/
+static void ToggleFullscreen()
+{
+	fullscreen = !fullscreen;
 }
 
-
+/*
+*  Function to show about window(info about application)
+*/
 static void AboutWindow(bool &show_demo_window, const ImGuiIO &io)
 {
     if (ImGui::Begin("##About", &show_demo_window))
@@ -53,6 +55,9 @@ static void AboutWindow(bool &show_demo_window, const ImGuiIO &io)
     ImGui::End();
 }
 
+/*
+*  Function to resize buffer of input text for ImGuiTextMultiline
+*/
 static int InputTextCallback(ImGuiInputTextCallbackData *data)
 {
     if (data->EventFlag == ImGuiInputTextFlags_CallbackResize)
@@ -85,7 +90,6 @@ int main()
 #if _DEBUG // NOLINT(clang-diagnostic-undef)
     std::setlocale(LC_ALL, "C.UTF-8");
     SetConsoleOutputCP(65001);
-
 #endif
     WNDCLASSEXW wc = {
         sizeof(wc),                                   // cbSize
@@ -103,8 +107,8 @@ int main()
     ::RegisterClassExW(&wc);
 
 
-    float x = static_cast<float>(GetSystemMetrics(SM_CXSCREEN));
-    float y = static_cast<float>(GetSystemMetrics(SM_CYSCREEN));
+    auto x = static_cast<float>(GetSystemMetrics(SM_CXSCREEN));
+    auto y = static_cast<float>(GetSystemMetrics(SM_CYSCREEN));
 
     hwnd = CreateWindowExW(
         WS_EX_LAYERED | WS_EX_TOPMOST, // Transparent Layered Window
@@ -123,6 +127,9 @@ int main()
 
     // Show the window
 	ShowWindow(hwnd, SW_SHOW);
+#if NDEBUG // For release mode
+    ShowWindow(GetConsoleWindow(), SW_HIDE); 
+#endif
     UpdateWindow(hwnd);
 
     // Setup Dear ImGui context
@@ -213,7 +220,15 @@ int main()
         ImGui::NewFrame();
 
         // Main window
-        ImGui::SetNextWindowSize(ImVec2(800, 400), ImGuiCond_FirstUseEver);
+		if (fullscreen)
+		{
+			ImGui::SetNextWindowPos(ImVec2(0, 0), ImGuiCond_Always);
+			ImGui::SetNextWindowSize(io.DisplaySize, ImGuiCond_Always);
+		}
+		else
+		{
+			ImGui::SetNextWindowSize(ImVec2(800, 400), ImGuiCond_FirstUseEver);
+		}
         if (ImGui::Begin("Notepad", &hide_window, ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_HorizontalScrollbar | ImGuiWindowFlags_NoCollapse))
         {
             // Stop program
@@ -290,9 +305,9 @@ int main()
                             }
                         }
                     }
-                    if (ImGui::MenuItem("Fullscreen", "F5"))
+                    if (ImGui::MenuItem("Fullscreen", "3"))
                     {
-                        ToggleFullscreen(io);
+                        ToggleFullscreen();
                     }
                     if (ImGui::MenuItem("Exit", "Alt+F4"))
                     {
@@ -378,10 +393,12 @@ int main()
                     {
                         selectedTab = static_cast<int>(tabTitles.size() - 1);
                     }
-                    // else
-                    // {
-                    //     selectedTab = selectedTab;
-                    // }
+                    // To avoid situation when tabTitles empty(user delete all tabs)
+                    if (tabTitles.empty())
+					{
+						tabTitles.emplace_back("Page" + std::to_string(tabTitles.size() + 1));
+						tabContents.emplace_back();
+					}
                 }
             }
 
@@ -430,11 +447,6 @@ int main()
                     flags &= ~ImGuiInputTextFlags_ReadOnly;
             }
 #if _DEBUG  // Let it debug  , cause , you kill program
-            if (ImGui::IsKeyPressed(ImGuiKey_F, false))
-            {
-                hide_window = !hide_window;
-            }
-
             if (ImGui::IsKeyPressed(ImGuiKey_LeftAlt, false))
             {
                 ::PostQuitMessage(0);
@@ -442,7 +454,7 @@ int main()
 #endif
             if (ImGui::IsKeyPressed(ImGuiKey_F5))
             {
-                ToggleFullscreen(io);
+                ToggleFullscreen();
             }
             if (ImGui::IsKeyDown(ImGuiKey_LeftCtrl) && ImGui::IsKeyPressed(ImGuiKey_LeftShift, false) && ImGui::IsKeyPressed(ImGuiKey_S, false))
             {

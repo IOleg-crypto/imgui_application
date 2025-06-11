@@ -1,0 +1,10 @@
+^D:\GITNEXT\CPPWITHIMGUI\IMGUI_APPLICATION\MYAPPIMGUI\CMAKEFILES\30C053BAC009EA38CCC6838A72BA2A65\GENERATE.STAMP.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SD:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI -BD:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/MyAppImGUI.sln
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
