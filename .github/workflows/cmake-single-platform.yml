@@ -2,8 +2,6 @@ name: ImGUI Notepad (Windows)
 
 on:
   push:
-    tags:
-      - 'imgui_application'
     branches: [ "imgui_application" ]
 
 jobs:
@@ -15,7 +13,7 @@ jobs:
       uses: actions/checkout@v3
 
     - name: Cache CMake build
-      uses: actions/cache@v4.2.3
+      uses: actions/cache@v4
       with:
         path: |
           build
@@ -31,32 +29,19 @@ jobs:
 
     - name: Get commit message
       id: commit_message
-      run: echo "message=$(git log -1 --pretty=%B)" >> $GITHUB_OUTPUT
+      run: echo "message=$(git log -1 --pretty=format:%s)" >> $env:GITHUB_OUTPUT
 
-    - name: Debug commit message (optional)
-      run: echo "${{ steps.commit_message.outputs.message }}"
+    - name: List build output
+      run: dir build\Release
 
-    - name: Check if file exists
-      run: dir ./build/Release
-
-    - name: Create Release
-      id: create_release
+    - name: Create GitHub Release
       uses: softprops/action-gh-release@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        tag_name: ${{ github.ref_name }}
-        name: Release ${{ github.ref_name }}
+        tag_name: build-${{ github.run_number }}
+        name: "imgui_notepad_application"
         body: |
-          Commit message:
-          ${{ steps.commit_message.outputs.message }}
-        draft: false
-        prerelease: false
-
-    - name: Upload Release Asset
-      uses: softprops/action-gh-release@v1
+          • Commit: ${{ github.sha }}
+          • Message: ${{ github.event.head_commit.message }}
+        files: build/Release/MyAppImGUI.exe
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        tag_name: ${{ github.ref_name }}
-        files: ./build/Release/MyAppImGUI.exe

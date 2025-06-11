@@ -51,9 +51,3 @@ target_link_libraries(MyAppImGUI PUBLIC
         shell32
         user32
 )
-
-if (WIN32)
-    set_target_properties(MyAppImGUI PROPERTIES
-        WIN32_EXECUTABLE $<$<CONFIG:Release>:ON>
-    )
-endif()
