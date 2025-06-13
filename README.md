@@ -6,7 +6,7 @@ This repository provides a basic application framework using Dear ImGui, a power
 ## 🚀 Features
 
 - Simple and clean ImGui setup for rendering GUIs
-- Cross-platform support (works on Windows, Linux, and macOS)
+- Windows support only(DirectX)
 - Easy-to-extend application framework to build on
 - Basic examples for quick integration
 

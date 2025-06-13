@@ -3,6 +3,11 @@ name: ImGUI Notepad (Windows)
 on:
   push:
     branches: [ "imgui_application" ]
+  workflow_dispatch:
+    inputs:
+      commit_sha:
+        description: 'Optional: Commit SHA to checkout (defaults to current HEAD)'
+        required: true
 
 jobs:
   build_and_release:
@@ -11,6 +16,8 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v3
+      with:
+        ref: ${{ inputs.commit_sha || github.sha }}
 
     - name: Cache CMake build
       uses: actions/cache@v4
@@ -29,7 +36,8 @@ jobs:
 
     - name: Get commit message
       id: commit_message
-      run: echo "message=$(git log -1 --pretty=format:%s)" >> $env:GITHUB_OUTPUT
+      run: |
+        echo "message=$(git log -1 --pretty=format:%s)" >> $env:GITHUB_OUTPUT
 
     - name: List build output
       run: dir build\Release
@@ -40,8 +48,8 @@ jobs:
         tag_name: build-${{ github.run_number }}
         name: "imgui_notepad_application"
         body: |
-          • Commit: ${{ github.sha }}
-          • Message: ${{ github.event.head_commit.message }}
+          • Commit: ${{ inputs.commit_sha || github.sha }}
+          • Message: ${{ steps.commit_message.outputs.message }}
         files: build/Release/MyAppImGUI.exe
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
