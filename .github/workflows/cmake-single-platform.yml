@@ -7,7 +7,7 @@ on:
     inputs:
       commit_sha:
         description: 'Optional: Commit SHA to checkout (defaults to current HEAD)'
-        required: false
+        required: true
 
 jobs:
   build_and_release:
