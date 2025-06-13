@@ -45,6 +45,7 @@ static void ToggleFullscreen()
 /*
 *  Function to show about window(info about application)
 */
+
 static void AboutWindow(bool &show_demo_window, const ImGuiIO &io)
 {
     if (ImGui::Begin("##About", &show_demo_window))
@@ -127,7 +128,7 @@ int main()
 
     // Show the window
 	ShowWindow(hwnd, SW_SHOW);
-#if NDEBUG // For release mode
+#if NDEBUG // For release mode(no console window)
     ShowWindow(GetConsoleWindow(), SW_HIDE); 
 #endif
     UpdateWindow(hwnd);

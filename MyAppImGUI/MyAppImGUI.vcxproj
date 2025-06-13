@@ -97,7 +97,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <UseFullPaths>false</UseFullPaths>
-      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;CHECK_MEMORYALLOC;CMAKE_INTDIR="Debug"</PreprocessorDefinitions>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;CMAKE_INTDIR="Debug"</PreprocessorDefinitions>
       <ObjectFileName>$(IntDir)</ObjectFileName>
       <ScanSourceForModuleDependencies>false</ScanSourceForModuleDependencies>
     </ClCompile>
@@ -121,7 +121,7 @@
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <ImportLibrary>D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/Debug/MyAppImGUI.lib</ImportLibrary>
       <ProgramDataBaseFile>D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/Debug/MyAppImGUI.pdb</ProgramDataBaseFile>
-      <SubSystem>Console</SubSystem>
+      <SubSystem>Windows</SubSystem>
     </Link>
     <ProjectReference>
       <LinkLibraryDependencies>false</LinkLibraryDependencies>
@@ -164,9 +164,8 @@
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <ImportLibrary>D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/Release/MyAppImGUI.lib</ImportLibrary>
       <ProgramDataBaseFile>D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/Release/MyAppImGUI.pdb</ProgramDataBaseFile>
-      <SubSystem>Console</SubSystem>
-      <EntryPointSymbol>
-      </EntryPointSymbol>
+      <SubSystem>Windows</SubSystem>
+      <EntryPointSymbol>mainCRTStartup</EntryPointSymbol>
     </Link>
     <ProjectReference>
       <LinkLibraryDependencies>false</LinkLibraryDependencies>
@@ -209,7 +208,7 @@
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <ImportLibrary>D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/MinSizeRel/MyAppImGUI.lib</ImportLibrary>
       <ProgramDataBaseFile>D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/MinSizeRel/MyAppImGUI.pdb</ProgramDataBaseFile>
-      <SubSystem>Console</SubSystem>
+      <SubSystem>Windows</SubSystem>
     </Link>
     <ProjectReference>
       <LinkLibraryDependencies>false</LinkLibraryDependencies>
@@ -251,7 +250,7 @@
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <ImportLibrary>D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/RelWithDebInfo/MyAppImGUI.lib</ImportLibrary>
       <ProgramDataBaseFile>D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/RelWithDebInfo/MyAppImGUI.pdb</ProgramDataBaseFile>
-      <SubSystem>Console</SubSystem>
+      <SubSystem>Windows</SubSystem>
     </Link>
     <ProjectReference>
       <LinkLibraryDependencies>false</LinkLibraryDependencies>

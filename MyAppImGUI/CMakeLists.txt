@@ -4,7 +4,7 @@ project(MyAppImGUI)
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-add_executable(MyAppImGUI
+add_executable(MyAppImGUI WIN32
         src/DirectX/d3d_context.cpp
         src/DirectX/d3d_context.h
         src/DirectX/Render.h
