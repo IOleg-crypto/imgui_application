@@ -32,8 +32,6 @@
 #include "Memory.h"
 #endif
 
-
-
 /*
 *  Function to toggle fullscreen
 */
@@ -396,10 +394,10 @@ int main()
                     }
                     // To avoid situation when tabTitles empty(user delete all tabs)
                     if (tabTitles.empty())
-					{
-						tabTitles.emplace_back("Page" + std::to_string(tabTitles.size() + 1));
-						tabContents.emplace_back();
-					}
+		    {
+			tabTitles.emplace_back("Page" + std::to_string(tabTitles.size() + 1));
+			tabContents.emplace_back();
+		    }
                 }
             }
 
