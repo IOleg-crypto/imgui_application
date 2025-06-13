@@ -1,4 +1,6 @@
 file(REMOVE_RECURSE
+  "CMakeFiles/MyAppImGUI.dir/src/DirectX/Render.cpp.obj"
+  "CMakeFiles/MyAppImGUI.dir/src/DirectX/Render.cpp.obj.d"
   "CMakeFiles/MyAppImGUI.dir/src/DirectX/d3d_context.cpp.obj"
   "CMakeFiles/MyAppImGUI.dir/src/DirectX/d3d_context.cpp.obj.d"
   "CMakeFiles/MyAppImGUI.dir/src/FileDialog/FileDialog.cpp.obj"

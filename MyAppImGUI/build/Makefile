@@ -129,6 +129,30 @@ MyAppImGUI/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/MyAppImGUI.dir/build.make CMakeFiles/MyAppImGUI.dir/build
 .PHONY : MyAppImGUI/fast
 
+src/DirectX/Render.obj: src/DirectX/Render.cpp.obj
+.PHONY : src/DirectX/Render.obj
+
+# target to build an object file
+src/DirectX/Render.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/MyAppImGUI.dir/build.make CMakeFiles/MyAppImGUI.dir/src/DirectX/Render.cpp.obj
+.PHONY : src/DirectX/Render.cpp.obj
+
+src/DirectX/Render.i: src/DirectX/Render.cpp.i
+.PHONY : src/DirectX/Render.i
+
+# target to preprocess a source file
+src/DirectX/Render.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/MyAppImGUI.dir/build.make CMakeFiles/MyAppImGUI.dir/src/DirectX/Render.cpp.i
+.PHONY : src/DirectX/Render.cpp.i
+
+src/DirectX/Render.s: src/DirectX/Render.cpp.s
+.PHONY : src/DirectX/Render.s
+
+# target to generate assembly for a file
+src/DirectX/Render.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/MyAppImGUI.dir/build.make CMakeFiles/MyAppImGUI.dir/src/DirectX/Render.cpp.s
+.PHONY : src/DirectX/Render.cpp.s
+
 src/DirectX/d3d_context.obj: src/DirectX/d3d_context.cpp.obj
 .PHONY : src/DirectX/d3d_context.obj
 
@@ -426,6 +450,9 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... MyAppImGUI"
+	@echo "... src/DirectX/Render.obj"
+	@echo "... src/DirectX/Render.i"
+	@echo "... src/DirectX/Render.s"
 	@echo "... src/DirectX/d3d_context.obj"
 	@echo "... src/DirectX/d3d_context.i"
 	@echo "... src/DirectX/d3d_context.s"

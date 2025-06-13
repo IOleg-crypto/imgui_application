@@ -8,6 +8,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
+  "D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/src/DirectX/Render.cpp" "CMakeFiles/MyAppImGUI.dir/src/DirectX/Render.cpp.obj" "gcc" "CMakeFiles/MyAppImGUI.dir/src/DirectX/Render.cpp.obj.d"
   "D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/src/DirectX/d3d_context.cpp" "CMakeFiles/MyAppImGUI.dir/src/DirectX/d3d_context.cpp.obj" "gcc" "CMakeFiles/MyAppImGUI.dir/src/DirectX/d3d_context.cpp.obj.d"
   "D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/src/FileDialog/FileDialog.cpp" "CMakeFiles/MyAppImGUI.dir/src/FileDialog/FileDialog.cpp.obj" "gcc" "CMakeFiles/MyAppImGUI.dir/src/FileDialog/FileDialog.cpp.obj.d"
   "D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/src/FileDialog/Font.cpp" "CMakeFiles/MyAppImGUI.dir/src/FileDialog/Font.cpp.obj" "gcc" "CMakeFiles/MyAppImGUI.dir/src/FileDialog/Font.cpp.obj.d"

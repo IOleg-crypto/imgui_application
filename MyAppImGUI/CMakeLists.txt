@@ -4,7 +4,7 @@ project(MyAppImGUI)
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-add_executable(MyAppImGUI WIN32
+add_executable(MyAppImGUI
         src/DirectX/d3d_context.cpp
         src/DirectX/d3d_context.h
         src/DirectX/Render.h
@@ -51,3 +51,13 @@ target_link_libraries(MyAppImGUI PUBLIC
         shell32
         user32
 )
+
+if(MSVC)
+    set_target_properties(MyAppImGUI PROPERTIES
+        LINK_FLAGS_DEBUG "/SUBSYSTEM:CONSOLE"
+    )
+
+    set_target_properties(MyAppImGUI PROPERTIES
+        LINK_FLAGS_RELEASE "/ENTRY:mainCRTStartup /SUBSYSTEM:WINDOWS"
+    )
+endif()

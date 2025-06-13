@@ -104,6 +104,7 @@ int main()
         L"Notepad",                                   // lpszClassName
         nullptr};
     ::RegisterClassExW(&wc);
+    
 
 
     auto x = static_cast<float>(GetSystemMetrics(SM_CXSCREEN));
