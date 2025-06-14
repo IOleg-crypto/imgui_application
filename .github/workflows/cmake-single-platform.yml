@@ -32,13 +32,20 @@ jobs:
     - name: Build project
       run: cmake --build build --config Release
 
+    - name: Create ZIP package with .exe and assets/
+      run: |
+        mkdir package
+        copy build\Release\MyAppImGUI.exe package\
+        сopy assets package\
+        powershell -Command "Compress-Archive -Path package\* -DestinationPath build\Release\MyAppImGUI.zip"
+
     - name: Get commit message
       id: commit_message
       run: |
         echo "message=$(git log -1 --pretty=format:%s)" >> $env:GITHUB_OUTPUT
 
-    - name: List build output
-      run: dir build\Release
+    - name: List ZIP content
+      run: powershell -Command "Expand-Archive -Path build\Release\MyAppImGUI.zip -DestinationPath test_extract; dir test_extract -Recurse"
 
     - name: Create GitHub Release
       uses: softprops/action-gh-release@v1
@@ -48,6 +55,6 @@ jobs:
         body: |
           • Commit: ${{ inputs.commit_sha || github.sha }}
           • Message: ${{ steps.commit_message.outputs.message }}
-        files: build/Release/MyAppImGUI.exe
+        files: build/Release/MyAppImGUI.zip
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
