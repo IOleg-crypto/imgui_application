@@ -25,6 +25,12 @@
 },
 {
   "directory": "D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build",
+  "command": "E:/LLVM/bin/clang++.exe  @CMakeFiles/MyAppImGUI.dir/includes_CXX.rsp -O3 -DNDEBUG -std=gnu++20 -D_DLL -D_MT -Xclang --dependent-lib=msvcrt -o CMakeFiles/MyAppImGUI.dir/src/Memory/Memory.cpp.obj -c D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/src/Memory/Memory.cpp",
+  "file": "D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/src/Memory/Memory.cpp",
+  "output": "CMakeFiles/MyAppImGUI.dir/src/Memory/Memory.cpp.obj"
+},
+{
+  "directory": "D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build",
   "command": "E:/LLVM/bin/clang++.exe  @CMakeFiles/MyAppImGUI.dir/includes_CXX.rsp -O3 -DNDEBUG -std=gnu++20 -D_DLL -D_MT -Xclang --dependent-lib=msvcrt -o CMakeFiles/MyAppImGUI.dir/src/Notepad.cpp.obj -c D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/src/Notepad.cpp",
   "file": "D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/src/Notepad.cpp",
   "output": "CMakeFiles/MyAppImGUI.dir/src/Notepad.cpp.obj"

@@ -13,6 +13,9 @@
     <ClCompile Include="D:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\src\FileDialog\Font.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="D:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\src\Memory\Memory.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="D:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\src\Notepad.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -61,9 +64,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="D:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\vendor\imgui\misc\cpp\imgui_stdlib.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="D:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\resource.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

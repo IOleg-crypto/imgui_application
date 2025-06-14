@@ -225,6 +225,30 @@ src/FileDialog/Font.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/MyAppImGUI.dir/build.make CMakeFiles/MyAppImGUI.dir/src/FileDialog/Font.cpp.s
 .PHONY : src/FileDialog/Font.cpp.s
 
+src/Memory/Memory.obj: src/Memory/Memory.cpp.obj
+.PHONY : src/Memory/Memory.obj
+
+# target to build an object file
+src/Memory/Memory.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/MyAppImGUI.dir/build.make CMakeFiles/MyAppImGUI.dir/src/Memory/Memory.cpp.obj
+.PHONY : src/Memory/Memory.cpp.obj
+
+src/Memory/Memory.i: src/Memory/Memory.cpp.i
+.PHONY : src/Memory/Memory.i
+
+# target to preprocess a source file
+src/Memory/Memory.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/MyAppImGUI.dir/build.make CMakeFiles/MyAppImGUI.dir/src/Memory/Memory.cpp.i
+.PHONY : src/Memory/Memory.cpp.i
+
+src/Memory/Memory.s: src/Memory/Memory.cpp.s
+.PHONY : src/Memory/Memory.s
+
+# target to generate assembly for a file
+src/Memory/Memory.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/MyAppImGUI.dir/build.make CMakeFiles/MyAppImGUI.dir/src/Memory/Memory.cpp.s
+.PHONY : src/Memory/Memory.cpp.s
+
 src/Notepad.obj: src/Notepad.cpp.obj
 .PHONY : src/Notepad.obj
 
@@ -462,6 +486,9 @@ help:
 	@echo "... src/FileDialog/Font.obj"
 	@echo "... src/FileDialog/Font.i"
 	@echo "... src/FileDialog/Font.s"
+	@echo "... src/Memory/Memory.obj"
+	@echo "... src/Memory/Memory.i"
+	@echo "... src/Memory/Memory.s"
 	@echo "... src/Notepad.obj"
 	@echo "... src/Notepad.i"
 	@echo "... src/Notepad.s"

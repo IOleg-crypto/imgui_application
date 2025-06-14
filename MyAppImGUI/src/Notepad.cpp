@@ -33,18 +33,23 @@
 #endif
 
 /*
-*  Function to toggle fullscreen
-*/
-static void ToggleFullscreen()
+ * Function to toggle fullscreen mode.
+ * Flips the'fullscreen' flag on or off.
+ */
+static void ToggleFullscreen(bool &fullscreen)
 {
-	fullscreen = !fullscreen;
+    fullscreen = !fullscreen;
 }
 
 /*
-*  Function to show about window(info about application)
-*/
-
-static void AboutWindow(bool &show_demo_window, const ImGuiIO &io)
+ * Function to show the About window (info about the application).
+ * Displays application name and performance statistics (ms/frame and FPS).
+ *
+ * Parameters:
+ * - show_demo_window: reference to a flag controlling window visibility
+ * - io: ImGuiIO structure providing frame timing info
+ */
+static void AboutWindow(bool& show_demo_window, const ImGuiIO& io)
 {
     if (ImGui::Begin("##About", &show_demo_window))
     {
@@ -55,14 +60,23 @@ static void AboutWindow(bool &show_demo_window, const ImGuiIO &io)
 }
 
 /*
-*  Function to resize buffer of input text for ImGuiTextMultiline
-*/
-static int InputTextCallback(ImGuiInputTextCallbackData *data)
+ * Callback function to handle dynamic buffer resizing for ImGui::InputTextMultiline.
+ * This is required when using std::string with ImGui input fields.
+ *
+ * Parameters:
+ * - data: pointer to ImGuiInputTextCallbackData, which contains info about the input buffer and user data
+ *
+ * Behavior:
+ * - If the buffer is empty, frees memory by swapping with an empty string
+ * - If the buffer grows, resizes the underlying std::string to accommodate the new text
+ * - Updates the buffer pointer to point to the new memory
+ */
+static int InputTextCallback(ImGuiInputTextCallbackData* data)
 {
     if (data->EventFlag == ImGuiInputTextFlags_CallbackResize)
     {
         // Retrieve our std::string pointer from UserData.
-        auto *str = static_cast<std::string *>(data->UserData);
+        auto* str = static_cast<std::string*>(data->UserData);
 
         std::cout << "BufferText : " << data->BufTextLen << "\n";
 
@@ -73,11 +87,11 @@ static int InputTextCallback(ImGuiInputTextCallbackData *data)
         }
         else if (data->BufTextLen + 1 > static_cast<int>(str->size()))
         {
-            // When text is non-empty, ensure there's enough room for the new text plus null terminator.
+            // Resize the string to fit the new content (+1 for null terminator)
             str->resize(data->BufTextLen + 1);
         }
 
-        // Update the buffer pointer so that ImGui writes into the resized buffer.
+        // Let ImGui know where the resized buffer is
         data->Buf = str->data();
     }
     return 0;
@@ -90,6 +104,15 @@ int main()
     std::setlocale(LC_ALL, "C.UTF-8");
     SetConsoleOutputCP(65001);
 #endif
+	// Load .ico file as window icon
+	HICON hIcon = static_cast<HICON>(
+		LoadImageW(nullptr, L"assets/icon/icon.ico", IMAGE_ICON, 0, 0, LR_LOADFROMFILE | LR_DEFAULTSIZE));
+
+	if (!hIcon) {
+		MessageBoxW(nullptr, L"Failed to load icon.ico", L"Error", MB_ICONERROR);
+		return 1;
+	}
+
     WNDCLASSEXW wc = {
         sizeof(wc),                                   // cbSize
         CS_HREDRAW | CS_VREDRAW,                      // style
@@ -105,8 +128,8 @@ int main()
         nullptr};
     ::RegisterClassExW(&wc);
     
-
-
+    
+    // To capture current screen resolution
     auto x = static_cast<float>(GetSystemMetrics(SM_CXSCREEN));
     auto y = static_cast<float>(GetSystemMetrics(SM_CYSCREEN));
 
@@ -127,9 +150,6 @@ int main()
 
     // Show the window
 	ShowWindow(hwnd, SW_SHOW);
-#if NDEBUG // For release mode(no console window)
-    ShowWindow(GetConsoleWindow(), SW_HIDE); 
-#endif
     UpdateWindow(hwnd);
 
     // Setup Dear ImGui context
@@ -151,8 +171,10 @@ int main()
     static bool show_font_window = false;
     static bool read_only = false;
 
-    static ImGuiInputTextFlags flags = ImGuiInputTextFlags_AllowTabInput |
-                                       ImGuiInputTextFlags_CtrlEnterForNewLine;
+    static ImGuiInputTextFlags flags = ImGuiInputTextFlags_AllowTabInput; // Don`t use ImGuiInputTextFlags_EnterReturnsTrue(it blocks)
+	static ImGuiWindowFlags window_flags =
+		ImGuiWindowFlags_MenuBar |
+		ImGuiWindowFlags_HorizontalScrollbar;
     // Static variables
     static int font_size = 16;
     static int selectedTab = 0; // Keeps track of which tab is currently selected
@@ -168,9 +190,9 @@ int main()
     static bool show_demo_window = false;
     //ImVec4 clear_color = ImVec4(0.32f, 0.60f, 0.60f, 1.00f);
     static bool theme_change = false; // Change clear color to make it more visible
-
     static bool hide_window = true;
-
+	// Global flag for fullscreen toggle
+	static bool fullscreen = false;
 #if _DEBUG
     std::cout << "Monitor hz : " << ImGuiDirectX::GetMonitorRefreshRate() << '\n';
 #endif
@@ -220,16 +242,41 @@ int main()
         ImGui::NewFrame();
 
         // Main window
-		if (fullscreen)
+		static bool prev_fullscreen = false;
+		static ImGuiCond pos_cond = ImGuiCond_Appearing;
+		static ImGuiCond size_cond = ImGuiCond_Appearing;
+
+		if (fullscreen != prev_fullscreen)
 		{
-			ImGui::SetNextWindowPos(ImVec2(0, 0), ImGuiCond_Always);
-			ImGui::SetNextWindowSize(io.DisplaySize, ImGuiCond_Always);
+			pos_cond = ImGuiCond_Always;
+			size_cond = ImGuiCond_Always;
 		}
 		else
 		{
-			ImGui::SetNextWindowSize(ImVec2(800, 400), ImGuiCond_FirstUseEver);
+			pos_cond = ImGuiCond_Appearing;
+			size_cond = ImGuiCond_Appearing;
 		}
-        if (ImGui::Begin("Notepad", &hide_window, ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_HorizontalScrollbar | ImGuiWindowFlags_NoCollapse))
+
+		prev_fullscreen = fullscreen;
+
+		if (fullscreen)
+		{
+			ImGui::SetNextWindowPos(ImVec2(0, 0), pos_cond);
+			ImGui::SetNextWindowSize(io.DisplaySize, size_cond);
+			window_flags = ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_MenuBar;
+		}
+		else
+		{
+			ImVec2 windowSize(800, 400);
+			ImVec2 centerPos((io.DisplaySize.x - windowSize.x) * 0.5f,
+				(io.DisplaySize.y - windowSize.y) * 0.5f);
+
+			ImGui::SetNextWindowPos(centerPos, pos_cond);
+			ImGui::SetNextWindowSize(windowSize, size_cond);
+
+			window_flags = ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_HorizontalScrollbar | ImGuiWindowFlags_NoCollapse;
+		}
+		if (ImGui::Begin("Notepad", &hide_window, window_flags))
         {
             // Stop program
             if (!hide_window)
@@ -307,7 +354,7 @@ int main()
                     }
                     if (ImGui::MenuItem("Fullscreen", "3"))
                     {
-                        ToggleFullscreen();
+                        ToggleFullscreen(fullscreen);
                     }
                     if (ImGui::MenuItem("Exit", "Alt+F4"))
                     {
@@ -395,10 +442,10 @@ int main()
                     }
                     // To avoid situation when tabTitles empty(user delete all tabs)
                     if (tabTitles.empty())
-		    {
-			tabTitles.emplace_back("Page" + std::to_string(tabTitles.size() + 1));
-			tabContents.emplace_back();
-		    }
+		            {
+						tabTitles.emplace_back("Page" + std::to_string(tabTitles.size() + 1));
+						tabContents.emplace_back();
+		            }
                 }
             }
 
@@ -454,7 +501,7 @@ int main()
 #endif
             if (ImGui::IsKeyPressed(ImGuiKey_F5))
             {
-                ToggleFullscreen();
+                ToggleFullscreen(fullscreen);
             }
             if (ImGui::IsKeyDown(ImGuiKey_LeftCtrl) && ImGui::IsKeyPressed(ImGuiKey_LeftShift, false) && ImGui::IsKeyPressed(ImGuiKey_S, false))
             {
@@ -556,34 +603,13 @@ bool CreateDeviceD3D(const HWND &hWnd)
         return false;
 
     CreateRenderTarget();
+
     return true;
-}
-
-// Helper functions
-
-void CleanupDeviceD3D()
-{
-    CleanupRenderTarget();
-    if (g_pSwapChain)
-    {
-        g_pSwapChain->Release();
-        g_pSwapChain = nullptr;
-    }
-    if (g_pd3dDeviceContext)
-    {
-        g_pd3dDeviceContext->Release();
-        g_pd3dDeviceContext = nullptr;
-    }
-    if (g_pd3dDevice)
-    {
-        g_pd3dDevice->Release();
-        g_pd3dDevice = nullptr;
-    }
 }
 
 void CreateRenderTarget()
 {
-    ID3D11Texture2D * pBackBuffer = nullptr;
+    ID3D11Texture2D* pBackBuffer = nullptr;
     g_pSwapChain->GetBuffer(0, IID_PPV_ARGS(&pBackBuffer));
     /*
     *  pBackBuffer - could be nullptr
@@ -595,14 +621,9 @@ void CreateRenderTarget()
     pBackBuffer->Release();
 }
 
-void CleanupRenderTarget()
-{
-    if (g_mainRenderTargetView)
-    {
-        g_mainRenderTargetView->Release();
-        g_mainRenderTargetView = nullptr;
-    }
-}
+
+
+
 
 
 

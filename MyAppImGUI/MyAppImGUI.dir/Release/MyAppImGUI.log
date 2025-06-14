@@ -1,4 +1,4 @@
-﻿Build started 13.06.2025 10:28:21.
+﻿Build started 17.06.2025 14:03:02.
 Logging verbosity is set to: Normal.     1>Project "D:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\MyAppImGUI.vcxproj" on node 2 (Build target(s)).
      1>PrepareForBuild:
          Structured output is enabled. The formatting of compiler diagnostics will reflect the error hierarchy. See https://aka.ms/cpp/structured-output for more details.
@@ -7,40 +7,41 @@ Logging verbosity is set to: Normal.     1>Project "D:\gitnext\CppWithImGUI\imgu
          Touching "MyAppImGUI.dir\Release\MyAppImGUI.tlog\unsuccessfulbuild".
        CustomBuild:
          All outputs are up-to-date.
-       SetModuleDependencies:
+     1>Project "D:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\MyAppImGUI.vcxproj" (1) is building "D:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\ZERO_CHECK.vcxproj" (2:3) on node 2 (GetProjectInfoForReference target(s)).
+     2>PrepareForBuild:
+         Structured output is enabled. The formatting of compiler diagnostics will reflect the error hierarchy. See https://aka.ms/cpp/structured-output for more details.
+     2>Done Building Project "D:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\ZERO_CHECK.vcxproj" (GetProjectInfoForReference target(s)).
+     1>SetModuleDependencies:
          Scanning sources for module dependencies...
          C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\bin\HostX64\x64\CL.exe /c /ID:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\src /ID:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\src\DirectX /ID:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\src\FileDialog /ID:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\src\Memory /ID:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\vendor\imgui /ID:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\vendor\imgui\backends /ID:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\vendor\imgui\examples\example_allegro5 /ID:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\vendor\imgui\examples\libs\emscripten /ID:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\vendor\imgui\examples\libs\glfw /ID:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\vendor\imgui\misc\cpp /ID:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\vendor\imgui\misc\freetype /ID:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\vendor\imgui\misc\single_file /nologo /W1 /WX- /diagnostics:column /O2 /Ob2 /D _MBCS /D WIN32 /D _WINDOWS /D NDEBUG /D "CMAKE_INTDIR=\"Release\"" /Gm- /EHsc /MD /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /std:c++20 /ifcOutput "MyAppImGUI.dir\Release\\" /scanDependencies "MyAppImGUI.dir\Release\\" /Fo"MyAppImGUI.dir\Release\\" /Fd"MyAppImGUI.dir\Release\vc143.pdb" /external:W1 /Gd /TP /errorReport:prompt "D:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\src\Notepad.cpp"
          Notepad.cpp
-     1>C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Microsoft\VC\v170\Microsoft.CppCommon.targets(532,5): error MSB4018: The "SetModuleDependencies" task failed unexpectedly.
-C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Microsoft\VC\v170\Microsoft.CppCommon.targets(532,5): error MSB4018: System.IO.IOException: The process cannot access the file 'D:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\MyAppImGUI.dir\Release\MyAppImGUI_MD.tlog\CL.14312.write.1.tlog' because it is being used by another process.
-C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Microsoft\VC\v170\Microsoft.CppCommon.targets(532,5): error MSB4018:    at System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
-C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Microsoft\VC\v170\Microsoft.CppCommon.targets(532,5): error MSB4018:    at System.IO.FileInfo.Delete()
-C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Microsoft\VC\v170\Microsoft.CppCommon.targets(532,5): error MSB4018:    at Microsoft.Build.CPPTasks.TrackedVCToolTask.DeleteEmptyFile(ITaskItem[] filesToDelete)
-C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Microsoft\VC\v170\Microsoft.CppCommon.targets(532,5): error MSB4018:    at Microsoft.Build.CPPTasks.TrackedVCToolTask.PostExecuteTool(Int32 exitCode)
-C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Microsoft\VC\v170\Microsoft.CppCommon.targets(532,5): error MSB4018:    at Microsoft.Build.CPPTasks.MultiToolTask.FinishBuild(Int32 exitCode)
-C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Microsoft\VC\v170\Microsoft.CppCommon.targets(532,5): error MSB4018:    at Microsoft.Build.CPPTasks.MultiToolTask.Execute()
-C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Microsoft\VC\v170\Microsoft.CppCommon.targets(532,5): error MSB4018:    at Microsoft.Build.CPPTasks.SetModuleDependencies.Execute()
-C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Microsoft\VC\v170\Microsoft.CppCommon.targets(532,5): error MSB4018:    at Microsoft.Build.BackEnd.TaskExecutionHost.Execute()
-C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Microsoft\VC\v170\Microsoft.CppCommon.targets(532,5): error MSB4018:    at Microsoft.Build.BackEnd.TaskBuilder.<ExecuteInstantiatedTask>d__26.MoveNext()
-     1>Done Building Project "D:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\MyAppImGUI.vcxproj" (Build target(s)) -- FAILED.
+       ClCompile:
+         Compiling...
+         C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\bin\HostX64\x64\CL.exe /c /ID:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\src /ID:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\src\DirectX /ID:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\src\FileDialog /ID:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\src\Memory /ID:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\vendor\imgui /ID:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\vendor\imgui\backends /ID:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\vendor\imgui\examples\example_allegro5 /ID:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\vendor\imgui\examples\libs\emscripten /ID:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\vendor\imgui\examples\libs\glfw /ID:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\vendor\imgui\misc\cpp /ID:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\vendor\imgui\misc\freetype /ID:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\vendor\imgui\misc\single_file /nologo /W1 /WX- /diagnostics:column /O2 /Ob2 /D _MBCS /D WIN32 /D _WINDOWS /D NDEBUG /D "CMAKE_INTDIR=\"Release\"" /Gm- /EHsc /MD /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /std:c++20 /ifcOutput "MyAppImGUI.dir\Release\\" /Fo"MyAppImGUI.dir\Release\\" /Fd"MyAppImGUI.dir\Release\vc143.pdb" /sourceDependencies "MyAppImGUI.dir\Release\.d.json" /external:W1 /Gd /TP /errorReport:prompt "D:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\src\Notepad.cpp"
+         Notepad.cpp
+       Link:
+         C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\bin\HostX64\x64\link.exe /ERRORREPORT:PROMPT /OUT:"D:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\Release\MyAppImGUI.exe" /INCREMENTAL:NO /NOLOGO d3d11.lib dxgi.lib dxguid.lib ole32.lib shell32.lib user32.lib kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /PDB:"D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/Release/MyAppImGUI.pdb" /SUBSYSTEM:WINDOWS /TLBID:1 /ENTRY:"mainCRTStartup" /DYNAMICBASE /NXCOMPAT /IMPLIB:"D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/Release/MyAppImGUI.lib" /MACHINE:X64  /machine:x64 MyAppImGUI.dir\Release\d3d_context.obj
+         MyAppImGUI.dir\Release\Render.obj
+         MyAppImGUI.dir\Release\FileDialog.obj
+         MyAppImGUI.dir\Release\Font.obj
+         MyAppImGUI.dir\Release\Memory.obj
+         MyAppImGUI.dir\Release\Notepad.obj
+         MyAppImGUI.dir\Release\imgui.obj
+         MyAppImGUI.dir\Release\imgui_draw.obj
+         MyAppImGUI.dir\Release\imgui_tables.obj
+         MyAppImGUI.dir\Release\imgui_widgets.obj
+         MyAppImGUI.dir\Release\imgui_demo.obj
+         MyAppImGUI.dir\Release\imgui_impl_dx11.obj
+         MyAppImGUI.dir\Release\imgui_impl_win32.obj
+         MyAppImGUI.dir\Release\imgui_stdlib.obj
+         MyAppImGUI.vcxproj -> D:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\Release\MyAppImGUI.exe
+       FinalizeBuildStatus:
+         Deleting file "MyAppImGUI.dir\Release\MyAppImGUI.tlog\unsuccessfulbuild".
+         Touching "MyAppImGUI.dir\Release\MyAppImGUI.tlog\MyAppImGUI.lastbuildstate".
+     1>Done Building Project "D:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\MyAppImGUI.vcxproj" (Build target(s)).
 
-Build FAILED.
-
-       "D:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\MyAppImGUI.vcxproj" (Build target) (1) ->
-       (SetModuleDependencies target) -> 
-         C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Microsoft\VC\v170\Microsoft.CppCommon.targets(532,5): error MSB4018: The "SetModuleDependencies" task failed unexpectedly.
-       C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Microsoft\VC\v170\Microsoft.CppCommon.targets(532,5): error MSB4018: System.IO.IOException: The process cannot access the file 'D:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\MyAppImGUI.dir\Release\MyAppImGUI_MD.tlog\CL.14312.write.1.tlog' because it is being used by another process.
-       C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Microsoft\VC\v170\Microsoft.CppCommon.targets(532,5): error MSB4018:    at System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
-       C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Microsoft\VC\v170\Microsoft.CppCommon.targets(532,5): error MSB4018:    at System.IO.FileInfo.Delete()
-       C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Microsoft\VC\v170\Microsoft.CppCommon.targets(532,5): error MSB4018:    at Microsoft.Build.CPPTasks.TrackedVCToolTask.DeleteEmptyFile(ITaskItem[] filesToDelete)
-       C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Microsoft\VC\v170\Microsoft.CppCommon.targets(532,5): error MSB4018:    at Microsoft.Build.CPPTasks.TrackedVCToolTask.PostExecuteTool(Int32 exitCode)
-       C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Microsoft\VC\v170\Microsoft.CppCommon.targets(532,5): error MSB4018:    at Microsoft.Build.CPPTasks.MultiToolTask.FinishBuild(Int32 exitCode)
-       C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Microsoft\VC\v170\Microsoft.CppCommon.targets(532,5): error MSB4018:    at Microsoft.Build.CPPTasks.MultiToolTask.Execute()
-       C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Microsoft\VC\v170\Microsoft.CppCommon.targets(532,5): error MSB4018:    at Microsoft.Build.CPPTasks.SetModuleDependencies.Execute()
-       C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Microsoft\VC\v170\Microsoft.CppCommon.targets(532,5): error MSB4018:    at Microsoft.Build.BackEnd.TaskExecutionHost.Execute()
-       C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Microsoft\VC\v170\Microsoft.CppCommon.targets(532,5): error MSB4018:    at Microsoft.Build.BackEnd.TaskBuilder.<ExecuteInstantiatedTask>d__26.MoveNext()
-
+Build succeeded.
     0 Warning(s)
-    1 Error(s)
+    0 Error(s)
 
-Time Elapsed 00:00:01.15
+Time Elapsed 00:00:11.38
