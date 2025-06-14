@@ -36,7 +36,7 @@ jobs:
       run: |
         mkdir package
         copy build\Release\MyAppImGUI.exe package\
-        сopy assets package\
+        xcopy /E /I /Y myAppImGUI\assets package\assets
         powershell -Command "Compress-Archive -Path package\* -DestinationPath build\Release\MyAppImGUI.zip"
 
     - name: Get commit message
