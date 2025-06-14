@@ -5,6 +5,9 @@ on:
     inputs:
       commit_sha:
         description: 'Optional: Commit SHA to checkout (defaults to current HEAD)'
+        required: false
+      release_message:
+        description: 'Message to include in the release'
         required: true
 
 jobs:
@@ -39,11 +42,6 @@ jobs:
         xcopy /E /I /Y myAppImGUI\assets package\assets
         powershell -Command "Compress-Archive -Path package\* -DestinationPath build\Release\MyAppImGUI.zip"
 
-    - name: Get commit message
-      id: commit_message
-      run: |
-        echo "message=$(git log -1 --pretty=format:%s)" >> $env:GITHUB_OUTPUT
-
     - name: List ZIP content
       run: powershell -Command "Expand-Archive -Path build\Release\MyAppImGUI.zip -DestinationPath test_extract; dir test_extract -Recurse"
 
@@ -54,7 +52,7 @@ jobs:
         name: "imgui_notepad_application"
         body: |
           • Commit: ${{ inputs.commit_sha || github.sha }}
-          • Message: ${{ steps.commit_message.outputs.message }}
+          • Message: ${{ inputs.release_message }}
         files: build/Release/MyAppImGUI.zip
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
