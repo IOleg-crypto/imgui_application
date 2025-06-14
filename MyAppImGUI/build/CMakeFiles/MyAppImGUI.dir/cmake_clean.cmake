@@ -7,6 +7,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/MyAppImGUI.dir/src/FileDialog/FileDialog.cpp.obj.d"
   "CMakeFiles/MyAppImGUI.dir/src/FileDialog/Font.cpp.obj"
   "CMakeFiles/MyAppImGUI.dir/src/FileDialog/Font.cpp.obj.d"
+  "CMakeFiles/MyAppImGUI.dir/src/Memory/Memory.cpp.obj"
+  "CMakeFiles/MyAppImGUI.dir/src/Memory/Memory.cpp.obj.d"
   "CMakeFiles/MyAppImGUI.dir/src/Notepad.cpp.obj"
   "CMakeFiles/MyAppImGUI.dir/src/Notepad.cpp.obj.d"
   "CMakeFiles/MyAppImGUI.dir/vendor/imgui/backends/imgui_impl_dx11.cpp.obj"

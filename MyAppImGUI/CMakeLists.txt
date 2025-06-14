@@ -4,6 +4,7 @@ project(MyAppImGUI)
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+
 add_executable(MyAppImGUI
         src/DirectX/d3d_context.cpp
         src/DirectX/d3d_context.h
@@ -14,6 +15,7 @@ add_executable(MyAppImGUI
         src/FileDialog/Font.cpp
         src/FileDialog/Font.h
         src/Memory/Memory.h
+		src/Memory/Memory.cpp
         src/Notepad.cpp
         vendor/imgui/imgui.h
         vendor/imgui/imgui.cpp
@@ -25,7 +27,7 @@ add_executable(MyAppImGUI
         vendor/imgui/backends/imgui_impl_win32.cpp
         vendor/imgui/misc/cpp/imgui_stdlib.h
         vendor/imgui/misc/cpp/imgui_stdlib.cpp
-        resource.h
+
 )
 
 target_include_directories(MyAppImGUI PUBLIC
