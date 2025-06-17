@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 ﻿Build started 17.06.2025 13:47:17.
+=======
+﻿Build started 14.06.2025 12:13:31.
+>>>>>>> f0ee4a12bee55a80d2f33dd0598353fc19ac46f0
 Logging verbosity is set to: Normal.     1>Project "D:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\ZERO_CHECK.vcxproj" on node 2 (Build target(s)).
      1>PrepareForBuild:
          Structured output is enabled. The formatting of compiler diagnostics will reflect the error hierarchy. See https://aka.ms/cpp/structured-output for more details.
@@ -16,4 +20,8 @@ Build succeeded.
     0 Warning(s)
     0 Error(s)
 
+<<<<<<< HEAD
 Time Elapsed 00:00:00.87
+=======
+Time Elapsed 00:00:00.78
+>>>>>>> f0ee4a12bee55a80d2f33dd0598353fc19ac46f0

@@ -5,6 +5,9 @@ on:
     inputs:
       commit_sha:
         description: 'Optional: Commit SHA to checkout (defaults to current HEAD)'
+        required: false
+      release_message:
+        description: 'Message to include in the release'
         required: true
 
 jobs:
@@ -32,13 +35,15 @@ jobs:
     - name: Build project
       run: cmake --build build --config Release
 
-    - name: Get commit message
-      id: commit_message
+    - name: Create ZIP package with .exe and assets/
       run: |
-        echo "message=$(git log -1 --pretty=format:%s)" >> $env:GITHUB_OUTPUT
+        mkdir package
+        copy build\Release\MyAppImGUI.exe package\
+        xcopy /E /I /Y myAppImGUI\assets package\assets
+        powershell -Command "Compress-Archive -Path package\* -DestinationPath build\Release\MyAppImGUI.zip"
 
-    - name: List build output
-      run: dir build\Release
+    - name: List ZIP content
+      run: powershell -Command "Expand-Archive -Path build\Release\MyAppImGUI.zip -DestinationPath test_extract; dir test_extract -Recurse"
 
     - name: Create GitHub Release
       uses: softprops/action-gh-release@v1
@@ -47,7 +52,7 @@ jobs:
         name: "imgui_notepad_application"
         body: |
           • Commit: ${{ inputs.commit_sha || github.sha }}
-          • Message: ${{ steps.commit_message.outputs.message }}
-        files: build/Release/MyAppImGUI.exe
+          • Message: ${{ inputs.release_message }}
+        files: build/Release/MyAppImGUI.zip
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -128,7 +128,11 @@ int main()
         nullptr};
     ::RegisterClassExW(&wc);
     
+<<<<<<< HEAD
     
+=======
+
+>>>>>>> f0ee4a12bee55a80d2f33dd0598353fc19ac46f0
     // To capture current screen resolution
     auto x = static_cast<float>(GetSystemMetrics(SM_CXSCREEN));
     auto y = static_cast<float>(GetSystemMetrics(SM_CYSCREEN));
@@ -171,7 +175,13 @@ int main()
     static bool show_font_window = false;
     static bool read_only = false;
 
+<<<<<<< HEAD
     static ImGuiInputTextFlags flags = ImGuiInputTextFlags_AllowTabInput; // Don`t use ImGuiInputTextFlags_EnterReturnsTrue(it blocks)
+=======
+    static ImGuiInputTextFlags flags = ImGuiInputTextFlags_AllowTabInput |
+        ImGuiInputTextFlags_CtrlEnterForNewLine;
+
+>>>>>>> f0ee4a12bee55a80d2f33dd0598353fc19ac46f0
 	static ImGuiWindowFlags window_flags =
 		ImGuiWindowFlags_MenuBar |
 		ImGuiWindowFlags_HorizontalScrollbar;
