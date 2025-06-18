@@ -112,7 +112,7 @@ enum uSynergyClipboardFormat
 
 
 /**
-@brief Keyboard constants
+@brief Page constants
 **/
 #define				USYNERGY_MODIFIER_SHIFT			0x0001			/* Shift key modifier */
 #define				USYNERGY_MODIFIER_CTRL			0x0002			/* Ctrl key modifier */

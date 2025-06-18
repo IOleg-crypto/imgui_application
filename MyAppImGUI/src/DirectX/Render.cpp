@@ -20,6 +20,7 @@ namespace ImGuiDirectX
 	void Render(const HWND& hwnd, const float& x, const float& y)
 	{
 		DXGI_SWAP_CHAIN_DESC swapChainDesc;
+		ZeroMemory(&swapChainDesc, sizeof(swapChainDesc));
 		swapChainDesc.BufferDesc.Width = static_cast<UINT>(x);
 		swapChainDesc.BufferDesc.Height = static_cast<UINT>(y);
 		/*

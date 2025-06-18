@@ -22,80 +22,14 @@
 #include "FileDialog/FileDialog.h"
 #include "FileDialog/Font.h"
 
-// To add custom icon
+// Init window
+#include "Window/CWindow.h"
 
 // For render
 #include "DirectX/Render.h"
 #include "DirectX/d3d_context.h"
-
-#if CHECK_MEMORYALLOC
+// For memory and buffer of ImGui::InputTextMultiline
 #include "Memory.h"
-#endif
-
-/*
- * Function to toggle fullscreen mode.
- * Flips the'fullscreen' flag on or off.
- */
-static void ToggleFullscreen(bool &fullscreen)
-{
-    fullscreen = !fullscreen;
-}
-
-/*
- * Function to show the About window (info about the application).
- * Displays application name and performance statistics (ms/frame and FPS).
- *
- * Parameters:
- * - show_demo_window: reference to a flag controlling window visibility
- * - io: ImGuiIO structure providing frame timing info
- */
-static void AboutWindow(bool& show_demo_window, const ImGuiIO& io)
-{
-    if (ImGui::Begin("##About", &show_demo_window))
-    {
-        ImGui::Text("The notepad made by I#Oleg");
-        ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / io.Framerate, io.Framerate);
-    }
-    ImGui::End();
-}
-
-/*
- * Callback function to handle dynamic buffer resizing for ImGui::InputTextMultiline.
- * This is required when using std::string with ImGui input fields.
- *
- * Parameters:
- * - data: pointer to ImGuiInputTextCallbackData, which contains info about the input buffer and user data
- *
- * Behavior:
- * - If the buffer is empty, frees memory by swapping with an empty string
- * - If the buffer grows, resizes the underlying std::string to accommodate the new text
- * - Updates the buffer pointer to point to the new memory
- */
-static int InputTextCallback(ImGuiInputTextCallbackData* data)
-{
-    if (data->EventFlag == ImGuiInputTextFlags_CallbackResize)
-    {
-        // Retrieve our std::string pointer from UserData.
-        auto* str = static_cast<std::string*>(data->UserData);
-
-        std::cout << "BufferText : " << data->BufTextLen << "\n";
-
-        if (data->BufTextLen == 0)
-        {
-            // When the text is empty, free extra memory by swapping with an empty string.
-            std::string().swap(*str);
-        }
-        else if (data->BufTextLen + 1 > static_cast<int>(str->size()))
-        {
-            // Resize the string to fit the new content (+1 for null terminator)
-            str->resize(data->BufTextLen + 1);
-        }
-
-        // Let ImGui know where the resized buffer is
-        data->Buf = str->data();
-    }
-    return 0;
-}
 
 // Main code
 int main()
@@ -104,45 +38,15 @@ int main()
     std::setlocale(LC_ALL, "C.UTF-8");
     SetConsoleOutputCP(65001);
 #endif
-	// Load .ico file as window icon
-	HICON hIcon = static_cast<HICON>(
-		LoadImageW(nullptr, L"assets/icon/icon.ico", IMAGE_ICON, 0, 0, LR_LOADFROMFILE | LR_DEFAULTSIZE));
-
-	if (!hIcon) {
-		MessageBoxW(nullptr, L"Failed to load icon.ico", L"Error", MB_ICONERROR);
-		return 1;
-	}
-
-    WNDCLASSEXW wc = {
-        sizeof(wc),                                   // cbSize
-        CS_HREDRAW | CS_VREDRAW,                      // style
-        WndProc,                                      // lpfnWndProc
-        0,                                            // cbClsExtra
-        0,                                            // cbWndExtra
-        GetModuleHandle(nullptr),                     // hInstance
-        hIcon,                                        // hIcon
-        LoadCursor(nullptr, IDC_ARROW),               // hCursor
-        reinterpret_cast<HBRUSH>((COLOR_WINDOW + 1)), // hbrBackground
-        nullptr,                                      // lpszMenuName
-        L"Notepad",                                   // lpszClassName
-        nullptr};
-    ::RegisterClassExW(&wc);
-    
-<<<<<<< HEAD
-    
-=======
-
->>>>>>> f0ee4a12bee55a80d2f33dd0598353fc19ac46f0
     // To capture current screen resolution
     auto x = static_cast<float>(GetSystemMetrics(SM_CXSCREEN));
     auto y = static_cast<float>(GetSystemMetrics(SM_CYSCREEN));
 
-    hwnd = CreateWindowExW(
-        WS_EX_LAYERED | WS_EX_TOPMOST, // Transparent Layered Window
-        wc.lpszClassName, L"Notepad",
-        WS_POPUP, // Removes the title bar and border
-        0, 40, static_cast<int>(x), static_cast<int>(y),
-        nullptr, nullptr, wc.hInstance, nullptr);
+	HICON hIcon;
+    WNDCLASSEXW wc;
+    ImGuiNotepad::CWindow window(wc , hIcon , hwnd , x , y);
+    window.Init();
+
     SetLayeredWindowAttributes(hwnd, 0, 255, LWA_COLORKEY);
     // Initialize Direct3D
     if (!CreateDeviceD3D(hwnd))
@@ -162,7 +66,7 @@ int main()
     ImGuiIO &io = ImGui::GetIO();
     (void)io;
 
-    io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard; // Enable Keyboard Controls
+    io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard; // Enable Page Controls
     io.WantCaptureMouse = true;
     // set font by default
     char path[] = R"(C:\Windows\Fonts\Arial.ttf)";
@@ -174,17 +78,11 @@ int main()
     // Flags
     static bool show_font_window = false;
     static bool read_only = false;
-
-<<<<<<< HEAD
-    static ImGuiInputTextFlags flags = ImGuiInputTextFlags_AllowTabInput; // Don`t use ImGuiInputTextFlags_EnterReturnsTrue(it blocks)
-=======
-    static ImGuiInputTextFlags flags = ImGuiInputTextFlags_AllowTabInput |
-        ImGuiInputTextFlags_CtrlEnterForNewLine;
-
->>>>>>> f0ee4a12bee55a80d2f33dd0598353fc19ac46f0
-	static ImGuiWindowFlags window_flags =
-		ImGuiWindowFlags_MenuBar |
-		ImGuiWindowFlags_HorizontalScrollbar;
+    static ImGuiInputTextFlags flags = ImGuiInputTextFlags_AllowTabInput;
+    // Don`t use ImGuiInputTextFlags_EnterReturnsTrue(it blocks)
+    static ImGuiWindowFlags window_flags =
+            ImGuiWindowFlags_MenuBar |
+            ImGuiWindowFlags_HorizontalScrollbar;
     // Static variables
     static int font_size = 16;
     static int selectedTab = 0; // Keeps track of which tab is currently selected
@@ -197,7 +95,7 @@ int main()
 
     // local variables
     bool show_another_window = false;
-    static bool show_demo_window = false;
+    static bool show_info_window = false;
     //ImVec4 clear_color = ImVec4(0.32f, 0.60f, 0.60f, 1.00f);
     static bool theme_change = false; // Change clear color to make it more visible
     static bool hide_window = true;
@@ -222,6 +120,7 @@ int main()
         }
         if (done)
             break;
+
 
         if (g_is_resizing_or_moving)
         {
@@ -268,6 +167,7 @@ int main()
 		}
 
 		prev_fullscreen = fullscreen;
+
 
 		if (fullscreen)
 		{
@@ -364,7 +264,7 @@ int main()
                     }
                     if (ImGui::MenuItem("Fullscreen", "3"))
                     {
-                        ToggleFullscreen(fullscreen);
+                        window.ToggleFullscreen(fullscreen);
                     }
                     if (ImGui::MenuItem("Exit", "Alt+F4"))
                     {
@@ -372,7 +272,7 @@ int main()
                     }
                     if (ImGui::MenuItem("Help"))
                     {
-                        show_demo_window = true;
+                        show_info_window = true;
                     }
                     ImGui::EndMenu();
                 }
@@ -412,8 +312,7 @@ int main()
 
                 selectedTab = static_cast<int>(tabTitles.size()) - 1;
 
-                constexpr size_t maxTabs = 45;
-                if (tabTitles.size() > maxTabs)
+                if (constexpr size_t maxTabs = 45; tabTitles.size() > maxTabs)
                 {
                     tabTitles.pop_back();
                 }
@@ -483,9 +382,9 @@ int main()
                     show_another_window = false;
                 ImGui::End();
             }
-            if (show_demo_window)
+            if (show_info_window)
             {
-                AboutWindow(show_demo_window, io);
+                window.AboutWindow(show_info_window, io);
             }
             if (show_font_window)
             {
@@ -511,7 +410,7 @@ int main()
 #endif
             if (ImGui::IsKeyPressed(ImGuiKey_F5))
             {
-                ToggleFullscreen(fullscreen);
+                window.ToggleFullscreen(fullscreen);
             }
             if (ImGui::IsKeyDown(ImGuiKey_LeftCtrl) && ImGui::IsKeyPressed(ImGuiKey_LeftShift, false) && ImGui::IsKeyPressed(ImGuiKey_S, false))
             {
@@ -545,6 +444,7 @@ int main()
             }
             ImGui::End();
 
+
             // Rendering
             ImGui::Render();
             constexpr float clear_color_with_alpha[4] = {0.0f, 0.0f, 0.0f, 0.0f};
@@ -577,9 +477,6 @@ int main()
 
     return 0;
 }
-
-// Helper functions
-
 bool CreateDeviceD3D(const HWND &hWnd)
 {
     // Setup swap chain
@@ -599,7 +496,7 @@ bool CreateDeviceD3D(const HWND &hWnd)
     sd.Windowed = TRUE;
     sd.SwapEffect = DXGI_SWAP_EFFECT_DISCARD;
 
-    UINT createDeviceFlags = 0;
+    constexpr UINT createDeviceFlags = 0;
     // createDeviceFlags |= D3D11_CREATE_DEVICE_DEBUG;
     D3D_FEATURE_LEVEL featureLevel;
     constexpr D3D_FEATURE_LEVEL featureLevelArray[2] = {

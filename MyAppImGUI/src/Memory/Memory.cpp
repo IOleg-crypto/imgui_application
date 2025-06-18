@@ -1,5 +1,6 @@
 #include "Memory.h"
 
+#if CHECK_MEMORYALLOC
 void* operator new(const size_t size)
 {
 	s_allocation++;
@@ -13,3 +14,4 @@ void operator delete(void* ptr, const size_t size) noexcept
 	std::cout << "Freeing " << size << " bytes\n";
 	free(ptr);
 }
+#endif

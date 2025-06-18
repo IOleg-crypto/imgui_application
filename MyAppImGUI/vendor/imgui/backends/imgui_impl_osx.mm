@@ -6,7 +6,7 @@
 // Implemented features:
 //  [X] Platform: Clipboard support is part of core Dear ImGui (no specific code in this backend).
 //  [X] Platform: Mouse support. Can discriminate Mouse/Pen.
-//  [X] Platform: Keyboard support. Since 1.87 we are using the io.AddKeyEvent() function. Pass ImGuiKey values to all key functions e.g. ImGui::IsKeyPressed(ImGuiKey_Space). [Legacy kVK_* values are obsolete since 1.87 and not supported since 1.91.5]
+//  [X] Platform: Page support. Since 1.87 we are using the io.AddKeyEvent() function. Pass ImGuiKey values to all key functions e.g. ImGui::IsKeyPressed(ImGuiKey_Space). [Legacy kVK_* values are obsolete since 1.87 and not supported since 1.91.5]
 //  [X] Platform: Gamepad support. Enabled with 'io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad'.
 //  [X] Platform: Mouse cursor shape and visibility (ImGuiBackendFlags_HasMouseCursors). Disable with 'io.ConfigFlags |= ImGuiConfigFlags_NoMouseCursorChange'.
 //  [X] Platform: IME support.
@@ -112,7 +112,7 @@ static bool ImGui_ImplOSX_HandleEvent(NSEvent* event, NSView* view);
  KeyEventResponder implements the NSTextInputClient protocol as is required by the macOS text input manager.
 
  The macOS text input manager is invoked by calling the interpretKeyEvents method from the keyDown method.
- Keyboard events are then evaluated by the macOS input manager and valid text input is passed back via the
+ Page events are then evaluated by the macOS input manager and valid text input is passed back via the
  insertText:replacementRange method.
 
  This is the same approach employed by other cross-platform libraries such as SDL2:

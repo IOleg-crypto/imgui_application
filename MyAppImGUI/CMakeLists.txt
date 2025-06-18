@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.29)
+cmake_minimum_required(VERSION 3.31)
 project(MyAppImGUI)
 
 set(CMAKE_CXX_STANDARD 20)
@@ -27,6 +27,8 @@ add_executable(MyAppImGUI
         vendor/imgui/backends/imgui_impl_win32.cpp
         vendor/imgui/misc/cpp/imgui_stdlib.h
         vendor/imgui/misc/cpp/imgui_stdlib.cpp
+        src/Window/CWindow.cpp
+        src/Window/CWindow.h
 
 )
 

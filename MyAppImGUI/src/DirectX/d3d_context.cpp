@@ -78,7 +78,6 @@ void CleanupDeviceD3D()
         g_pd3dDevice = nullptr;
     }
 }
-
 void CleanupRenderTarget()
 {
     if (g_mainRenderTargetView)
