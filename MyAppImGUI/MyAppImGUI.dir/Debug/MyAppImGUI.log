@@ -1,8 +1,9 @@
-﻿Build started 14.06.2025 12:33:06.
+﻿Build started 18.06.2025 15:50:02.
 Logging verbosity is set to: Normal.     1>Project "D:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\MyAppImGUI.vcxproj" on node 2 (Build target(s)).
      1>PrepareForBuild:
          Structured output is enabled. The formatting of compiler diagnostics will reflect the error hierarchy. See https://aka.ms/cpp/structured-output for more details.
        InitializeBuildStatus:
+         Creating "MyAppImGUI.dir\Debug\MyAppImGUI.tlog\unsuccessfulbuild" because "AlwaysCreate" was specified.
          Touching "MyAppImGUI.dir\Debug\MyAppImGUI.tlog\unsuccessfulbuild".
        CustomBuild:
          All outputs are up-to-date.
@@ -12,9 +13,12 @@ Logging verbosity is set to: Normal.     1>Project "D:\gitnext\CppWithImGUI\imgu
      2>Done Building Project "D:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\ZERO_CHECK.vcxproj" (GetProjectInfoForReference target(s)).
      1>SetModuleDependencies:
          Scanning sources for module dependencies...
-         All outputs are up-to-date.
+         C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\bin\HostX64\x64\CL.exe /c /ID:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\src /ID:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\src\DirectX /ID:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\src\FileDialog /ID:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\src\Memory /ID:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\vendor\imgui /ID:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\vendor\imgui\backends /ID:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\vendor\imgui\examples\example_allegro5 /ID:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\vendor\imgui\examples\libs\emscripten /ID:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\vendor\imgui\examples\libs\glfw /ID:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\vendor\imgui\misc\cpp /ID:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\vendor\imgui\misc\freetype /ID:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\vendor\imgui\misc\single_file /Zi /nologo /W1 /WX- /diagnostics:column /FS /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\"Debug\"" /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /std:c++20 /ifcOutput "MyAppImGUI.dir\Debug\\" /scanDependencies "MyAppImGUI.dir\Debug\\" /Fo"MyAppImGUI.dir\Debug\\" /Fd"MyAppImGUI.dir\Debug\vc143.pdb" /external:W1 /Gd /TP /errorReport:prompt "D:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\src\Notepad.cpp"
+         Notepad.cpp
        ClCompile:
-         All outputs are up-to-date.
+         Compiling...
+         C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\bin\HostX64\x64\CL.exe /c /ID:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\src /ID:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\src\DirectX /ID:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\src\FileDialog /ID:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\src\Memory /ID:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\vendor\imgui /ID:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\vendor\imgui\backends /ID:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\vendor\imgui\examples\example_allegro5 /ID:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\vendor\imgui\examples\libs\emscripten /ID:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\vendor\imgui\examples\libs\glfw /ID:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\vendor\imgui\misc\cpp /ID:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\vendor\imgui\misc\freetype /ID:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\vendor\imgui\misc\single_file /Zi /nologo /W1 /WX- /diagnostics:column /FS /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\"Debug\"" /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /std:c++20 /ifcOutput "MyAppImGUI.dir\Debug\\" /Fo"MyAppImGUI.dir\Debug\\" /Fd"MyAppImGUI.dir\Debug\vc143.pdb" /sourceDependencies "MyAppImGUI.dir\Debug\.d.json" /external:W1 /Gd /TP /errorReport:prompt "D:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\src\Notepad.cpp"
+         Notepad.cpp
        Link:
          C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\bin\HostX64\x64\link.exe /ERRORREPORT:PROMPT /OUT:"D:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\Debug\MyAppImGUI.exe" /INCREMENTAL /ILK:"MyAppImGUI.dir\Debug\MyAppImGUI.ilk" /NOLOGO d3d11.lib dxgi.lib dxguid.lib ole32.lib shell32.lib user32.lib kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/Debug/MyAppImGUI.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/Debug/MyAppImGUI.lib" /MACHINE:X64  /machine:x64 MyAppImGUI.dir\Debug\d3d_context.obj
          MyAppImGUI.dir\Debug\Render.obj
@@ -30,6 +34,7 @@ Logging verbosity is set to: Normal.     1>Project "D:\gitnext\CppWithImGUI\imgu
          MyAppImGUI.dir\Debug\imgui_impl_dx11.obj
          MyAppImGUI.dir\Debug\imgui_impl_win32.obj
          MyAppImGUI.dir\Debug\imgui_stdlib.obj
+         MyAppImGUI.dir\Debug\CWindow.obj
          MyAppImGUI.vcxproj -> D:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\Debug\MyAppImGUI.exe
        FinalizeBuildStatus:
          Deleting file "MyAppImGUI.dir\Debug\MyAppImGUI.tlog\unsuccessfulbuild".
@@ -40,4 +45,4 @@ Build succeeded.
     0 Warning(s)
     0 Error(s)
 
-Time Elapsed 00:00:00.65
+Time Elapsed 00:00:08.45

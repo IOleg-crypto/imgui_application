@@ -5,16 +5,20 @@
 #include "imgui.h"
 
 namespace ImGuiNotepad {
+    struct WindowResolution
+    {
+        float x;
+        float y;
+    };
     class CWindow {
-    private:
-        float m_x;
-        float m_y;
+    private:     
         HICON &m_hIcon;
         HWND &m_hwnd;
         WNDCLASSEXW &m_wc;
-        const wchar_t *m_iconPath = L"../assets/icon/icon.ico";
+        WindowResolution m_res;
+        const wchar_t *m_iconPath = L"assets/icon/icon.ico";
     public:
-        CWindow(WNDCLASSEXW &wc , HICON &hIcon , HWND &hwnd, const float &x , float &y);
+        CWindow(WNDCLASSEXW &wc , HICON &hIcon , HWND &hwnd , const float &x , const float &y);
         /*
           Explain : I don`t need that , this CWindow init window.
           NOT COPY AND NOT MOVE!!!!
@@ -42,6 +46,24 @@ namespace ImGuiNotepad {
          * - io: ImGuiIO structure providing frame timing info
          */
         static void AboutWindow(bool& show_demo_window, const ImGuiIO& io);
+        /*
+        *  Function to handle window messages and events.
+        */
+        void PollMessage(bool &done) const;
+        /*
+        *  Function to handle window resize.
+        */
+        void HandleResize(IDXGISwapChain* swapChain);
+        /*
+        *  Function to handle occlusion events.
+        */
+        void HandleOcclusion(bool& g_SwapChainOccluded, IDXGISwapChain* swapChain) const;
+        /*
+        *   Function to apply fullscreen layout.
+        */
+        void ApplyFullscreenLayout(bool &fullscreen, const ImGuiIO& io, ImGuiWindowFlags& outFlags);
+
+
     };
 }
 #endif //CWINDOW_H

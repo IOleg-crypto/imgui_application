@@ -1,16 +1,31 @@
-<<<<<<< HEAD
-﻿Build started 17.06.2025 13:47:17.
-=======
-﻿Build started 14.06.2025 12:13:31.
->>>>>>> f0ee4a12bee55a80d2f33dd0598353fc19ac46f0
+﻿Build started 18.06.2025 14:32:37.
 Logging verbosity is set to: Normal.     1>Project "D:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\ZERO_CHECK.vcxproj" on node 2 (Build target(s)).
      1>PrepareForBuild:
          Structured output is enabled. The formatting of compiler diagnostics will reflect the error hierarchy. See https://aka.ms/cpp/structured-output for more details.
        InitializeBuildStatus:
-         Creating "x64\Release\ZERO_CHECK\ZERO_CHECK.tlog\unsuccessfulbuild" because "AlwaysCreate" was specified.
          Touching "x64\Release\ZERO_CHECK\ZERO_CHECK.tlog\unsuccessfulbuild".
        CustomBuild:
-         All outputs are up-to-date.
+         1>Checking Build System
+         CMake is re-running because D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/CMakeFiles/generate.stamp is out-of-date.
+           the file 'D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/CMakeLists.txt'
+           is newer than 'D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/CMakeFiles/generate.stamp.depend'
+           result='-1'
+         -- Selecting Windows SDK version 10.0.26100.0 to target Windows 10.0.22621.
+         -- The C compiler identification is MSVC 19.44.35209.0
+         -- The CXX compiler identification is MSVC 19.44.35209.0
+         -- Detecting C compiler ABI info
+         -- Detecting C compiler ABI info - done
+         -- Check for working C compiler: C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/bin/Hostx64/x64/cl.exe - skipped
+         -- Detecting C compile features
+         -- Detecting C compile features - done
+         -- Detecting CXX compiler ABI info
+         -- Detecting CXX compiler ABI info - done
+         -- Check for working CXX compiler: C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/bin/Hostx64/x64/cl.exe - skipped
+         -- Detecting CXX compile features
+         -- Detecting CXX compile features - done
+         -- Configuring done (23.9s)
+         -- Generating done (0.1s)
+         -- Build files have been written to: D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI
        FinalizeBuildStatus:
          Deleting file "x64\Release\ZERO_CHECK\ZERO_CHECK.tlog\unsuccessfulbuild".
          Touching "x64\Release\ZERO_CHECK\ZERO_CHECK.tlog\ZERO_CHECK.lastbuildstate".
@@ -20,8 +35,4 @@ Build succeeded.
     0 Warning(s)
     0 Error(s)
 
-<<<<<<< HEAD
-Time Elapsed 00:00:00.87
-=======
-Time Elapsed 00:00:00.78
->>>>>>> f0ee4a12bee55a80d2f33dd0598353fc19ac46f0
+Time Elapsed 00:00:24.36

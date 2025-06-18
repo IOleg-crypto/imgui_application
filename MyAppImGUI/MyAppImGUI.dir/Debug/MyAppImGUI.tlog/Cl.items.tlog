@@ -12,3 +12,4 @@ D:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\vendor\imgui\imgui_demo.cpp
 D:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\vendor\imgui\backends\imgui_impl_dx11.cpp;D:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\MyAppImGUI.dir\Debug\imgui_impl_dx11.obj
 D:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\vendor\imgui\backends\imgui_impl_win32.cpp;D:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\MyAppImGUI.dir\Debug\imgui_impl_win32.obj
 D:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\vendor\imgui\misc\cpp\imgui_stdlib.cpp;D:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\MyAppImGUI.dir\Debug\imgui_stdlib.obj
+D:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\src\Window\CWindow.cpp;D:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\MyAppImGUI.dir\Debug\CWindow.obj

@@ -2,7 +2,7 @@
 #include "d3d_context.h"
 
 namespace ImGuiNotepad {
-    CWindow::CWindow(WNDCLASSEXW &wc , HICON &hIcon , HWND& hwnd, const float &x , float &y) : m_x(x) , m_y(y) , m_hIcon(hIcon) , m_hwnd(hwnd) , m_wc(wc) {
+    CWindow::CWindow(WNDCLASSEXW& wc, HICON& hIcon, HWND& hwnd, const float& x, const float& y) : m_hIcon(hIcon) , m_hwnd(hwnd) , m_wc(wc) , m_res{x, y} {
          //Take parameters
     }
     void CWindow::Init() {
@@ -47,7 +47,7 @@ namespace ImGuiNotepad {
         WS_EX_LAYERED | WS_EX_TOPMOST, // Transparent Layered Window
         m_wc.lpszClassName, L"Notepad",
         WS_POPUP, // Removes the title bar and border
-        0, 40, static_cast<int>(m_x), static_cast<int>(m_y),
+        0, 40, static_cast<int>(m_res.x), static_cast<int>(m_res.y),
         nullptr, nullptr, m_wc.hInstance, nullptr);
 
         if (!m_hwnd) {
@@ -59,7 +59,6 @@ namespace ImGuiNotepad {
     void CWindow::ToggleFullscreen(bool &fullscreen) {
         fullscreen = !fullscreen;
     }
-
     void CWindow::AboutWindow(bool &show_demo_window, const ImGuiIO &io) {
         if (ImGui::Begin("##About", &show_demo_window))
         {
@@ -68,4 +67,73 @@ namespace ImGuiNotepad {
         }
         ImGui::End();
     }
+	void CWindow::PollMessage(bool& done) const
+	{
+		// Poll and handle messages (inputs, window resize, etc.)
+		MSG msg;
+		while (PeekMessage(&msg, nullptr, 0U, 0U, PM_REMOVE))
+		{
+			::TranslateMessage(&msg);
+			::DispatchMessage(&msg);
+			if (msg.message == WM_QUIT)
+				done = true;
+		}
+	}
+
+	void CWindow::HandleResize(IDXGISwapChain* swapChain)
+	{
+		if (g_ResizeWidth != 0 && g_ResizeHeight != 0)
+		{
+			CleanupRenderTarget();
+			swapChain->ResizeBuffers(0, g_ResizeWidth, g_ResizeHeight, DXGI_FORMAT_UNKNOWN, 0);
+			g_ResizeWidth = g_ResizeHeight = 0;
+			CreateRenderTarget();
+		}
+	}
+	void CWindow::HandleOcclusion(bool& g_SwapChainOccluded, IDXGISwapChain* swapChain) const
+	{
+		if (g_SwapChainOccluded && swapChain->Present(0, DXGI_PRESENT_TEST) == DXGI_STATUS_OCCLUDED)
+		{
+			::Sleep(10);
+			return;
+		}
+		g_SwapChainOccluded = false;
+	}
+   
+
+	void CWindow::ApplyFullscreenLayout(bool &IsFullscreen, const ImGuiIO& io, ImGuiWindowFlags& outFlags)
+	{
+		static bool prevFullscreen = false;
+
+		ImGuiCond posCond = ImGuiCond_Appearing;
+		ImGuiCond sizeCond = ImGuiCond_Appearing;
+
+		if (IsFullscreen != prevFullscreen) {
+			posCond = ImGuiCond_Always;
+			sizeCond = ImGuiCond_Always;
+		}
+
+		prevFullscreen = IsFullscreen;
+
+		if (IsFullscreen) {
+			ImGui::SetNextWindowPos(ImVec2(0, 0), posCond);
+			ImGui::SetNextWindowSize(io.DisplaySize, sizeCond);
+			outFlags = ImGuiWindowFlags_NoCollapse |
+				ImGuiWindowFlags_NoResize |
+				ImGuiWindowFlags_NoMove |
+				ImGuiWindowFlags_MenuBar;
+		}
+		else {
+			ImVec2 windowSize(800, 400);
+			ImVec2 centerPos((io.DisplaySize.x - windowSize.x) * 0.5f,
+				(io.DisplaySize.y - windowSize.y) * 0.5f);
+
+			ImGui::SetNextWindowPos(centerPos, posCond);
+			ImGui::SetNextWindowSize(windowSize, sizeCond);
+			outFlags = ImGuiWindowFlags_MenuBar |
+				ImGuiWindowFlags_HorizontalScrollbar |
+				ImGuiWindowFlags_NoCollapse;
+		}
+	}
+
 }

@@ -24,6 +24,8 @@
 
 // Init window
 #include "Window/CWindow.h"
+// Take flags
+#include "Editor/Editor.h"
 
 // For render
 #include "DirectX/Render.h"
@@ -83,23 +85,22 @@ int main()
     static ImGuiWindowFlags window_flags =
             ImGuiWindowFlags_MenuBar |
             ImGuiWindowFlags_HorizontalScrollbar;
-    // Static variables
+
+    static ImGuiNotepad::EditorSettings g_EditorSettings;
+    static ImGuiNotepad::TabManager g_TabManager;
+    static ImGuiNotepad::WindowState g_WindowState;
     static int font_size = 16;
     static int selectedTab = 0; // Keeps track of which tab is currently selected
-    // TabTitle
+
     static std::vector<std::string> tabTitles = {"Page1"};
     static std::vector<std::string> tabContents = {""};
-    // Path for function(Save file)
     static std::string pathFile;
     static std::string currentTabInfo = tabContents[selectedTab]; // To prevent more allocations
 
-    // local variables
-    bool show_another_window = false;
     static bool show_info_window = false;
-    //ImVec4 clear_color = ImVec4(0.32f, 0.60f, 0.60f, 1.00f);
+    ImVec4 clear_color = ImVec4(0.32f, 0.60f, 0.60f, 1.00f);
     static bool theme_change = false; // Change clear color to make it more visible
     static bool hide_window = true;
-	// Global flag for fullscreen toggle
 	static bool fullscreen = false;
 #if _DEBUG
     std::cout << "Monitor hz : " << ImGuiDirectX::GetMonitorRefreshRate() << '\n';
@@ -109,40 +110,16 @@ int main()
     while (!done)
     {
 
-        // Poll and handle messages (inputs, window resize, etc.)
-        MSG msg;
-        while (PeekMessage(&msg, nullptr, 0U, 0U, PM_REMOVE))
-        {
-            ::TranslateMessage(&msg);
-            ::DispatchMessage(&msg);
-            if (msg.message == WM_QUIT)
-                done = true;
-        }
+        window.PollMessage(done);
         if (done)
             break;
-
 
         if (g_is_resizing_or_moving)
         {
             ::Sleep(10);
         }
-
-        // Handle window being minimized or screen locked
-        if (g_SwapChainOccluded && g_pSwapChain->Present(0, DXGI_PRESENT_TEST) == DXGI_STATUS_OCCLUDED)
-        {
-            ::Sleep(10);
-            continue;
-        }
-        g_SwapChainOccluded = false;
-
-        // Handle window resize (we don't resize directly in the WM_SIZE handler)
-        if (g_ResizeWidth != 0 && g_ResizeHeight != 0)
-        {
-            CleanupRenderTarget();
-            g_pSwapChain->ResizeBuffers(0, g_ResizeWidth, g_ResizeHeight, DXGI_FORMAT_UNKNOWN, 0);
-            g_ResizeWidth = g_ResizeHeight = 0;
-            CreateRenderTarget();
-        }
+        window.HandleOcclusion(g_SwapChainOccluded , g_pSwapChain);
+        window.HandleResize(g_pSwapChain);
 
         // Start the Dear ImGui frame
         ImGui_ImplDX11_NewFrame();
@@ -150,46 +127,11 @@ int main()
         ImGuiDirectX::Render(hwnd, x, y);
         ImGui::NewFrame();
 
-        // Main window
-		static bool prev_fullscreen = false;
-		static ImGuiCond pos_cond = ImGuiCond_Appearing;
-		static ImGuiCond size_cond = ImGuiCond_Appearing;
-
-		if (fullscreen != prev_fullscreen)
-		{
-			pos_cond = ImGuiCond_Always;
-			size_cond = ImGuiCond_Always;
-		}
-		else
-		{
-			pos_cond = ImGuiCond_Appearing;
-			size_cond = ImGuiCond_Appearing;
-		}
-
-		prev_fullscreen = fullscreen;
-
-
-		if (fullscreen)
-		{
-			ImGui::SetNextWindowPos(ImVec2(0, 0), pos_cond);
-			ImGui::SetNextWindowSize(io.DisplaySize, size_cond);
-			window_flags = ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_MenuBar;
-		}
-		else
-		{
-			ImVec2 windowSize(800, 400);
-			ImVec2 centerPos((io.DisplaySize.x - windowSize.x) * 0.5f,
-				(io.DisplaySize.y - windowSize.y) * 0.5f);
-
-			ImGui::SetNextWindowPos(centerPos, pos_cond);
-			ImGui::SetNextWindowSize(windowSize, size_cond);
-
-			window_flags = ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_HorizontalScrollbar | ImGuiWindowFlags_NoCollapse;
-		}
-		if (ImGui::Begin("Notepad", &hide_window, window_flags))
+        window.ApplyFullscreenLayout(fullscreen, io, window_flags);
+		if (ImGui::Begin("Notepad", &g_WindowState.hide_window, window_flags))
         {
             // Stop program
-            if (!hide_window)
+            if (!g_WindowState.hide_window)
             {
                 ::PostQuitMessage(0);
             }
@@ -221,7 +163,7 @@ int main()
                     if (ImGui::MenuItem("Save file", "Ctrl+S"))
                     {
                         // To fix bug with empty name of tab
-                        if (pathFile.empty())
+                        if (g_TabManager.pathFile.empty())
                         {
                             pathFile = tabTitles[selectedTab];
                             MessageBoxA(hwnd, "No valid directory found", "File not saved", MB_OK);
@@ -265,6 +207,7 @@ int main()
                     if (ImGui::MenuItem("Fullscreen", "3"))
                     {
                         window.ToggleFullscreen(fullscreen);
+                        window.ApplyFullscreenLayout(g_WindowState.fullscreen, io, window_flags);
                     }
                     if (ImGui::MenuItem("Exit", "Alt+F4"))
                     {
@@ -373,15 +316,6 @@ int main()
 
             // keyboard shortcuts
 
-            // 3. Show another simple window.
-            if (show_another_window)
-            {
-                ImGui::Begin("Another Window", &show_another_window); // Pass a pointer to our bool variable (the window will have a closing button that will clear the bool when clicked)
-                ImGui::Text("Hello from another window!");
-                if (ImGui::Button("Close Me"))
-                    show_another_window = false;
-                ImGui::End();
-            }
             if (show_info_window)
             {
                 window.AboutWindow(show_info_window, io);

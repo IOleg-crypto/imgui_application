@@ -486,8 +486,11 @@
             "c:\\program files (x86)\\windows kits\\10\\include\\10.0.26100.0\\um\\d3d10effect.h",
             "c:\\program files (x86)\\windows kits\\10\\include\\10.0.26100.0\\um\\d3d10_1shader.h",
             "d:\\gitnext\\cppwithimgui\\imgui_application\\myappimgui\\src\\filedialog\\font.h",
+            "d:\\gitnext\\cppwithimgui\\imgui_application\\myappimgui\\src\\window\\cwindow.h",
+            "d:\\gitnext\\cppwithimgui\\imgui_application\\myappimgui\\src\\editor\\editor.h",
             "d:\\gitnext\\cppwithimgui\\imgui_application\\myappimgui\\src\\directx\\render.h",
-            "d:\\gitnext\\cppwithimgui\\imgui_application\\myappimgui\\src\\directx\\d3d_context.h"
+            "d:\\gitnext\\cppwithimgui\\imgui_application\\myappimgui\\src\\directx\\d3d_context.h",
+            "d:\\gitnext\\cppwithimgui\\imgui_application\\myappimgui\\src\\memory\\memory.h"
         ],
         "ImportedModules": [],
         "ImportedHeaderUnits": []
