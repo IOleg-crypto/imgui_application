@@ -19,7 +19,7 @@ namespace ImGuiDirectX
 	 *
 	 * This function may include settings or optimizations to improve performance.
 	 */
-	void Render(const HWND& hwnd, const float& x, const float& y);
+	void Render(const HWND& hwnd);
 }
 
 #endif // RENDER_H

@@ -165,7 +165,7 @@
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <ImportLibrary>D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/Release/MyAppImGUI.lib</ImportLibrary>
       <ProgramDataBaseFile>D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/Release/MyAppImGUI.pdb</ProgramDataBaseFile>
-      <SubSystem>Console</SubSystem>
+      <SubSystem>Windows</SubSystem>
     </Link>
     <ProjectReference>
       <LinkLibraryDependencies>false</LinkLibraryDependencies>
@@ -208,7 +208,7 @@
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <ImportLibrary>D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/MinSizeRel/MyAppImGUI.lib</ImportLibrary>
       <ProgramDataBaseFile>D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/MinSizeRel/MyAppImGUI.pdb</ProgramDataBaseFile>
-      <SubSystem>Windows</SubSystem>
+      <SubSystem>Console</SubSystem>
     </Link>
     <ProjectReference>
       <LinkLibraryDependencies>false</LinkLibraryDependencies>
@@ -250,7 +250,7 @@
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <ImportLibrary>D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/RelWithDebInfo/MyAppImGUI.lib</ImportLibrary>
       <ProgramDataBaseFile>D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/RelWithDebInfo/MyAppImGUI.pdb</ProgramDataBaseFile>
-      <SubSystem>Windows</SubSystem>
+      <SubSystem>Console</SubSystem>
     </Link>
     <ProjectReference>
       <LinkLibraryDependencies>false</LinkLibraryDependencies>
@@ -320,7 +320,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <ScanSourceForModuleDependencies Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">true</ScanSourceForModuleDependencies>
       <ScanSourceForModuleDependencies Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">true</ScanSourceForModuleDependencies>
     </ClCompile>
-    <ClCompile Include="src\Memory\Memory.cpp" />
+    <ClCompile Include="src\Editor\Editor.cpp" />
     <ClInclude Include="D:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\src\DirectX\d3d_context.h" />
     <ClInclude Include="D:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\src\DirectX\Render.h" />
     <ClCompile Include="D:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\src\DirectX\Render.cpp">
@@ -344,7 +344,13 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     </ClCompile>
     <ClInclude Include="D:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\src\FileDialog\Font.h" />
     <ClInclude Include="D:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\src\Memory\Memory.h" />
-    <ClCompile Include="D:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\src\Notepad.cpp">
+    <ClCompile Include="D:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\src\Memory\Memory.cpp">
+      <ScanSourceForModuleDependencies Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ScanSourceForModuleDependencies>
+      <ScanSourceForModuleDependencies Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ScanSourceForModuleDependencies>
+      <ScanSourceForModuleDependencies Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">true</ScanSourceForModuleDependencies>
+      <ScanSourceForModuleDependencies Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">true</ScanSourceForModuleDependencies>
+    </ClCompile>
+    <ClCompile Include="src\main.cpp">
       <ScanSourceForModuleDependencies Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ScanSourceForModuleDependencies>
       <ScanSourceForModuleDependencies Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ScanSourceForModuleDependencies>
       <ScanSourceForModuleDependencies Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">true</ScanSourceForModuleDependencies>
@@ -400,7 +406,14 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <ScanSourceForModuleDependencies Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">true</ScanSourceForModuleDependencies>
       <ScanSourceForModuleDependencies Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">true</ScanSourceForModuleDependencies>
     </ClCompile>
-    <ClInclude Include="D:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\resource.h" />
+    <ClCompile Include="D:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\src\Window\Window.cpp">
+      <ScanSourceForModuleDependencies Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ScanSourceForModuleDependencies>
+      <ScanSourceForModuleDependencies Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ScanSourceForModuleDependencies>
+      <ScanSourceForModuleDependencies Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">true</ScanSourceForModuleDependencies>
+      <ScanSourceForModuleDependencies Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">true</ScanSourceForModuleDependencies>
+    </ClCompile>
+    <ClInclude Include="D:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\src\Window\Window.h" />
+    <ClInclude Include="src\Editor\Editor.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="D:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\ZERO_CHECK.vcxproj">

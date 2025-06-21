@@ -3,7 +3,7 @@
     "revision": 0,
     "rules": [
         {
-            "primary-output": "MyAppImGUI.dir\\Debug\\CWindow.obj",
+            "primary-output": "MyAppImGUI.dir\\Debug\\Application.obj",
             "outputs": [
                 "D:\\gitnext\\CppWithImGUI\\imgui_application\\MyAppImGUI\\MyAppImGUI.dir\\Debug\\vc143.pdb",
                 "MyAppImGUI.dir\\Debug\\"

@@ -17,7 +17,9 @@ add_executable(MyAppImGUI
         src/FileDialog/Font.h
         src/Memory/Memory.h
 		src/Memory/Memory.cpp
-        src/Notepad.cpp
+        src/App/Application.h
+		src/App/Application.cpp
+        src/main.cpp
         vendor/imgui/imgui.h
         vendor/imgui/imgui.cpp
         vendor/imgui/imgui_draw.cpp
@@ -28,8 +30,8 @@ add_executable(MyAppImGUI
         vendor/imgui/backends/imgui_impl_win32.cpp
         vendor/imgui/misc/cpp/imgui_stdlib.h
         vendor/imgui/misc/cpp/imgui_stdlib.cpp
-        src/Window/CWindow.cpp
-        src/Window/CWindow.h
+        src/Window/Window.cpp
+        src/Window/Window.h
 
 )
 

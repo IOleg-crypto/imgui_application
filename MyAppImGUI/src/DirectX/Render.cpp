@@ -17,12 +17,12 @@ namespace ImGuiDirectX
 		}
 		return 0;
 	}
-	void Render(const HWND& hwnd, const float& x, const float& y)
+	void Render(const HWND& hwnd)
 	{
 		DXGI_SWAP_CHAIN_DESC swapChainDesc;
 		ZeroMemory(&swapChainDesc, sizeof(swapChainDesc));
-		swapChainDesc.BufferDesc.Width = static_cast<UINT>(x);
-		swapChainDesc.BufferDesc.Height = static_cast<UINT>(y);
+		swapChainDesc.BufferDesc.Width = static_cast<UINT>(SM_CXSCREEN);
+		swapChainDesc.BufferDesc.Height = static_cast<UINT>(SM_CYSCREEN);
 		/*
 		 * swapChainDesc.BufferDesc.RefreshRate.Numerator - means hz of monitor
 		 */

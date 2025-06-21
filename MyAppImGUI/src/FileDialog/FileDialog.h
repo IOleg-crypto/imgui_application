@@ -7,10 +7,6 @@
 #include <string>       // For using std::string
 #include <filesystem>   // For handling file system paths (C++17 and later)
 
-// Global variable for window handle (HWND)
-// Note: 'static' here means each translation unit (.cpp file) that includes this header gets its own copy
-static HWND hwnd = nullptr;
-
 // Opens a Save File dialog and writes 'CurrentTabInfo' to selected path
 // 'path' is updated with the selected file path
 void SaveFileDialog(const HWND& hwnd, const std::string& CurrentTabInfo, std::string& path);
