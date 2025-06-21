@@ -23,7 +23,7 @@ Window::~Window()
 	}
 }
 
-void Window::Init() {
+void Window::Init(){
 	
 	m_hIcon = static_cast<HICON>(LoadImageW(nullptr, m_iconPath.c_str(), IMAGE_ICON, 0, 0, LR_LOADFROMFILE | LR_DEFAULTSIZE));
 	if (!m_hIcon) {
@@ -67,7 +67,17 @@ void Window::ToggleFullscreen() {
 	m_fullscreen = !m_fullscreen;
 }
 
-void Window::PollMessage(bool& done) {
+void Window::AboutWindow(bool& showDemoWindow, const ImGuiIO& io)
+{
+	if (ImGui::Begin("##About", &showDemoWindow))
+	{
+		ImGui::Text("The notepad made by I#Oleg");
+		ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / io.Framerate, io.Framerate);
+	}
+	ImGui::End();
+}
+
+void Window::PollMessage(bool& done) const {
 	MSG msg;
 	while (PeekMessage(&msg, nullptr, 0U, 0U, PM_REMOVE)) {
 		TranslateMessage(&msg);
@@ -100,7 +110,7 @@ void Window::ApplyFullscreenLayout(const ImGuiIO& io, ImGuiWindowFlags& outFlags
 		outFlags = ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_HorizontalScrollbar | ImGuiWindowFlags_NoCollapse;
 	}
 }
-void Window::HandleResize(IDXGISwapChain* swapChain)
+void Window::HandleResize(IDXGISwapChain* swapChain) const
 {
 	if (g_ResizeWidth != 0 && g_ResizeHeight != 0)
 	{
@@ -126,8 +136,10 @@ void Window::InitImGui()
 	ImGui::CreateContext();
 	ImGuiIO& io = ImGui::GetIO();
 	(void)io;
+	m_io = io;
 	io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard; // Enable Page Controls
 	io.WantCaptureMouse = true;
+	// To support cyrillic
 	io.Fonts->AddFontFromFileTTF(m_fontPath.c_str(), 20, nullptr, io.Fonts->GetGlyphRangesCyrillic());
 }
 	

@@ -1,13 +1,15 @@
 #ifndef EDITOR_H
 #define EDITOR_H
 
-#include <string>
-#include <vector>
-#include <imgui.h>
+#include "imgui.h"
+#include "Memory.h"
+#include "UIState.h"
 #include "FileDialog/FileDialog.h"
+#include "Window/Window.h"
 
 #include <string>
 #include <vector>
+
 class TabManager
 {
 private:
@@ -16,8 +18,15 @@ private:
 	std::string pathFile;
 	std::string currentTabInfo;
 	int selectedTab;
+private:
+	Window m_Window;
+	UIState s_state;
 public:
 	TabManager();
 	~TabManager();
+
+	void RenderMenuTab();
+	void RenderInputTextField();
+
 };
 #endif

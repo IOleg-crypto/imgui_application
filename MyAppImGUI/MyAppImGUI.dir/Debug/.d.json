@@ -393,6 +393,9 @@
             "c:\\program files\\microsoft visual studio\\2022\\community\\vc\\tools\\msvc\\14.44.35207\\include\\sstream",
             "c:\\program files\\microsoft visual studio\\2022\\community\\vc\\tools\\msvc\\14.44.35207\\include\\vector",
             "d:\\gitnext\\cppwithimgui\\imgui_application\\myappimgui\\src\\editor\\editor.h",
+            "d:\\gitnext\\cppwithimgui\\imgui_application\\myappimgui\\src\\memory\\memory.h",
+            "c:\\program files\\microsoft visual studio\\2022\\community\\vc\\tools\\msvc\\14.44.35207\\include\\iostream",
+            "c:\\program files\\microsoft visual studio\\2022\\community\\vc\\tools\\msvc\\14.44.35207\\include\\ostream",
             "d:\\gitnext\\cppwithimgui\\imgui_application\\myappimgui\\src\\editor\\uistate.h",
             "d:\\gitnext\\cppwithimgui\\imgui_application\\myappimgui\\vendor\\imgui\\backends\\imgui_impl_dx11.h",
             "d:\\gitnext\\cppwithimgui\\imgui_application\\myappimgui\\vendor\\imgui\\backends\\imgui_impl_win32.h",
@@ -484,14 +487,11 @@
             "c:\\program files (x86)\\windows kits\\10\\include\\10.0.26100.0\\shared\\pshpack8.h",
             "c:\\program files (x86)\\windows kits\\10\\include\\10.0.26100.0\\shared\\poppack.h",
             "c:\\program files (x86)\\windows kits\\10\\include\\10.0.26100.0\\shared\\poppack.h",
-            "c:\\program files\\microsoft visual studio\\2022\\community\\vc\\tools\\msvc\\14.44.35207\\include\\iostream",
-            "c:\\program files\\microsoft visual studio\\2022\\community\\vc\\tools\\msvc\\14.44.35207\\include\\ostream",
             "c:\\program files (x86)\\windows kits\\10\\include\\10.0.26100.0\\ucrt\\tchar.h",
             "c:\\program files (x86)\\windows kits\\10\\include\\10.0.26100.0\\ucrt\\mbstring.h",
             "d:\\gitnext\\cppwithimgui\\imgui_application\\myappimgui\\src\\filedialog\\font.h",
             "d:\\gitnext\\cppwithimgui\\imgui_application\\myappimgui\\src\\directx\\render.h",
-            "d:\\gitnext\\cppwithimgui\\imgui_application\\myappimgui\\src\\directx\\d3d_context.h",
-            "d:\\gitnext\\cppwithimgui\\imgui_application\\myappimgui\\src\\memory\\memory.h"
+            "d:\\gitnext\\cppwithimgui\\imgui_application\\myappimgui\\src\\directx\\d3d_context.h"
         ],
         "ImportedModules": [],
         "ImportedHeaderUnits": []

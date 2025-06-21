@@ -45,13 +45,13 @@ public:
      * @brief Poll and handle window messages and events.
      * @param done Reference to a flag indicating if the app should quit.
      */
-    void PollMessage(bool& done);
+    void PollMessage(bool& done) const ;
 
     /**
      * @brief Handle window resize event (e.g., reset swap chain buffers).
      * @param swapChain Pointer to the DXGI swap chain.
      */
-    void HandleResize(IDXGISwapChain* swapChain);
+    void HandleResize(IDXGISwapChain* swapChain) const;
 
     /**
      * @brief Handle occlusion (window visibility) events.
@@ -69,12 +69,15 @@ public:
 
     void InitImGui();
 
+    ImGuiIO &GetImGuiIO() { return m_io; }
     HWND GetHWND() { return m_hwnd; }
 
 private:
     HWND m_hwnd;                     ///< Handle to the window.
     HICON m_hIcon;                   ///< Window icon handle.
     WNDCLASSEXW m_wc{};              ///< Window class structure.
+    ImGuiIO m_io;
+private:
     std::wstring m_iconPath;         ///< Path to the icon file (wide string).
     std::string m_fontPath;          ///< Path to the font file.
     bool m_fullscreen = false;       ///< Current fullscreen state.
