@@ -1,10 +1,11 @@
 #include "Editor.h"
 #include "Window/Window.h"
+#include "FileDialog/Font.h"
 
 
 TabManager::TabManager() : selectedTab(0) , TabPages{"Page 1"} , TabContent{""}
 {
-
+	//@brief : All params init by default
 }
 
 TabManager::~TabManager()
@@ -81,6 +82,12 @@ void TabManager::RenderMenuTab()
 					{
 						selectedTab = static_cast<int>(TabPages.size() - 1); // Move to the last tab if the deleted tab was the last one
 					}
+					// Added fix
+					if (TabPages.empty())
+					{
+						TabPages.emplace_back("Page" + std::to_string(TabPages.size() + 1));
+						TabContent.emplace_back();
+					}
 				}
 			}
 			if (ImGui::MenuItem("Fullscreen", "3"))
@@ -94,15 +101,48 @@ void TabManager::RenderMenuTab()
 			if (ImGui::MenuItem("Help"))
 			{
 				s_state.showInfoWindow = !s_state.showInfoWindow;
-				if (s_state.showInfoWindow)
-				{
-					m_Window.AboutWindow(s_state.showInfoWindow, m_Window.GetImGuiIO());
-				}
+			}
+			ImGui::EndMenu();
+			ImGui::EndMenuBar();
+		}
+		if (ImGui::BeginMenu("Font and size"))
+		{
+			if (ImGui::MenuItem("Font"))
+			{
+				s_state.showFontWindow = true;
+			}
+			else
+			{
+				s_state.showFontWindow = false;
+			}
+			ImGui::EndMenu();			
+		}
+		if (ImGui::BeginMenu("Theme"))
+		{
+			if (ImGui::MenuItem("Theme light/dark", "CTRL+R"))
+			{
+				s_state.themeChange = !s_state.themeChange;
+				if (s_state.themeChange)
+					ImGui::StyleColorsLight();
+				else
+					ImGui::StyleColorsDark();
 			}
 			ImGui::EndMenu();
 		}
+		ImGui::EndMenuBar();	
+	}
 
-		ImGui::EndMenuBar();
+	if (s_state.showInfoWindow)
+	{
+		m_Window.AboutWindow(s_state.showInfoWindow, m_Window.GetImGuiIO());
+	}
+	if (s_state.showFontWindow)
+	{
+		std::string path = m_Window.getFontPath();
+		char buffer[MAX_PATH];
+		strncpy(buffer, path.c_str(), sizeof(buffer));
+		buffer[sizeof(buffer) - 1] = '\0'; 
+		ShowFontWindow(buffer, s_state.showFontWindow, s_state.fontSize);
 	}
 }
 
@@ -164,7 +204,7 @@ void TabManager::RenderInputTextField()
 
 	ImGui::Separator();
 
-	if (ImGui::RadioButton("Read Only", &s_state.readOnly))
+	if (ImGui::Checkbox("Read Only", &s_state.readOnly))
 	{
 		if (s_state.readOnly)
 			s_state.inputFlags |= ImGuiInputTextFlags_ReadOnly;

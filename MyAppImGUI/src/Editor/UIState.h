@@ -9,7 +9,7 @@ struct UIState {
 	bool showFontWindow = false;
 	bool showInfoWindow = false;
 	bool readOnly = false;
-	bool themeLight = false;
+	bool themeChange = false;
 	bool hideWindow = true;
 	int selectedTab = 0;
 	int fontSize = 16; // by default
@@ -17,5 +17,7 @@ struct UIState {
 	ImGuiWindowFlags windowFlags = ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_HorizontalScrollbar;
 	std::string currentPath;
 };
+
+static UIState s_state;
 
 #endif

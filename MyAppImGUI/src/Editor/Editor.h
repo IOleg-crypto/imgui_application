@@ -20,7 +20,6 @@ private:
 	int selectedTab;
 private:
 	Window m_Window;
-	UIState s_state;
 public:
 	TabManager();
 	~TabManager();

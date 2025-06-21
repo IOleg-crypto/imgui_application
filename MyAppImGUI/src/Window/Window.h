@@ -72,6 +72,8 @@ public:
     ImGuiIO &GetImGuiIO() { return m_io; }
     HWND GetHWND() { return m_hwnd; }
 
+    std::string &getFontPath() { return m_fontPath; }
+
 private:
     HWND m_hwnd;                     ///< Handle to the window.
     HICON m_hIcon;                   ///< Window icon handle.
