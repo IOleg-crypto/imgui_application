@@ -1,4 +1,4 @@
-#include "Editor.h"
+﻿#include "Editor.h"
 #include "Window/Window.h"
 #include "imgui.h"
 #include "imgui_impl_dx11.h"
@@ -8,7 +8,7 @@
 #include <filesystem>
 
 
-TabManager::TabManager() : selectedTab(0) , TabPages{"Page 1"} , TabContent{""}
+TabManager::TabManager() : selectedTab(0), TabPages{ "Page 1" }, TabContent{ "" }
 {
 	//@brief : All params init by default
 }
@@ -97,7 +97,7 @@ void TabManager::RenderMenuTab()
 			}
 			if (ImGui::MenuItem("Fullscreen", "3"))
 			{
-				m_Window.ToggleFullscreen();				
+				//ToggleFullscreen();
 			}
 			if (ImGui::MenuItem("Exit", "Alt+F4"))
 			{
@@ -129,7 +129,7 @@ void TabManager::RenderMenuTab()
 			}
 			ImGui::EndMenu();
 		}
-		ImGui::EndMenuBar();	
+		ImGui::EndMenuBar();
 	}
 
 	if (s_state.showInfoWindow)
@@ -210,35 +210,42 @@ void TabManager::RenderInputTextField()
 
 void TabManager::ShowFontWindow()
 {
-	ImGuiIO& io = ImGui::GetIO();
-	float dpi_scale = io.DisplayFramebufferScale.x;
-	pendingFontPath = m_Window.getFontPath();
-
 	if (!showFontWindow) return;
-	if (ImGui::Begin("Font options", &showFontWindow))
+	ImGui::Begin("Font options", &showFontWindow);
+	fontPath = m_Window.getFontPath();
+	if (ImGui::Button("Set new font"))
 	{
-		if (ImGui::Button("Set new font"))
-		{
-			std::string newPath = GetFontPath();
-			if (!newPath.empty())
-				pendingFontPath = newPath;
-		}
-
-		ImGui::SameLine();
-		ImGui::Text("Path of font: %s", pendingFontPath.empty() ? "None" : pendingFontPath.c_str());
-
-		if (ImGui::SliderInt("Font size", &fontSize, 16, 32))
-		{
-			pendingFontSize = fontSize;
-			shouldReloadFont = true;
-		}
-
-		if (ImGui::Button("Apply"))
-		{
-			pendingFontSize = fontSize;
-			shouldReloadFont = true;
+		std::string newPath = GetFontPath();
+		if (!newPath.empty()) {
+			ImGuiIO& io = ImGui::GetIO();
+			ImFontConfig cfg;
+			cfg.OversampleH = 3;
+			float dpi_scale = io.DisplayFramebufferScale.x;
+			ImFont* pFont = io.Fonts->AddFontFromFileTTF(
+				newPath.c_str(),
+				16.0f * dpi_scale,
+				&cfg,
+				io.Fonts->GetGlyphRangesCyrillic()
+			);
+			if (pFont) {
+				io.FontDefault = pFont;
+				ImGui_ImplDX11_InvalidateDeviceObjects();
+				ImGui_ImplDX11_CreateDeviceObjects();
+				fontPath = newPath;
+			}
 		}
 	}
+
+	ImGui::SameLine();
+	ImGui::Text("Path: %s", fontPath.empty() ? "None" : fontPath.c_str());
+	ImGui::Separator();
+
+
+	if (ImGui::SliderInt("Font size", &fontSize, 10, 32))
+	{
+		ImGui::GetIO().FontGlobalScale = fontSize / 16.0f;
+	}
+
 	ImGui::End();
 }
 void TabManager::UpdateFontBeforeFrame()
@@ -254,21 +261,23 @@ void TabManager::UpdateFontBeforeFrame()
 	cfg.OversampleH = 3;
 	cfg.SizePixels = pendingFontSize * dpi_scale;
 
+	ImFont* newFont = nullptr;
 	if (pendingFontPath.empty())
-		io.Fonts->AddFontDefault(&cfg);
+		newFont = io.Fonts->AddFontDefault(&cfg);
 	else
-		io.Fonts->AddFontFromFileTTF(
-			pendingFontPath.c_str(),
-			cfg.SizePixels,
-			&cfg,
+		newFont = io.Fonts->AddFontFromFileTTF(
+			pendingFontPath.c_str(), cfg.SizePixels, &cfg,
 			io.Fonts->GetGlyphRangesCyrillic()
 		);
+
+	if (newFont)
+		io.FontDefault = newFont;
 
 	ImGui_ImplDX11_InvalidateDeviceObjects();
 	ImGui_ImplDX11_CreateDeviceObjects();
 
-	fontPath = pendingFontPath;
 	fontSize = pendingFontSize;
+	fontPath = pendingFontPath;
 	shouldReloadFont = false;
 }
 
@@ -311,4 +320,3 @@ std::string TabManager::GetFontPath()
 	std::string filePath(wideFilePath.begin(), wideFilePath.end());
 	return filePath;
 }
-
