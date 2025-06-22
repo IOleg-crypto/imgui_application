@@ -25,7 +25,6 @@
 
 // For file dialog
 #include "FileDialog/FileDialog.h"
-#include "FileDialog/Font.h"
 // For render
 #include "DirectX/Render.h"
 #include "DirectX/d3d_context.h"

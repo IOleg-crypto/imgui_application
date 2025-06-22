@@ -40,7 +40,6 @@ namespace ImGuiDirectX
 
 		swapChainDesc.OutputWindow = hwnd;
 		swapChainDesc.Windowed = TRUE;
-		//swapChainDesc.SwapEffect = DXGI_SWAP_EFFECT_DISCARD;
 		swapChainDesc.Flags = DXGI_SWAP_CHAIN_FLAG_ALLOW_TEARING;;
 		swapChainDesc.SwapEffect = DXGI_SWAP_EFFECT_FLIP_DISCARD;
 	}

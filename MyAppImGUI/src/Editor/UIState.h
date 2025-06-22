@@ -15,7 +15,6 @@ struct UIState {
 	int fontSize = 16; // by default
 	ImGuiInputTextFlags inputFlags = ImGuiInputTextFlags_AllowTabInput;
 	ImGuiWindowFlags windowFlags = ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_HorizontalScrollbar;
-	std::string currentPath;
 };
 
 static UIState s_state;

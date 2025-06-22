@@ -24,32 +24,30 @@ void Application::Init()
 	ImGui_ImplWin32_Init(hwnd);
 	ImGui_ImplDX11_Init(g_pd3dDevice, g_pd3dDeviceContext);
 }
-void Application::RunMainLoop(Application &app)
+void Application::RunMainLoop(Application& app)
 {
 	while (!m_done)
 	{
 		m_Window.PollMessage(m_done);
-		if (m_done)
-		{
-			break;
-		}
+		if (m_done) break;
 
 		if (g_is_resizing_or_moving) {
 			::Sleep(10);
 			continue;
 		}
+
 		m_Window.HandleOcclusion(g_SwapChainOccluded, g_pSwapChain);
 		m_Window.HandleResize(g_pSwapChain);
+		m_TabManager.UpdateFontBeforeFrame();
 
 		ImGui_ImplDX11_NewFrame();
 		ImGui_ImplWin32_NewFrame();
 		ImGui::NewFrame();
-		ImGuiDirectX::Render(app.GetHwnd());
 		DrawUI();
+		m_TabManager.ShowFontWindow();
 		ImGui::Render();
 
-		// @brief - clear_color_with_alpha using RGBA scheme for HWND(Windows API)
-		constexpr float clear_color_with_alpha[4] = { 0.0f, 0.0f, 0.0f, 0.0f };
+		constexpr float clear_color_with_alpha[4] = { 0,0,0,0 };
 		g_pd3dDeviceContext->OMSetRenderTargets(1, &g_mainRenderTargetView, nullptr);
 		g_pd3dDeviceContext->ClearRenderTargetView(g_mainRenderTargetView, clear_color_with_alpha);
 		ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
@@ -74,4 +72,7 @@ void Application::DrawUI()
 	}
 	ImGui::End();
 }
+
+
+
 

@@ -6,6 +6,7 @@
 #include <string>
 #include "imgui.h"
 #include "FileDialog.h"
+#include "Editor/UIState.h"
 
 /**
 * @brief Encapsulates window creation and management for the ImGui Notepad app.
@@ -68,12 +69,11 @@ public:
     void ApplyFullscreenLayout(const ImGuiIO& io, ImGuiWindowFlags& outFlags);
 
     void InitImGui();
-
+public:
     ImGuiIO &GetImGuiIO() { return m_io; }
     HWND GetHWND() { return m_hwnd; }
-
-    std::string &getFontPath() { return m_fontPath; }
-
+    std::string getFontPath() { return m_fontPath; }
+    void setFontPath(const std::string &fontPath) { m_fontPath = fontPath; }
 private:
     HWND m_hwnd;                     ///< Handle to the window.
     HICON m_hIcon;                   ///< Window icon handle.

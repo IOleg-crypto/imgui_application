@@ -12,9 +12,7 @@ add_executable(MyAppImGUI
         src/DirectX/Render.h
         src/DirectX/Render.cpp
         src/FileDialog/FileDialog.cpp
-        src/FileDialog/FileDialog.h
-        src/FileDialog/Font.cpp
-        src/FileDialog/Font.h
+        src/FileDialog/FileDialog.h        
         src/Memory/Memory.h
 		src/Memory/Memory.cpp
         src/App/Application.h
@@ -32,7 +30,6 @@ add_executable(MyAppImGUI
         vendor/imgui/misc/cpp/imgui_stdlib.cpp
         src/Window/Window.cpp
         src/Window/Window.h
-
 )
 
 target_include_directories(MyAppImGUI PUBLIC

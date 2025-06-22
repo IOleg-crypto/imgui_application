@@ -336,13 +336,6 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <ScanSourceForModuleDependencies Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">true</ScanSourceForModuleDependencies>
     </ClCompile>
     <ClInclude Include="D:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\src\FileDialog\FileDialog.h" />
-    <ClCompile Include="D:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\src\FileDialog\Font.cpp">
-      <ScanSourceForModuleDependencies Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ScanSourceForModuleDependencies>
-      <ScanSourceForModuleDependencies Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ScanSourceForModuleDependencies>
-      <ScanSourceForModuleDependencies Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">true</ScanSourceForModuleDependencies>
-      <ScanSourceForModuleDependencies Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">true</ScanSourceForModuleDependencies>
-    </ClCompile>
-    <ClInclude Include="D:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\src\FileDialog\Font.h" />
     <ClInclude Include="D:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\src\Memory\Memory.h" />
     <ClCompile Include="D:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\src\Memory\Memory.cpp">
       <ScanSourceForModuleDependencies Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ScanSourceForModuleDependencies>

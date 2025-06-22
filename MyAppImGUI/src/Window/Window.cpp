@@ -60,7 +60,6 @@ void Window::Init(){
 		MessageBoxW(nullptr, L"Failed to create window", L"Error", MB_ICONERROR);
 		return;
 	}
-	
 }
 
 void Window::ToggleFullscreen() {

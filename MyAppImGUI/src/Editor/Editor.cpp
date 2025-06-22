@@ -2,6 +2,13 @@
 #include "Window/Window.h"
 #include "FileDialog/Font.h"
 
+#include "imgui.h"
+#include "imgui_impl_dx11.h"
+#include "imgui_impl_win32.h"
+#include <d3d11.h>
+#include <ShlObj.h>
+#include <filesystem>
+
 
 TabManager::TabManager() : selectedTab(0) , TabPages{"Page 1"} , TabContent{""}
 {
@@ -103,19 +110,14 @@ void TabManager::RenderMenuTab()
 				s_state.showInfoWindow = !s_state.showInfoWindow;
 			}
 			ImGui::EndMenu();
-			ImGui::EndMenuBar();
 		}
 		if (ImGui::BeginMenu("Font and size"))
 		{
 			if (ImGui::MenuItem("Font"))
 			{
-				s_state.showFontWindow = true;
+				showFontWindow = true;
 			}
-			else
-			{
-				s_state.showFontWindow = false;
-			}
-			ImGui::EndMenu();			
+			ImGui::EndMenu();
 		}
 		if (ImGui::BeginMenu("Theme"))
 		{
@@ -135,14 +137,6 @@ void TabManager::RenderMenuTab()
 	if (s_state.showInfoWindow)
 	{
 		m_Window.AboutWindow(s_state.showInfoWindow, m_Window.GetImGuiIO());
-	}
-	if (s_state.showFontWindow)
-	{
-		std::string path = m_Window.getFontPath();
-		char buffer[MAX_PATH];
-		strncpy(buffer, path.c_str(), sizeof(buffer));
-		buffer[sizeof(buffer) - 1] = '\0'; 
-		ShowFontWindow(buffer, s_state.showFontWindow, s_state.fontSize);
 	}
 }
 
@@ -215,3 +209,108 @@ void TabManager::RenderInputTextField()
 	ImGui::EndTabBar();
 
 }
+
+void TabManager::ShowFontWindow()
+{
+	ImGuiIO& io = ImGui::GetIO();
+	float dpi_scale = io.DisplayFramebufferScale.x;
+	pendingFontPath = m_Window.getFontPath();
+
+	if (!showFontWindow) return;
+	if (ImGui::Begin("Font options", &showFontWindow))
+	{
+		if (ImGui::Button("Set new font"))
+		{
+			std::string newPath = GetFontPath();
+			if (!newPath.empty())
+				pendingFontPath = newPath;
+		}
+
+		ImGui::SameLine();
+		ImGui::Text("Path of font: %s", pendingFontPath.empty() ? "None" : pendingFontPath.c_str());
+
+		if (ImGui::SliderInt("Font size", &fontSize, 16, 32))
+		{
+			pendingFontSize = fontSize;
+			shouldReloadFont = true;
+		}
+
+		if (ImGui::Button("Apply"))
+		{
+			pendingFontSize = fontSize;
+			shouldReloadFont = true;
+		}
+	}
+	ImGui::End();
+}
+void TabManager::UpdateFontBeforeFrame()
+{
+	if (!shouldReloadFont) return;
+
+	ImGuiIO& io = ImGui::GetIO();
+	float dpi_scale = io.DisplayFramebufferScale.x;
+
+	io.Fonts->Clear();
+
+	ImFontConfig cfg;
+	cfg.OversampleH = 3;
+	cfg.SizePixels = pendingFontSize * dpi_scale;
+
+	if (pendingFontPath.empty())
+		io.Fonts->AddFontDefault(&cfg);
+	else
+		io.Fonts->AddFontFromFileTTF(
+			pendingFontPath.c_str(),
+			cfg.SizePixels,
+			&cfg,
+			io.Fonts->GetGlyphRangesCyrillic()
+		);
+
+	ImGui_ImplDX11_InvalidateDeviceObjects();
+	ImGui_ImplDX11_CreateDeviceObjects();
+
+	fontPath = pendingFontPath;
+	fontSize = pendingFontSize;
+	shouldReloadFont = false;
+}
+
+std::string TabManager::GetFontPath()
+{
+	IFileOpenDialog* pFileOpen = nullptr;
+	if (FAILED(CoCreateInstance(CLSID_FileOpenDialog, nullptr, CLSCTX_ALL, IID_IFileOpenDialog, reinterpret_cast<void**>(&pFileOpen))))
+		return "Failed to open file dialog";
+
+	COMDLG_FILTERSPEC fileTypes[] = {
+		{L"TrueType Fonts (*.ttf)", L"*.ttf"},
+	};
+
+	pFileOpen->SetFileTypes(ARRAYSIZE(fileTypes), fileTypes);
+
+	DWORD dwFlags;
+	if (FAILED(pFileOpen->GetOptions(&dwFlags)) || FAILED(pFileOpen->SetOptions(dwFlags | FOS_FORCEFILESYSTEM)) || FAILED(pFileOpen->Show(nullptr)))
+	{
+		pFileOpen->Release();
+		return "Failed to get file path";
+	}
+
+	IShellItem* pItem = nullptr;
+	if (FAILED(pFileOpen->GetResult(&pItem)))
+	{
+		pFileOpen->Release();
+		return "Failed to get file item";
+	}
+
+	PWSTR pszFilePath = nullptr;
+	if (FAILED(pItem->GetDisplayName(SIGDN_FILESYSPATH, &pszFilePath)))
+	{
+		pItem->Release();
+		pFileOpen->Release();
+		return "Failed to get file path";
+	}
+
+	// Convert to std::string
+	std::wstring wideFilePath(pszFilePath);
+	std::string filePath(wideFilePath.begin(), wideFilePath.end());
+	return filePath;
+}
+

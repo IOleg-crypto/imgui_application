@@ -1,4 +1,4 @@
-﻿Build started 21.06.2025 14:32:24.
+﻿Build started 22.06.2025 12:41:04.
 Logging verbosity is set to: Normal.     1>Project "D:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\ZERO_CHECK.vcxproj" on node 2 (Build target(s)).
      1>PrepareForBuild:
          Structured output is enabled. The formatting of compiler diagnostics will reflect the error hierarchy. See https://aka.ms/cpp/structured-output for more details.
@@ -7,6 +7,14 @@ Logging verbosity is set to: Normal.     1>Project "D:\gitnext\CppWithImGUI\imgu
          Touching "x64\Debug\ZERO_CHECK\ZERO_CHECK.tlog\unsuccessfulbuild".
        CustomBuild:
          1>Checking Build System
+         CMake is re-running because D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/CMakeFiles/generate.stamp is out-of-date.
+           the file 'D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/CMakeLists.txt'
+           is newer than 'D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/CMakeFiles/generate.stamp.depend'
+           result='-1'
+         -- Selecting Windows SDK version 10.0.26100.0 to target Windows 10.0.22621.
+         -- Configuring done (0.6s)
+         -- Generating done (0.2s)
+         -- Build files have been written to: D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI
        FinalizeBuildStatus:
          Deleting file "x64\Debug\ZERO_CHECK\ZERO_CHECK.tlog\unsuccessfulbuild".
          Touching "x64\Debug\ZERO_CHECK\ZERO_CHECK.tlog\ZERO_CHECK.lastbuildstate".
@@ -16,4 +24,4 @@ Build succeeded.
     0 Warning(s)
     0 Error(s)
 
-Time Elapsed 00:00:01.10
+Time Elapsed 00:00:01.97
