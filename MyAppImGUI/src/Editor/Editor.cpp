@@ -1,7 +1,5 @@
 #include "Editor.h"
 #include "Window/Window.h"
-#include "FileDialog/Font.h"
-
 #include "imgui.h"
 #include "imgui_impl_dx11.h"
 #include "imgui_impl_win32.h"
@@ -99,7 +97,7 @@ void TabManager::RenderMenuTab()
 			}
 			if (ImGui::MenuItem("Fullscreen", "3"))
 			{
-				//ToggleFullscreen();
+				m_Window.ToggleFullscreen();				
 			}
 			if (ImGui::MenuItem("Exit", "Alt+F4"))
 			{
@@ -136,7 +134,7 @@ void TabManager::RenderMenuTab()
 
 	if (s_state.showInfoWindow)
 	{
-		m_Window.AboutWindow(s_state.showInfoWindow, m_Window.GetImGuiIO());
+		m_Window.AboutWindow(s_state.showInfoWindow);
 	}
 }
 

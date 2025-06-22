@@ -66,8 +66,9 @@ void Window::ToggleFullscreen() {
 	m_fullscreen = !m_fullscreen;
 }
 
-void Window::AboutWindow(bool& showDemoWindow, const ImGuiIO& io)
+void Window::AboutWindow(bool& showDemoWindow)
 {
+	ImGuiIO &io = ImGui::GetIO();
 	if (ImGui::Begin("##About", &showDemoWindow))
 	{
 		ImGui::Text("The notepad made by I#Oleg");
@@ -85,7 +86,8 @@ void Window::PollMessage(bool& done) const {
 	}
 }
 
-void Window::ApplyFullscreenLayout(const ImGuiIO& io, ImGuiWindowFlags& outFlags) {
+void Window::ApplyFullscreenLayout(ImGuiWindowFlags& outFlags) {
+	ImGuiIO& io = ImGui::GetIO();
 	static bool prevFullscreen = false;
 	ImGuiCond posCond = ImGuiCond_Appearing;
 	ImGuiCond sizeCond = ImGuiCond_Appearing;

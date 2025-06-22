@@ -272,7 +272,7 @@ extern "C" {
 #define GLFW_REPEAT                 2
 /*! @} */
 
-/*! @defgroup keys Page keys
+/*! @defgroup keys Keyboard keys
  *
  *  See [key input](@ref input_key) for how these are used.
  *

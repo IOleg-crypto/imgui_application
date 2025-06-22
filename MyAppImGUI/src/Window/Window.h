@@ -40,7 +40,7 @@ public:
      * @param showDemoWindow Reference to a flag controlling visibility.
      * @param io ImGuiIO structure providing frame timing information.
      */
-    void AboutWindow(bool& showDemoWindow, const ImGuiIO& io);
+    void AboutWindow(bool& showDemoWindow);
 
     /**
      * @brief Poll and handle window messages and events.
@@ -66,7 +66,7 @@ public:
      * @param io ImGuiIO object with frame information.
      * @param outFlags Reference to ImGuiWindowFlags to modify.
      */
-    void ApplyFullscreenLayout(const ImGuiIO& io, ImGuiWindowFlags& outFlags);
+    void ApplyFullscreenLayout(ImGuiWindowFlags& outFlags);
 
     void InitImGui();
 public:

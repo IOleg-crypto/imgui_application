@@ -1,7 +1,7 @@
 {
     "Version": "1.2",
     "Data": {
-        "Source": "d:\\gitnext\\cppwithimgui\\imgui_application\\myappimgui\\src\\main.cpp",
+        "Source": "d:\\gitnext\\cppwithimgui\\imgui_application\\myappimgui\\src\\app\\application.cpp",
         "ProvidedModule": "",
         "Includes": [
             "d:\\gitnext\\cppwithimgui\\imgui_application\\myappimgui\\src\\app\\application.h",

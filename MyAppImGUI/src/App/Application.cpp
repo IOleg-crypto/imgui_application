@@ -45,6 +45,7 @@ void Application::RunMainLoop(Application& app)
 		ImGui::NewFrame();
 		DrawUI();
 		m_TabManager.ShowFontWindow();
+		m_Window.ApplyFullscreenLayout(s_state.windowFlags);
 		ImGui::Render();
 
 		constexpr float clear_color_with_alpha[4] = { 0,0,0,0 };
