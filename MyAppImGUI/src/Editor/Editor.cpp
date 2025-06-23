@@ -208,49 +208,38 @@ void TabManager::RenderInputTextField()
 
 }
 
-void TabManager::ShowFontWindow()
-{
-	if (!showFontWindow) return;
-	ImGui::Begin("Font options", &showFontWindow);
+void TabManager::ShowFontWindow() {
+	if (!showFontWindow)
+		return;
+
 	fontPath = m_Window.getFontPath();
-	if (ImGui::Button("Set new font"))
-	{
+	ImGui::Begin("Font options", &showFontWindow);
+
+	// deleted second writing of font(Now in UpdateFontBeforeFrame)
+	if (ImGui::Button("Set new font")) {
 		std::string newPath = GetFontPath();
 		if (!newPath.empty()) {
-			ImGuiIO& io = ImGui::GetIO();
-			ImFontConfig cfg;
-			cfg.OversampleH = 3;
-			float dpi_scale = io.DisplayFramebufferScale.x;
-			ImFont* pFont = io.Fonts->AddFontFromFileTTF(
-				newPath.c_str(),
-				16.0f * dpi_scale,
-				&cfg,
-				io.Fonts->GetGlyphRangesCyrillic()
-			);
-			if (pFont) {
-				io.FontDefault = pFont;
-				ImGui_ImplDX11_InvalidateDeviceObjects();
-				ImGui_ImplDX11_CreateDeviceObjects();
-				fontPath = newPath;
-			}
+			pendingFontPath = newPath;
+			pendingFontSize = fontSize;
+			shouldReloadFont = true;
 		}
 	}
-
 	ImGui::SameLine();
 	ImGui::Text("Path: %s", fontPath.empty() ? "None" : fontPath.c_str());
 	ImGui::Separator();
 
-
-	if (ImGui::SliderInt("Font size", &fontSize, 10, 32))
-	{
-		ImGui::GetIO().FontGlobalScale = fontSize / 16.0f;
+	if (ImGui::SliderInt("Font size", &fontSize, 10, 32)) {
+		pendingFontSize = fontSize;
+		ImGui::GetIO().FontGlobalScale = fontSize / 16.0f;	
+		shouldReloadFont = true;
 	}
 
 	ImGui::End();
 }
-void TabManager::UpdateFontBeforeFrame()
-{
-	if (!shouldReloadFont) return;
+
+void TabManager::UpdateFontBeforeFrame() {
+	if (!shouldReloadFont)
+		return;
 
 	ImGuiIO& io = ImGui::GetIO();
 	float dpi_scale = io.DisplayFramebufferScale.x;
@@ -260,13 +249,19 @@ void TabManager::UpdateFontBeforeFrame()
 	ImFontConfig cfg;
 	cfg.OversampleH = 3;
 	cfg.SizePixels = pendingFontSize * dpi_scale;
+	
 
 	ImFont* newFont = nullptr;
 	if (pendingFontPath.empty())
-		newFont = io.Fonts->AddFontDefault(&cfg);
+		newFont = io.Fonts->AddFontFromFileTTF(m_Window.getFontPath().c_str(),
+			16.0f * dpi_scale,
+			&cfg,
+			io.Fonts->GetGlyphRangesCyrillic());
 	else
 		newFont = io.Fonts->AddFontFromFileTTF(
-			pendingFontPath.c_str(), cfg.SizePixels, &cfg,
+			pendingFontPath.c_str(),
+			cfg.SizePixels,
+			&cfg,
 			io.Fonts->GetGlyphRangesCyrillic()
 		);
 
@@ -276,8 +271,8 @@ void TabManager::UpdateFontBeforeFrame()
 	ImGui_ImplDX11_InvalidateDeviceObjects();
 	ImGui_ImplDX11_CreateDeviceObjects();
 
-	fontSize = pendingFontSize;
 	fontPath = pendingFontPath;
+	fontSize = pendingFontSize;
 	shouldReloadFont = false;
 }
 

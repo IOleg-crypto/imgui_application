@@ -165,7 +165,8 @@
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <ImportLibrary>D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/Release/MyAppImGUI.lib</ImportLibrary>
       <ProgramDataBaseFile>D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/Release/MyAppImGUI.pdb</ProgramDataBaseFile>
-      <SubSystem>Windows</SubSystem>
+      <SubSystem>Console</SubSystem>
+      <RandomizedBaseAddress>false</RandomizedBaseAddress>
     </Link>
     <ProjectReference>
       <LinkLibraryDependencies>false</LinkLibraryDependencies>

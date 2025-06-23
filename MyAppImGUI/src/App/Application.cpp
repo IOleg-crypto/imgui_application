@@ -38,8 +38,8 @@ void Application::RunMainLoop(Application& app)
 
 		m_Window.HandleOcclusion(g_SwapChainOccluded, g_pSwapChain);
 		m_Window.HandleResize(g_pSwapChain);
-		m_TabManager.UpdateFontBeforeFrame();
 
+		m_TabManager.UpdateFontBeforeFrame();
 		ImGui_ImplDX11_NewFrame();
 		ImGui_ImplWin32_NewFrame();
 		ImGui::NewFrame();
@@ -47,6 +47,7 @@ void Application::RunMainLoop(Application& app)
 		m_TabManager.ShowFontWindow();
 		//m_Window.ApplyFullscreenLayout(s_state.windowFlags);
 		ImGui::Render();
+		ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
 
 		constexpr float clear_color_with_alpha[4] = { 0,0,0,0 };
 		g_pd3dDeviceContext->OMSetRenderTargets(1, &g_mainRenderTargetView, nullptr);
