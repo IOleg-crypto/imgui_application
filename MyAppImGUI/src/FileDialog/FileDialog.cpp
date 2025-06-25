@@ -130,10 +130,12 @@ void SaveFile(const HWND& hwnd,const std::string& path, const std::string& conte
 
     if (outFile)
     {
-        if (isBinary)
+        if (isBinary) {
             outFile.write(content.c_str(), content.size());
-        else
+        }
+        else {
             outFile << content;
+        }
 
         outFile.close();
         MessageBoxA(hwnd, path.c_str(), "File Saved", MB_OK);

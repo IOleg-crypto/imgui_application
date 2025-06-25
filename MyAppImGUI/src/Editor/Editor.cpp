@@ -13,14 +13,11 @@ TabManager::TabManager() : selectedTab(0), TabPages{ "Page 1" }, TabContent{ "" 
 	//@brief : All params init by default
 }
 
-TabManager::~TabManager()
-{
-	TabPages.shrink_to_fit();
-	TabContent.shrink_to_fit();
-}
+TabManager::~TabManager() = default;
 
 void TabManager::RenderMenuTab()
 {
+	bool earlyExit = false; // To exit the loop
 	if (ImGui::BeginMenuBar())
 	{
 		if (ImGui::BeginMenu("Menu"))
@@ -28,9 +25,9 @@ void TabManager::RenderMenuTab()
 			if (ImGui::MenuItem("ReadOnly", "Ctrl+M", &s_state.readOnly))
 			{
 				if (s_state.readOnly)
-					s_state.inputFlags |= ImGuiInputTextFlags_ReadOnly;
+					inputFlags |= ImGuiInputTextFlags_ReadOnly;
 				else
-					s_state.inputFlags &= ~ImGuiInputTextFlags_ReadOnly;
+					inputFlags &= ~ImGuiInputTextFlags_ReadOnly;
 			}
 			if (ImGui::MenuItem("Save file as", "Ctrl+ Left Shift + S"))
 			{
@@ -52,12 +49,11 @@ void TabManager::RenderMenuTab()
 				{
 					pathFile = TabPages[selectedTab];
 					MessageBoxA(m_Window.GetHWND(), "No valid directory found", "File not saved", MB_OK);
+					earlyExit = true;
 				}
-				else
-				{
-					SaveFile(m_Window.GetHWND(), pathFile, currentTabInfo);
-					TabPages[selectedTab] = std::move(pathFile);
-				}
+				SaveFile(m_Window.GetHWND(), pathFile, currentTabInfo);
+				TabPages[selectedTab] = std::move(pathFile);
+				
 			}
 			if (ImGui::MenuItem("Open file", "Ctrl+O"))
 			{
@@ -70,7 +66,7 @@ void TabManager::RenderMenuTab()
 						// Only takes the file name
 						std::filesystem::path filePath(pathFile);
 						TabPages[selectedTab] = filePath.filename().string();
-						TabContent[selectedTab].resize(currentTabInfo.size() + 1); // +1 for null terminator
+						//TabContent[selectedTab].resize(currentTabInfo.size() + 1); // +1 for null terminator
 						std::memcpy(TabContent[selectedTab].data(), currentTabInfo.c_str(), currentTabInfo.size() + 1);
 					}
 				}
@@ -97,7 +93,7 @@ void TabManager::RenderMenuTab()
 			}
 			if (ImGui::MenuItem("Fullscreen", "3"))
 			{
-				//ToggleFullscreen();
+				m_Window.ToggleFullscreen();				
 			}
 			if (ImGui::MenuItem("Exit", "Alt+F4"))
 			{
@@ -106,9 +102,11 @@ void TabManager::RenderMenuTab()
 			if (ImGui::MenuItem("Help"))
 			{
 				s_state.showInfoWindow = !s_state.showInfoWindow;
+
 			}
 			ImGui::EndMenu();
 		}
+		
 		if (ImGui::BeginMenu("Font and size"))
 		{
 			if (ImGui::MenuItem("Font"))
@@ -129,12 +127,18 @@ void TabManager::RenderMenuTab()
 			}
 			ImGui::EndMenu();
 		}
-		ImGui::EndMenuBar();
+		
 	}
+	ImGui::EndMenuBar();
 
 	if (s_state.showInfoWindow)
 	{
 		m_Window.AboutWindow(s_state.showInfoWindow);
+	}
+
+	if (earlyExit)
+	{
+		return;
 	}
 }
 
@@ -154,56 +158,58 @@ void TabManager::RenderInputTextField()
 		}
 	}
 
-	ImGui::Separator();
-	ImGui::BeginTabBar("MyTabBar");
-
-	for (int i = 0; i < static_cast<int>(TabPages.size()); ++i)
-	{
-		bool open = true;
-		if (ImGui::BeginTabItem(TabPages[i].c_str(), &open))
-		{
-			selectedTab = i;
-			ImGui::Text("Content for %s", TabPages[i].c_str());
-
-			ImGui::InputTextMultiline("##InputText", TabContent[i].data(), TabContent[i].capacity(),
-				ImVec2(GetSystemMetrics(SM_CXSCREEN), GetSystemMetrics(SM_CYSCREEN)), s_state.inputFlags | ImGuiInputTextFlags_CallbackResize, InputTextCallback, static_cast<void*>(&TabContent[i]));
-
-			ImGui::EndTabItem();
-		}
-
-		// If tab is closed, remove it (using reverse iteration to avoid shifting)
-		if (!open && i < static_cast<int>(TabPages.size()))
-		{
-			TabPages[i] = std::move(TabPages.back()); // Move last item into current position
-			TabContent[i] = std::move(TabContent.back());
-			// O(1) instead of O(n)
-			TabPages.pop_back();
-			TabContent.pop_back();
-			TabPages.shrink_to_fit();
-			TabContent.shrink_to_fit();
-			if ((selectedTab >= static_cast<int>(TabPages.size())))
-			{
-				selectedTab = static_cast<int>(TabPages.size() - 1);
-			}
-			// To avoid situation when tabTitles empty(user delete all tabs)
-			if (TabPages.empty())
-			{
-				TabPages.emplace_back("Page" + std::to_string(TabPages.size() + 1));
-				TabContent.emplace_back();
-			}
-		}
-	}
+	
 
 	ImGui::Separator();
+	if(ImGui::BeginTabBar("MyTabBar")) {
 
-	if (ImGui::Checkbox("Read Only", &s_state.readOnly))
-	{
-		if (s_state.readOnly)
-			s_state.inputFlags |= ImGuiInputTextFlags_ReadOnly;
-		else
-			s_state.inputFlags &= ~ImGuiInputTextFlags_ReadOnly;
+		for (int i = 0; i < static_cast<int>(TabPages.size()); ++i)
+		{
+			bool open = true;
+			if (ImGui::BeginTabItem(TabPages[i].c_str(), &open))
+			{
+				selectedTab = i;
+				ImGui::Text("Content for %s", TabPages[i].c_str());
+
+				ImGui::InputTextMultiline("##InputText", TabContent[i].data(), TabContent[i].capacity(),
+					ImVec2(GetSystemMetrics(SM_CXSCREEN), GetSystemMetrics(SM_CYSCREEN)), inputFlags | ImGuiInputTextFlags_CallbackResize, InputTextCallback, static_cast<void*>(&TabContent[i]));
+
+				ImGui::EndTabItem();
+			}
+
+			// If tab is closed, remove it (using reverse iteration to avoid shifting)
+			if (!open && i < static_cast<int>(TabPages.size()))
+			{
+				TabPages[i] = std::move(TabPages.back()); // Move last item into current position
+				TabContent[i] = std::move(TabContent.back());
+				// O(1) instead of O(n)
+				TabPages.pop_back();
+				TabContent.pop_back();
+				TabPages.shrink_to_fit();
+				TabContent.shrink_to_fit();
+				if ((selectedTab >= static_cast<int>(TabPages.size())))
+				{
+					selectedTab = static_cast<int>(TabPages.size() - 1);
+				}
+				// To avoid situation when tabTitles empty(user delete all tabs)
+				if (TabPages.empty())
+				{
+					TabPages.emplace_back("Page" + std::to_string(TabPages.size() + 1));
+					TabContent.emplace_back();
+				}
+			}
+		}
+
+		ImGui::Separator();
+
+		if (ImGui::Checkbox("Read Only", &s_state.readOnly))
+		{
+			if (s_state.readOnly)
+				inputFlags |= ImGuiInputTextFlags_ReadOnly;
+			else
+				inputFlags &= ~ImGuiInputTextFlags_ReadOnly;
+		}
 	}
-
 	ImGui::EndTabBar();
 
 }
@@ -218,7 +224,7 @@ void TabManager::ShowFontWindow() {
 	// deleted second writing of font(Now in UpdateFontBeforeFrame)
 	if (ImGui::Button("Set new font")) {
 		std::string newPath = GetFontPath();
-		if (!newPath.empty()) {
+		if (!newPath.empty() && newPath != "Failed to get file path") {
 			pendingFontPath = newPath;
 			pendingFontSize = fontSize;
 			shouldReloadFont = true;
@@ -249,30 +255,30 @@ void TabManager::UpdateFontBeforeFrame() {
 	ImFontConfig cfg;
 	cfg.OversampleH = 3;
 	cfg.SizePixels = pendingFontSize * dpi_scale;
-	
 
-	ImFont* newFont = nullptr;
-	if (pendingFontPath.empty())
-		newFont = io.Fonts->AddFontFromFileTTF(m_Window.getFontPath().c_str(),
-			16.0f * dpi_scale,
-			&cfg,
-			io.Fonts->GetGlyphRangesCyrillic());
-	else
-		newFont = io.Fonts->AddFontFromFileTTF(
-			pendingFontPath.c_str(),
-			cfg.SizePixels,
-			&cfg,
-			io.Fonts->GetGlyphRangesCyrillic()
-		);
+	if (pendingFontPath.empty()) {
+		pendingFontPath = m_Window.getFontPath();
+	}
 
-	if (newFont)
+	ImFont* newFont = io.Fonts->AddFontFromFileTTF(
+		pendingFontPath.c_str(),
+		cfg.SizePixels,
+		&cfg,
+		io.Fonts->GetGlyphRangesCyrillic()
+	);
+
+	if (newFont) {
 		io.FontDefault = newFont;
+		fontPath = pendingFontPath;
+		fontSize = pendingFontSize;
+	}
+	else {
+		std::cerr << "Error: failed to load font at path: " << pendingFontPath << "\n";
+	}
 
 	ImGui_ImplDX11_InvalidateDeviceObjects();
 	ImGui_ImplDX11_CreateDeviceObjects();
 
-	fontPath = pendingFontPath;
-	fontSize = pendingFontSize;
 	shouldReloadFont = false;
 }
 
@@ -312,6 +318,5 @@ std::string TabManager::GetFontPath()
 
 	// Convert to std::string
 	std::wstring wideFilePath(pszFilePath);
-	std::string filePath(wideFilePath.begin(), wideFilePath.end());
-	return filePath;
+	return std::string(wideFilePath.begin(), wideFilePath.end());
 }

@@ -66,14 +66,18 @@ public:
      * @param io ImGuiIO object with frame information.
      * @param outFlags Reference to ImGuiWindowFlags to modify.
      */
-    void ApplyFullscreenLayout(ImGuiWindowFlags& outFlags);
-
+    void ApplyFullscreenLayout(ImGuiWindowFlags& windowFlags);
+    /*
+    * @brief Initialize ImGui and load the font file.
+    */
     void InitImGui();
 public:
-    ImGuiIO &GetImGuiIO() { return m_io; }
-    HWND GetHWND() { return m_hwnd; }
-    std::string getFontPath() { return m_fontPath; }
-    void setFontPath(const std::string &fontPath) { m_fontPath = fontPath; }
+    void setFontPath(const std::string& fontPath);
+public:
+    HWND GetHWND();
+    ImGuiIO& GetImGuiIO();
+    std::string getFontPath();
+    bool isFullscreen();
 private:
     HWND m_hwnd;                     ///< Handle to the window.
     HICON m_hIcon;                   ///< Window icon handle.
@@ -82,8 +86,13 @@ private:
 private:
     std::wstring m_iconPath;         ///< Path to the icon file (wide string).
     std::string m_fontPath;          ///< Path to the font file.
-    bool m_fullscreen = false;       ///< Current fullscreen state.
+    static bool m_fullscreen;       ///< Current fullscreen state.
     bool m_classRegistered = false;    ///< Flag indicating if the window class is registered.
+    bool prev_fullscreen;   ///< Previous fullscreen state.
+public:
+    ImGuiWindowFlags windowFlags = ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_HorizontalScrollbar;
 };
+
+
 
 #endif // WINDOW_H

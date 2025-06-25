@@ -40,15 +40,15 @@ public:
 
 	void Init();
 	void RunMainLoop(Application &app);
-
-	HWND GetHwnd() { return m_Hwnd; }
+	HWND GetHwnd();
 private:
 	void DrawUI();
+	void ApplyKeyboardShortcuts();
 private:
 	Window m_Window;
 	TabManager m_TabManager;
 	HWND m_Hwnd;
-
+private:
 	bool m_done = false;
 };
 #endif

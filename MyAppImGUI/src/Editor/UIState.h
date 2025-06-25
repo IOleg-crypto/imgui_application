@@ -10,11 +10,7 @@ struct UIState {
 	bool showInfoWindow = false;
 	bool readOnly = false;
 	bool themeChange = false;
-	bool hideWindow = true;
-	int selectedTab = 0;
-	int fontSize = 16; // by default
-	ImGuiInputTextFlags inputFlags = ImGuiInputTextFlags_AllowTabInput;
-	ImGuiWindowFlags windowFlags = ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_HorizontalScrollbar;
+	bool hideWindow = true;	
 };
 
 static UIState s_state;

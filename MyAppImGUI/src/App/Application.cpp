@@ -26,6 +26,10 @@ void Application::Init()
 }
 void Application::RunMainLoop(Application& app)
 {
+#if _DEBUG // NOLINT(clang-diagnostic-undef)
+	std::setlocale(LC_ALL, "C.UTF-8");
+	SetConsoleOutputCP(65001);
+#endif
 	while (!m_done)
 	{
 		m_Window.PollMessage(m_done);
@@ -38,17 +42,13 @@ void Application::RunMainLoop(Application& app)
 
 		m_Window.HandleOcclusion(g_SwapChainOccluded, g_pSwapChain);
 		m_Window.HandleResize(g_pSwapChain);
-
 		m_TabManager.UpdateFontBeforeFrame();
 		ImGui_ImplDX11_NewFrame();
 		ImGui_ImplWin32_NewFrame();
 		ImGui::NewFrame();
 		DrawUI();
 		m_TabManager.ShowFontWindow();
-		//m_Window.ApplyFullscreenLayout(s_state.windowFlags);
 		ImGui::Render();
-		ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
-
 		constexpr float clear_color_with_alpha[4] = { 0,0,0,0 };
 		g_pd3dDeviceContext->OMSetRenderTargets(1, &g_mainRenderTargetView, nullptr);
 		g_pd3dDeviceContext->ClearRenderTargetView(g_mainRenderTargetView, clear_color_with_alpha);
@@ -57,15 +57,23 @@ void Application::RunMainLoop(Application& app)
 		HRESULT hr = g_pSwapChain->Present(0, 0);
 		g_SwapChainOccluded = (hr == DXGI_STATUS_OCCLUDED);
 	}
+#if _DEBUG
+	std::cout << _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
+	std::cout << _CrtDumpMemoryLeaks();
+#endif
+}
+
+HWND Application::GetHwnd()
+{
+	return m_Hwnd;
 }
 
 void Application::DrawUI()
 {
-	static UIState ui;
-	ImGui::SetNextWindowSize(ImVec2(600, 480), ImGuiCond_Once);
-	if (ImGui::Begin("Notepad", &ui.hideWindow , ui.windowFlags)) {
+	m_Window.ApplyFullscreenLayout(m_Window.windowFlags);
+	if (ImGui::Begin("Notepad", &s_state.hideWindow , m_Window.windowFlags)) {
 		// Stop program
-		if (!ui.hideWindow)
+		if (!s_state.hideWindow)
 		{
 			::PostQuitMessage(0);
 		}
@@ -74,6 +82,12 @@ void Application::DrawUI()
 	}
 	ImGui::End();
 }
+
+void Application::ApplyKeyboardShortcuts()
+{
+
+}
+
 
 
 

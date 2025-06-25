@@ -5,12 +5,14 @@
 #include "d3d_context.h"
 #include <iostream>
 
-Window::Window() : m_iconPath(L"assets/icon/icon.ico"), m_fontPath(R"(C:\Windows\Fonts\Arial.ttf)"), m_fullscreen(false)
+bool Window::m_fullscreen = false;
+
+Window::Window() : m_hwnd(nullptr), m_hIcon(nullptr),m_iconPath(L"assets/icon/icon.ico"), m_fontPath(R"(C:\Windows\Fonts\Arial.ttf)")
 {
 
 }
 Window::Window(HWND &hwnd)
-	: m_iconPath(L"assets/icon/icon.ico"), m_fontPath(R"(C:\Windows\Fonts\Arial.ttf)"), m_hwnd(hwnd), m_fullscreen(false) 
+	: m_iconPath(L"assets/icon/icon.ico"), m_fontPath(R"(C:\Windows\Fonts\Arial.ttf)"), m_hwnd(hwnd)
 {
 	
 }
@@ -86,29 +88,41 @@ void Window::PollMessage(bool& done) const {
 	}
 }
 
-void Window::ApplyFullscreenLayout(ImGuiWindowFlags& outFlags) {
+void Window::ApplyFullscreenLayout(ImGuiWindowFlags& windowFlags) {
+	static bool prev_fullscreen = false;
+	static ImGuiCond pos_cond = ImGuiCond_Appearing;
+	static ImGuiCond size_cond = ImGuiCond_Appearing;
+
 	ImGuiIO& io = ImGui::GetIO();
-	static bool prevFullscreen = false;
-	ImGuiCond posCond = ImGuiCond_Appearing;
-	ImGuiCond sizeCond = ImGuiCond_Appearing;
-
-	if (m_fullscreen != prevFullscreen) {
-		posCond = ImGuiCond_Always;
-		sizeCond = ImGuiCond_Always;
-		prevFullscreen = m_fullscreen;
+	if (m_fullscreen != prev_fullscreen)
+	{
+		pos_cond = ImGuiCond_Always;
+		size_cond = ImGuiCond_Always;
+	}
+	else
+	{
+		pos_cond = ImGuiCond_Appearing;
+		size_cond = ImGuiCond_Appearing;
 	}
 
-	if (m_fullscreen) {
-		ImGui::SetNextWindowPos(ImVec2(0, 0), posCond);
-		ImGui::SetNextWindowSize(io.DisplaySize, sizeCond);
-		outFlags = ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_MenuBar;
+	prev_fullscreen = m_fullscreen;
+
+	if (m_fullscreen)
+	{
+		ImGui::SetNextWindowPos(ImVec2(0, 0), pos_cond);
+		ImGui::SetNextWindowSize(io.DisplaySize, size_cond);
+		windowFlags = ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_MenuBar ;
 	}
-	else {
-		ImVec2 windowSize(800, 400);
-		ImVec2 centerPos((io.DisplaySize.x - windowSize.x) * 0.5f, (io.DisplaySize.y - windowSize.y) * 0.5f);
-		ImGui::SetNextWindowPos(centerPos, posCond);
-		ImGui::SetNextWindowSize(windowSize, sizeCond);
-		outFlags = ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_HorizontalScrollbar | ImGuiWindowFlags_NoCollapse;
+	else
+	{
+		ImVec2 windowSize(600, 320);
+		ImVec2 centerPos((io.DisplaySize.x - windowSize.x) * 0.f,
+			(io.DisplaySize.y - windowSize.y) * 0.5f);
+
+		ImGui::SetNextWindowPos(centerPos, pos_cond);
+		ImGui::SetNextWindowSize(windowSize, size_cond);
+
+		windowFlags = ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_HorizontalScrollbar;
 	}
 }
 void Window::HandleResize(IDXGISwapChain* swapChain) const
@@ -144,4 +158,28 @@ void Window::InitImGui()
 	io.Fonts->AddFontFromFileTTF(m_fontPath.c_str(), 20, nullptr, io.Fonts->GetGlyphRangesCyrillic());
 }
 	
+ImGuiIO& Window::GetImGuiIO()
+{
+	return m_io;
+}
+
+HWND Window::GetHWND()
+{
+	return m_hwnd;
+}
+
+void Window::setFontPath(const std::string& fontPath)
+{
+	m_fontPath = fontPath;
+}
+
+std::string Window::getFontPath()
+{
+	return m_fontPath;
+}
+
+bool Window::isFullscreen()
+{
+	return m_fullscreen; 
+}
 

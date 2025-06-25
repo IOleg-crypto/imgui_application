@@ -19,17 +19,18 @@ private:
 	std::string pathFile;
 	std::string currentTabInfo;
 	int selectedTab;
-	bool showWindow = false;
 private:
-	std::string pendingFontPath;
 	int pendingFontSize = 16;
+	bool showWindow = false;
 	bool shouldReloadFont = false;
+	std::string pendingFontPath;
 private:
 	Window m_Window;
 public:
 	bool showFontWindow = false;
     std::string fontPath;
 	int fontSize = 16;
+	ImGuiInputTextFlags inputFlags = ImGuiInputTextFlags_AllowTabInput;
 public:
 	TabManager();
 	~TabManager();
