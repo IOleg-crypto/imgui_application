@@ -83,10 +83,6 @@ void Application::DrawUI()
 	ImGui::End();
 }
 
-void Application::ApplyKeyboardShortcuts()
-{
-
-}
 
 
 

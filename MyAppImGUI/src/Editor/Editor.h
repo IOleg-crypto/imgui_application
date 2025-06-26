@@ -40,6 +40,8 @@ public:
 	void UpdateFontBeforeFrame();
 	void ShowFontWindow();
 	std::string GetFontPath();
+	std::string GetCurrentInfo();
+	std::string GetCurrentFilePath();
 
 	bool &getShowWindow() { return showWindow; }
 

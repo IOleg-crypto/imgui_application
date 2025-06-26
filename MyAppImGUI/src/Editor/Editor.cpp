@@ -200,6 +200,8 @@ void TabManager::RenderInputTextField()
 			}
 		}
 
+		currentTabInfo = TabContent[selectedTab];
+
 		ImGui::Separator();
 
 		if (ImGui::Checkbox("Read Only", &s_state.readOnly))
@@ -212,6 +214,52 @@ void TabManager::RenderInputTextField()
 	}
 	ImGui::EndTabBar();
 
+	ImGuiIO& io = ImGui::GetIO();
+	if (ImGui::IsKeyPressed(ImGuiKey_F) && io.KeyCtrl) {
+		SaveFile(m_Window.GetHWND(), pathFile, currentTabInfo);
+	}
+
+	if (ImGui::IsKeyPressed(ImGuiKey_S) && io.KeyCtrl && io.KeyShift) {
+		SaveFileDialog(m_Window.GetHWND(), currentTabInfo, pathFile);
+	}
+
+	if (ImGui::IsKeyPressed(ImGuiKey_Delete)) {
+		if (selectedTab >= 0 && selectedTab < static_cast<int>(TabPages.size())) {
+			TabPages.erase(TabPages.begin() + selectedTab);
+			TabContent.erase(TabContent.begin() + selectedTab);
+
+			if (TabPages.empty()) {
+				TabPages.emplace_back("Page" + std::to_string(TabPages.size() + 1));
+				TabContent.emplace_back();
+			}
+			selectedTab = min(selectedTab, static_cast<int>(TabPages.size()) - 1);
+		}
+	}
+
+	if (ImGui::IsKeyPressed(ImGuiKey_3)) {
+		m_Window.ToggleFullscreen();
+	}
+
+	if (ImGui::IsKeyPressed(ImGuiKey_M) && io.KeyCtrl) {
+		s_state.readOnly = !s_state.readOnly;
+		inputFlags = s_state.readOnly ? (inputFlags | ImGuiInputTextFlags_ReadOnly)
+			: (inputFlags & ~ImGuiInputTextFlags_ReadOnly);
+	}
+
+	if (ImGui::IsKeyPressed(ImGuiKey_F4) && io.KeyAlt) {
+		::PostQuitMessage(0);
+	}
+
+	if (ImGui::IsKeyDown(ImGuiKey_LeftCtrl) && ImGui::IsKeyPressed(ImGuiKey_R, false))
+	{
+		s_state.themeChange = !s_state.themeChange;
+		if (s_state.themeChange) {
+			ImGui::StyleColorsLight();
+		}
+		else {
+			ImGui::StyleColorsDark();
+		}
+	}
 }
 
 void TabManager::ShowFontWindow() {
@@ -319,4 +367,14 @@ std::string TabManager::GetFontPath()
 	// Convert to std::string
 	std::wstring wideFilePath(pszFilePath);
 	return std::string(wideFilePath.begin(), wideFilePath.end());
+}
+
+std::string TabManager::GetCurrentInfo()
+{
+	return currentTabInfo;
+}
+
+std::string TabManager::GetCurrentFilePath()
+{
+	return pathFile;
 }

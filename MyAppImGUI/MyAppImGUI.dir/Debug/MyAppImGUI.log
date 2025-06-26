@@ -1,8 +1,9 @@
-﻿Build started 25.06.2025 19:21:50.
+﻿Build started 26.06.2025 10:18:16.
 Logging verbosity is set to: Normal.     1>Project "D:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\MyAppImGUI.vcxproj" on node 2 (Build target(s)).
      1>PrepareForBuild:
          Structured output is enabled. The formatting of compiler diagnostics will reflect the error hierarchy. See https://aka.ms/cpp/structured-output for more details.
        InitializeBuildStatus:
+         Creating "MyAppImGUI.dir\Debug\MyAppImGUI.tlog\unsuccessfulbuild" because "AlwaysCreate" was specified.
          Touching "MyAppImGUI.dir\Debug\MyAppImGUI.tlog\unsuccessfulbuild".
        CustomBuild:
          All outputs are up-to-date.
@@ -21,7 +22,7 @@ Logging verbosity is set to: Normal.     1>Project "D:\gitnext\CppWithImGUI\imgu
          (compiling source file 'src/Editor/Editor.cpp')
              C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xutility(4813,18):
              the template instantiation context (the oldest one first) is
-                 D:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\src\Editor\Editor.cpp(309,20):
+                 D:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\src\Editor\Editor.cpp(371,20):
                  see reference to function template instantiation 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>::basic_string<std::_String_iterator<std::_String_val<std::_Simple_types<_Elem>>>,0>(_Iter,_Iter,const _Alloc &)' being compiled
                  with
                  [
@@ -29,7 +30,7 @@ Logging verbosity is set to: Normal.     1>Project "D:\gitnext\CppWithImGUI\imgu
                      _Iter=std::_String_iterator<std::_String_val<std::_Simple_types<wchar_t>>>,
                      _Alloc=std::allocator<char>
                  ]
-                     D:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\src\Editor\Editor.cpp(309,2):
+                     D:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\src\Editor\Editor.cpp(371,2):
                      see the first reference to 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>::basic_string' in 'TabManager::GetFontPath'
                  C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xstring(812,17):
                  see reference to function template instantiation 'void std::basic_string<char,std::char_traits<char>,std::allocator<char>>::_Construct_from_iter<wchar_t*,wchar_t*,_Size_type>(_Iter,const _Sent,_Size)' being compiled
@@ -82,4 +83,4 @@ Build succeeded.
     1 Warning(s)
     0 Error(s)
 
-Time Elapsed 00:00:14.02
+Time Elapsed 00:00:09.47
