@@ -20,8 +20,8 @@ To build and run this project, ensure the following tools are installed:
 - Visual Studio Code (VSCode) with the necessary extensions for C++ development (C++ extension by Microsoft)
 - ImGui library (included as a submodule)
 
-## Warning
-``By default project using Arial font, make sure , you have it(C:\Windows\Fonts)``
+> ⚠️ **Warning:** This project uses the Arial font by default.  
+> Please make sure it is available at `C:\Windows\Fonts\Arial.ttf`.
 
 ## ⚡ Getting Started
 
