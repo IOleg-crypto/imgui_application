@@ -129,6 +129,30 @@ MyAppImGUI/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/MyAppImGUI.dir/build.make CMakeFiles/MyAppImGUI.dir/build
 .PHONY : MyAppImGUI/fast
 
+src/App/Application.obj: src/App/Application.cpp.obj
+.PHONY : src/App/Application.obj
+
+# target to build an object file
+src/App/Application.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/MyAppImGUI.dir/build.make CMakeFiles/MyAppImGUI.dir/src/App/Application.cpp.obj
+.PHONY : src/App/Application.cpp.obj
+
+src/App/Application.i: src/App/Application.cpp.i
+.PHONY : src/App/Application.i
+
+# target to preprocess a source file
+src/App/Application.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/MyAppImGUI.dir/build.make CMakeFiles/MyAppImGUI.dir/src/App/Application.cpp.i
+.PHONY : src/App/Application.cpp.i
+
+src/App/Application.s: src/App/Application.cpp.s
+.PHONY : src/App/Application.s
+
+# target to generate assembly for a file
+src/App/Application.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/MyAppImGUI.dir/build.make CMakeFiles/MyAppImGUI.dir/src/App/Application.cpp.s
+.PHONY : src/App/Application.cpp.s
+
 src/DirectX/Render.obj: src/DirectX/Render.cpp.obj
 .PHONY : src/DirectX/Render.obj
 
@@ -201,30 +225,6 @@ src/FileDialog/FileDialog.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/MyAppImGUI.dir/build.make CMakeFiles/MyAppImGUI.dir/src/FileDialog/FileDialog.cpp.s
 .PHONY : src/FileDialog/FileDialog.cpp.s
 
-src/FileDialog/Font.obj: src/FileDialog/Font.cpp.obj
-.PHONY : src/FileDialog/Font.obj
-
-# target to build an object file
-src/FileDialog/Font.cpp.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/MyAppImGUI.dir/build.make CMakeFiles/MyAppImGUI.dir/src/FileDialog/Font.cpp.obj
-.PHONY : src/FileDialog/Font.cpp.obj
-
-src/FileDialog/Font.i: src/FileDialog/Font.cpp.i
-.PHONY : src/FileDialog/Font.i
-
-# target to preprocess a source file
-src/FileDialog/Font.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/MyAppImGUI.dir/build.make CMakeFiles/MyAppImGUI.dir/src/FileDialog/Font.cpp.i
-.PHONY : src/FileDialog/Font.cpp.i
-
-src/FileDialog/Font.s: src/FileDialog/Font.cpp.s
-.PHONY : src/FileDialog/Font.s
-
-# target to generate assembly for a file
-src/FileDialog/Font.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/MyAppImGUI.dir/build.make CMakeFiles/MyAppImGUI.dir/src/FileDialog/Font.cpp.s
-.PHONY : src/FileDialog/Font.cpp.s
-
 src/Memory/Memory.obj: src/Memory/Memory.cpp.obj
 .PHONY : src/Memory/Memory.obj
 
@@ -249,29 +249,53 @@ src/Memory/Memory.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/MyAppImGUI.dir/build.make CMakeFiles/MyAppImGUI.dir/src/Memory/Memory.cpp.s
 .PHONY : src/Memory/Memory.cpp.s
 
-src/Notepad.obj: src/Notepad.cpp.obj
-.PHONY : src/Notepad.obj
+src/Window/Window.obj: src/Window/Window.cpp.obj
+.PHONY : src/Window/Window.obj
 
 # target to build an object file
-src/Notepad.cpp.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/MyAppImGUI.dir/build.make CMakeFiles/MyAppImGUI.dir/src/Notepad.cpp.obj
-.PHONY : src/Notepad.cpp.obj
+src/Window/Window.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/MyAppImGUI.dir/build.make CMakeFiles/MyAppImGUI.dir/src/Window/Window.cpp.obj
+.PHONY : src/Window/Window.cpp.obj
 
-src/Notepad.i: src/Notepad.cpp.i
-.PHONY : src/Notepad.i
+src/Window/Window.i: src/Window/Window.cpp.i
+.PHONY : src/Window/Window.i
 
 # target to preprocess a source file
-src/Notepad.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/MyAppImGUI.dir/build.make CMakeFiles/MyAppImGUI.dir/src/Notepad.cpp.i
-.PHONY : src/Notepad.cpp.i
+src/Window/Window.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/MyAppImGUI.dir/build.make CMakeFiles/MyAppImGUI.dir/src/Window/Window.cpp.i
+.PHONY : src/Window/Window.cpp.i
 
-src/Notepad.s: src/Notepad.cpp.s
-.PHONY : src/Notepad.s
+src/Window/Window.s: src/Window/Window.cpp.s
+.PHONY : src/Window/Window.s
 
 # target to generate assembly for a file
-src/Notepad.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/MyAppImGUI.dir/build.make CMakeFiles/MyAppImGUI.dir/src/Notepad.cpp.s
-.PHONY : src/Notepad.cpp.s
+src/Window/Window.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/MyAppImGUI.dir/build.make CMakeFiles/MyAppImGUI.dir/src/Window/Window.cpp.s
+.PHONY : src/Window/Window.cpp.s
+
+src/main.obj: src/main.cpp.obj
+.PHONY : src/main.obj
+
+# target to build an object file
+src/main.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/MyAppImGUI.dir/build.make CMakeFiles/MyAppImGUI.dir/src/main.cpp.obj
+.PHONY : src/main.cpp.obj
+
+src/main.i: src/main.cpp.i
+.PHONY : src/main.i
+
+# target to preprocess a source file
+src/main.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/MyAppImGUI.dir/build.make CMakeFiles/MyAppImGUI.dir/src/main.cpp.i
+.PHONY : src/main.cpp.i
+
+src/main.s: src/main.cpp.s
+.PHONY : src/main.s
+
+# target to generate assembly for a file
+src/main.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/MyAppImGUI.dir/build.make CMakeFiles/MyAppImGUI.dir/src/main.cpp.s
+.PHONY : src/main.cpp.s
 
 vendor/imgui/backends/imgui_impl_dx11.obj: vendor/imgui/backends/imgui_impl_dx11.cpp.obj
 .PHONY : vendor/imgui/backends/imgui_impl_dx11.obj
@@ -474,6 +498,9 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... MyAppImGUI"
+	@echo "... src/App/Application.obj"
+	@echo "... src/App/Application.i"
+	@echo "... src/App/Application.s"
 	@echo "... src/DirectX/Render.obj"
 	@echo "... src/DirectX/Render.i"
 	@echo "... src/DirectX/Render.s"
@@ -483,15 +510,15 @@ help:
 	@echo "... src/FileDialog/FileDialog.obj"
 	@echo "... src/FileDialog/FileDialog.i"
 	@echo "... src/FileDialog/FileDialog.s"
-	@echo "... src/FileDialog/Font.obj"
-	@echo "... src/FileDialog/Font.i"
-	@echo "... src/FileDialog/Font.s"
 	@echo "... src/Memory/Memory.obj"
 	@echo "... src/Memory/Memory.i"
 	@echo "... src/Memory/Memory.s"
-	@echo "... src/Notepad.obj"
-	@echo "... src/Notepad.i"
-	@echo "... src/Notepad.s"
+	@echo "... src/Window/Window.obj"
+	@echo "... src/Window/Window.i"
+	@echo "... src/Window/Window.s"
+	@echo "... src/main.obj"
+	@echo "... src/main.i"
+	@echo "... src/main.s"
 	@echo "... vendor/imgui/backends/imgui_impl_dx11.obj"
 	@echo "... vendor/imgui/backends/imgui_impl_dx11.i"
 	@echo "... vendor/imgui/backends/imgui_impl_dx11.s"

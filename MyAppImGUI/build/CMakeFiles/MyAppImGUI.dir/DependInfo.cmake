@@ -8,12 +8,13 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
+  "D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/src/App/Application.cpp" "CMakeFiles/MyAppImGUI.dir/src/App/Application.cpp.obj" "gcc" "CMakeFiles/MyAppImGUI.dir/src/App/Application.cpp.obj.d"
   "D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/src/DirectX/Render.cpp" "CMakeFiles/MyAppImGUI.dir/src/DirectX/Render.cpp.obj" "gcc" "CMakeFiles/MyAppImGUI.dir/src/DirectX/Render.cpp.obj.d"
   "D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/src/DirectX/d3d_context.cpp" "CMakeFiles/MyAppImGUI.dir/src/DirectX/d3d_context.cpp.obj" "gcc" "CMakeFiles/MyAppImGUI.dir/src/DirectX/d3d_context.cpp.obj.d"
   "D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/src/FileDialog/FileDialog.cpp" "CMakeFiles/MyAppImGUI.dir/src/FileDialog/FileDialog.cpp.obj" "gcc" "CMakeFiles/MyAppImGUI.dir/src/FileDialog/FileDialog.cpp.obj.d"
-  "D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/src/FileDialog/Font.cpp" "CMakeFiles/MyAppImGUI.dir/src/FileDialog/Font.cpp.obj" "gcc" "CMakeFiles/MyAppImGUI.dir/src/FileDialog/Font.cpp.obj.d"
   "D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/src/Memory/Memory.cpp" "CMakeFiles/MyAppImGUI.dir/src/Memory/Memory.cpp.obj" "gcc" "CMakeFiles/MyAppImGUI.dir/src/Memory/Memory.cpp.obj.d"
-  "D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/src/Notepad.cpp" "CMakeFiles/MyAppImGUI.dir/src/Notepad.cpp.obj" "gcc" "CMakeFiles/MyAppImGUI.dir/src/Notepad.cpp.obj.d"
+  "D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/src/Window/Window.cpp" "CMakeFiles/MyAppImGUI.dir/src/Window/Window.cpp.obj" "gcc" "CMakeFiles/MyAppImGUI.dir/src/Window/Window.cpp.obj.d"
+  "D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/src/main.cpp" "CMakeFiles/MyAppImGUI.dir/src/main.cpp.obj" "gcc" "CMakeFiles/MyAppImGUI.dir/src/main.cpp.obj.d"
   "D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui/backends/imgui_impl_dx11.cpp" "CMakeFiles/MyAppImGUI.dir/vendor/imgui/backends/imgui_impl_dx11.cpp.obj" "gcc" "CMakeFiles/MyAppImGUI.dir/vendor/imgui/backends/imgui_impl_dx11.cpp.obj.d"
   "D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui/backends/imgui_impl_win32.cpp" "CMakeFiles/MyAppImGUI.dir/vendor/imgui/backends/imgui_impl_win32.cpp.obj" "gcc" "CMakeFiles/MyAppImGUI.dir/vendor/imgui/backends/imgui_impl_win32.cpp.obj.d"
   "D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui/imgui.cpp" "CMakeFiles/MyAppImGUI.dir/vendor/imgui/imgui.cpp.obj" "gcc" "CMakeFiles/MyAppImGUI.dir/vendor/imgui/imgui.cpp.obj.d"

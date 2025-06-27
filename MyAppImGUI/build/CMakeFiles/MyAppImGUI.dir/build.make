@@ -114,26 +114,11 @@ CMakeFiles/MyAppImGUI.dir/src/FileDialog/FileDialog.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/MyAppImGUI.dir/src/FileDialog/FileDialog.cpp.s"
 	$(CMAKE_COMMAND) -E cmake_unimplemented_variable CMAKE_CXX_CREATE_ASSEMBLY_SOURCE
 
-CMakeFiles/MyAppImGUI.dir/src/FileDialog/Font.cpp.obj: CMakeFiles/MyAppImGUI.dir/flags.make
-CMakeFiles/MyAppImGUI.dir/src/FileDialog/Font.cpp.obj: CMakeFiles/MyAppImGUI.dir/includes_CXX.rsp
-CMakeFiles/MyAppImGUI.dir/src/FileDialog/Font.cpp.obj: D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/src/FileDialog/Font.cpp
-CMakeFiles/MyAppImGUI.dir/src/FileDialog/Font.cpp.obj: CMakeFiles/MyAppImGUI.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/MyAppImGUI.dir/src/FileDialog/Font.cpp.obj"
-	E:/LLVM/bin/clang++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/MyAppImGUI.dir/src/FileDialog/Font.cpp.obj -MF CMakeFiles/MyAppImGUI.dir/src/FileDialog/Font.cpp.obj.d -o CMakeFiles/MyAppImGUI.dir/src/FileDialog/Font.cpp.obj -c D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/src/FileDialog/Font.cpp
-
-CMakeFiles/MyAppImGUI.dir/src/FileDialog/Font.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/MyAppImGUI.dir/src/FileDialog/Font.cpp.i"
-	$(CMAKE_COMMAND) -E cmake_unimplemented_variable CMAKE_CXX_CREATE_PREPROCESSED_SOURCE
-
-CMakeFiles/MyAppImGUI.dir/src/FileDialog/Font.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/MyAppImGUI.dir/src/FileDialog/Font.cpp.s"
-	$(CMAKE_COMMAND) -E cmake_unimplemented_variable CMAKE_CXX_CREATE_ASSEMBLY_SOURCE
-
 CMakeFiles/MyAppImGUI.dir/src/Memory/Memory.cpp.obj: CMakeFiles/MyAppImGUI.dir/flags.make
 CMakeFiles/MyAppImGUI.dir/src/Memory/Memory.cpp.obj: CMakeFiles/MyAppImGUI.dir/includes_CXX.rsp
 CMakeFiles/MyAppImGUI.dir/src/Memory/Memory.cpp.obj: D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/src/Memory/Memory.cpp
 CMakeFiles/MyAppImGUI.dir/src/Memory/Memory.cpp.obj: CMakeFiles/MyAppImGUI.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/MyAppImGUI.dir/src/Memory/Memory.cpp.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/MyAppImGUI.dir/src/Memory/Memory.cpp.obj"
 	E:/LLVM/bin/clang++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/MyAppImGUI.dir/src/Memory/Memory.cpp.obj -MF CMakeFiles/MyAppImGUI.dir/src/Memory/Memory.cpp.obj.d -o CMakeFiles/MyAppImGUI.dir/src/Memory/Memory.cpp.obj -c D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/src/Memory/Memory.cpp
 
 CMakeFiles/MyAppImGUI.dir/src/Memory/Memory.cpp.i: cmake_force
@@ -144,19 +129,34 @@ CMakeFiles/MyAppImGUI.dir/src/Memory/Memory.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/MyAppImGUI.dir/src/Memory/Memory.cpp.s"
 	$(CMAKE_COMMAND) -E cmake_unimplemented_variable CMAKE_CXX_CREATE_ASSEMBLY_SOURCE
 
-CMakeFiles/MyAppImGUI.dir/src/Notepad.cpp.obj: CMakeFiles/MyAppImGUI.dir/flags.make
-CMakeFiles/MyAppImGUI.dir/src/Notepad.cpp.obj: CMakeFiles/MyAppImGUI.dir/includes_CXX.rsp
-CMakeFiles/MyAppImGUI.dir/src/Notepad.cpp.obj: D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/src/Notepad.cpp
-CMakeFiles/MyAppImGUI.dir/src/Notepad.cpp.obj: CMakeFiles/MyAppImGUI.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/MyAppImGUI.dir/src/Notepad.cpp.obj"
-	E:/LLVM/bin/clang++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/MyAppImGUI.dir/src/Notepad.cpp.obj -MF CMakeFiles/MyAppImGUI.dir/src/Notepad.cpp.obj.d -o CMakeFiles/MyAppImGUI.dir/src/Notepad.cpp.obj -c D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/src/Notepad.cpp
+CMakeFiles/MyAppImGUI.dir/src/App/Application.cpp.obj: CMakeFiles/MyAppImGUI.dir/flags.make
+CMakeFiles/MyAppImGUI.dir/src/App/Application.cpp.obj: CMakeFiles/MyAppImGUI.dir/includes_CXX.rsp
+CMakeFiles/MyAppImGUI.dir/src/App/Application.cpp.obj: D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/src/App/Application.cpp
+CMakeFiles/MyAppImGUI.dir/src/App/Application.cpp.obj: CMakeFiles/MyAppImGUI.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/MyAppImGUI.dir/src/App/Application.cpp.obj"
+	E:/LLVM/bin/clang++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/MyAppImGUI.dir/src/App/Application.cpp.obj -MF CMakeFiles/MyAppImGUI.dir/src/App/Application.cpp.obj.d -o CMakeFiles/MyAppImGUI.dir/src/App/Application.cpp.obj -c D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/src/App/Application.cpp
 
-CMakeFiles/MyAppImGUI.dir/src/Notepad.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/MyAppImGUI.dir/src/Notepad.cpp.i"
+CMakeFiles/MyAppImGUI.dir/src/App/Application.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/MyAppImGUI.dir/src/App/Application.cpp.i"
 	$(CMAKE_COMMAND) -E cmake_unimplemented_variable CMAKE_CXX_CREATE_PREPROCESSED_SOURCE
 
-CMakeFiles/MyAppImGUI.dir/src/Notepad.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/MyAppImGUI.dir/src/Notepad.cpp.s"
+CMakeFiles/MyAppImGUI.dir/src/App/Application.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/MyAppImGUI.dir/src/App/Application.cpp.s"
+	$(CMAKE_COMMAND) -E cmake_unimplemented_variable CMAKE_CXX_CREATE_ASSEMBLY_SOURCE
+
+CMakeFiles/MyAppImGUI.dir/src/main.cpp.obj: CMakeFiles/MyAppImGUI.dir/flags.make
+CMakeFiles/MyAppImGUI.dir/src/main.cpp.obj: CMakeFiles/MyAppImGUI.dir/includes_CXX.rsp
+CMakeFiles/MyAppImGUI.dir/src/main.cpp.obj: D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/src/main.cpp
+CMakeFiles/MyAppImGUI.dir/src/main.cpp.obj: CMakeFiles/MyAppImGUI.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/MyAppImGUI.dir/src/main.cpp.obj"
+	E:/LLVM/bin/clang++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/MyAppImGUI.dir/src/main.cpp.obj -MF CMakeFiles/MyAppImGUI.dir/src/main.cpp.obj.d -o CMakeFiles/MyAppImGUI.dir/src/main.cpp.obj -c D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/src/main.cpp
+
+CMakeFiles/MyAppImGUI.dir/src/main.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/MyAppImGUI.dir/src/main.cpp.i"
+	$(CMAKE_COMMAND) -E cmake_unimplemented_variable CMAKE_CXX_CREATE_PREPROCESSED_SOURCE
+
+CMakeFiles/MyAppImGUI.dir/src/main.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/MyAppImGUI.dir/src/main.cpp.s"
 	$(CMAKE_COMMAND) -E cmake_unimplemented_variable CMAKE_CXX_CREATE_ASSEMBLY_SOURCE
 
 CMakeFiles/MyAppImGUI.dir/vendor/imgui/imgui.cpp.obj: CMakeFiles/MyAppImGUI.dir/flags.make
@@ -279,14 +279,29 @@ CMakeFiles/MyAppImGUI.dir/vendor/imgui/misc/cpp/imgui_stdlib.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/MyAppImGUI.dir/vendor/imgui/misc/cpp/imgui_stdlib.cpp.s"
 	$(CMAKE_COMMAND) -E cmake_unimplemented_variable CMAKE_CXX_CREATE_ASSEMBLY_SOURCE
 
+CMakeFiles/MyAppImGUI.dir/src/Window/Window.cpp.obj: CMakeFiles/MyAppImGUI.dir/flags.make
+CMakeFiles/MyAppImGUI.dir/src/Window/Window.cpp.obj: CMakeFiles/MyAppImGUI.dir/includes_CXX.rsp
+CMakeFiles/MyAppImGUI.dir/src/Window/Window.cpp.obj: D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/src/Window/Window.cpp
+CMakeFiles/MyAppImGUI.dir/src/Window/Window.cpp.obj: CMakeFiles/MyAppImGUI.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_15) "Building CXX object CMakeFiles/MyAppImGUI.dir/src/Window/Window.cpp.obj"
+	E:/LLVM/bin/clang++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/MyAppImGUI.dir/src/Window/Window.cpp.obj -MF CMakeFiles/MyAppImGUI.dir/src/Window/Window.cpp.obj.d -o CMakeFiles/MyAppImGUI.dir/src/Window/Window.cpp.obj -c D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/src/Window/Window.cpp
+
+CMakeFiles/MyAppImGUI.dir/src/Window/Window.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/MyAppImGUI.dir/src/Window/Window.cpp.i"
+	$(CMAKE_COMMAND) -E cmake_unimplemented_variable CMAKE_CXX_CREATE_PREPROCESSED_SOURCE
+
+CMakeFiles/MyAppImGUI.dir/src/Window/Window.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/MyAppImGUI.dir/src/Window/Window.cpp.s"
+	$(CMAKE_COMMAND) -E cmake_unimplemented_variable CMAKE_CXX_CREATE_ASSEMBLY_SOURCE
+
 # Object files for target MyAppImGUI
 MyAppImGUI_OBJECTS = \
 "CMakeFiles/MyAppImGUI.dir/src/DirectX/d3d_context.cpp.obj" \
 "CMakeFiles/MyAppImGUI.dir/src/DirectX/Render.cpp.obj" \
 "CMakeFiles/MyAppImGUI.dir/src/FileDialog/FileDialog.cpp.obj" \
-"CMakeFiles/MyAppImGUI.dir/src/FileDialog/Font.cpp.obj" \
 "CMakeFiles/MyAppImGUI.dir/src/Memory/Memory.cpp.obj" \
-"CMakeFiles/MyAppImGUI.dir/src/Notepad.cpp.obj" \
+"CMakeFiles/MyAppImGUI.dir/src/App/Application.cpp.obj" \
+"CMakeFiles/MyAppImGUI.dir/src/main.cpp.obj" \
 "CMakeFiles/MyAppImGUI.dir/vendor/imgui/imgui.cpp.obj" \
 "CMakeFiles/MyAppImGUI.dir/vendor/imgui/imgui_draw.cpp.obj" \
 "CMakeFiles/MyAppImGUI.dir/vendor/imgui/imgui_tables.cpp.obj" \
@@ -294,7 +309,8 @@ MyAppImGUI_OBJECTS = \
 "CMakeFiles/MyAppImGUI.dir/vendor/imgui/imgui_demo.cpp.obj" \
 "CMakeFiles/MyAppImGUI.dir/vendor/imgui/backends/imgui_impl_dx11.cpp.obj" \
 "CMakeFiles/MyAppImGUI.dir/vendor/imgui/backends/imgui_impl_win32.cpp.obj" \
-"CMakeFiles/MyAppImGUI.dir/vendor/imgui/misc/cpp/imgui_stdlib.cpp.obj"
+"CMakeFiles/MyAppImGUI.dir/vendor/imgui/misc/cpp/imgui_stdlib.cpp.obj" \
+"CMakeFiles/MyAppImGUI.dir/src/Window/Window.cpp.obj"
 
 # External object files for target MyAppImGUI
 MyAppImGUI_EXTERNAL_OBJECTS =
@@ -302,9 +318,9 @@ MyAppImGUI_EXTERNAL_OBJECTS =
 MyAppImGUI.exe: CMakeFiles/MyAppImGUI.dir/src/DirectX/d3d_context.cpp.obj
 MyAppImGUI.exe: CMakeFiles/MyAppImGUI.dir/src/DirectX/Render.cpp.obj
 MyAppImGUI.exe: CMakeFiles/MyAppImGUI.dir/src/FileDialog/FileDialog.cpp.obj
-MyAppImGUI.exe: CMakeFiles/MyAppImGUI.dir/src/FileDialog/Font.cpp.obj
 MyAppImGUI.exe: CMakeFiles/MyAppImGUI.dir/src/Memory/Memory.cpp.obj
-MyAppImGUI.exe: CMakeFiles/MyAppImGUI.dir/src/Notepad.cpp.obj
+MyAppImGUI.exe: CMakeFiles/MyAppImGUI.dir/src/App/Application.cpp.obj
+MyAppImGUI.exe: CMakeFiles/MyAppImGUI.dir/src/main.cpp.obj
 MyAppImGUI.exe: CMakeFiles/MyAppImGUI.dir/vendor/imgui/imgui.cpp.obj
 MyAppImGUI.exe: CMakeFiles/MyAppImGUI.dir/vendor/imgui/imgui_draw.cpp.obj
 MyAppImGUI.exe: CMakeFiles/MyAppImGUI.dir/vendor/imgui/imgui_tables.cpp.obj
@@ -313,10 +329,11 @@ MyAppImGUI.exe: CMakeFiles/MyAppImGUI.dir/vendor/imgui/imgui_demo.cpp.obj
 MyAppImGUI.exe: CMakeFiles/MyAppImGUI.dir/vendor/imgui/backends/imgui_impl_dx11.cpp.obj
 MyAppImGUI.exe: CMakeFiles/MyAppImGUI.dir/vendor/imgui/backends/imgui_impl_win32.cpp.obj
 MyAppImGUI.exe: CMakeFiles/MyAppImGUI.dir/vendor/imgui/misc/cpp/imgui_stdlib.cpp.obj
+MyAppImGUI.exe: CMakeFiles/MyAppImGUI.dir/src/Window/Window.cpp.obj
 MyAppImGUI.exe: CMakeFiles/MyAppImGUI.dir/build.make
 MyAppImGUI.exe: CMakeFiles/MyAppImGUI.dir/linkLibs.rsp
 MyAppImGUI.exe: CMakeFiles/MyAppImGUI.dir/objects1.rsp
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_15) "Linking CXX executable MyAppImGUI.exe"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_16) "Linking CXX executable MyAppImGUI.exe"
 	E:/LLVM/bin/clang++.exe -nostartfiles -nostdlib -O3 -DNDEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrt -Xlinker /subsystem:console -fuse-ld=lld-link @CMakeFiles/MyAppImGUI.dir/objects1.rsp -o MyAppImGUI.exe -Xlinker /MANIFEST:EMBED -Xlinker /implib:MyAppImGUI.lib -Xlinker /pdb:D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/MyAppImGUI.pdb -Xlinker /version:0.0  @CMakeFiles/MyAppImGUI.dir/linkLibs.rsp
 
 # Rule to build all files generated by this target.

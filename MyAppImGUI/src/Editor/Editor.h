@@ -11,6 +11,7 @@
 #include <vector>
 #include <iostream>
 
+
 /**
  * @brief Manages multiple text editing tabs within the ImGui Notepad application.
  *
@@ -39,7 +40,7 @@ public:
     bool showFontWindow = false;            ///< Visibility flag for the font settings window.
     std::string fontPath;                   ///< Path to the currently used font.
     int fontSize = 16;                      ///< Currently applied font size.
-    ImGuiInputTextFlags inputFlags = ImGuiInputTextFlags_AllowTabInput; ///< ImGui input flags (e.g., tab handling).
+    ImGuiInputTextFlags inputFlags = ImGuiInputTextFlags_AllowTabInput | ImGuiInputTextFlags_NoHorizontalScroll; ///< ImGui input flags (e.g., tab handling).
 
 public:
     /**

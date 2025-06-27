@@ -19,21 +19,21 @@
 },
 {
   "directory": "D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build",
-  "command": "E:/LLVM/bin/clang++.exe  @CMakeFiles/MyAppImGUI.dir/includes_CXX.rsp -O3 -DNDEBUG -std=gnu++20 -D_DLL -D_MT -Xclang --dependent-lib=msvcrt -o CMakeFiles/MyAppImGUI.dir/src/FileDialog/Font.cpp.obj -c D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/src/FileDialog/Font.cpp",
-  "file": "D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/src/FileDialog/Font.cpp",
-  "output": "CMakeFiles/MyAppImGUI.dir/src/FileDialog/Font.cpp.obj"
-},
-{
-  "directory": "D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build",
   "command": "E:/LLVM/bin/clang++.exe  @CMakeFiles/MyAppImGUI.dir/includes_CXX.rsp -O3 -DNDEBUG -std=gnu++20 -D_DLL -D_MT -Xclang --dependent-lib=msvcrt -o CMakeFiles/MyAppImGUI.dir/src/Memory/Memory.cpp.obj -c D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/src/Memory/Memory.cpp",
   "file": "D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/src/Memory/Memory.cpp",
   "output": "CMakeFiles/MyAppImGUI.dir/src/Memory/Memory.cpp.obj"
 },
 {
   "directory": "D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build",
-  "command": "E:/LLVM/bin/clang++.exe  @CMakeFiles/MyAppImGUI.dir/includes_CXX.rsp -O3 -DNDEBUG -std=gnu++20 -D_DLL -D_MT -Xclang --dependent-lib=msvcrt -o CMakeFiles/MyAppImGUI.dir/src/Notepad.cpp.obj -c D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/src/Notepad.cpp",
-  "file": "D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/src/Notepad.cpp",
-  "output": "CMakeFiles/MyAppImGUI.dir/src/Notepad.cpp.obj"
+  "command": "E:/LLVM/bin/clang++.exe  @CMakeFiles/MyAppImGUI.dir/includes_CXX.rsp -O3 -DNDEBUG -std=gnu++20 -D_DLL -D_MT -Xclang --dependent-lib=msvcrt -o CMakeFiles/MyAppImGUI.dir/src/App/Application.cpp.obj -c D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/src/App/Application.cpp",
+  "file": "D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/src/App/Application.cpp",
+  "output": "CMakeFiles/MyAppImGUI.dir/src/App/Application.cpp.obj"
+},
+{
+  "directory": "D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build",
+  "command": "E:/LLVM/bin/clang++.exe  @CMakeFiles/MyAppImGUI.dir/includes_CXX.rsp -O3 -DNDEBUG -std=gnu++20 -D_DLL -D_MT -Xclang --dependent-lib=msvcrt -o CMakeFiles/MyAppImGUI.dir/src/main.cpp.obj -c D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/src/main.cpp",
+  "file": "D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/src/main.cpp",
+  "output": "CMakeFiles/MyAppImGUI.dir/src/main.cpp.obj"
 },
 {
   "directory": "D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build",
@@ -82,5 +82,11 @@
   "command": "E:/LLVM/bin/clang++.exe  @CMakeFiles/MyAppImGUI.dir/includes_CXX.rsp -O3 -DNDEBUG -std=gnu++20 -D_DLL -D_MT -Xclang --dependent-lib=msvcrt -o CMakeFiles/MyAppImGUI.dir/vendor/imgui/misc/cpp/imgui_stdlib.cpp.obj -c D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui/misc/cpp/imgui_stdlib.cpp",
   "file": "D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui/misc/cpp/imgui_stdlib.cpp",
   "output": "CMakeFiles/MyAppImGUI.dir/vendor/imgui/misc/cpp/imgui_stdlib.cpp.obj"
+},
+{
+  "directory": "D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build",
+  "command": "E:/LLVM/bin/clang++.exe  @CMakeFiles/MyAppImGUI.dir/includes_CXX.rsp -O3 -DNDEBUG -std=gnu++20 -D_DLL -D_MT -Xclang --dependent-lib=msvcrt -o CMakeFiles/MyAppImGUI.dir/src/Window/Window.cpp.obj -c D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/src/Window/Window.cpp",
+  "file": "D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/src/Window/Window.cpp",
+  "output": "CMakeFiles/MyAppImGUI.dir/src/Window/Window.cpp.obj"
 }
 ]

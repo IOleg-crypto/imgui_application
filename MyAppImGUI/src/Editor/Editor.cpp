@@ -1,14 +1,15 @@
 ﻿#include "Editor.h"
 #include "Window/Window.h"
-#include "imgui.h"
-#include "imgui_impl_dx11.h"
-#include "imgui_impl_win32.h"
 #include <d3d11.h>
 #include <ShlObj.h>
 #include <filesystem>
+#include <print>
 
+#include "imgui.h"
+#include "imgui_impl_dx11.h"
+#include "imgui_impl_win32.h"
 
-TabManager::TabManager() : selectedTab(0), TabPages{ "Page 1" }, TabContent{ "" }
+TabManager::TabManager() : selectedTab(0), TabPages{ "Page 1" }, TabContent{ "" } , currentTabInfo("")
 {
 	//@brief : All params init by default
 }
@@ -138,7 +139,8 @@ void TabManager::RenderMenuTab()
 
 void TabManager::RenderInputTextField()
 {
-	if (ImGui::Button("Add page"))
+
+	if (ImGui::Button("+")) // Add a new tab
 	{
 		TabPages.emplace_back("Page" + std::to_string(TabPages.size() + 1));
 		TabContent.emplace_back();
@@ -149,13 +151,17 @@ void TabManager::RenderInputTextField()
 		if (TabPages.size() > maxTabs)
 		{
 			TabPages.pop_back();
+			TabContent.pop_back();
 		}
+
 	}
+	ImGui::SameLine();
 
-	ImGui::Separator();
-	if(ImGui::BeginTabBar("MyTabBar")) {
-
-		for (int i = 0; i < static_cast<int>(TabPages.size()); ++i)
+	if (ImGui::BeginTabBar("MyTabBar"))
+	{
+		int tabToRemove = -1;
+		float takeUpSpace = 220; // Space taken by the tab bar
+		for (size_t i = 0; i < TabPages.size(); ++i)
 		{
 			bool open = true;
 			if (ImGui::BeginTabItem(TabPages[i].c_str(), &open))
@@ -164,44 +170,70 @@ void TabManager::RenderInputTextField()
 				ImGui::Text("Content for %s", TabPages[i].c_str());
 
 				ImGui::InputTextMultiline("##InputText", TabContent[i].data(), TabContent[i].capacity(),
-					ImVec2(GetSystemMetrics(SM_CXSCREEN), GetSystemMetrics(SM_CYSCREEN)), inputFlags | ImGuiInputTextFlags_CallbackResize, InputTextCallback, static_cast<void*>(&TabContent[i]));
+					ImVec2(m_Window.GetImGuiIO().DisplaySize.x, m_Window.isFullscreen() ? m_Window.GetImGuiIO().DisplaySize.y - takeUpSpace : m_Window.GetImGuiIO().DisplaySize.y),
+					inputFlags | ImGuiInputTextFlags_CallbackResize,
+					InputTextCallback,
+					static_cast<void*>(&TabContent[i]));
+
+				
 
 				ImGui::EndTabItem();
 			}
 
-			// If tab is closed, remove it (using reverse iteration to avoid shifting)
-			if (!open && i < static_cast<int>(TabPages.size()))
+#ifdef _DEBUG
+			static ImVec2 lastSize = ImVec2(0, 0);
+			if (ImGui::IsWindowFocused())
 			{
-				TabPages[i] = std::move(TabPages.back()); // Move last item into current position
-				TabContent[i] = std::move(TabContent.back());
-				// O(1) instead of O(n)
-				TabPages.pop_back();
-				TabContent.pop_back();
-				TabPages.shrink_to_fit();
-				TabContent.shrink_to_fit();
-				if ((selectedTab >= static_cast<int>(TabPages.size())))
+				ImVec2 currentSize = ImGui::GetWindowSize();
+				if (currentSize.x != lastSize.x || currentSize.y != lastSize.y)
 				{
-					selectedTab = static_cast<int>(TabPages.size() - 1);
-				}
-				// To avoid situation when tabTitles empty(user delete all tabs)
-				if (TabPages.empty())
-				{
-					TabPages.emplace_back("Page" + std::to_string(TabPages.size() + 1));
-					TabContent.emplace_back();
+					system("cls"); // Is this the correct way to clear the console?
+					std::cout << std::format("Window resized: {} x {}\n", currentSize.x, currentSize.y);
+					lastSize = currentSize;
 				}
 			}
+#endif
+
+			if (!open)
+			{
+				tabToRemove = i;
+			}
 		}
-		// to get information and save in file
-		currentTabInfo = TabContent[selectedTab];
 
-		ImGui::Separator();
-
-		if (ImGui::Checkbox("Read Only", &s_state.readOnly))
+		if (tabToRemove != -1)
 		{
-			if (s_state.readOnly)
-				inputFlags |= ImGuiInputTextFlags_ReadOnly;
+			if (TabPages.size() == 1)
+			{
+				TabPages[0] = "Page1";
+				TabContent[0].clear();
+			}
 			else
-				inputFlags &= ~ImGuiInputTextFlags_ReadOnly;
+			{
+				TabPages[tabToRemove] = std::move(TabPages.back());
+				TabContent[tabToRemove] = std::move(TabContent.back());
+				TabPages.pop_back();
+				TabContent.pop_back();
+
+				if (selectedTab >= static_cast<int>(TabPages.size()))
+					selectedTab = static_cast<int>(TabPages.size()) - 1;
+			}
+		}
+	}
+	// To get the current tab content and prevent memory leak
+	if (!TabPages.empty() && (!TabContent[selectedTab].empty() || !TabPages[selectedTab].empty()))
+	{
+		currentTabInfo = TabContent[selectedTab];
+	}
+
+	ImGui::Separator();
+
+	if (ImGui::Checkbox("Read Only", &s_state.readOnly))
+	{
+		if (s_state.readOnly) {
+			inputFlags |= ImGuiInputTextFlags_ReadOnly;
+		}
+		else {
+			inputFlags &= ~ImGuiInputTextFlags_ReadOnly;
 		}
 	}
 	ImGui::EndTabBar();
@@ -216,6 +248,11 @@ void TabManager::RenderInputTextField()
 	}
 
 	if (ImGui::IsKeyPressed(ImGuiKey_Delete)) {
+		if (TabPages.empty())
+		{
+			TabPages.emplace_back("Page " + std::to_string(TabPages.size() + 1));
+			TabContent.emplace_back();
+		}
 		if (selectedTab >= 0 && selectedTab < static_cast<int>(TabPages.size())) {
 			TabPages.erase(TabPages.begin() + selectedTab);
 			TabContent.erase(TabContent.begin() + selectedTab);
@@ -242,7 +279,7 @@ void TabManager::RenderInputTextField()
 		::PostQuitMessage(0);
 	}
 
-	if (ImGui::IsKeyDown(ImGuiKey_LeftCtrl) && ImGui::IsKeyPressed(ImGuiKey_R, false))
+	if (ImGui::IsKeyDown(ImGuiKey_LeftCtrl) && ImGui::IsKeyPressed(ImGuiKey_F, false))
 	{
 		s_state.themeChange = !s_state.themeChange;
 		if (s_state.themeChange) {

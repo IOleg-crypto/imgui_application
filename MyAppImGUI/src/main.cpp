@@ -6,14 +6,6 @@ int main()
 {
 	Application app;
 	app.Init();
-	app.RunMainLoop(app);        
-    return 0;
+	app.RunMainLoop(app);
+	return 0;
 }
-
-
-
-
-
-
-
-
