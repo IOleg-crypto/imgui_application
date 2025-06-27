@@ -4,6 +4,13 @@
 #include "imgui_impl_dx11.h"
 #include "imgui_impl_win32.h"
 
+Application::~Application() {
+	CleanupDeviceD3D();
+	ImGui_ImplDX11_Shutdown();
+	ImGui_ImplWin32_Shutdown();
+	ImGui::DestroyContext();
+}
+
 void Application::Init()
 {
 	m_Window.Init();

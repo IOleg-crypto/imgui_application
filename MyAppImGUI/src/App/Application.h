@@ -30,20 +30,16 @@
 #include "DirectX/d3d_context.h"
 // For memory and buffer of ImGui::InputTextMultiline
 #include "Memory.h"
-#include "Editor/Editor.h"
-
 
 class Application {
 public:
 	Application() = default;
-	~Application() = default;
-
+	~Application();
 	void Init();
 	void RunMainLoop(Application &app);
 	HWND GetHwnd();
 private:
 	void DrawUI();
-	void ApplyKeyboardShortcuts();
 private:
 	Window m_Window;
 	TabManager m_TabManager;

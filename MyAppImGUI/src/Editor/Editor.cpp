@@ -29,31 +29,25 @@ void TabManager::RenderMenuTab()
 				else
 					inputFlags &= ~ImGuiInputTextFlags_ReadOnly;
 			}
-			if (ImGui::MenuItem("Save file as", "Ctrl+ Left Shift + S"))
+			if (ImGui::MenuItem("Save file", "Ctrl+F"))
 			{
-				SaveFileDialog(m_Window.GetHWND(), currentTabInfo, pathFile);
-
-				if (!pathFile.empty())
-				{
-					// Only takes the file name
-					std::filesystem::path filePath(pathFile);
-					TabPages[selectedTab] = filePath.filename().string();
-					TabContent[selectedTab].resize(currentTabInfo.size() + 1); // +1 for null terminator
-					std::memcpy(TabContent[selectedTab].data(), currentTabInfo.c_str(), currentTabInfo.size() + 1);
-				}
-			}
-			if (ImGui::MenuItem("Save file", "Ctrl+S"))
-			{
-				// To fix bug with empty name of tab
 				if (pathFile.empty())
 				{
 					pathFile = TabPages[selectedTab];
 					MessageBoxA(m_Window.GetHWND(), "No valid directory found", "File not saved", MB_OK);
 					earlyExit = true;
 				}
+
 				SaveFile(m_Window.GetHWND(), pathFile, currentTabInfo);
-				TabPages[selectedTab] = std::move(pathFile);
-				
+				TabPages[selectedTab] = std::filesystem::path(pathFile).filename().string();
+			}
+
+			if (ImGui::MenuItem("Save file as", "Ctrl+Shift+S"))
+			{
+				SaveFileDialog(m_Window.GetHWND(), currentTabInfo, pathFile);
+				if (!pathFile.empty()) {
+					TabPages[selectedTab] = std::filesystem::path(pathFile).filename().string();
+				}
 			}
 			if (ImGui::MenuItem("Open file", "Ctrl+O"))
 			{
@@ -199,7 +193,7 @@ void TabManager::RenderInputTextField()
 				}
 			}
 		}
-
+		// to get information and save in file
 		currentTabInfo = TabContent[selectedTab];
 
 		ImGui::Separator();

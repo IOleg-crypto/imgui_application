@@ -7,7 +7,6 @@ int main()
 	Application app;
 	app.Init();
 	app.RunMainLoop(app);        
-	CleanupDeviceD3D();
     return 0;
 }
 
