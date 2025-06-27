@@ -1,4 +1,4 @@
-#ifndef WINDOW_H
+#ifndef WINDOW_H 
 #define WINDOW_H
 
 #include <Windows.h>
@@ -9,21 +9,23 @@
 #include "Editor/UIState.h"
 
 /**
-* @brief Encapsulates window creation and management for the ImGui Notepad app.
-*
-* Handles window class registration, icon loading, fullscreen toggle, message polling,
-* resize and occlusion events, and applying fullscreen layouts.
-*/
+ * @brief Encapsulates window creation and management for the ImGui Notepad app.
+ *
+ * Handles window class registration, icon loading, fullscreen toggle, message polling,
+ * resize and occlusion events, and applying fullscreen layouts.
+ */
 class Window {
 public:
     Window();
+
     /**
-     * @brief Construct a new Window object.
+     * @brief Construct a new Window object with an existing window handle.
      * @param hwnd Handle to the created window.
      */
-    Window(HWND &hwnd);
+    Window(HWND& hwnd);
 
     ~Window();
+
     /**
      * @brief Initialize the window class and load the icon.
      * Must be called before registering the window class or creating the window.
@@ -46,7 +48,7 @@ public:
      * @brief Poll and handle window messages and events.
      * @param done Reference to a flag indicating if the app should quit.
      */
-    void PollMessage(bool& done) const ;
+    void PollMessage(bool& done) const;
 
     /**
      * @brief Handle window resize event (e.g., reset swap chain buffers).
@@ -63,36 +65,60 @@ public:
 
     /**
      * @brief Apply fullscreen layout settings for the ImGui window.
-     * @param io ImGuiIO object with frame information.
-     * @param outFlags Reference to ImGuiWindowFlags to modify.
+     * @param windowFlags Reference to ImGuiWindowFlags to modify.
      */
     void ApplyFullscreenLayout(ImGuiWindowFlags& windowFlags);
-    /*
-    * @brief Initialize ImGui and load the font file.
-    */
+
+    /**
+     * @brief Initialize ImGui context and load the font file.
+     */
     void InitImGui();
-public:
+
+    /**
+     * @brief Set the font file path used by ImGui.
+     * @param fontPath Path to the TTF/OTF font file.
+     */
     void setFontPath(const std::string& fontPath);
-public:
+
+    /**
+     * @brief Get the native window handle.
+     * @return HWND Handle to the window.
+     */
     HWND GetHWND();
+
+    /**
+     * @brief Get the ImGui IO structure.
+     * @return Reference to ImGuiIO.
+     */
     ImGuiIO& GetImGuiIO();
+
+    /**
+     * @brief Get the current font file path.
+     * @return Path to the font file.
+     */
     std::string getFontPath();
+
+    /**
+     * @brief Check if the window is currently in fullscreen mode.
+     * @return true if fullscreen, false otherwise.
+     */
     bool isFullscreen();
+
 private:
     HWND m_hwnd;                     ///< Handle to the window.
     HICON m_hIcon;                   ///< Window icon handle.
     WNDCLASSEXW m_wc{};              ///< Window class structure.
-    ImGuiIO m_io;
-private:
+    ImGuiIO m_io;                    ///< ImGui IO object for configuration and input.
+
     std::wstring m_iconPath;         ///< Path to the icon file (wide string).
     std::string m_fontPath;          ///< Path to the font file.
-    static bool m_fullscreen;       ///< Current fullscreen state.
-    bool m_classRegistered = false;    ///< Flag indicating if the window class is registered.
-    bool prev_fullscreen;   ///< Previous fullscreen state.
+    static bool m_fullscreen;        ///< Current fullscreen state.
+    bool m_classRegistered = false;  ///< Flag indicating if the window class is registered.
+    bool prev_fullscreen;            ///< Previous fullscreen state.
+
 public:
+    /// Default window flags: menu bar and horizontal scrollbar.
     ImGuiWindowFlags windowFlags = ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_HorizontalScrollbar;
 };
-
-
 
 #endif // WINDOW_H

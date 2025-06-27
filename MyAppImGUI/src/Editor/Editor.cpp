@@ -152,8 +152,6 @@ void TabManager::RenderInputTextField()
 		}
 	}
 
-	
-
 	ImGui::Separator();
 	if(ImGui::BeginTabBar("MyTabBar")) {
 
