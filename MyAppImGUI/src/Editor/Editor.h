@@ -7,6 +7,7 @@
 #include "FileDialog/FileDialog.h"
 #include "Window/Window.h"
 
+
 #include <string>
 #include <vector>
 #include <iostream>
@@ -96,6 +97,10 @@ public:
      * @return Reference to a bool that controls visibility.
      */
     bool& getShowWindow() { return showWindow; }
+    int ImGuiInputTextWordWrap(ImGuiInputTextCallbackData* data);
+    int CombinedInputTextCallback(ImGuiInputTextCallbackData* data);
+	
 };
+
 
 #endif // EDITOR_H

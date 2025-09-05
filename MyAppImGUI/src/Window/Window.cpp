@@ -7,14 +7,14 @@
 
 bool Window::m_fullscreen = false;
 
-Window::Window() : m_hwnd(nullptr), m_hIcon(nullptr),m_iconPath(L"assets/icon/icon.ico"), m_fontPath(R"(C:\Windows\Fonts\Arial.ttf)")
+Window::Window() : m_hwnd(nullptr), m_hIcon(nullptr), m_iconPath(L"assets/icon/icon.ico"), m_fontPath(R"(C:\Windows\Fonts\Arial.ttf)")
 {
 
 }
-Window::Window(HWND &hwnd)
+Window::Window(HWND& hwnd)
 	: m_iconPath(L"assets/icon/icon.ico"), m_fontPath(R"(C:\Windows\Fonts\Arial.ttf)"), m_hwnd(hwnd)
 {
-	
+
 }
 
 
@@ -25,8 +25,8 @@ Window::~Window()
 	}
 }
 
-void Window::Init(){
-	
+void Window::Init() {
+
 	m_hIcon = static_cast<HICON>(LoadImageW(nullptr, m_iconPath.c_str(), IMAGE_ICON, 0, 0, LR_LOADFROMFILE | LR_DEFAULTSIZE));
 	if (!m_hIcon) {
 		MessageBoxW(nullptr, L"Failed to load icon", L"Error", MB_ICONERROR);
@@ -52,8 +52,13 @@ void Window::Init(){
 		return;
 	}
 
-	m_hwnd = CreateWindowExW(WS_EX_LAYERED | WS_EX_TOPMOST, m_wc.lpszClassName, L"Notepad",
-		WS_POPUP, 0, 40, GetSystemMetrics(SM_CXSCREEN), GetSystemMetrics(SM_CYSCREEN),
+	m_hwnd = CreateWindowExW(
+		WS_EX_LAYERED | WS_EX_TOPMOST,
+		m_wc.lpszClassName, L"Notepad",
+		WS_POPUP,
+		0, 40,
+		GetSystemMetrics(SM_CXSCREEN),
+		GetSystemMetrics(SM_CYSCREEN),
 		nullptr, nullptr, m_wc.hInstance, nullptr);
 
 	SetLayeredWindowAttributes(m_hwnd, 0, 255, LWA_COLORKEY);
@@ -62,8 +67,8 @@ void Window::Init(){
 		MessageBoxW(nullptr, L"Failed to create window", L"Error", MB_ICONERROR);
 		return;
 	}
-	
-	
+
+
 }
 
 void Window::ToggleFullscreen() {
@@ -72,7 +77,7 @@ void Window::ToggleFullscreen() {
 
 void Window::AboutWindow(bool& showDemoWindow)
 {
-	ImGuiIO &io = ImGui::GetIO();
+	ImGuiIO& io = ImGui::GetIO();
 	if (ImGui::Begin("##About", &showDemoWindow))
 	{
 		ImGui::Text("The notepad made by I#Oleg");
@@ -113,11 +118,11 @@ void Window::ApplyFullscreenLayout(ImGuiWindowFlags& windowFlags) {
 	{
 		ImGui::SetNextWindowPos(ImVec2(0, 0), pos_cond);
 		ImGui::SetNextWindowSize(io.DisplaySize, size_cond);
-		windowFlags = ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_MenuBar ;
+		windowFlags = ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_MenuBar;
 	}
 	else
 	{
-		ImVec2 windowSize(600, 320);
+		ImVec2 windowSize(800, 600);
 		ImVec2 centerPos((io.DisplaySize.x - windowSize.x) * 0.f,
 			(io.DisplaySize.y - windowSize.y) * 0.5f);
 
@@ -159,7 +164,7 @@ void Window::InitImGui()
 	// To support cyrillic
 	io.Fonts->AddFontFromFileTTF(m_fontPath.c_str(), 20, nullptr, io.Fonts->GetGlyphRangesCyrillic());
 }
-	
+
 ImGuiIO& Window::GetImGuiIO()
 {
 	return m_io;
@@ -182,6 +187,5 @@ std::string Window::getFontPath()
 
 bool Window::isFullscreen()
 {
-	return m_fullscreen; 
+	return m_fullscreen;
 }
-

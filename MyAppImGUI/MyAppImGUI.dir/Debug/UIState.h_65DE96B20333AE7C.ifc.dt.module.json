@@ -1,0 +1,22 @@
+{
+    "version": 1,
+    "revision": 0,
+    "rules": [
+        {
+            "primary-output": "MyAppImGUI.dir\\Debug\\UIState.obj",
+            "outputs": [
+                "MyAppImGUI.dir\\Debug\\UIState.h_65DE96B20333AE7C.ifc.dt.module.json",
+                "MyAppImGUI.dir\\Debug\\UIState.h_65DE96B20333AE7C.ifc.dt.d.json",
+                "MyAppImGUI.dir\\Debug\\UIState.h.ifc"
+            ],
+            "provides": [
+                {
+                    "logical-name": "D:\\gitnext\\CppWithImGUI\\imgui_application\\MyAppImGUI\\src\\Editor\\UIState.h",
+                    "source-path": "d:\\gitnext\\cppwithimgui\\imgui_application\\myappimgui\\src\\editor\\uistate.h",
+                    "lookup-method": "absolute"
+                }
+            ],
+            "requires": []
+        }
+    ]
+}

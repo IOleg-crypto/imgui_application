@@ -1,0 +1,22 @@
+{
+    "version": 1,
+    "revision": 0,
+    "rules": [
+        {
+            "primary-output": "MyAppImGUI.dir\\Debug\\FileDialog.obj",
+            "outputs": [
+                "MyAppImGUI.dir\\Debug\\FileDialog.h_8DAFEEBBCEC7B532.ifc.dt.module.json",
+                "MyAppImGUI.dir\\Debug\\FileDialog.h_8DAFEEBBCEC7B532.ifc.dt.d.json",
+                "MyAppImGUI.dir\\Debug\\FileDialog.h.ifc"
+            ],
+            "provides": [
+                {
+                    "logical-name": "D:\\gitnext\\CppWithImGUI\\imgui_application\\MyAppImGUI\\src\\FileDialog\\FileDialog.h",
+                    "source-path": "d:\\gitnext\\cppwithimgui\\imgui_application\\myappimgui\\src\\filedialog\\filedialog.h",
+                    "lookup-method": "absolute"
+                }
+            ],
+            "requires": []
+        }
+    ]
+}

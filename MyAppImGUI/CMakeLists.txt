@@ -17,7 +17,9 @@ add_executable(MyAppImGUI
 		src/Memory/Memory.cpp
         src/App/Application.h
 		src/App/Application.cpp
-        src/main.cpp
+        src/Editor/Editor.h
+        src/Editor/Editor.cpp
+        src/Editor/UIState.h
         vendor/imgui/imgui.h
         vendor/imgui/imgui.cpp
         vendor/imgui/imgui_draw.cpp
@@ -30,6 +32,7 @@ add_executable(MyAppImGUI
         vendor/imgui/misc/cpp/imgui_stdlib.cpp
         src/Window/Window.cpp
         src/Window/Window.h
+        src/main.cpp
 )
 
 target_include_directories(MyAppImGUI PUBLIC
@@ -56,12 +59,9 @@ target_link_libraries(MyAppImGUI PUBLIC
         user32
 )
 
-if(MSVC)
-    set_target_properties(MyAppImGUI PROPERTIES
-        LINK_FLAGS_DEBUG "/SUBSYSTEM:CONSOLE"
-    )
-
-    set_target_properties(MyAppImGUI PROPERTIES
-        LINK_FLAGS_RELEASE "/ENTRY:mainCRTStartup /SUBSYSTEM:WINDOWS"
+if (MSVC)
+    target_link_options(MyAppImGUI PRIVATE
+        $<$<CONFIG:Debug>:/SUBSYSTEM:CONSOLE>
+        $<$<CONFIG:Release>:/ENTRY:mainCRTStartup /SUBSYSTEM:WINDOWS>
     )
 endif()

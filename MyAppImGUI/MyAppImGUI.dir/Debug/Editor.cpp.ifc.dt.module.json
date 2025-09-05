@@ -1,0 +1,14 @@
+{
+    "version": 1,
+    "revision": 0,
+    "rules": [
+        {
+            "primary-output": "MyAppImGUI.dir\\Debug\\Editor.obj",
+            "outputs": [
+                "MyAppImGUI.dir\\Debug\\Editor.cpp.ifc.dt.module.json",
+                "MyAppImGUI.dir\\Debug\\Editor.cpp.ifc.dt.d.json"
+            ],
+            "requires": []
+        }
+    ]
+}

@@ -1,10 +1,9 @@
 D:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\src\DirectX\d3d_context.cpp;D:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\MyAppImGUI.dir\Debug\d3d_context.obj
-D:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\src\Editor\Editor.cpp;D:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\MyAppImGUI.dir\Debug\Editor.obj
 D:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\src\DirectX\Render.cpp;D:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\MyAppImGUI.dir\Debug\Render.obj
 D:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\src\FileDialog\FileDialog.cpp;D:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\MyAppImGUI.dir\Debug\FileDialog.obj
 D:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\src\Memory\Memory.cpp;D:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\MyAppImGUI.dir\Debug\Memory.obj
 D:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\src\App\Application.cpp;D:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\MyAppImGUI.dir\Debug\Application.obj
-D:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\src\main.cpp;D:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\MyAppImGUI.dir\Debug\main.obj
+D:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\src\Editor\Editor.cpp;D:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\MyAppImGUI.dir\Debug\Editor.obj
 D:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\vendor\imgui\imgui.cpp;D:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\MyAppImGUI.dir\Debug\imgui.obj
 D:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\vendor\imgui\imgui_draw.cpp;D:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\MyAppImGUI.dir\Debug\imgui_draw.obj
 D:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\vendor\imgui\imgui_tables.cpp;D:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\MyAppImGUI.dir\Debug\imgui_tables.obj
@@ -14,3 +13,4 @@ D:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\vendor\imgui\backends\imgui
 D:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\vendor\imgui\backends\imgui_impl_win32.cpp;D:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\MyAppImGUI.dir\Debug\imgui_impl_win32.obj
 D:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\vendor\imgui\misc\cpp\imgui_stdlib.cpp;D:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\MyAppImGUI.dir\Debug\imgui_stdlib.obj
 D:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\src\Window\Window.cpp;D:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\MyAppImGUI.dir\Debug\Window.obj
+D:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\src\main.cpp;D:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\MyAppImGUI.dir\Debug\main.obj

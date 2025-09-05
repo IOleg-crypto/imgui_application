@@ -1,6 +1,7 @@
 ﻿#include "d3d_context.h"
 
 #include "imgui_impl_win32.h"
+#include "windowsx.h"
 #include "winuser.h"
 #include <Windows.h>
 #include <iostream>
@@ -50,15 +51,17 @@ LRESULT WINAPI WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
     case WM_NCHITTEST:
         {
-            LRESULT hit = DefWindowProc(hWnd, msg, wParam, lParam);
+		LRESULT hit = DefWindowProc(hWnd, msg, wParam, lParam);
 
-            // Allow window dragging only when ImGui is NOT hovered
-            if (hit == HTCLIENT && !ImGui::IsAnyItemHovered() && !ImGui::IsWindowHovered(ImGuiHoveredFlags_AnyWindow))
-            {
-                return HTCAPTION; // Allow dragging in empty areas
-            }
+		// Allow window dragging only when ImGui is NOT hovered
+		if (hit == HTCLIENT && !ImGui::IsAnyItemHovered() && !ImGui::IsWindowHovered(ImGuiHoveredFlags_AnyWindow))
+		{
+			return HTCAPTION; // Allow dragging in empty areas
+		}
 
-            return hit;
+		return hit;
+
+			
         }
 
     case WM_MOUSEACTIVATE:
@@ -67,6 +70,7 @@ LRESULT WINAPI WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
     case WM_DESTROY:
         ::PostQuitMessage(0);
         return 0;
+
 
     case WM_ENTERSIZEMOVE:
         g_is_resizing_or_moving = true;
@@ -86,7 +90,7 @@ bool CreateDeviceD3D(HWND hWnd)
 	sd.BufferCount = 2;
 	sd.BufferDesc.Width = 0;
 	sd.BufferDesc.Height = 0;
-	sd.BufferDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
+	sd.BufferDesc.Format = DXGI_FORMAT_B8G8R8A8_UNORM;
 	sd.BufferDesc.RefreshRate.Numerator = 60;
 	sd.BufferDesc.RefreshRate.Denominator = 1;
 	sd.Flags = DXGI_SWAP_CHAIN_FLAG_ALLOW_MODE_SWITCH;
@@ -95,7 +99,7 @@ bool CreateDeviceD3D(HWND hWnd)
 	sd.SampleDesc.Count = 1;
 	sd.SampleDesc.Quality = 0;
 	sd.Windowed = TRUE;
-	sd.SwapEffect = DXGI_SWAP_EFFECT_DISCARD;
+	sd.SwapEffect = DXGI_SWAP_EFFECT_FLIP_DISCARD; 
 
 	UINT createDeviceFlags = 0;
 #if defined(_DEBUG)
@@ -123,14 +127,7 @@ bool CreateDeviceD3D(HWND hWnd)
 		return false;
 	}
 
-	ID3D11Texture2D* pBackBuffer = nullptr;
-	hr = g_pSwapChain->GetBuffer(0, IID_PPV_ARGS(&pBackBuffer));
-	if (FAILED(hr)) return false;
-
-	hr = g_pd3dDevice->CreateRenderTargetView(pBackBuffer, nullptr, &g_mainRenderTargetView);
-	pBackBuffer->Release();
-	if (FAILED(hr)) return false;
-
+	CreateRenderTarget();
 	return true;
 }
 

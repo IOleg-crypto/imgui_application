@@ -1,0 +1,22 @@
+{
+    "version": 1,
+    "revision": 0,
+    "rules": [
+        {
+            "primary-output": "MyAppImGUI.dir\\Debug\\imgui_stdlib.obj",
+            "outputs": [
+                "MyAppImGUI.dir\\Debug\\imgui_stdlib.h_C342C5C88A4AC2F6.ifc.dt.module.json",
+                "MyAppImGUI.dir\\Debug\\imgui_stdlib.h_C342C5C88A4AC2F6.ifc.dt.d.json",
+                "MyAppImGUI.dir\\Debug\\imgui_stdlib.h.ifc"
+            ],
+            "provides": [
+                {
+                    "logical-name": "D:\\gitnext\\CppWithImGUI\\imgui_application\\MyAppImGUI\\vendor\\imgui\\misc\\cpp\\imgui_stdlib.h",
+                    "source-path": "d:\\gitnext\\cppwithimgui\\imgui_application\\myappimgui\\vendor\\imgui\\misc\\cpp\\imgui_stdlib.h",
+                    "lookup-method": "absolute"
+                }
+            ],
+            "requires": []
+        }
+    ]
+}

@@ -1,0 +1,22 @@
+{
+    "version": 1,
+    "revision": 0,
+    "rules": [
+        {
+            "primary-output": "MyAppImGUI.dir\\Debug\\Render.obj",
+            "outputs": [
+                "MyAppImGUI.dir\\Debug\\Render.h_CD43900199C98E57.ifc.dt.module.json",
+                "MyAppImGUI.dir\\Debug\\Render.h_CD43900199C98E57.ifc.dt.d.json",
+                "MyAppImGUI.dir\\Debug\\Render.h.ifc"
+            ],
+            "provides": [
+                {
+                    "logical-name": "D:\\gitnext\\CppWithImGUI\\imgui_application\\MyAppImGUI\\src\\DirectX\\Render.h",
+                    "source-path": "d:\\gitnext\\cppwithimgui\\imgui_application\\myappimgui\\src\\directx\\render.h",
+                    "lookup-method": "absolute"
+                }
+            ],
+            "requires": []
+        }
+    ]
+}

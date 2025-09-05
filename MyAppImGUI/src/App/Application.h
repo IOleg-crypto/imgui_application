@@ -46,7 +46,7 @@ public:
     /**
      * @brief Default constructor.
      */
-    Application() = default;
+    Application();
 
     /**
      * @brief Destructor to clean up application resources.

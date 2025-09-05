@@ -1,0 +1,22 @@
+{
+    "version": 1,
+    "revision": 0,
+    "rules": [
+        {
+            "primary-output": "MyAppImGUI.dir\\Debug\\Window.obj",
+            "outputs": [
+                "MyAppImGUI.dir\\Debug\\Window.h_B2D273CBDA21393E.ifc.dt.module.json",
+                "MyAppImGUI.dir\\Debug\\Window.h_B2D273CBDA21393E.ifc.dt.d.json",
+                "MyAppImGUI.dir\\Debug\\Window.h.ifc"
+            ],
+            "provides": [
+                {
+                    "logical-name": "D:\\gitnext\\CppWithImGUI\\imgui_application\\MyAppImGUI\\src\\Window\\Window.h",
+                    "source-path": "d:\\gitnext\\cppwithimgui\\imgui_application\\myappimgui\\src\\window\\window.h",
+                    "lookup-method": "absolute"
+                }
+            ],
+            "requires": []
+        }
+    ]
+}

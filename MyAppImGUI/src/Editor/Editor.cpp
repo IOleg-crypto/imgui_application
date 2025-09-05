@@ -9,7 +9,7 @@
 #include "imgui_impl_dx11.h"
 #include "imgui_impl_win32.h"
 
-TabManager::TabManager() : selectedTab(0), TabPages{ "Page 1" }, TabContent{ "" } , currentTabInfo("")
+TabManager::TabManager() : selectedTab(0), TabPages{ "Page 1" }, TabContent{ "" }
 {
 	//@brief : All params init by default
 }
@@ -174,8 +174,6 @@ void TabManager::RenderInputTextField()
 					inputFlags | ImGuiInputTextFlags_CallbackResize,
 					InputTextCallback,
 					static_cast<void*>(&TabContent[i]));
-
-				
 
 				ImGui::EndTabItem();
 			}
@@ -407,3 +405,6 @@ std::string TabManager::GetCurrentFilePath()
 {
 	return pathFile;
 }
+
+
+

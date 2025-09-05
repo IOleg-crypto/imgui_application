@@ -1,0 +1,22 @@
+{
+    "version": 1,
+    "revision": 0,
+    "rules": [
+        {
+            "primary-output": "MyAppImGUI.dir\\Debug\\d3d_context.obj",
+            "outputs": [
+                "MyAppImGUI.dir\\Debug\\d3d_context.h_4286D7D7EC859292.ifc.dt.module.json",
+                "MyAppImGUI.dir\\Debug\\d3d_context.h_4286D7D7EC859292.ifc.dt.d.json",
+                "MyAppImGUI.dir\\Debug\\d3d_context.h.ifc"
+            ],
+            "provides": [
+                {
+                    "logical-name": "D:\\gitnext\\CppWithImGUI\\imgui_application\\MyAppImGUI\\src\\DirectX\\d3d_context.h",
+                    "source-path": "d:\\gitnext\\cppwithimgui\\imgui_application\\myappimgui\\src\\directx\\d3d_context.h",
+                    "lookup-method": "absolute"
+                }
+            ],
+            "requires": []
+        }
+    ]
+}

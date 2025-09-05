@@ -1,0 +1,14 @@
+{
+    "version": 1,
+    "revision": 0,
+    "rules": [
+        {
+            "primary-output": "MyAppImGUI.dir\\Debug\\FileDialog.obj",
+            "outputs": [
+                "MyAppImGUI.dir\\Debug\\FileDialog.cpp.ifc.dt.module.json",
+                "MyAppImGUI.dir\\Debug\\FileDialog.cpp.ifc.dt.d.json"
+            ],
+            "requires": []
+        }
+    ]
+}

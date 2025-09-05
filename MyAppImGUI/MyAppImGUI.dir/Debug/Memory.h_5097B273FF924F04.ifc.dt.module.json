@@ -1,0 +1,22 @@
+{
+    "version": 1,
+    "revision": 0,
+    "rules": [
+        {
+            "primary-output": "MyAppImGUI.dir\\Debug\\Memory.obj",
+            "outputs": [
+                "MyAppImGUI.dir\\Debug\\Memory.h_5097B273FF924F04.ifc.dt.module.json",
+                "MyAppImGUI.dir\\Debug\\Memory.h_5097B273FF924F04.ifc.dt.d.json",
+                "MyAppImGUI.dir\\Debug\\Memory.h.ifc"
+            ],
+            "provides": [
+                {
+                    "logical-name": "D:\\gitnext\\CppWithImGUI\\imgui_application\\MyAppImGUI\\src\\Memory\\Memory.h",
+                    "source-path": "d:\\gitnext\\cppwithimgui\\imgui_application\\myappimgui\\src\\memory\\memory.h",
+                    "lookup-method": "absolute"
+                }
+            ],
+            "requires": []
+        }
+    ]
+}

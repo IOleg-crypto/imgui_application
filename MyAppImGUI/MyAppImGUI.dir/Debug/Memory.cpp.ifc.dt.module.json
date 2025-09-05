@@ -1,0 +1,14 @@
+{
+    "version": 1,
+    "revision": 0,
+    "rules": [
+        {
+            "primary-output": "MyAppImGUI.dir\\Debug\\Memory.obj",
+            "outputs": [
+                "MyAppImGUI.dir\\Debug\\Memory.cpp.ifc.dt.module.json",
+                "MyAppImGUI.dir\\Debug\\Memory.cpp.ifc.dt.d.json"
+            ],
+            "requires": []
+        }
+    ]
+}
