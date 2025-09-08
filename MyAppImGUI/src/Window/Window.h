@@ -22,7 +22,7 @@ public:
      * @brief Initialize the window class and load the icon.
      * Must be called before registering the window class or creating the window.
      */
-    void Init();
+    void Init(bool hidden);
 
     /**
      * @brief Toggles fullscreen mode on or off.
@@ -58,6 +58,8 @@ public:
      * @return HWND Handle to the window.
      */
     GLFWwindow* GetWindow();
+
+    void SyncGlfwWithImGui(const ImVec2 &imguiPos, const ImVec2 &imguiSize);
 
     /**
      * @brief Get the ImGui IO structure.

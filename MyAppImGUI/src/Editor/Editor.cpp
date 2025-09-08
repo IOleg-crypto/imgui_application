@@ -169,9 +169,9 @@ void TabManager::RenderInputTextField()
 			{
 				selectedTab = i;
 				ImGui::Text("Content for %s", TabPages[i].c_str());
-
+                 //m_Window.GetImGuiIO().DisplaySize.x, m_Window.isFullscreen() ? m_Window.GetImGuiIO().DisplaySize.y - takeUpSpace : m_Window.GetImGuiIO().DisplaySize.y
 				ImGui::InputTextMultiline("##InputText", TabContent[i].data(), TabContent[i].capacity(),
-					ImVec2(m_Window.GetImGuiIO().DisplaySize.x, m_Window.isFullscreen() ? m_Window.GetImGuiIO().DisplaySize.y - takeUpSpace : m_Window.GetImGuiIO().DisplaySize.y),
+					ImVec2(999999 , 999999),
 					inputFlags | ImGuiInputTextFlags_CallbackResize,
 					InputTextCallback,
 					static_cast<void*>(&TabContent[i]));
