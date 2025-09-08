@@ -1,12 +1,12 @@
 #ifndef WINDOW_H 
 #define WINDOW_H
 
-#include <Windows.h>
-#include <dxgi.h>
+#include <include/GLFW/glfw3.h>
 #include <string>
 #include "imgui.h"
 #include "FileDialog.h"
 #include "Editor/UIState.h"
+#include "imgui_impl_glfw.h"
 
 /**
  * @brief Encapsulates window creation and management for the ImGui Notepad app.
@@ -45,25 +45,6 @@ public:
     void AboutWindow(bool& showDemoWindow);
 
     /**
-     * @brief Poll and handle window messages and events.
-     * @param done Reference to a flag indicating if the app should quit.
-     */
-    void PollMessage(bool& done) const;
-
-    /**
-     * @brief Handle window resize event (e.g., reset swap chain buffers).
-     * @param swapChain Pointer to the DXGI swap chain.
-     */
-    void HandleResize(IDXGISwapChain* swapChain) const;
-
-    /**
-     * @brief Handle occlusion (window visibility) events.
-     * @param swapChainOccluded Reference to occlusion flag.
-     * @param swapChain Pointer to the DXGI swap chain.
-     */
-    void HandleOcclusion(bool& swapChainOccluded, IDXGISwapChain* swapChain) const;
-
-    /**
      * @brief Apply fullscreen layout settings for the ImGui window.
      * @param windowFlags Reference to ImGuiWindowFlags to modify.
      */
@@ -84,7 +65,7 @@ public:
      * @brief Get the native window handle.
      * @return HWND Handle to the window.
      */
-    HWND GetHWND();
+    GLFWwindow* GetWindow();
 
     /**
      * @brief Get the ImGui IO structure.
@@ -105,15 +86,11 @@ public:
     bool isFullscreen();
 
 private:
-    HWND m_hwnd;                     ///< Handle to the window.
-    HICON m_hIcon;                   ///< Window icon handle.
-    WNDCLASSEXW m_wc{};              ///< Window class structure.
-    ImGuiIO m_io;                    ///< ImGui IO object for configuration and input.
-
+    GLFWwindow *m_window;                     ///< Handle to the window.
+    ImGuiIO *m_io;                    ///< ImGui IO object for configuration and input.
     std::wstring m_iconPath;         ///< Path to the icon file (wide string).
     std::string m_fontPath;          ///< Path to the font file.
     static bool m_fullscreen;        ///< Current fullscreen state.
-    bool m_classRegistered = false;  ///< Flag indicating if the window class is registered.
     bool prev_fullscreen;            ///< Previous fullscreen state.
 
 public:

@@ -1,99 +1,91 @@
-#include "Application.h"
+﻿#include "Application.h"
 
 #include "imgui.h"
-#include "imgui_impl_dx11.h"
-#include "imgui_impl_win32.h"
+#include "include/GLFW/glfw3.h"
+ // Rendering
+ ImGui::Render();
+ int display_w, display_h;
+ glfwGetFramebufferSize(window, &display_w, &display_h);
+ glViewport(0, 0, display_w, display_h);
+ glClearColor(clear_color.x * clear_color.w, clear_color.y * clear_color.w, clear_color.z * clear_color.w, clear_color.w);
+ glClear(GL_COLOR_BUFFER_BIT);
+ ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 
-Application::Application() = default;
+ glfwSwapBuffers(window);
+#include <dwmapi.h>
 
-Application::~Application() {
-	CleanupDeviceD3D();
-	ImGui_ImplDX11_Shutdown();
-	ImGui_ImplWin32_Shutdown();
-	ImGui::DestroyContext();
+Application::Application() : m_Hwnd(nullptr) {}
+
+Application::~Application()
+{
+    ImGui_ImplDX11_Shutdown();
+    ImGui_ImplWin32_Shutdown();
+    ImGui::DestroyContext();
 }
 
 void Application::Init()
 {
-	m_Window.Init();
-	HWND hwnd = m_Window.GetHWND();
 
-	if (!CreateDeviceD3D(hwnd)) {
-		CleanupDeviceD3D();
-		return;
-	}
-	if (!g_pd3dDevice || !g_pd3dDeviceContext) {
-		std::cerr << "Device or Device Context is null" << std::endl;
-	}
-	m_Window.InitImGui();
+    m_Window.Init();
+    HWND hwnd = m_Window.GetHWND();
+    m_Hwnd = hwnd;
 
-	ShowWindow(hwnd, SW_SHOW);
-	UpdateWindow(hwnd);
+    ShowWindow(hwnd, SW_SHOW);
+    UpdateWindow(hwnd);
 
-	ImGui_ImplWin32_Init(hwnd);
-	ImGui_ImplDX11_Init(g_pd3dDevice, g_pd3dDeviceContext);
+    std::cout << "Initialization successful!\n";
 }
-void Application::RunMainLoop(Application& app)
+void Application::RunMainLoop(Application &app)
 {
 #if _DEBUG // NOLINT(clang-diagnostic-undef)
-	std::setlocale(LC_ALL, "C.UTF-8");
-	SetConsoleOutputCP(65001);
+    std::setlocale(LC_ALL, "C.UTF-8");
+    SetConsoleOutputCP(65001);
 #endif
-	while (!m_done)
-	{
-		m_Window.PollMessage(m_done);
-		if (m_done) break;
+    while (!g)
+    {
+        ImGui_ImplDX11_NewFrame();
+        ImGui_ImplWin32_NewFrame();
+        ImGui::NewFrame();
 
-		if (g_is_resizing_or_moving) {
-			::Sleep(10);
-			continue;
-		}
+        DrawUI();
+        m_TabManager.ShowFontWindow();
 
-		m_Window.HandleOcclusion(g_SwapChainOccluded, g_pSwapChain);
-		m_Window.HandleResize(g_pSwapChain);
-		m_TabManager.UpdateFontBeforeFrame();
-		ImGui_ImplDX11_NewFrame();
-		ImGui_ImplWin32_NewFrame();
-		ImGui::NewFrame();
-		DrawUI();
-		m_TabManager.ShowFontWindow();
-		ImGui::Render();
-		constexpr float clear_color_with_alpha[4] = { 0,0,0,0 };
-		g_pd3dDeviceContext->OMSetRenderTargets(1, &g_mainRenderTargetView, nullptr);
-		g_pd3dDeviceContext->ClearRenderTargetView(g_mainRenderTargetView, clear_color_with_alpha);
-		ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
+        ImGui::Render();
 
-		HRESULT hr = g_pSwapChain->Present(0, 0);
-		g_SwapChainOccluded = (hr == DXGI_STATUS_OCCLUDED);
-	}
+        const float clear_color[4] = {0.0f, 0.0f, 0.0f, 0.0f};
+
+        // Rendering
+        ImGui::Render();
+        int display_w, display_h;
+        glfwGetFramebufferSize(m_Window.GetWindow(), &display_w, &display_h);
+        glViewport(0, 0, display_w, display_h);
+        glClearColor(clear_color.x * clear_color.w, clear_color.y * clear_color.w,
+                     clear_color.z * clear_color.w, clear_color.w);
+        glClear(GL_COLOR_BUFFER_BIT);
+        ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+
+        glfwSwapBuffers(window);
+    }
 #if _DEBUG
-	std::cout << _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
-	std::cout << _CrtDumpMemoryLeaks();
+    std::cout << _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
+    std::cout << _CrtDumpMemoryLeaks();
 #endif
 }
 
-HWND Application::GetHwnd()
-{
-	return m_Hwnd;
-}
+HWND Application::GetHwnd() { return m_Hwnd; }
 
 void Application::DrawUI()
 {
-	m_Window.ApplyFullscreenLayout(m_Window.windowFlags);
-	if (ImGui::Begin("Notepad", &s_state.hideWindow , m_Window.windowFlags)) {
-		// Stop program
-		if (!s_state.hideWindow)
-		{
-			::PostQuitMessage(0);
-		}
-		m_TabManager.RenderMenuTab();
-		m_TabManager.RenderInputTextField();
-	}
-	ImGui::End();
+    m_Window.ApplyFullscreenLayout(m_Window.windowFlags);
+    if (ImGui::Begin("Notepad", &s_state.hideWindow, m_Window.windowFlags))
+    {
+        // Stop program
+        if (!s_state.hideWindow)
+        {
+            ::PostQuitMessage(0);
+        }
+        m_TabManager.RenderMenuTab();
+        m_TabManager.RenderInputTextField();
+    }
+    ImGui::End();
 }
-
-
-
-
-
-

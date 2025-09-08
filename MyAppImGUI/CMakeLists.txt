@@ -7,10 +7,8 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 
 add_executable(MyAppImGUI
-        src/DirectX/d3d_context.cpp
-        src/DirectX/d3d_context.h
-        src/DirectX/Render.h
-        src/DirectX/Render.cpp
+        src/OpenGL/Render.h
+        src/OpenGL/Render.cpp
         src/FileDialog/FileDialog.cpp
         src/FileDialog/FileDialog.h        
         src/Memory/Memory.h
@@ -19,25 +17,32 @@ add_executable(MyAppImGUI
 		src/App/Application.cpp
         src/Editor/Editor.h
         src/Editor/Editor.cpp
-        src/Editor/UIState.h
+        src/Editor/UIState.h        
+        src/Window/Window.cpp
+        src/Window/Window.h
+        src/main.cpp
+)
+
+add_library(imgui STATIC 
         vendor/imgui/imgui.h
         vendor/imgui/imgui.cpp
         vendor/imgui/imgui_draw.cpp
         vendor/imgui/imgui_tables.cpp
         vendor/imgui/imgui_widgets.cpp
         vendor/imgui/imgui_demo.cpp
-        vendor/imgui/backends/imgui_impl_dx11.cpp
-        vendor/imgui/backends/imgui_impl_win32.cpp
         vendor/imgui/misc/cpp/imgui_stdlib.h
-        vendor/imgui/misc/cpp/imgui_stdlib.cpp
-        src/Window/Window.cpp
-        src/Window/Window.h
-        src/main.cpp
-)
+        vendor/imgui/misc/cpp/imgui_stdlib.cpp)
+
+add_library(opengl3imgui STATIC 
+       vendor/imgui/backends/imgui_impl_opengl3.cpp
+       vendor/imgui/backends/imgui_impl_opengl3_loader.h
+       vendor/imgui/backends/imgui_impl_glfw.h
+       vendor/imgui/backends/imgui_impl_glfw.cpp
+       )
 
 target_include_directories(MyAppImGUI PUBLIC
         src
-        src/DirectX
+        src/OpenGL
         src/FileDialog
         src/Memory
         vendor/imgui
@@ -48,15 +53,24 @@ target_include_directories(MyAppImGUI PUBLIC
         vendor/imgui/misc/cpp
         vendor/imgui/misc/freetype
         vendor/imgui/misc/single_file
+        vendor/imgui/examples/libs/glfw/lib-vc2010-64
+
 )
 
 target_link_libraries(MyAppImGUI PUBLIC
-        d3d11
-        dxgi
-        dxguid
-        ole32
-        shell32
-        user32
+        opengl3imgui
+        imgui
+        glfw
+        opengl32.lib
+        d3d11.lib
+        dxgi.lib
+        winmm.lib
+        user32.lib
+        gdi32.lib
+        shell32.lib
+        ole32.lib
+        uuid.lib
+        comdlg32.lib
 )
 
 if (MSVC)
