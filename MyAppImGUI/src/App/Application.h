@@ -28,10 +28,6 @@
 // File dialog support
 #include "FileDialog/FileDialog.h"
 
-// DirectX rendering support
-#include "DirectX/Render.h"
-#include "DirectX/d3d_context.h"
-
 // Memory handling for ImGui input buffers
 #include "Memory.h"
 
@@ -64,11 +60,6 @@ public:
      */
     void RunMainLoop(Application& app);
 
-    /**
-     * @brief Get the HWND (handle) of the application window.
-     * @return HWND handle.
-     */
-    HWND GetHwnd();
 
 private:
     /**
@@ -79,8 +70,6 @@ private:
 private:
     Window m_Window;          ///< Main window wrapper (handles window events, fullscreen, etc.).
     TabManager m_TabManager;  ///< Manages tabs and text editing functionality.
-    HWND m_Hwnd;              ///< Native window handle (copied from Window class).
-
 private:
     bool m_done = false;      ///< Main loop exit flag.
 };

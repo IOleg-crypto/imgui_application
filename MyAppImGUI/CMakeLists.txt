@@ -1,81 +1,89 @@
 cmake_minimum_required(VERSION 3.29)
-
 project(MyAppImGUI)
 
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-
 add_executable(MyAppImGUI
-        src/OpenGL/Render.h
-        src/OpenGL/Render.cpp
-        src/FileDialog/FileDialog.cpp
-        src/FileDialog/FileDialog.h        
-        src/Memory/Memory.h
-		src/Memory/Memory.cpp
-        src/App/Application.h
-		src/App/Application.cpp
-        src/Editor/Editor.h
-        src/Editor/Editor.cpp
-        src/Editor/UIState.h        
-        src/Window/Window.cpp
-        src/Window/Window.h
-        src/main.cpp
+    src/OpenGL/Render.cpp
+    src/OpenGL/Render.h
+    src/FileDialog/FileDialog.cpp
+    src/FileDialog/FileDialog.h
+    src/Memory/Memory.cpp
+    src/Memory/Memory.h
+    src/App/Application.cpp
+    src/App/Application.h
+    src/Editor/Editor.cpp
+    src/Editor/Editor.h
+    src/Editor/UIState.h
+    src/Window/Window.cpp
+    src/Window/Window.h
+    src/main.cpp
 )
 
-add_library(imgui STATIC 
-        vendor/imgui/imgui.h
-        vendor/imgui/imgui.cpp
-        vendor/imgui/imgui_draw.cpp
-        vendor/imgui/imgui_tables.cpp
-        vendor/imgui/imgui_widgets.cpp
-        vendor/imgui/imgui_demo.cpp
-        vendor/imgui/misc/cpp/imgui_stdlib.h
-        vendor/imgui/misc/cpp/imgui_stdlib.cpp)
-
-add_library(opengl3imgui STATIC 
-       vendor/imgui/backends/imgui_impl_opengl3.cpp
-       vendor/imgui/backends/imgui_impl_opengl3_loader.h
-       vendor/imgui/backends/imgui_impl_glfw.h
-       vendor/imgui/backends/imgui_impl_glfw.cpp
-       )
-
-target_include_directories(MyAppImGUI PUBLIC
-        src
-        src/OpenGL
-        src/FileDialog
-        src/Memory
-        vendor/imgui
-        vendor/imgui/backends
-        vendor/imgui/examples/example_allegro5
-        vendor/imgui/examples/libs/emscripten
-        vendor/imgui/examples/libs/glfw
-        vendor/imgui/misc/cpp
-        vendor/imgui/misc/freetype
-        vendor/imgui/misc/single_file
-        vendor/imgui/examples/libs/glfw/lib-vc2010-64
-
+# --- Native File Dialog Extended ---
+include(FetchContent)
+FetchContent_Declare(
+  nfd
+  GIT_REPOSITORY https://github.com/btzy/nativefiledialog-extended.git
+  GIT_TAG        v1.2.1
 )
+FetchContent_MakeAvailable(nfd)
+
+# --- GLFW ---
+FetchContent_Declare(
+  glfw
+  GIT_REPOSITORY https://github.com/glfw/glfw.git
+  GIT_TAG        3.3.9
+)
+set(GLFW_BUILD_DOCS OFF CACHE BOOL "" FORCE)
+set(GLFW_BUILD_TESTS OFF CACHE BOOL "" FORCE)
+set(GLFW_BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
+FetchContent_MakeAvailable(glfw)
+
+# --- ImGui core ---
+add_library(imguilib STATIC
+    vendor/imgui/imgui.cpp
+    vendor/imgui/imgui.h
+    vendor/imgui/imgui_draw.cpp
+    vendor/imgui/imgui_tables.cpp
+    vendor/imgui/imgui_widgets.cpp
+    vendor/imgui/misc/cpp/imgui_stdlib.cpp
+)
+
+target_include_directories(imguilib PUBLIC
+    vendor/imgui
+    vendor/imgui/misc/cpp
+)
+
+add_library(opengl3imgui STATIC
+    vendor/imgui/backends/imgui_impl_opengl3.cpp
+    vendor/imgui/backends/imgui_impl_opengl3.h
+    vendor/imgui/backends/imgui_impl_glfw.cpp
+    vendor/imgui/backends/imgui_impl_glfw.h
+)
+
+target_include_directories(opengl3imgui PUBLIC
+    vendor/imgui
+    vendor/imgui/backends
+)
+find_package(OpenGL REQUIRED)
+target_link_libraries(opengl3imgui PUBLIC imguilib glfw)
+
+# --- Main app ---
+target_include_directories(MyAppImGUI PUBLIC src)
 
 target_link_libraries(MyAppImGUI PUBLIC
-        opengl3imgui
-        imgui
-        glfw
-        opengl32.lib
-        d3d11.lib
-        dxgi.lib
-        winmm.lib
-        user32.lib
-        gdi32.lib
-        shell32.lib
-        ole32.lib
-        uuid.lib
-        comdlg32.lib
+    opengl3imgui
+    imguilib
+    glfw
+    nfd
+    user32 gdi32 shell32 ole32 uuid comdlg32 opengl32
 )
 
 if (MSVC)
     target_link_options(MyAppImGUI PRIVATE
         $<$<CONFIG:Debug>:/SUBSYSTEM:CONSOLE>
-        $<$<CONFIG:Release>:/ENTRY:mainCRTStartup /SUBSYSTEM:WINDOWS>
+        $<$<CONFIG:Release>:/SUBSYSTEM:WINDOWS /ENTRY:mainCRTStartup>
     )
 endif()

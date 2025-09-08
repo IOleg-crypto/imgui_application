@@ -1,62 +1,44 @@
 ﻿#include "Application.h"
 
 #include "imgui.h"
-#include "include/GLFW/glfw3.h"
- // Rendering
- ImGui::Render();
- int display_w, display_h;
- glfwGetFramebufferSize(window, &display_w, &display_h);
- glViewport(0, 0, display_w, display_h);
- glClearColor(clear_color.x * clear_color.w, clear_color.y * clear_color.w, clear_color.z * clear_color.w, clear_color.w);
- glClear(GL_COLOR_BUFFER_BIT);
- ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+#include "imgui_impl_opengl3.h"
 
- glfwSwapBuffers(window);
-#include <dwmapi.h>
+#include <GLFW/glfw3.h>
 
-Application::Application() : m_Hwnd(nullptr) {}
+Application::Application() {}
 
-Application::~Application()
-{
-    ImGui_ImplDX11_Shutdown();
-    ImGui_ImplWin32_Shutdown();
-    ImGui::DestroyContext();
-}
+Application::~Application() { ImGui::DestroyContext(); }
 
 void Application::Init()
 {
-
     m_Window.Init();
-    HWND hwnd = m_Window.GetHWND();
-    m_Hwnd = hwnd;
-
-    ShowWindow(hwnd, SW_SHOW);
-    UpdateWindow(hwnd);
-
     std::cout << "Initialization successful!\n";
 }
 void Application::RunMainLoop(Application &app)
 {
-#if _DEBUG // NOLINT(clang-diagnostic-undef)
+#if _DEBUG
     std::setlocale(LC_ALL, "C.UTF-8");
     SetConsoleOutputCP(65001);
 #endif
-    while (!g)
+    while (!glfwWindowShouldClose(m_Window.GetWindow()))
     {
-        ImGui_ImplDX11_NewFrame();
-        ImGui_ImplWin32_NewFrame();
+        glfwPollEvents();
+        if (glfwGetWindowAttrib(m_Window.GetWindow(), GLFW_ICONIFIED) != 0)
+        {
+            ImGui_ImplGlfw_Sleep(10);
+            continue;
+        }
+        // Start the Dear ImGui frame
+        ImGui_ImplOpenGL3_NewFrame();
+        ImGui_ImplGlfw_NewFrame();
         ImGui::NewFrame();
 
         DrawUI();
         m_TabManager.ShowFontWindow();
 
         ImGui::Render();
-
-        const float clear_color[4] = {0.0f, 0.0f, 0.0f, 0.0f};
-
-        // Rendering
-        ImGui::Render();
         int display_w, display_h;
+        ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
         glfwGetFramebufferSize(m_Window.GetWindow(), &display_w, &display_h);
         glViewport(0, 0, display_w, display_h);
         glClearColor(clear_color.x * clear_color.w, clear_color.y * clear_color.w,
@@ -64,15 +46,13 @@ void Application::RunMainLoop(Application &app)
         glClear(GL_COLOR_BUFFER_BIT);
         ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 
-        glfwSwapBuffers(window);
+        glfwSwapBuffers(m_Window.GetWindow());
     }
 #if _DEBUG
     std::cout << _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
     std::cout << _CrtDumpMemoryLeaks();
 #endif
 }
-
-HWND Application::GetHwnd() { return m_Hwnd; }
 
 void Application::DrawUI()
 {

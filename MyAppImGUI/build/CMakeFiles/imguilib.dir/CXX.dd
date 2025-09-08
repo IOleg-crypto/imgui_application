@@ -1,0 +1,11 @@
+ninja_dyndep_version = 1.0
+build CMakeFiles/imguilib.dir/vendor/imgui/imgui.cpp.obj: dyndep
+
+build CMakeFiles/imguilib.dir/vendor/imgui/imgui_draw.cpp.obj: dyndep
+
+build CMakeFiles/imguilib.dir/vendor/imgui/imgui_tables.cpp.obj: dyndep
+
+build CMakeFiles/imguilib.dir/vendor/imgui/imgui_widgets.cpp.obj: dyndep
+
+build CMakeFiles/imguilib.dir/vendor/imgui/misc/cpp/imgui_stdlib.cpp.obj: dyndep
+

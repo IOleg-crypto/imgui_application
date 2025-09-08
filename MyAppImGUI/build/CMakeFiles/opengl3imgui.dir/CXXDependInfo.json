@@ -12,7 +12,13 @@
 	"dir-top-src" : "D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI",
 	"exports" : [],
 	"forward-modules-from-target-dirs" : [],
-	"include-dirs" : [],
+	"include-dirs" : 
+	[
+		"D:\\gitnext\\CppWithImGUI\\imgui_application\\MyAppImGUI\\vendor\\imgui",
+		"D:\\gitnext\\CppWithImGUI\\imgui_application\\MyAppImGUI\\vendor\\imgui\\backends",
+		"D:\\gitnext\\CppWithImGUI\\imgui_application\\MyAppImGUI\\vendor\\imgui\\misc\\cpp",
+		"_deps\\glfw-src\\include"
+	],
 	"language" : "CXX",
 	"linked-target-dirs" : [],
 	"module-dir" : "D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/CMakeFiles/opengl3imgui.dir",

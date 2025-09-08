@@ -1,4 +1,5 @@
 ﻿#include "Editor.h"
+#include "Memory/Memory.h"
 #include "Window/Window.h"
 #include <d3d11.h>
 #include <ShlObj.h>
@@ -6,8 +7,8 @@
 #include <print>
 
 #include "imgui.h"
-#include "imgui_impl_dx11.h"
-#include "imgui_impl_win32.h"
+#include "imgui_impl_opengl3.h"
+
 
 TabManager::TabManager() : selectedTab(0), TabPages{ "Page 1" }, TabContent{ "" }
 {
@@ -35,24 +36,24 @@ void TabManager::RenderMenuTab()
 				if (pathFile.empty())
 				{
 					pathFile = TabPages[selectedTab];
-					MessageBoxA(m_Window.GetHWND(), "No valid directory found", "File not saved", MB_OK);
+					// MessageBoxA(m_Window.GetHWND(), "No valid directory found", "File not saved", MB_OK);
 					earlyExit = true;
 				}
 
-				SaveFile(m_Window.GetHWND(), pathFile, currentTabInfo);
+				// SaveFile(m_Window.GetWindow(), pathFile, currentTabInfo);
 				TabPages[selectedTab] = std::filesystem::path(pathFile).filename().string();
 			}
 
 			if (ImGui::MenuItem("Save file as", "Ctrl+Shift+S"))
 			{
-				SaveFileDialog(m_Window.GetHWND(), currentTabInfo, pathFile);
+				// SaveFileDialog(m_Window.GetWindow(), currentTabInfo, pathFile);
 				if (!pathFile.empty()) {
 					TabPages[selectedTab] = std::filesystem::path(pathFile).filename().string();
 				}
 			}
 			if (ImGui::MenuItem("Open file", "Ctrl+O"))
 			{
-				ShowOpenFileDialog(m_Window.GetHWND(), currentTabInfo, pathFile);
+				// ShowOpenFileDialog(m_Window.GetWindow(), currentTabInfo, pathFile);
 				// To prevent add file, when tab don`t exist
 				if (!TabPages.empty())
 				{
@@ -238,11 +239,11 @@ void TabManager::RenderInputTextField()
 
 	ImGuiIO& io = ImGui::GetIO();
 	if (ImGui::IsKeyPressed(ImGuiKey_F) && io.KeyCtrl) {
-		SaveFile(m_Window.GetHWND(), pathFile, currentTabInfo);
+		// SaveFile(m_Window.GetWindow(), pathFile, currentTabInfo);
 	}
 
 	if (ImGui::IsKeyPressed(ImGuiKey_S) && io.KeyCtrl && io.KeyShift) {
-		SaveFileDialog(m_Window.GetHWND(), currentTabInfo, pathFile);
+		// SaveFileDialog(m_Window.GetWindow(), currentTabInfo, pathFile);
 	}
 
 	if (ImGui::IsKeyPressed(ImGuiKey_Delete)) {
@@ -350,9 +351,6 @@ void TabManager::UpdateFontBeforeFrame() {
 	else {
 		std::cerr << "Error: failed to load font at path: " << pendingFontPath << "\n";
 	}
-
-	ImGui_ImplDX11_InvalidateDeviceObjects();
-	ImGui_ImplDX11_CreateDeviceObjects();
 
 	shouldReloadFont = false;
 }

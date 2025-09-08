@@ -15,18 +15,11 @@
 	"include-dirs" : 
 	[
 		"D:\\gitnext\\CppWithImGUI\\imgui_application\\MyAppImGUI\\src",
-		"D:\\gitnext\\CppWithImGUI\\imgui_application\\MyAppImGUI\\src\\OpenGL",
-		"D:\\gitnext\\CppWithImGUI\\imgui_application\\MyAppImGUI\\src\\FileDialog",
-		"D:\\gitnext\\CppWithImGUI\\imgui_application\\MyAppImGUI\\src\\Memory",
 		"D:\\gitnext\\CppWithImGUI\\imgui_application\\MyAppImGUI\\vendor\\imgui",
 		"D:\\gitnext\\CppWithImGUI\\imgui_application\\MyAppImGUI\\vendor\\imgui\\backends",
-		"D:\\gitnext\\CppWithImGUI\\imgui_application\\MyAppImGUI\\vendor\\imgui\\examples\\example_allegro5",
-		"D:\\gitnext\\CppWithImGUI\\imgui_application\\MyAppImGUI\\vendor\\imgui\\examples\\libs\\emscripten",
-		"D:\\gitnext\\CppWithImGUI\\imgui_application\\MyAppImGUI\\vendor\\imgui\\examples\\libs\\glfw",
 		"D:\\gitnext\\CppWithImGUI\\imgui_application\\MyAppImGUI\\vendor\\imgui\\misc\\cpp",
-		"D:\\gitnext\\CppWithImGUI\\imgui_application\\MyAppImGUI\\vendor\\imgui\\misc\\freetype",
-		"D:\\gitnext\\CppWithImGUI\\imgui_application\\MyAppImGUI\\vendor\\imgui\\misc\\single_file",
-		"D:\\gitnext\\CppWithImGUI\\imgui_application\\MyAppImGUI\\vendor\\imgui\\examples\\libs\\glfw\\lib-vc2010-64"
+		"_deps\\glfw-src\\include",
+		"_deps\\nfd-src\\src\\include"
 	],
 	"language" : "CXX",
 	"linked-target-dirs" : [],

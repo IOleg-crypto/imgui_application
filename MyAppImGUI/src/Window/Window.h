@@ -1,10 +1,9 @@
 #ifndef WINDOW_H 
 #define WINDOW_H
 
-#include <include/GLFW/glfw3.h>
 #include <string>
 #include "imgui.h"
-#include "FileDialog.h"
+#include "FileDialog/FileDialog.h"
 #include "Editor/UIState.h"
 #include "imgui_impl_glfw.h"
 
@@ -17,13 +16,6 @@
 class Window {
 public:
     Window();
-
-    /**
-     * @brief Construct a new Window object with an existing window handle.
-     * @param hwnd Handle to the created window.
-     */
-    Window(HWND& hwnd);
-
     ~Window();
 
     /**
