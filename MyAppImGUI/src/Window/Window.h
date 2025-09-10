@@ -22,7 +22,7 @@ public:
      * @brief Initialize the window class and load the icon.
      * Must be called before registering the window class or creating the window.
      */
-    void Init(bool hidden);
+    void Init();
 
     /**
      * @brief Toggles fullscreen mode on or off.

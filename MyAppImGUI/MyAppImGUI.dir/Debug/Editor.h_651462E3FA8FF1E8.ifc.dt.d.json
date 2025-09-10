@@ -388,7 +388,8 @@
             "c:\\program files\\microsoft visual studio\\2022\\community\\vc\\tools\\msvc\\14.44.35207\\include\\optional",
             "c:\\program files\\microsoft visual studio\\2022\\community\\vc\\tools\\msvc\\14.44.35207\\include\\xsmf_control.h",
             "c:\\program files\\microsoft visual studio\\2022\\community\\vc\\tools\\msvc\\14.44.35207\\include\\sstream",
-            "d:\\gitnext\\cppwithimgui\\imgui_application\\myappimgui\\src\\window\\window.h"
+            "d:\\gitnext\\cppwithimgui\\imgui_application\\myappimgui\\src\\window\\window.h",
+            "d:\\gitnext\\cppwithimgui\\imgui_application\\myappimgui\\vendor\\imgui\\backends\\imgui_impl_glfw.h"
         ],
         "ImportedModules": [],
         "ImportedHeaderUnits": []

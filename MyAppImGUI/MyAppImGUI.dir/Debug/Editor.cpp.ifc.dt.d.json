@@ -397,6 +397,7 @@
             "c:\\program files\\microsoft visual studio\\2022\\community\\vc\\tools\\msvc\\14.44.35207\\include\\xsmf_control.h",
             "c:\\program files\\microsoft visual studio\\2022\\community\\vc\\tools\\msvc\\14.44.35207\\include\\sstream",
             "d:\\gitnext\\cppwithimgui\\imgui_application\\myappimgui\\src\\window\\window.h",
+            "d:\\gitnext\\cppwithimgui\\imgui_application\\myappimgui\\vendor\\imgui\\backends\\imgui_impl_glfw.h",
             "d:\\windows kits\\10\\include\\10.0.26100.0\\um\\shlobj.h",
             "d:\\windows kits\\10\\include\\10.0.26100.0\\um\\commctrl.h",
             "d:\\windows kits\\10\\include\\10.0.26100.0\\um\\prsht.h",
@@ -486,8 +487,7 @@
             "d:\\windows kits\\10\\include\\10.0.26100.0\\shared\\poppack.h",
             "d:\\windows kits\\10\\include\\10.0.26100.0\\shared\\poppack.h",
             "c:\\program files\\microsoft visual studio\\2022\\community\\vc\\tools\\msvc\\14.44.35207\\include\\print",
-            "d:\\gitnext\\cppwithimgui\\imgui_application\\myappimgui\\vendor\\imgui\\backends\\imgui_impl_dx11.h",
-            "d:\\gitnext\\cppwithimgui\\imgui_application\\myappimgui\\vendor\\imgui\\backends\\imgui_impl_win32.h"
+            "d:\\gitnext\\cppwithimgui\\imgui_application\\myappimgui\\vendor\\imgui\\backends\\imgui_impl_opengl3.h"
         ],
         "ImportedModules": [],
         "ImportedHeaderUnits": []

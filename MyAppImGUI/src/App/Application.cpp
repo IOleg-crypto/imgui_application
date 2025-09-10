@@ -20,7 +20,7 @@ void Application::Init()
     SetConsoleOutputCP(65001);
 #endif
 
-    m_Window.Init(false); 
+    m_Window.Init(); 
     m_Window.InitImGui();
 
     std::cout << "Initialization successful!\n";
@@ -51,7 +51,7 @@ void Application::RunMainLoop(Application &app)
         ImGui::Render();
 
         glViewport(0, 0, display_w, display_h);
-        glClearColor(0.0f, 0.0f, 0,0); 
+        glClearColor(0.0f, 0.0f, 0.f,0.f); 
         glClear(GL_COLOR_BUFFER_BIT);
 
         ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());

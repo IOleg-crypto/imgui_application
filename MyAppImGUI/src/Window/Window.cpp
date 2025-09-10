@@ -37,7 +37,7 @@ Window::~Window()
     glfwTerminate();
 }
 
-void Window::Init(bool hidden)
+void Window::Init()
 {
     if (!glfwInit())
     {
@@ -49,18 +49,14 @@ void Window::Init(bool hidden)
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
     glfwWindowHint(GLFW_TRANSPARENT_FRAMEBUFFER, GLFW_TRUE);
-
-    // Якщо hidden = true → робимо без рамок
-    glfwWindowHint(GLFW_DECORATED, GLFW_TRUE);
+    glfwWindowHint(GLFW_DECORATED, GLFW_FALSE);
 
 #ifdef __APPLE__
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 #endif
 
-    m_window = glfwCreateWindow(
-        GetSystemMetrics(SM_CXSCREEN),
-        GetSystemMetrics(SM_CYSCREEN),
-        "ImGui Notepad", nullptr, nullptr);
+    m_window = glfwCreateWindow(GetSystemMetrics(SM_CXSCREEN), GetSystemMetrics(SM_CYSCREEN),
+                                "ImGui Notepad", nullptr, nullptr);
 
     if (!m_window)
     {
@@ -73,68 +69,49 @@ void Window::Init(bool hidden)
     glfwSwapInterval(1); // VSync
 
 #if defined(_WIN32)
-    if (hidden)
-    {
-        HWND hwnd = glfwGetWin32Window(m_window);
 
-        // Прибираємо рамки повністю
-        LONG style = GetWindowLong(hwnd, GWL_STYLE);
-        style &= ~(WS_CAPTION | WS_THICKFRAME | WS_MINIMIZE | WS_MAXIMIZE | WS_SYSMENU);
-        SetWindowLong(hwnd, GWL_STYLE, style);
+    HWND hwnd = glfwGetWin32Window(m_window);
+    LONG style = GetWindowLong(hwnd, GWL_STYLE);
+    style &= ~(WS_CAPTION | WS_THICKFRAME | WS_MINIMIZE | WS_MAXIMIZE | WS_SYSMENU);
+    SetWindowLong(hwnd, GWL_EXSTYLE, style | WS_EX_LAYERED);
+    SetWindowPos(hwnd, nullptr, 0, 0, 0, 0,
+                 SWP_NOMOVE | SWP_NOSIZE | SWP_NOZORDER | SWP_FRAMECHANGED);
+    SetLayeredWindowAttributes(hwnd, RGB(0, 0, 0), 255, LWA_ALPHA | LWA_COLORKEY);
 
-        // Робимо вікно прозорим
-        LONG exStyle = GetWindowLong(hwnd, GWL_EXSTYLE);
-        SetWindowLong(hwnd, GWL_EXSTYLE, exStyle | WS_EX_LAYERED);
-        SetLayeredWindowAttributes(hwnd, 0, 255, LWA_ALPHA);
-
-        SetWindowPos(hwnd, nullptr, 0, 0, 0, 0,
-                     SWP_NOMOVE | SWP_NOSIZE | SWP_NOZORDER | SWP_FRAMECHANGED);
-    }
 #elif defined(__APPLE__)
-    if (hidden)
-    {
-        id nswindow = glfwGetCocoaWindow(m_window);
 
-        // Робимо прозорим і безрамковим
-        [nswindow setOpaque:NO];
-        [nswindow setAlphaValue:0.0];
-        [nswindow setStyleMask:NSWindowStyleMaskBorderless];
-        [nswindow orderFront:nil];
-    }
+    id nswindow = glfwGetCocoaWindow(m_window);
+    [nswindow setOpaque:NO];
+    [nswindow setBackgroundColor:[NSColor clearColor]];
+
 #elif defined(__linux__)
-    if (hidden)
-    {
-    #if defined(GLFW_EXPOSE_NATIVE_X11)
-        Display *display = glfwGetX11Display();
-        Window x11Window = glfwGetX11Window(m_window);
 
-        // Прибираємо рамки через Motif hints
-        Atom mwmHintsProperty = XInternAtom(display, "_MOTIF_WM_HINTS", False);
-        if (mwmHintsProperty != None)
-        {
-            struct MwmHints
-            {
-                unsigned long flags;
-                unsigned long functions;
-                unsigned long decorations;
-                long input_mode;
-                unsigned long status;
-            };
+#if defined(GLFW_EXPOSE_NATIVE_X11)
+    Display* display = glfwGetX11Display();
+    Window x11Window = glfwGetX11Window(m_window);
 
-            MwmHints hints;
-            hints.flags = 2;       // MWM_HINTS_DECORATIONS
-            hints.decorations = 0; // Без рамок
-            XChangeProperty(display, x11Window, mwmHintsProperty, mwmHintsProperty, 32,
-                            PropModeReplace, (unsigned char *)&hints, 5);
-        }
+    XSetWindowAttributes attrs;
+    attrs.colormap = XCreateColormap(
+        display,
+        DefaultRootWindow(display),
+        DefaultVisual(display, DefaultScreen(display)),
+        AllocNone
+    );
+    attrs.border_pixel = 0;
+    attrs.background_pixel = 0;
 
-        // Ховаємо повністю, якщо треба
-        XUnmapWindow(display, x11Window);
-        XFlush(display);
-    #else
-        glfwHideWindow(m_window); // Wayland fallback
-    #endif
-    }
+    XChangeWindowAttributes(display, x11Window,
+                            CWColormap | CWBorderPixel | CWBackPixel,
+                            &attrs);
+
+    XMapWindow(display, x11Window);
+    XFlush(display);
+
+#else
+    // fallback для Wayland
+    glfwHideWindow(m_window);
+#endif
+
 #endif
 }
 
