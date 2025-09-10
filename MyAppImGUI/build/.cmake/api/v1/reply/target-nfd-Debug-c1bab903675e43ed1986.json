@@ -12,11 +12,13 @@
 		"commands" : 
 		[
 			"add_library",
+			"add_compile_definitions",
 			"target_include_directories"
 		],
 		"files" : 
 		[
-			"build/_deps/nfd-src/src/CMakeLists.txt"
+			"build/_deps/nfd-src/src/CMakeLists.txt",
+			"CMakeLists.txt"
 		],
 		"nodes" : 
 		[
@@ -30,7 +32,16 @@
 				"parent" : 0
 			},
 			{
+				"file" : 1
+			},
+			{
 				"command" : 1,
+				"file" : 1,
+				"line" : 7,
+				"parent" : 2
+			},
+			{
+				"command" : 2,
 				"file" : 0,
 				"line" : 72,
 				"parent" : 0
@@ -46,10 +57,17 @@
 					"fragment" : "-O0 -std=gnu++20 -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -g -Xclang -gcodeview"
 				}
 			],
+			"defines" : 
+			[
+				{
+					"backtrace" : 3,
+					"define" : "PROJECT_ROOT_DIR=\"D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI\""
+				}
+			],
 			"includes" : 
 			[
 				{
-					"backtrace" : 2,
+					"backtrace" : 4,
 					"path" : "D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/nfd-src/src/include"
 				}
 			],

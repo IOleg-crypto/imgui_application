@@ -13,6 +13,8 @@
 		[
 			"add_library",
 			"target_link_libraries",
+			"add_compile_definitions",
+			"include_directories",
 			"target_include_directories"
 		],
 		"files" : 
@@ -27,19 +29,31 @@
 			{
 				"command" : 0,
 				"file" : 0,
-				"line" : 59,
+				"line" : 67,
 				"parent" : 0
 			},
 			{
 				"command" : 1,
 				"file" : 0,
-				"line" : 71,
+				"line" : 79,
 				"parent" : 0
 			},
 			{
 				"command" : 2,
 				"file" : 0,
-				"line" : 66,
+				"line" : 7,
+				"parent" : 0
+			},
+			{
+				"command" : 3,
+				"file" : 0,
+				"line" : 51,
+				"parent" : 0
+			},
+			{
+				"command" : 4,
+				"file" : 0,
+				"line" : 74,
 				"parent" : 0
 			}
 		]
@@ -53,14 +67,25 @@
 					"fragment" : "-O0 -std=gnu++20 -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -g -Xclang -gcodeview"
 				}
 			],
-			"includes" : 
+			"defines" : 
 			[
 				{
 					"backtrace" : 3,
+					"define" : "PROJECT_ROOT_DIR=\"D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI\""
+				}
+			],
+			"includes" : 
+			[
+				{
+					"backtrace" : 4,
+					"path" : "D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/stb-src"
+				},
+				{
+					"backtrace" : 5,
 					"path" : "D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui"
 				},
 				{
-					"backtrace" : 3,
+					"backtrace" : 5,
 					"path" : "D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui/backends"
 				},
 				{

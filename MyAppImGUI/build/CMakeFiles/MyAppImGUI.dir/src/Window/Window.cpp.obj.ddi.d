@@ -461,4 +461,5 @@ CMakeFiles\MyAppImGUI.dir\src\Window\Window.cpp.obj.ddi: \
   D:\Windows\ Kits\10\Include\10.0.26100.0\um\GL\gl.h \
   C:\Program\ Files\Microsoft\ Visual\ Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\iostream \
   C:\Program\ Files\Microsoft\ Visual\ Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\ostream \
-  D:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\build\_deps\glfw-src\include\GLFW\glfw3native.h
+  D:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\build\_deps\glfw-src\include\GLFW\glfw3native.h \
+  D:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\build\_deps\stb-src\stb_image.h

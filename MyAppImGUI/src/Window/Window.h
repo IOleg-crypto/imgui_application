@@ -78,11 +78,12 @@ public:
      * @return true if fullscreen, false otherwise.
      */
     bool isFullscreen();
-
+    // Loading icon from resource
+    void LoadIconWindow();
 private:
     GLFWwindow *m_window;                     ///< Handle to the window.
     ImGuiIO *m_io;                    ///< ImGui IO object for configuration and input.
-    std::wstring m_iconPath;         ///< Path to the icon file (wide string).
+    std::string m_iconPath;         ///< Path to the icon file (wide string).
     std::string m_fontPath;          ///< Path to the font file.
     static bool m_fullscreen;        ///< Current fullscreen state.
     bool prev_fullscreen;            ///< Previous fullscreen state.

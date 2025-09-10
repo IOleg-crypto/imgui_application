@@ -3,17 +3,20 @@
 #include "imgui_impl_opengl3.h"
 #include <GLFW/glfw3.h>
 #include <iostream>
+
 #ifdef _WIN32
 #define GLFW_EXPOSE_NATIVE_WIN32
 #include <GLFW/glfw3native.h>
 #include <Windows.h>
-
 #endif
+
+#define STB_IMAGE_IMPLEMENTATION
+#include "stb_image.h"
 
 bool Window::m_fullscreen = false;
 
 Window::Window()
-    : m_window(nullptr), m_iconPath(L"assets/icon/icon.ico"),
+    : m_window(nullptr), m_iconPath(PROJECT_ROOT_DIR "/assets/icon/icon_window.png"),
       m_fontPath(R"(C:\Windows\Fonts\Arial.ttf)")
 {
 }
@@ -77,6 +80,7 @@ void Window::Init()
     SetWindowPos(hwnd, nullptr, 0, 0, 0, 0,
                  SWP_NOMOVE | SWP_NOSIZE | SWP_NOZORDER | SWP_FRAMECHANGED);
     SetLayeredWindowAttributes(hwnd, RGB(0, 0, 0), 255, LWA_ALPHA | LWA_COLORKEY);
+    LoadIconWindow();
 
 #elif defined(__APPLE__)
 
@@ -87,34 +91,31 @@ void Window::Init()
 #elif defined(__linux__)
 
 #if defined(GLFW_EXPOSE_NATIVE_X11)
-    Display* display = glfwGetX11Display();
+    Display *display = glfwGetX11Display();
     Window x11Window = glfwGetX11Window(m_window);
 
     XSetWindowAttributes attrs;
-    attrs.colormap = XCreateColormap(
-        display,
-        DefaultRootWindow(display),
-        DefaultVisual(display, DefaultScreen(display)),
-        AllocNone
-    );
+    attrs.colormap = XCreateColormap(display, DefaultRootWindow(display),
+                                     DefaultVisual(display, DefaultScreen(display)), AllocNone);
     attrs.border_pixel = 0;
     attrs.background_pixel = 0;
 
-    XChangeWindowAttributes(display, x11Window,
-                            CWColormap | CWBorderPixel | CWBackPixel,
-                            &attrs);
+    XChangeWindowAttributes(display, x11Window, CWColormap | CWBorderPixel | CWBackPixel, &attrs);
 
     XMapWindow(display, x11Window);
     XFlush(display);
+    LoadIconWindow();
 
 #else
-    // fallback для Wayland
+                         // fallback для Wayland
     glfwHideWindow(m_window);
 #endif
 
 #endif
+    
 }
 
+// OLD : Don`t use
 void Window::SyncGlfwWithImGui(const ImVec2 &imguiPos, const ImVec2 &imguiSize)
 {
 #if defined(_WIN32)
@@ -150,9 +151,13 @@ void Window::InitImGui()
         io.Fonts->AddFontFromFileTTF(m_fontPath.c_str(), 20, nullptr,
                                      io.Fonts->GetGlyphRangesCyrillic());
     }
+    else
+    {
+        io.Fonts->AddFontDefault();
+    }
 
     ImGui_ImplGlfw_InitForOpenGL(m_window, true);
-    const char *glsl_version = "#version 330";
+    const char *glsl_version = "#version 460";
     ImGui_ImplOpenGL3_Init(glsl_version);
     m_io = &io;
 }
@@ -216,3 +221,30 @@ ImGuiIO &Window::GetImGuiIO() { return *m_io; }
 void Window::setFontPath(const std::string &fontPath) { m_fontPath = fontPath; }
 std::string Window::getFontPath() { return m_fontPath; }
 bool Window::isFullscreen() { return m_fullscreen; }
+
+void Window::LoadIconWindow()
+{
+    int iconWidth, iconHeight, channels;
+    unsigned char *pixels = stbi_load(m_iconPath.c_str(), &iconWidth, &iconHeight, &channels, 4);
+    if (!pixels)
+    {
+        std::cerr << "Failed to load window icon!" << std::endl;
+        return;
+    }
+
+    if (pixels)
+    {
+        GLFWimage images[1];
+        images[0].width = iconWidth;
+        images[0].height = iconHeight;
+        images[0].pixels = pixels;
+
+        glfwSetWindowIcon(m_window, 1, images);
+
+        stbi_image_free(pixels);
+    }
+    else
+    {
+        std::cerr << "Failed to load window icon!" << std::endl;
+    }
+}

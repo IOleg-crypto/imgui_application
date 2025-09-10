@@ -14,6 +14,7 @@
 	"forward-modules-from-target-dirs" : [],
 	"include-dirs" : 
 	[
+		"_deps\\stb-src",
 		"D:\\gitnext\\CppWithImGUI\\imgui_application\\MyAppImGUI\\src",
 		"D:\\gitnext\\CppWithImGUI\\imgui_application\\MyAppImGUI\\vendor\\imgui",
 		"D:\\gitnext\\CppWithImGUI\\imgui_application\\MyAppImGUI\\vendor\\imgui\\backends",

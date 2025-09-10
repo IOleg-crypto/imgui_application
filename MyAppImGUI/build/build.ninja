@@ -50,19 +50,21 @@ cmake_ninja_workdir = D$:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/buil
 build cmake_object_order_depends_target_MyAppImGUI: phony || cmake_object_order_depends_target_glfw cmake_object_order_depends_target_imguilib cmake_object_order_depends_target_nfd cmake_object_order_depends_target_opengl3imgui
 
 build CMakeFiles/MyAppImGUI.dir/src/OpenGL/Render.cpp.obj.ddi: CXX_SCAN__MyAppImGUI_Debug D$:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/src/OpenGL/Render.cpp || cmake_object_order_depends_target_MyAppImGUI
+  DEFINES = -DPROJECT_ROOT_DIR=\"D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI\"
   DEP_FILE = CMakeFiles\MyAppImGUI.dir\src\OpenGL\Render.cpp.obj.ddi.d
   DYNDEP_INTERMEDIATE_FILE = CMakeFiles\MyAppImGUI.dir\src\OpenGL\Render.cpp.obj.ddi
   FLAGS = -O0 -std=gnu++20 -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -g -Xclang -gcodeview
-  INCLUDES = -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/src -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui/backends -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui/misc/cpp -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/glfw-src/include -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/nfd-src/src/include
+  INCLUDES = -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/stb-src -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/src -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui/backends -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui/misc/cpp -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/glfw-src/include -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/nfd-src/src/include
   OBJ_FILE = CMakeFiles\MyAppImGUI.dir\src\OpenGL\Render.cpp.obj
   PREPROCESSED_OUTPUT_FILE = CMakeFiles\MyAppImGUI.dir\src\OpenGL\Render.cpp.obj.ddi.i
 
 build CMakeFiles/MyAppImGUI.dir/src/OpenGL/Render.cpp.obj: CXX_COMPILER__MyAppImGUI_scanned_Debug D$:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/src/OpenGL/Render.cpp | CMakeFiles/MyAppImGUI.dir/src/OpenGL/Render.cpp.obj.modmap || cmake_object_order_depends_target_MyAppImGUI CMakeFiles/MyAppImGUI.dir/CXX.dd
   CONFIG = Debug
+  DEFINES = -DPROJECT_ROOT_DIR=\"D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI\"
   DEP_FILE = CMakeFiles\MyAppImGUI.dir\src\OpenGL\Render.cpp.obj.d
   DYNDEP_MODULE_MAP_FILE = CMakeFiles\MyAppImGUI.dir\src\OpenGL\Render.cpp.obj.modmap
   FLAGS = -O0 -std=gnu++20 -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -g -Xclang -gcodeview
-  INCLUDES = -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/src -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui/backends -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui/misc/cpp -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/glfw-src/include -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/nfd-src/src/include
+  INCLUDES = -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/stb-src -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/src -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui/backends -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui/misc/cpp -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/glfw-src/include -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/nfd-src/src/include
   OBJECT_DIR = CMakeFiles\MyAppImGUI.dir
   OBJECT_FILE_DIR = CMakeFiles\MyAppImGUI.dir\src\OpenGL
   TARGET_COMPILE_PDB = CMakeFiles\MyAppImGUI.dir\
@@ -70,19 +72,21 @@ build CMakeFiles/MyAppImGUI.dir/src/OpenGL/Render.cpp.obj: CXX_COMPILER__MyAppIm
   dyndep = CMakeFiles/MyAppImGUI.dir/CXX.dd
 
 build CMakeFiles/MyAppImGUI.dir/src/FileDialog/FileDialog.cpp.obj.ddi: CXX_SCAN__MyAppImGUI_Debug D$:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/src/FileDialog/FileDialog.cpp || cmake_object_order_depends_target_MyAppImGUI
+  DEFINES = -DPROJECT_ROOT_DIR=\"D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI\"
   DEP_FILE = CMakeFiles\MyAppImGUI.dir\src\FileDialog\FileDialog.cpp.obj.ddi.d
   DYNDEP_INTERMEDIATE_FILE = CMakeFiles\MyAppImGUI.dir\src\FileDialog\FileDialog.cpp.obj.ddi
   FLAGS = -O0 -std=gnu++20 -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -g -Xclang -gcodeview
-  INCLUDES = -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/src -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui/backends -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui/misc/cpp -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/glfw-src/include -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/nfd-src/src/include
+  INCLUDES = -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/stb-src -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/src -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui/backends -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui/misc/cpp -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/glfw-src/include -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/nfd-src/src/include
   OBJ_FILE = CMakeFiles\MyAppImGUI.dir\src\FileDialog\FileDialog.cpp.obj
   PREPROCESSED_OUTPUT_FILE = CMakeFiles\MyAppImGUI.dir\src\FileDialog\FileDialog.cpp.obj.ddi.i
 
 build CMakeFiles/MyAppImGUI.dir/src/FileDialog/FileDialog.cpp.obj: CXX_COMPILER__MyAppImGUI_scanned_Debug D$:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/src/FileDialog/FileDialog.cpp | CMakeFiles/MyAppImGUI.dir/src/FileDialog/FileDialog.cpp.obj.modmap || cmake_object_order_depends_target_MyAppImGUI CMakeFiles/MyAppImGUI.dir/CXX.dd
   CONFIG = Debug
+  DEFINES = -DPROJECT_ROOT_DIR=\"D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI\"
   DEP_FILE = CMakeFiles\MyAppImGUI.dir\src\FileDialog\FileDialog.cpp.obj.d
   DYNDEP_MODULE_MAP_FILE = CMakeFiles\MyAppImGUI.dir\src\FileDialog\FileDialog.cpp.obj.modmap
   FLAGS = -O0 -std=gnu++20 -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -g -Xclang -gcodeview
-  INCLUDES = -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/src -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui/backends -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui/misc/cpp -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/glfw-src/include -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/nfd-src/src/include
+  INCLUDES = -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/stb-src -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/src -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui/backends -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui/misc/cpp -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/glfw-src/include -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/nfd-src/src/include
   OBJECT_DIR = CMakeFiles\MyAppImGUI.dir
   OBJECT_FILE_DIR = CMakeFiles\MyAppImGUI.dir\src\FileDialog
   TARGET_COMPILE_PDB = CMakeFiles\MyAppImGUI.dir\
@@ -90,19 +94,21 @@ build CMakeFiles/MyAppImGUI.dir/src/FileDialog/FileDialog.cpp.obj: CXX_COMPILER_
   dyndep = CMakeFiles/MyAppImGUI.dir/CXX.dd
 
 build CMakeFiles/MyAppImGUI.dir/src/Memory/Memory.cpp.obj.ddi: CXX_SCAN__MyAppImGUI_Debug D$:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/src/Memory/Memory.cpp || cmake_object_order_depends_target_MyAppImGUI
+  DEFINES = -DPROJECT_ROOT_DIR=\"D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI\"
   DEP_FILE = CMakeFiles\MyAppImGUI.dir\src\Memory\Memory.cpp.obj.ddi.d
   DYNDEP_INTERMEDIATE_FILE = CMakeFiles\MyAppImGUI.dir\src\Memory\Memory.cpp.obj.ddi
   FLAGS = -O0 -std=gnu++20 -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -g -Xclang -gcodeview
-  INCLUDES = -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/src -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui/backends -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui/misc/cpp -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/glfw-src/include -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/nfd-src/src/include
+  INCLUDES = -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/stb-src -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/src -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui/backends -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui/misc/cpp -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/glfw-src/include -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/nfd-src/src/include
   OBJ_FILE = CMakeFiles\MyAppImGUI.dir\src\Memory\Memory.cpp.obj
   PREPROCESSED_OUTPUT_FILE = CMakeFiles\MyAppImGUI.dir\src\Memory\Memory.cpp.obj.ddi.i
 
 build CMakeFiles/MyAppImGUI.dir/src/Memory/Memory.cpp.obj: CXX_COMPILER__MyAppImGUI_scanned_Debug D$:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/src/Memory/Memory.cpp | CMakeFiles/MyAppImGUI.dir/src/Memory/Memory.cpp.obj.modmap || cmake_object_order_depends_target_MyAppImGUI CMakeFiles/MyAppImGUI.dir/CXX.dd
   CONFIG = Debug
+  DEFINES = -DPROJECT_ROOT_DIR=\"D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI\"
   DEP_FILE = CMakeFiles\MyAppImGUI.dir\src\Memory\Memory.cpp.obj.d
   DYNDEP_MODULE_MAP_FILE = CMakeFiles\MyAppImGUI.dir\src\Memory\Memory.cpp.obj.modmap
   FLAGS = -O0 -std=gnu++20 -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -g -Xclang -gcodeview
-  INCLUDES = -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/src -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui/backends -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui/misc/cpp -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/glfw-src/include -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/nfd-src/src/include
+  INCLUDES = -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/stb-src -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/src -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui/backends -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui/misc/cpp -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/glfw-src/include -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/nfd-src/src/include
   OBJECT_DIR = CMakeFiles\MyAppImGUI.dir
   OBJECT_FILE_DIR = CMakeFiles\MyAppImGUI.dir\src\Memory
   TARGET_COMPILE_PDB = CMakeFiles\MyAppImGUI.dir\
@@ -110,19 +116,21 @@ build CMakeFiles/MyAppImGUI.dir/src/Memory/Memory.cpp.obj: CXX_COMPILER__MyAppIm
   dyndep = CMakeFiles/MyAppImGUI.dir/CXX.dd
 
 build CMakeFiles/MyAppImGUI.dir/src/App/Application.cpp.obj.ddi: CXX_SCAN__MyAppImGUI_Debug D$:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/src/App/Application.cpp || cmake_object_order_depends_target_MyAppImGUI
+  DEFINES = -DPROJECT_ROOT_DIR=\"D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI\"
   DEP_FILE = CMakeFiles\MyAppImGUI.dir\src\App\Application.cpp.obj.ddi.d
   DYNDEP_INTERMEDIATE_FILE = CMakeFiles\MyAppImGUI.dir\src\App\Application.cpp.obj.ddi
   FLAGS = -O0 -std=gnu++20 -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -g -Xclang -gcodeview
-  INCLUDES = -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/src -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui/backends -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui/misc/cpp -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/glfw-src/include -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/nfd-src/src/include
+  INCLUDES = -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/stb-src -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/src -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui/backends -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui/misc/cpp -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/glfw-src/include -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/nfd-src/src/include
   OBJ_FILE = CMakeFiles\MyAppImGUI.dir\src\App\Application.cpp.obj
   PREPROCESSED_OUTPUT_FILE = CMakeFiles\MyAppImGUI.dir\src\App\Application.cpp.obj.ddi.i
 
 build CMakeFiles/MyAppImGUI.dir/src/App/Application.cpp.obj: CXX_COMPILER__MyAppImGUI_scanned_Debug D$:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/src/App/Application.cpp | CMakeFiles/MyAppImGUI.dir/src/App/Application.cpp.obj.modmap || cmake_object_order_depends_target_MyAppImGUI CMakeFiles/MyAppImGUI.dir/CXX.dd
   CONFIG = Debug
+  DEFINES = -DPROJECT_ROOT_DIR=\"D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI\"
   DEP_FILE = CMakeFiles\MyAppImGUI.dir\src\App\Application.cpp.obj.d
   DYNDEP_MODULE_MAP_FILE = CMakeFiles\MyAppImGUI.dir\src\App\Application.cpp.obj.modmap
   FLAGS = -O0 -std=gnu++20 -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -g -Xclang -gcodeview
-  INCLUDES = -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/src -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui/backends -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui/misc/cpp -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/glfw-src/include -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/nfd-src/src/include
+  INCLUDES = -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/stb-src -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/src -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui/backends -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui/misc/cpp -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/glfw-src/include -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/nfd-src/src/include
   OBJECT_DIR = CMakeFiles\MyAppImGUI.dir
   OBJECT_FILE_DIR = CMakeFiles\MyAppImGUI.dir\src\App
   TARGET_COMPILE_PDB = CMakeFiles\MyAppImGUI.dir\
@@ -130,19 +138,21 @@ build CMakeFiles/MyAppImGUI.dir/src/App/Application.cpp.obj: CXX_COMPILER__MyApp
   dyndep = CMakeFiles/MyAppImGUI.dir/CXX.dd
 
 build CMakeFiles/MyAppImGUI.dir/src/Editor/Editor.cpp.obj.ddi: CXX_SCAN__MyAppImGUI_Debug D$:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/src/Editor/Editor.cpp || cmake_object_order_depends_target_MyAppImGUI
+  DEFINES = -DPROJECT_ROOT_DIR=\"D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI\"
   DEP_FILE = CMakeFiles\MyAppImGUI.dir\src\Editor\Editor.cpp.obj.ddi.d
   DYNDEP_INTERMEDIATE_FILE = CMakeFiles\MyAppImGUI.dir\src\Editor\Editor.cpp.obj.ddi
   FLAGS = -O0 -std=gnu++20 -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -g -Xclang -gcodeview
-  INCLUDES = -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/src -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui/backends -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui/misc/cpp -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/glfw-src/include -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/nfd-src/src/include
+  INCLUDES = -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/stb-src -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/src -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui/backends -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui/misc/cpp -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/glfw-src/include -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/nfd-src/src/include
   OBJ_FILE = CMakeFiles\MyAppImGUI.dir\src\Editor\Editor.cpp.obj
   PREPROCESSED_OUTPUT_FILE = CMakeFiles\MyAppImGUI.dir\src\Editor\Editor.cpp.obj.ddi.i
 
 build CMakeFiles/MyAppImGUI.dir/src/Editor/Editor.cpp.obj: CXX_COMPILER__MyAppImGUI_scanned_Debug D$:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/src/Editor/Editor.cpp | CMakeFiles/MyAppImGUI.dir/src/Editor/Editor.cpp.obj.modmap || cmake_object_order_depends_target_MyAppImGUI CMakeFiles/MyAppImGUI.dir/CXX.dd
   CONFIG = Debug
+  DEFINES = -DPROJECT_ROOT_DIR=\"D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI\"
   DEP_FILE = CMakeFiles\MyAppImGUI.dir\src\Editor\Editor.cpp.obj.d
   DYNDEP_MODULE_MAP_FILE = CMakeFiles\MyAppImGUI.dir\src\Editor\Editor.cpp.obj.modmap
   FLAGS = -O0 -std=gnu++20 -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -g -Xclang -gcodeview
-  INCLUDES = -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/src -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui/backends -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui/misc/cpp -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/glfw-src/include -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/nfd-src/src/include
+  INCLUDES = -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/stb-src -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/src -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui/backends -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui/misc/cpp -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/glfw-src/include -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/nfd-src/src/include
   OBJECT_DIR = CMakeFiles\MyAppImGUI.dir
   OBJECT_FILE_DIR = CMakeFiles\MyAppImGUI.dir\src\Editor
   TARGET_COMPILE_PDB = CMakeFiles\MyAppImGUI.dir\
@@ -150,19 +160,21 @@ build CMakeFiles/MyAppImGUI.dir/src/Editor/Editor.cpp.obj: CXX_COMPILER__MyAppIm
   dyndep = CMakeFiles/MyAppImGUI.dir/CXX.dd
 
 build CMakeFiles/MyAppImGUI.dir/src/Window/Window.cpp.obj.ddi: CXX_SCAN__MyAppImGUI_Debug D$:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/src/Window/Window.cpp || cmake_object_order_depends_target_MyAppImGUI
+  DEFINES = -DPROJECT_ROOT_DIR=\"D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI\"
   DEP_FILE = CMakeFiles\MyAppImGUI.dir\src\Window\Window.cpp.obj.ddi.d
   DYNDEP_INTERMEDIATE_FILE = CMakeFiles\MyAppImGUI.dir\src\Window\Window.cpp.obj.ddi
   FLAGS = -O0 -std=gnu++20 -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -g -Xclang -gcodeview
-  INCLUDES = -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/src -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui/backends -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui/misc/cpp -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/glfw-src/include -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/nfd-src/src/include
+  INCLUDES = -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/stb-src -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/src -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui/backends -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui/misc/cpp -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/glfw-src/include -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/nfd-src/src/include
   OBJ_FILE = CMakeFiles\MyAppImGUI.dir\src\Window\Window.cpp.obj
   PREPROCESSED_OUTPUT_FILE = CMakeFiles\MyAppImGUI.dir\src\Window\Window.cpp.obj.ddi.i
 
 build CMakeFiles/MyAppImGUI.dir/src/Window/Window.cpp.obj: CXX_COMPILER__MyAppImGUI_scanned_Debug D$:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/src/Window/Window.cpp | CMakeFiles/MyAppImGUI.dir/src/Window/Window.cpp.obj.modmap || cmake_object_order_depends_target_MyAppImGUI CMakeFiles/MyAppImGUI.dir/CXX.dd
   CONFIG = Debug
+  DEFINES = -DPROJECT_ROOT_DIR=\"D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI\"
   DEP_FILE = CMakeFiles\MyAppImGUI.dir\src\Window\Window.cpp.obj.d
   DYNDEP_MODULE_MAP_FILE = CMakeFiles\MyAppImGUI.dir\src\Window\Window.cpp.obj.modmap
   FLAGS = -O0 -std=gnu++20 -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -g -Xclang -gcodeview
-  INCLUDES = -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/src -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui/backends -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui/misc/cpp -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/glfw-src/include -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/nfd-src/src/include
+  INCLUDES = -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/stb-src -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/src -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui/backends -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui/misc/cpp -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/glfw-src/include -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/nfd-src/src/include
   OBJECT_DIR = CMakeFiles\MyAppImGUI.dir
   OBJECT_FILE_DIR = CMakeFiles\MyAppImGUI.dir\src\Window
   TARGET_COMPILE_PDB = CMakeFiles\MyAppImGUI.dir\
@@ -170,19 +182,21 @@ build CMakeFiles/MyAppImGUI.dir/src/Window/Window.cpp.obj: CXX_COMPILER__MyAppIm
   dyndep = CMakeFiles/MyAppImGUI.dir/CXX.dd
 
 build CMakeFiles/MyAppImGUI.dir/src/main.cpp.obj.ddi: CXX_SCAN__MyAppImGUI_Debug D$:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/src/main.cpp || cmake_object_order_depends_target_MyAppImGUI
+  DEFINES = -DPROJECT_ROOT_DIR=\"D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI\"
   DEP_FILE = CMakeFiles\MyAppImGUI.dir\src\main.cpp.obj.ddi.d
   DYNDEP_INTERMEDIATE_FILE = CMakeFiles\MyAppImGUI.dir\src\main.cpp.obj.ddi
   FLAGS = -O0 -std=gnu++20 -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -g -Xclang -gcodeview
-  INCLUDES = -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/src -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui/backends -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui/misc/cpp -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/glfw-src/include -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/nfd-src/src/include
+  INCLUDES = -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/stb-src -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/src -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui/backends -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui/misc/cpp -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/glfw-src/include -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/nfd-src/src/include
   OBJ_FILE = CMakeFiles\MyAppImGUI.dir\src\main.cpp.obj
   PREPROCESSED_OUTPUT_FILE = CMakeFiles\MyAppImGUI.dir\src\main.cpp.obj.ddi.i
 
 build CMakeFiles/MyAppImGUI.dir/src/main.cpp.obj: CXX_COMPILER__MyAppImGUI_scanned_Debug D$:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/src/main.cpp | CMakeFiles/MyAppImGUI.dir/src/main.cpp.obj.modmap || cmake_object_order_depends_target_MyAppImGUI CMakeFiles/MyAppImGUI.dir/CXX.dd
   CONFIG = Debug
+  DEFINES = -DPROJECT_ROOT_DIR=\"D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI\"
   DEP_FILE = CMakeFiles\MyAppImGUI.dir\src\main.cpp.obj.d
   DYNDEP_MODULE_MAP_FILE = CMakeFiles\MyAppImGUI.dir\src\main.cpp.obj.modmap
   FLAGS = -O0 -std=gnu++20 -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -g -Xclang -gcodeview
-  INCLUDES = -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/src -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui/backends -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui/misc/cpp -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/glfw-src/include -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/nfd-src/src/include
+  INCLUDES = -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/stb-src -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/src -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui/backends -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui/misc/cpp -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/glfw-src/include -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/nfd-src/src/include
   OBJECT_DIR = CMakeFiles\MyAppImGUI.dir
   OBJECT_FILE_DIR = CMakeFiles\MyAppImGUI.dir\src
   TARGET_COMPILE_PDB = CMakeFiles\MyAppImGUI.dir\
@@ -222,19 +236,21 @@ build MyAppImGUI.exe: CXX_EXECUTABLE_LINKER__MyAppImGUI_Debug CMakeFiles/MyAppIm
 build cmake_object_order_depends_target_imguilib: phony || .
 
 build CMakeFiles/imguilib.dir/vendor/imgui/imgui.cpp.obj.ddi: CXX_SCAN__imguilib_Debug D$:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui/imgui.cpp || cmake_object_order_depends_target_imguilib
+  DEFINES = -DPROJECT_ROOT_DIR=\"D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI\"
   DEP_FILE = CMakeFiles\imguilib.dir\vendor\imgui\imgui.cpp.obj.ddi.d
   DYNDEP_INTERMEDIATE_FILE = CMakeFiles\imguilib.dir\vendor\imgui\imgui.cpp.obj.ddi
   FLAGS = -O0 -std=gnu++20 -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -g -Xclang -gcodeview
-  INCLUDES = -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui/misc/cpp
+  INCLUDES = -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/stb-src -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui/misc/cpp
   OBJ_FILE = CMakeFiles\imguilib.dir\vendor\imgui\imgui.cpp.obj
   PREPROCESSED_OUTPUT_FILE = CMakeFiles\imguilib.dir\vendor\imgui\imgui.cpp.obj.ddi.i
 
 build CMakeFiles/imguilib.dir/vendor/imgui/imgui.cpp.obj: CXX_COMPILER__imguilib_scanned_Debug D$:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui/imgui.cpp | CMakeFiles/imguilib.dir/vendor/imgui/imgui.cpp.obj.modmap || cmake_object_order_depends_target_imguilib CMakeFiles/imguilib.dir/CXX.dd
   CONFIG = Debug
+  DEFINES = -DPROJECT_ROOT_DIR=\"D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI\"
   DEP_FILE = CMakeFiles\imguilib.dir\vendor\imgui\imgui.cpp.obj.d
   DYNDEP_MODULE_MAP_FILE = CMakeFiles\imguilib.dir\vendor\imgui\imgui.cpp.obj.modmap
   FLAGS = -O0 -std=gnu++20 -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -g -Xclang -gcodeview
-  INCLUDES = -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui/misc/cpp
+  INCLUDES = -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/stb-src -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui/misc/cpp
   OBJECT_DIR = CMakeFiles\imguilib.dir
   OBJECT_FILE_DIR = CMakeFiles\imguilib.dir\vendor\imgui
   TARGET_COMPILE_PDB = CMakeFiles\imguilib.dir\imguilib.pdb
@@ -242,19 +258,21 @@ build CMakeFiles/imguilib.dir/vendor/imgui/imgui.cpp.obj: CXX_COMPILER__imguilib
   dyndep = CMakeFiles/imguilib.dir/CXX.dd
 
 build CMakeFiles/imguilib.dir/vendor/imgui/imgui_draw.cpp.obj.ddi: CXX_SCAN__imguilib_Debug D$:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui/imgui_draw.cpp || cmake_object_order_depends_target_imguilib
+  DEFINES = -DPROJECT_ROOT_DIR=\"D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI\"
   DEP_FILE = CMakeFiles\imguilib.dir\vendor\imgui\imgui_draw.cpp.obj.ddi.d
   DYNDEP_INTERMEDIATE_FILE = CMakeFiles\imguilib.dir\vendor\imgui\imgui_draw.cpp.obj.ddi
   FLAGS = -O0 -std=gnu++20 -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -g -Xclang -gcodeview
-  INCLUDES = -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui/misc/cpp
+  INCLUDES = -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/stb-src -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui/misc/cpp
   OBJ_FILE = CMakeFiles\imguilib.dir\vendor\imgui\imgui_draw.cpp.obj
   PREPROCESSED_OUTPUT_FILE = CMakeFiles\imguilib.dir\vendor\imgui\imgui_draw.cpp.obj.ddi.i
 
 build CMakeFiles/imguilib.dir/vendor/imgui/imgui_draw.cpp.obj: CXX_COMPILER__imguilib_scanned_Debug D$:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui/imgui_draw.cpp | CMakeFiles/imguilib.dir/vendor/imgui/imgui_draw.cpp.obj.modmap || cmake_object_order_depends_target_imguilib CMakeFiles/imguilib.dir/CXX.dd
   CONFIG = Debug
+  DEFINES = -DPROJECT_ROOT_DIR=\"D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI\"
   DEP_FILE = CMakeFiles\imguilib.dir\vendor\imgui\imgui_draw.cpp.obj.d
   DYNDEP_MODULE_MAP_FILE = CMakeFiles\imguilib.dir\vendor\imgui\imgui_draw.cpp.obj.modmap
   FLAGS = -O0 -std=gnu++20 -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -g -Xclang -gcodeview
-  INCLUDES = -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui/misc/cpp
+  INCLUDES = -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/stb-src -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui/misc/cpp
   OBJECT_DIR = CMakeFiles\imguilib.dir
   OBJECT_FILE_DIR = CMakeFiles\imguilib.dir\vendor\imgui
   TARGET_COMPILE_PDB = CMakeFiles\imguilib.dir\imguilib.pdb
@@ -262,19 +280,21 @@ build CMakeFiles/imguilib.dir/vendor/imgui/imgui_draw.cpp.obj: CXX_COMPILER__img
   dyndep = CMakeFiles/imguilib.dir/CXX.dd
 
 build CMakeFiles/imguilib.dir/vendor/imgui/imgui_tables.cpp.obj.ddi: CXX_SCAN__imguilib_Debug D$:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui/imgui_tables.cpp || cmake_object_order_depends_target_imguilib
+  DEFINES = -DPROJECT_ROOT_DIR=\"D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI\"
   DEP_FILE = CMakeFiles\imguilib.dir\vendor\imgui\imgui_tables.cpp.obj.ddi.d
   DYNDEP_INTERMEDIATE_FILE = CMakeFiles\imguilib.dir\vendor\imgui\imgui_tables.cpp.obj.ddi
   FLAGS = -O0 -std=gnu++20 -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -g -Xclang -gcodeview
-  INCLUDES = -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui/misc/cpp
+  INCLUDES = -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/stb-src -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui/misc/cpp
   OBJ_FILE = CMakeFiles\imguilib.dir\vendor\imgui\imgui_tables.cpp.obj
   PREPROCESSED_OUTPUT_FILE = CMakeFiles\imguilib.dir\vendor\imgui\imgui_tables.cpp.obj.ddi.i
 
 build CMakeFiles/imguilib.dir/vendor/imgui/imgui_tables.cpp.obj: CXX_COMPILER__imguilib_scanned_Debug D$:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui/imgui_tables.cpp | CMakeFiles/imguilib.dir/vendor/imgui/imgui_tables.cpp.obj.modmap || cmake_object_order_depends_target_imguilib CMakeFiles/imguilib.dir/CXX.dd
   CONFIG = Debug
+  DEFINES = -DPROJECT_ROOT_DIR=\"D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI\"
   DEP_FILE = CMakeFiles\imguilib.dir\vendor\imgui\imgui_tables.cpp.obj.d
   DYNDEP_MODULE_MAP_FILE = CMakeFiles\imguilib.dir\vendor\imgui\imgui_tables.cpp.obj.modmap
   FLAGS = -O0 -std=gnu++20 -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -g -Xclang -gcodeview
-  INCLUDES = -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui/misc/cpp
+  INCLUDES = -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/stb-src -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui/misc/cpp
   OBJECT_DIR = CMakeFiles\imguilib.dir
   OBJECT_FILE_DIR = CMakeFiles\imguilib.dir\vendor\imgui
   TARGET_COMPILE_PDB = CMakeFiles\imguilib.dir\imguilib.pdb
@@ -282,19 +302,21 @@ build CMakeFiles/imguilib.dir/vendor/imgui/imgui_tables.cpp.obj: CXX_COMPILER__i
   dyndep = CMakeFiles/imguilib.dir/CXX.dd
 
 build CMakeFiles/imguilib.dir/vendor/imgui/imgui_widgets.cpp.obj.ddi: CXX_SCAN__imguilib_Debug D$:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui/imgui_widgets.cpp || cmake_object_order_depends_target_imguilib
+  DEFINES = -DPROJECT_ROOT_DIR=\"D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI\"
   DEP_FILE = CMakeFiles\imguilib.dir\vendor\imgui\imgui_widgets.cpp.obj.ddi.d
   DYNDEP_INTERMEDIATE_FILE = CMakeFiles\imguilib.dir\vendor\imgui\imgui_widgets.cpp.obj.ddi
   FLAGS = -O0 -std=gnu++20 -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -g -Xclang -gcodeview
-  INCLUDES = -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui/misc/cpp
+  INCLUDES = -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/stb-src -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui/misc/cpp
   OBJ_FILE = CMakeFiles\imguilib.dir\vendor\imgui\imgui_widgets.cpp.obj
   PREPROCESSED_OUTPUT_FILE = CMakeFiles\imguilib.dir\vendor\imgui\imgui_widgets.cpp.obj.ddi.i
 
 build CMakeFiles/imguilib.dir/vendor/imgui/imgui_widgets.cpp.obj: CXX_COMPILER__imguilib_scanned_Debug D$:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui/imgui_widgets.cpp | CMakeFiles/imguilib.dir/vendor/imgui/imgui_widgets.cpp.obj.modmap || cmake_object_order_depends_target_imguilib CMakeFiles/imguilib.dir/CXX.dd
   CONFIG = Debug
+  DEFINES = -DPROJECT_ROOT_DIR=\"D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI\"
   DEP_FILE = CMakeFiles\imguilib.dir\vendor\imgui\imgui_widgets.cpp.obj.d
   DYNDEP_MODULE_MAP_FILE = CMakeFiles\imguilib.dir\vendor\imgui\imgui_widgets.cpp.obj.modmap
   FLAGS = -O0 -std=gnu++20 -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -g -Xclang -gcodeview
-  INCLUDES = -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui/misc/cpp
+  INCLUDES = -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/stb-src -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui/misc/cpp
   OBJECT_DIR = CMakeFiles\imguilib.dir
   OBJECT_FILE_DIR = CMakeFiles\imguilib.dir\vendor\imgui
   TARGET_COMPILE_PDB = CMakeFiles\imguilib.dir\imguilib.pdb
@@ -302,19 +324,21 @@ build CMakeFiles/imguilib.dir/vendor/imgui/imgui_widgets.cpp.obj: CXX_COMPILER__
   dyndep = CMakeFiles/imguilib.dir/CXX.dd
 
 build CMakeFiles/imguilib.dir/vendor/imgui/misc/cpp/imgui_stdlib.cpp.obj.ddi: CXX_SCAN__imguilib_Debug D$:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui/misc/cpp/imgui_stdlib.cpp || cmake_object_order_depends_target_imguilib
+  DEFINES = -DPROJECT_ROOT_DIR=\"D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI\"
   DEP_FILE = CMakeFiles\imguilib.dir\vendor\imgui\misc\cpp\imgui_stdlib.cpp.obj.ddi.d
   DYNDEP_INTERMEDIATE_FILE = CMakeFiles\imguilib.dir\vendor\imgui\misc\cpp\imgui_stdlib.cpp.obj.ddi
   FLAGS = -O0 -std=gnu++20 -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -g -Xclang -gcodeview
-  INCLUDES = -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui/misc/cpp
+  INCLUDES = -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/stb-src -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui/misc/cpp
   OBJ_FILE = CMakeFiles\imguilib.dir\vendor\imgui\misc\cpp\imgui_stdlib.cpp.obj
   PREPROCESSED_OUTPUT_FILE = CMakeFiles\imguilib.dir\vendor\imgui\misc\cpp\imgui_stdlib.cpp.obj.ddi.i
 
 build CMakeFiles/imguilib.dir/vendor/imgui/misc/cpp/imgui_stdlib.cpp.obj: CXX_COMPILER__imguilib_scanned_Debug D$:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui/misc/cpp/imgui_stdlib.cpp | CMakeFiles/imguilib.dir/vendor/imgui/misc/cpp/imgui_stdlib.cpp.obj.modmap || cmake_object_order_depends_target_imguilib CMakeFiles/imguilib.dir/CXX.dd
   CONFIG = Debug
+  DEFINES = -DPROJECT_ROOT_DIR=\"D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI\"
   DEP_FILE = CMakeFiles\imguilib.dir\vendor\imgui\misc\cpp\imgui_stdlib.cpp.obj.d
   DYNDEP_MODULE_MAP_FILE = CMakeFiles\imguilib.dir\vendor\imgui\misc\cpp\imgui_stdlib.cpp.obj.modmap
   FLAGS = -O0 -std=gnu++20 -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -g -Xclang -gcodeview
-  INCLUDES = -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui/misc/cpp
+  INCLUDES = -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/stb-src -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui/misc/cpp
   OBJECT_DIR = CMakeFiles\imguilib.dir
   OBJECT_FILE_DIR = CMakeFiles\imguilib.dir\vendor\imgui\misc\cpp
   TARGET_COMPILE_PDB = CMakeFiles\imguilib.dir\imguilib.pdb
@@ -351,19 +375,21 @@ build imguilib.lib: CXX_STATIC_LIBRARY_LINKER__imguilib_Debug CMakeFiles/imguili
 build cmake_object_order_depends_target_opengl3imgui: phony || cmake_object_order_depends_target_glfw cmake_object_order_depends_target_imguilib
 
 build CMakeFiles/opengl3imgui.dir/vendor/imgui/backends/imgui_impl_opengl3.cpp.obj.ddi: CXX_SCAN__opengl3imgui_Debug D$:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui/backends/imgui_impl_opengl3.cpp || cmake_object_order_depends_target_opengl3imgui
+  DEFINES = -DPROJECT_ROOT_DIR=\"D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI\"
   DEP_FILE = CMakeFiles\opengl3imgui.dir\vendor\imgui\backends\imgui_impl_opengl3.cpp.obj.ddi.d
   DYNDEP_INTERMEDIATE_FILE = CMakeFiles\opengl3imgui.dir\vendor\imgui\backends\imgui_impl_opengl3.cpp.obj.ddi
   FLAGS = -O0 -std=gnu++20 -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -g -Xclang -gcodeview
-  INCLUDES = -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui/backends -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui/misc/cpp -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/glfw-src/include
+  INCLUDES = -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/stb-src -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui/backends -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui/misc/cpp -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/glfw-src/include
   OBJ_FILE = CMakeFiles\opengl3imgui.dir\vendor\imgui\backends\imgui_impl_opengl3.cpp.obj
   PREPROCESSED_OUTPUT_FILE = CMakeFiles\opengl3imgui.dir\vendor\imgui\backends\imgui_impl_opengl3.cpp.obj.ddi.i
 
 build CMakeFiles/opengl3imgui.dir/vendor/imgui/backends/imgui_impl_opengl3.cpp.obj: CXX_COMPILER__opengl3imgui_scanned_Debug D$:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui/backends/imgui_impl_opengl3.cpp | CMakeFiles/opengl3imgui.dir/vendor/imgui/backends/imgui_impl_opengl3.cpp.obj.modmap || cmake_object_order_depends_target_opengl3imgui CMakeFiles/opengl3imgui.dir/CXX.dd
   CONFIG = Debug
+  DEFINES = -DPROJECT_ROOT_DIR=\"D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI\"
   DEP_FILE = CMakeFiles\opengl3imgui.dir\vendor\imgui\backends\imgui_impl_opengl3.cpp.obj.d
   DYNDEP_MODULE_MAP_FILE = CMakeFiles\opengl3imgui.dir\vendor\imgui\backends\imgui_impl_opengl3.cpp.obj.modmap
   FLAGS = -O0 -std=gnu++20 -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -g -Xclang -gcodeview
-  INCLUDES = -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui/backends -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui/misc/cpp -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/glfw-src/include
+  INCLUDES = -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/stb-src -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui/backends -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui/misc/cpp -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/glfw-src/include
   OBJECT_DIR = CMakeFiles\opengl3imgui.dir
   OBJECT_FILE_DIR = CMakeFiles\opengl3imgui.dir\vendor\imgui\backends
   TARGET_COMPILE_PDB = CMakeFiles\opengl3imgui.dir\opengl3imgui.pdb
@@ -371,19 +397,21 @@ build CMakeFiles/opengl3imgui.dir/vendor/imgui/backends/imgui_impl_opengl3.cpp.o
   dyndep = CMakeFiles/opengl3imgui.dir/CXX.dd
 
 build CMakeFiles/opengl3imgui.dir/vendor/imgui/backends/imgui_impl_glfw.cpp.obj.ddi: CXX_SCAN__opengl3imgui_Debug D$:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui/backends/imgui_impl_glfw.cpp || cmake_object_order_depends_target_opengl3imgui
+  DEFINES = -DPROJECT_ROOT_DIR=\"D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI\"
   DEP_FILE = CMakeFiles\opengl3imgui.dir\vendor\imgui\backends\imgui_impl_glfw.cpp.obj.ddi.d
   DYNDEP_INTERMEDIATE_FILE = CMakeFiles\opengl3imgui.dir\vendor\imgui\backends\imgui_impl_glfw.cpp.obj.ddi
   FLAGS = -O0 -std=gnu++20 -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -g -Xclang -gcodeview
-  INCLUDES = -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui/backends -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui/misc/cpp -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/glfw-src/include
+  INCLUDES = -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/stb-src -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui/backends -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui/misc/cpp -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/glfw-src/include
   OBJ_FILE = CMakeFiles\opengl3imgui.dir\vendor\imgui\backends\imgui_impl_glfw.cpp.obj
   PREPROCESSED_OUTPUT_FILE = CMakeFiles\opengl3imgui.dir\vendor\imgui\backends\imgui_impl_glfw.cpp.obj.ddi.i
 
 build CMakeFiles/opengl3imgui.dir/vendor/imgui/backends/imgui_impl_glfw.cpp.obj: CXX_COMPILER__opengl3imgui_scanned_Debug D$:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui/backends/imgui_impl_glfw.cpp | CMakeFiles/opengl3imgui.dir/vendor/imgui/backends/imgui_impl_glfw.cpp.obj.modmap || cmake_object_order_depends_target_opengl3imgui CMakeFiles/opengl3imgui.dir/CXX.dd
   CONFIG = Debug
+  DEFINES = -DPROJECT_ROOT_DIR=\"D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI\"
   DEP_FILE = CMakeFiles\opengl3imgui.dir\vendor\imgui\backends\imgui_impl_glfw.cpp.obj.d
   DYNDEP_MODULE_MAP_FILE = CMakeFiles\opengl3imgui.dir\vendor\imgui\backends\imgui_impl_glfw.cpp.obj.modmap
   FLAGS = -O0 -std=gnu++20 -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -g -Xclang -gcodeview
-  INCLUDES = -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui/backends -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui/misc/cpp -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/glfw-src/include
+  INCLUDES = -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/stb-src -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui/backends -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui/misc/cpp -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/glfw-src/include
   OBJECT_DIR = CMakeFiles\opengl3imgui.dir
   OBJECT_FILE_DIR = CMakeFiles\opengl3imgui.dir\vendor\imgui\backends
   TARGET_COMPILE_PDB = CMakeFiles\opengl3imgui.dir\opengl3imgui.pdb
@@ -563,6 +591,7 @@ build cmake_object_order_depends_target_nfd: phony || .
 
 build _deps/nfd-build/src/CMakeFiles/nfd.dir/nfd_win.cpp.obj: CXX_COMPILER__nfd_unscanned_Debug D$:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/nfd-src/src/nfd_win.cpp || cmake_object_order_depends_target_nfd
   CONFIG = Debug
+  DEFINES = -DPROJECT_ROOT_DIR=\"D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI\"
   DEP_FILE = _deps\nfd-build\src\CMakeFiles\nfd.dir\nfd_win.cpp.obj.d
   FLAGS = -O0 -std=gnu++20 -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -g -Xclang -gcodeview
   INCLUDES = -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/nfd-src/src/include
@@ -761,7 +790,7 @@ build cmake_object_order_depends_target_glfw: phony || .
 
 build _deps/glfw-build/src/CMakeFiles/glfw.dir/context.c.obj: C_COMPILER__glfw_unscanned_Debug D$:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/glfw-src/src/context.c || cmake_object_order_depends_target_glfw
   CONFIG = Debug
-  DEFINES = -DUNICODE -D_CRT_SECURE_NO_WARNINGS -D_GLFW_USE_CONFIG_H -D_UNICODE
+  DEFINES = -DPROJECT_ROOT_DIR=\"D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI\" -DUNICODE -D_CRT_SECURE_NO_WARNINGS -D_GLFW_USE_CONFIG_H -D_UNICODE
   DEP_FILE = _deps\glfw-build\src\CMakeFiles\glfw.dir\context.c.obj.d
   FLAGS = -O0 -std=gnu99 -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -g -Xclang -gcodeview -Wall
   INCLUDES = -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/glfw-src/include -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/glfw-src/src -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/glfw-build/src
@@ -772,7 +801,7 @@ build _deps/glfw-build/src/CMakeFiles/glfw.dir/context.c.obj: C_COMPILER__glfw_u
 
 build _deps/glfw-build/src/CMakeFiles/glfw.dir/init.c.obj: C_COMPILER__glfw_unscanned_Debug D$:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/glfw-src/src/init.c || cmake_object_order_depends_target_glfw
   CONFIG = Debug
-  DEFINES = -DUNICODE -D_CRT_SECURE_NO_WARNINGS -D_GLFW_USE_CONFIG_H -D_UNICODE
+  DEFINES = -DPROJECT_ROOT_DIR=\"D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI\" -DUNICODE -D_CRT_SECURE_NO_WARNINGS -D_GLFW_USE_CONFIG_H -D_UNICODE
   DEP_FILE = _deps\glfw-build\src\CMakeFiles\glfw.dir\init.c.obj.d
   FLAGS = -O0 -std=gnu99 -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -g -Xclang -gcodeview -Wall
   INCLUDES = -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/glfw-src/include -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/glfw-src/src -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/glfw-build/src
@@ -783,7 +812,7 @@ build _deps/glfw-build/src/CMakeFiles/glfw.dir/init.c.obj: C_COMPILER__glfw_unsc
 
 build _deps/glfw-build/src/CMakeFiles/glfw.dir/input.c.obj: C_COMPILER__glfw_unscanned_Debug D$:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/glfw-src/src/input.c || cmake_object_order_depends_target_glfw
   CONFIG = Debug
-  DEFINES = -DUNICODE -D_CRT_SECURE_NO_WARNINGS -D_GLFW_USE_CONFIG_H -D_UNICODE
+  DEFINES = -DPROJECT_ROOT_DIR=\"D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI\" -DUNICODE -D_CRT_SECURE_NO_WARNINGS -D_GLFW_USE_CONFIG_H -D_UNICODE
   DEP_FILE = _deps\glfw-build\src\CMakeFiles\glfw.dir\input.c.obj.d
   FLAGS = -O0 -std=gnu99 -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -g -Xclang -gcodeview -Wall
   INCLUDES = -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/glfw-src/include -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/glfw-src/src -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/glfw-build/src
@@ -794,7 +823,7 @@ build _deps/glfw-build/src/CMakeFiles/glfw.dir/input.c.obj: C_COMPILER__glfw_uns
 
 build _deps/glfw-build/src/CMakeFiles/glfw.dir/monitor.c.obj: C_COMPILER__glfw_unscanned_Debug D$:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/glfw-src/src/monitor.c || cmake_object_order_depends_target_glfw
   CONFIG = Debug
-  DEFINES = -DUNICODE -D_CRT_SECURE_NO_WARNINGS -D_GLFW_USE_CONFIG_H -D_UNICODE
+  DEFINES = -DPROJECT_ROOT_DIR=\"D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI\" -DUNICODE -D_CRT_SECURE_NO_WARNINGS -D_GLFW_USE_CONFIG_H -D_UNICODE
   DEP_FILE = _deps\glfw-build\src\CMakeFiles\glfw.dir\monitor.c.obj.d
   FLAGS = -O0 -std=gnu99 -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -g -Xclang -gcodeview -Wall
   INCLUDES = -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/glfw-src/include -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/glfw-src/src -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/glfw-build/src
@@ -805,7 +834,7 @@ build _deps/glfw-build/src/CMakeFiles/glfw.dir/monitor.c.obj: C_COMPILER__glfw_u
 
 build _deps/glfw-build/src/CMakeFiles/glfw.dir/vulkan.c.obj: C_COMPILER__glfw_unscanned_Debug D$:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/glfw-src/src/vulkan.c || cmake_object_order_depends_target_glfw
   CONFIG = Debug
-  DEFINES = -DUNICODE -D_CRT_SECURE_NO_WARNINGS -D_GLFW_USE_CONFIG_H -D_UNICODE
+  DEFINES = -DPROJECT_ROOT_DIR=\"D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI\" -DUNICODE -D_CRT_SECURE_NO_WARNINGS -D_GLFW_USE_CONFIG_H -D_UNICODE
   DEP_FILE = _deps\glfw-build\src\CMakeFiles\glfw.dir\vulkan.c.obj.d
   FLAGS = -O0 -std=gnu99 -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -g -Xclang -gcodeview -Wall
   INCLUDES = -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/glfw-src/include -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/glfw-src/src -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/glfw-build/src
@@ -816,7 +845,7 @@ build _deps/glfw-build/src/CMakeFiles/glfw.dir/vulkan.c.obj: C_COMPILER__glfw_un
 
 build _deps/glfw-build/src/CMakeFiles/glfw.dir/window.c.obj: C_COMPILER__glfw_unscanned_Debug D$:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/glfw-src/src/window.c || cmake_object_order_depends_target_glfw
   CONFIG = Debug
-  DEFINES = -DUNICODE -D_CRT_SECURE_NO_WARNINGS -D_GLFW_USE_CONFIG_H -D_UNICODE
+  DEFINES = -DPROJECT_ROOT_DIR=\"D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI\" -DUNICODE -D_CRT_SECURE_NO_WARNINGS -D_GLFW_USE_CONFIG_H -D_UNICODE
   DEP_FILE = _deps\glfw-build\src\CMakeFiles\glfw.dir\window.c.obj.d
   FLAGS = -O0 -std=gnu99 -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -g -Xclang -gcodeview -Wall
   INCLUDES = -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/glfw-src/include -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/glfw-src/src -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/glfw-build/src
@@ -827,7 +856,7 @@ build _deps/glfw-build/src/CMakeFiles/glfw.dir/window.c.obj: C_COMPILER__glfw_un
 
 build _deps/glfw-build/src/CMakeFiles/glfw.dir/win32_init.c.obj: C_COMPILER__glfw_unscanned_Debug D$:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/glfw-src/src/win32_init.c || cmake_object_order_depends_target_glfw
   CONFIG = Debug
-  DEFINES = -DUNICODE -D_CRT_SECURE_NO_WARNINGS -D_GLFW_USE_CONFIG_H -D_UNICODE
+  DEFINES = -DPROJECT_ROOT_DIR=\"D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI\" -DUNICODE -D_CRT_SECURE_NO_WARNINGS -D_GLFW_USE_CONFIG_H -D_UNICODE
   DEP_FILE = _deps\glfw-build\src\CMakeFiles\glfw.dir\win32_init.c.obj.d
   FLAGS = -O0 -std=gnu99 -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -g -Xclang -gcodeview -Wall
   INCLUDES = -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/glfw-src/include -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/glfw-src/src -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/glfw-build/src
@@ -838,7 +867,7 @@ build _deps/glfw-build/src/CMakeFiles/glfw.dir/win32_init.c.obj: C_COMPILER__glf
 
 build _deps/glfw-build/src/CMakeFiles/glfw.dir/win32_joystick.c.obj: C_COMPILER__glfw_unscanned_Debug D$:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/glfw-src/src/win32_joystick.c || cmake_object_order_depends_target_glfw
   CONFIG = Debug
-  DEFINES = -DUNICODE -D_CRT_SECURE_NO_WARNINGS -D_GLFW_USE_CONFIG_H -D_UNICODE
+  DEFINES = -DPROJECT_ROOT_DIR=\"D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI\" -DUNICODE -D_CRT_SECURE_NO_WARNINGS -D_GLFW_USE_CONFIG_H -D_UNICODE
   DEP_FILE = _deps\glfw-build\src\CMakeFiles\glfw.dir\win32_joystick.c.obj.d
   FLAGS = -O0 -std=gnu99 -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -g -Xclang -gcodeview -Wall
   INCLUDES = -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/glfw-src/include -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/glfw-src/src -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/glfw-build/src
@@ -849,7 +878,7 @@ build _deps/glfw-build/src/CMakeFiles/glfw.dir/win32_joystick.c.obj: C_COMPILER_
 
 build _deps/glfw-build/src/CMakeFiles/glfw.dir/win32_monitor.c.obj: C_COMPILER__glfw_unscanned_Debug D$:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/glfw-src/src/win32_monitor.c || cmake_object_order_depends_target_glfw
   CONFIG = Debug
-  DEFINES = -DUNICODE -D_CRT_SECURE_NO_WARNINGS -D_GLFW_USE_CONFIG_H -D_UNICODE
+  DEFINES = -DPROJECT_ROOT_DIR=\"D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI\" -DUNICODE -D_CRT_SECURE_NO_WARNINGS -D_GLFW_USE_CONFIG_H -D_UNICODE
   DEP_FILE = _deps\glfw-build\src\CMakeFiles\glfw.dir\win32_monitor.c.obj.d
   FLAGS = -O0 -std=gnu99 -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -g -Xclang -gcodeview -Wall
   INCLUDES = -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/glfw-src/include -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/glfw-src/src -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/glfw-build/src
@@ -860,7 +889,7 @@ build _deps/glfw-build/src/CMakeFiles/glfw.dir/win32_monitor.c.obj: C_COMPILER__
 
 build _deps/glfw-build/src/CMakeFiles/glfw.dir/win32_time.c.obj: C_COMPILER__glfw_unscanned_Debug D$:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/glfw-src/src/win32_time.c || cmake_object_order_depends_target_glfw
   CONFIG = Debug
-  DEFINES = -DUNICODE -D_CRT_SECURE_NO_WARNINGS -D_GLFW_USE_CONFIG_H -D_UNICODE
+  DEFINES = -DPROJECT_ROOT_DIR=\"D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI\" -DUNICODE -D_CRT_SECURE_NO_WARNINGS -D_GLFW_USE_CONFIG_H -D_UNICODE
   DEP_FILE = _deps\glfw-build\src\CMakeFiles\glfw.dir\win32_time.c.obj.d
   FLAGS = -O0 -std=gnu99 -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -g -Xclang -gcodeview -Wall
   INCLUDES = -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/glfw-src/include -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/glfw-src/src -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/glfw-build/src
@@ -871,7 +900,7 @@ build _deps/glfw-build/src/CMakeFiles/glfw.dir/win32_time.c.obj: C_COMPILER__glf
 
 build _deps/glfw-build/src/CMakeFiles/glfw.dir/win32_thread.c.obj: C_COMPILER__glfw_unscanned_Debug D$:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/glfw-src/src/win32_thread.c || cmake_object_order_depends_target_glfw
   CONFIG = Debug
-  DEFINES = -DUNICODE -D_CRT_SECURE_NO_WARNINGS -D_GLFW_USE_CONFIG_H -D_UNICODE
+  DEFINES = -DPROJECT_ROOT_DIR=\"D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI\" -DUNICODE -D_CRT_SECURE_NO_WARNINGS -D_GLFW_USE_CONFIG_H -D_UNICODE
   DEP_FILE = _deps\glfw-build\src\CMakeFiles\glfw.dir\win32_thread.c.obj.d
   FLAGS = -O0 -std=gnu99 -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -g -Xclang -gcodeview -Wall
   INCLUDES = -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/glfw-src/include -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/glfw-src/src -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/glfw-build/src
@@ -882,7 +911,7 @@ build _deps/glfw-build/src/CMakeFiles/glfw.dir/win32_thread.c.obj: C_COMPILER__g
 
 build _deps/glfw-build/src/CMakeFiles/glfw.dir/win32_window.c.obj: C_COMPILER__glfw_unscanned_Debug D$:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/glfw-src/src/win32_window.c || cmake_object_order_depends_target_glfw
   CONFIG = Debug
-  DEFINES = -DUNICODE -D_CRT_SECURE_NO_WARNINGS -D_GLFW_USE_CONFIG_H -D_UNICODE
+  DEFINES = -DPROJECT_ROOT_DIR=\"D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI\" -DUNICODE -D_CRT_SECURE_NO_WARNINGS -D_GLFW_USE_CONFIG_H -D_UNICODE
   DEP_FILE = _deps\glfw-build\src\CMakeFiles\glfw.dir\win32_window.c.obj.d
   FLAGS = -O0 -std=gnu99 -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -g -Xclang -gcodeview -Wall
   INCLUDES = -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/glfw-src/include -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/glfw-src/src -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/glfw-build/src
@@ -893,7 +922,7 @@ build _deps/glfw-build/src/CMakeFiles/glfw.dir/win32_window.c.obj: C_COMPILER__g
 
 build _deps/glfw-build/src/CMakeFiles/glfw.dir/wgl_context.c.obj: C_COMPILER__glfw_unscanned_Debug D$:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/glfw-src/src/wgl_context.c || cmake_object_order_depends_target_glfw
   CONFIG = Debug
-  DEFINES = -DUNICODE -D_CRT_SECURE_NO_WARNINGS -D_GLFW_USE_CONFIG_H -D_UNICODE
+  DEFINES = -DPROJECT_ROOT_DIR=\"D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI\" -DUNICODE -D_CRT_SECURE_NO_WARNINGS -D_GLFW_USE_CONFIG_H -D_UNICODE
   DEP_FILE = _deps\glfw-build\src\CMakeFiles\glfw.dir\wgl_context.c.obj.d
   FLAGS = -O0 -std=gnu99 -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -g -Xclang -gcodeview -Wall
   INCLUDES = -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/glfw-src/include -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/glfw-src/src -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/glfw-build/src
@@ -904,7 +933,7 @@ build _deps/glfw-build/src/CMakeFiles/glfw.dir/wgl_context.c.obj: C_COMPILER__gl
 
 build _deps/glfw-build/src/CMakeFiles/glfw.dir/egl_context.c.obj: C_COMPILER__glfw_unscanned_Debug D$:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/glfw-src/src/egl_context.c || cmake_object_order_depends_target_glfw
   CONFIG = Debug
-  DEFINES = -DUNICODE -D_CRT_SECURE_NO_WARNINGS -D_GLFW_USE_CONFIG_H -D_UNICODE
+  DEFINES = -DPROJECT_ROOT_DIR=\"D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI\" -DUNICODE -D_CRT_SECURE_NO_WARNINGS -D_GLFW_USE_CONFIG_H -D_UNICODE
   DEP_FILE = _deps\glfw-build\src\CMakeFiles\glfw.dir\egl_context.c.obj.d
   FLAGS = -O0 -std=gnu99 -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -g -Xclang -gcodeview -Wall
   INCLUDES = -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/glfw-src/include -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/glfw-src/src -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/glfw-build/src
@@ -915,7 +944,7 @@ build _deps/glfw-build/src/CMakeFiles/glfw.dir/egl_context.c.obj: C_COMPILER__gl
 
 build _deps/glfw-build/src/CMakeFiles/glfw.dir/osmesa_context.c.obj: C_COMPILER__glfw_unscanned_Debug D$:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/glfw-src/src/osmesa_context.c || cmake_object_order_depends_target_glfw
   CONFIG = Debug
-  DEFINES = -DUNICODE -D_CRT_SECURE_NO_WARNINGS -D_GLFW_USE_CONFIG_H -D_UNICODE
+  DEFINES = -DPROJECT_ROOT_DIR=\"D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI\" -DUNICODE -D_CRT_SECURE_NO_WARNINGS -D_GLFW_USE_CONFIG_H -D_UNICODE
   DEP_FILE = _deps\glfw-build\src\CMakeFiles\glfw.dir\osmesa_context.c.obj.d
   FLAGS = -O0 -std=gnu99 -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -g -Xclang -gcodeview -Wall
   INCLUDES = -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/glfw-src/include -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/glfw-src/src -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/glfw-build/src

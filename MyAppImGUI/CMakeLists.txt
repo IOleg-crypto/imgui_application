@@ -1,8 +1,10 @@
-cmake_minimum_required(VERSION 3.29)
+cmake_minimum_required(VERSION 3.29) 
 project(MyAppImGUI)
 
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+add_compile_definitions(PROJECT_ROOT_DIR="${CMAKE_SOURCE_DIR}")
 
 add_executable(MyAppImGUI
     src/OpenGL/Render.cpp
@@ -21,8 +23,8 @@ add_executable(MyAppImGUI
     src/main.cpp
 )
 
-# --- Native File Dialog Extended ---
 include(FetchContent)
+
 FetchContent_Declare(
   nfd
   GIT_REPOSITORY https://github.com/btzy/nativefiledialog-extended.git
@@ -30,7 +32,6 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(nfd)
 
-# --- GLFW ---
 FetchContent_Declare(
   glfw
   GIT_REPOSITORY https://github.com/glfw/glfw.git
@@ -41,7 +42,14 @@ set(GLFW_BUILD_TESTS OFF CACHE BOOL "" FORCE)
 set(GLFW_BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
 FetchContent_MakeAvailable(glfw)
 
-# --- ImGui core ---
+FetchContent_Declare(
+  stb
+  GIT_REPOSITORY https://github.com/nothings/stb.git
+  GIT_TAG        master
+)
+FetchContent_MakeAvailable(stb)
+include_directories(${stb_SOURCE_DIR})
+
 add_library(imguilib STATIC
     vendor/imgui/imgui.cpp
     vendor/imgui/imgui.h
@@ -70,7 +78,6 @@ target_include_directories(opengl3imgui PUBLIC
 find_package(OpenGL REQUIRED)
 target_link_libraries(opengl3imgui PUBLIC imguilib glfw)
 
-# --- Main app ---
 target_include_directories(MyAppImGUI PUBLIC src)
 
 target_link_libraries(MyAppImGUI PUBLIC

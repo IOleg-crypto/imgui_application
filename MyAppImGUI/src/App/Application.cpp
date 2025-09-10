@@ -25,7 +25,7 @@ void Application::Init()
 
     std::cout << "Initialization successful!\n";
 }
-void Application::RunMainLoop(Application &app)
+void Application::Run()
 {
 #if _DEBUG
     std::setlocale(LC_ALL, "C.UTF-8");
@@ -63,8 +63,6 @@ void Application::RunMainLoop(Application &app)
     std::cout << _CrtDumpMemoryLeaks();
 #endif
 }
-
-
 
 void Application::DrawUI()
 {

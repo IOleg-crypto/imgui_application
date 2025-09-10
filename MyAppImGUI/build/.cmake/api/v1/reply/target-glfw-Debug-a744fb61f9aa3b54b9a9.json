@@ -14,13 +14,15 @@
 			"add_library",
 			"install",
 			"target_compile_options",
+			"add_compile_definitions",
 			"target_compile_definitions",
 			"target_include_directories",
 			"set_target_properties"
 		],
 		"files" : 
 		[
-			"build/_deps/glfw-src/src/CMakeLists.txt"
+			"build/_deps/glfw-src/src/CMakeLists.txt",
+			"CMakeLists.txt"
 		],
 		"nodes" : 
 		[
@@ -46,37 +48,46 @@
 				"parent" : 0
 			},
 			{
+				"file" : 1
+			},
+			{
 				"command" : 3,
+				"file" : 1,
+				"line" : 7,
+				"parent" : 4
+			},
+			{
+				"command" : 4,
 				"file" : 0,
 				"line" : 144,
 				"parent" : 0
 			},
 			{
-				"command" : 3,
+				"command" : 4,
 				"file" : 0,
 				"line" : 186,
 				"parent" : 0
 			},
 			{
-				"command" : 3,
+				"command" : 4,
 				"file" : 0,
 				"line" : 111,
 				"parent" : 0
 			},
 			{
-				"command" : 4,
+				"command" : 5,
 				"file" : 0,
 				"line" : 112,
 				"parent" : 0
 			},
 			{
-				"command" : 4,
+				"command" : 5,
 				"file" : 0,
 				"line" : 115,
 				"parent" : 0
 			},
 			{
-				"command" : 5,
+				"command" : 6,
 				"file" : 0,
 				"line" : 102,
 				"parent" : 0
@@ -99,34 +110,38 @@
 			"defines" : 
 			[
 				{
-					"backtrace" : 4,
-					"define" : "UNICODE"
-				},
-				{
 					"backtrace" : 5,
-					"define" : "_CRT_SECURE_NO_WARNINGS"
+					"define" : "PROJECT_ROOT_DIR=\"D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI\""
 				},
 				{
 					"backtrace" : 6,
+					"define" : "UNICODE"
+				},
+				{
+					"backtrace" : 7,
+					"define" : "_CRT_SECURE_NO_WARNINGS"
+				},
+				{
+					"backtrace" : 8,
 					"define" : "_GLFW_USE_CONFIG_H"
 				},
 				{
-					"backtrace" : 4,
+					"backtrace" : 6,
 					"define" : "_UNICODE"
 				}
 			],
 			"includes" : 
 			[
 				{
-					"backtrace" : 7,
+					"backtrace" : 9,
 					"path" : "D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/glfw-src/include"
 				},
 				{
-					"backtrace" : 8,
+					"backtrace" : 10,
 					"path" : "D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/glfw-src/src"
 				},
 				{
-					"backtrace" : 8,
+					"backtrace" : 10,
 					"path" : "D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/glfw-build/src"
 				}
 			],
@@ -135,7 +150,7 @@
 			{
 				"backtraces" : 
 				[
-					9
+					11
 				],
 				"standard" : "99"
 			},

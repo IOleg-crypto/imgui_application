@@ -58,7 +58,7 @@ public:
      * @brief Start and run the main application loop.
      * @param app Reference to the application object (used for state passing).
      */
-    void RunMainLoop(Application& app);
+    void Run();
 
 
 private:

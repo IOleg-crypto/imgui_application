@@ -5,10 +5,6 @@
 #include "imgui_impl_opengl3.h"
 #include <GLFW/glfw3.h>
 
-/*
- * Returns the refresh rate of the primary monitor.
- */
-int GetMonitorRefreshRate();
 
 /*
  * Renders the ImGui window.

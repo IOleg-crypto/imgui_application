@@ -2,6 +2,9 @@
 <project version="4">
   <component name="VcsDirectoryMappings">
     <mapping directory="" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/MyAppImGUI/build/_deps/glfw-src" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/MyAppImGUI/build/_deps/nfd-src" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/MyAppImGUI/build/_deps/stb-src" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/MyAppImGUI/vendor/imgui" vcs="Git" />
   </component>
 </project>

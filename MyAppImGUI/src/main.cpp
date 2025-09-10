@@ -6,6 +6,6 @@ int main()
 {
 	Application app;
 	app.Init();
-	app.RunMainLoop(app);
+	app.Run();
 	return 0;
 }
