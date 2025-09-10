@@ -12,9 +12,9 @@ void SaveFileDialog(const std::string& CurrentTabInfo, std::string& path)
     NFD_Init();
 
     nfdu8char_t* outPath = nullptr;
-    nfdu8filteritem_t filters[] = { { "Text/Binary files", "txt,bin" } };
+    nfdu8filteritem_t filters[] = { { "Text file", "txt" } ,{ "Binary file", "bin" } };
 
-    nfdresult_t result = NFD_SaveDialogU8(&outPath, filters, 1, nullptr , nullptr);
+    nfdresult_t result = NFD_SaveDialogU8(&outPath, filters, 2, nullptr , nullptr);
 
     if (result == NFD_OKAY)
     {
@@ -56,9 +56,9 @@ void ShowOpenFileDialog(std::string& tabContents, std::string& pathFile)
     NFD_Init();
 
     nfdu8char_t* outPath = nullptr;
-    nfdu8filteritem_t filters[] = { { "Text/Binary files", "txt,bin" } };
+    nfdu8filteritem_t filters[] = { { "Text file", "txt" } , { "Binary file", "bin" } };
 
-    nfdresult_t result = NFD_OpenDialogU8(&outPath, filters, 1, nullptr);
+    nfdresult_t result = NFD_OpenDialogU8(&outPath, filters, 2, nullptr);
 
     if (result == NFD_OKAY)
     {

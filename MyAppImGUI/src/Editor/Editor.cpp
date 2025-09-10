@@ -46,7 +46,7 @@ void TabManager::RenderMenuTab()
 
 			if (ImGui::MenuItem("Save file as", "Ctrl+Shift+S"))
 			{
-				// SaveFileDialog(m_Window.GetWindow(), currentTabInfo, pathFile);
+				SaveFileDialog(currentTabInfo, pathFile);
 				if (!pathFile.empty()) {
 					TabPages[selectedTab] = std::filesystem::path(pathFile).filename().string();
 				}
