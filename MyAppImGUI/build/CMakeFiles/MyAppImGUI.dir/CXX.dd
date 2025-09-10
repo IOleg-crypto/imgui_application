@@ -1,6 +1,4 @@
 ninja_dyndep_version = 1.0
-build CMakeFiles/MyAppImGUI.dir/src/OpenGL/Render.cpp.obj: dyndep
-
 build CMakeFiles/MyAppImGUI.dir/src/FileDialog/FileDialog.cpp.obj: dyndep
 
 build CMakeFiles/MyAppImGUI.dir/src/Memory/Memory.cpp.obj: dyndep

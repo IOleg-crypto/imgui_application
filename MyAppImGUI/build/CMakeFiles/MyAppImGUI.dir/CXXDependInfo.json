@@ -47,11 +47,6 @@
 			"language" : "CXX",
 			"source" : "D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/src/Memory/Memory.cpp"
 		},
-		"CMakeFiles/MyAppImGUI.dir/src/OpenGL/Render.cpp.obj" : 
-		{
-			"language" : "CXX",
-			"source" : "D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/src/OpenGL/Render.cpp"
-		},
 		"CMakeFiles/MyAppImGUI.dir/src/Window/Window.cpp.obj" : 
 		{
 			"language" : "CXX",

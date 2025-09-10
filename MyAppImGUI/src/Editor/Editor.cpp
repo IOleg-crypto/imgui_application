@@ -40,7 +40,7 @@ void TabManager::RenderMenuTab()
 					earlyExit = true;
 				}
 
-				// SaveFile(m_Window.GetWindow(), pathFile, currentTabInfo);
+				SaveFile(pathFile, currentTabInfo);
 				TabPages[selectedTab] = std::filesystem::path(pathFile).filename().string();
 			}
 
@@ -53,7 +53,7 @@ void TabManager::RenderMenuTab()
 			}
 			if (ImGui::MenuItem("Open file", "Ctrl+O"))
 			{
-				// ShowOpenFileDialog(m_Window.GetWindow(), currentTabInfo, pathFile);
+				ShowOpenFileDialog(currentTabInfo, pathFile);
 				// To prevent add file, when tab don`t exist
 				if (!TabPages.empty())
 				{
@@ -239,11 +239,11 @@ void TabManager::RenderInputTextField()
 
 	ImGuiIO& io = ImGui::GetIO();
 	if (ImGui::IsKeyPressed(ImGuiKey_F) && io.KeyCtrl) {
-		// SaveFile(m_Window.GetWindow(), pathFile, currentTabInfo);
+		SaveFile(pathFile, currentTabInfo);
 	}
 
 	if (ImGui::IsKeyPressed(ImGuiKey_S) && io.KeyCtrl && io.KeyShift) {
-		// SaveFileDialog(m_Window.GetWindow(), currentTabInfo, pathFile);
+		SaveFileDialog(currentTabInfo, pathFile);
 	}
 
 	if (ImGui::IsKeyPressed(ImGuiKey_Delete)) {

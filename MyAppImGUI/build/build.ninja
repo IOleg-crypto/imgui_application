@@ -49,28 +49,6 @@ cmake_ninja_workdir = D$:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/buil
 
 build cmake_object_order_depends_target_MyAppImGUI: phony || cmake_object_order_depends_target_glfw cmake_object_order_depends_target_imguilib cmake_object_order_depends_target_nfd cmake_object_order_depends_target_opengl3imgui
 
-build CMakeFiles/MyAppImGUI.dir/src/OpenGL/Render.cpp.obj.ddi: CXX_SCAN__MyAppImGUI_Debug D$:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/src/OpenGL/Render.cpp || cmake_object_order_depends_target_MyAppImGUI
-  DEFINES = -DPROJECT_ROOT_DIR=\"D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI\"
-  DEP_FILE = CMakeFiles\MyAppImGUI.dir\src\OpenGL\Render.cpp.obj.ddi.d
-  DYNDEP_INTERMEDIATE_FILE = CMakeFiles\MyAppImGUI.dir\src\OpenGL\Render.cpp.obj.ddi
-  FLAGS = -O0 -std=gnu++20 -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -g -Xclang -gcodeview
-  INCLUDES = -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/stb-src -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/src -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui/backends -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui/misc/cpp -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/glfw-src/include -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/nfd-src/src/include
-  OBJ_FILE = CMakeFiles\MyAppImGUI.dir\src\OpenGL\Render.cpp.obj
-  PREPROCESSED_OUTPUT_FILE = CMakeFiles\MyAppImGUI.dir\src\OpenGL\Render.cpp.obj.ddi.i
-
-build CMakeFiles/MyAppImGUI.dir/src/OpenGL/Render.cpp.obj: CXX_COMPILER__MyAppImGUI_scanned_Debug D$:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/src/OpenGL/Render.cpp | CMakeFiles/MyAppImGUI.dir/src/OpenGL/Render.cpp.obj.modmap || cmake_object_order_depends_target_MyAppImGUI CMakeFiles/MyAppImGUI.dir/CXX.dd
-  CONFIG = Debug
-  DEFINES = -DPROJECT_ROOT_DIR=\"D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI\"
-  DEP_FILE = CMakeFiles\MyAppImGUI.dir\src\OpenGL\Render.cpp.obj.d
-  DYNDEP_MODULE_MAP_FILE = CMakeFiles\MyAppImGUI.dir\src\OpenGL\Render.cpp.obj.modmap
-  FLAGS = -O0 -std=gnu++20 -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -g -Xclang -gcodeview
-  INCLUDES = -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/stb-src -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/src -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui/backends -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui/misc/cpp -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/glfw-src/include -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/nfd-src/src/include
-  OBJECT_DIR = CMakeFiles\MyAppImGUI.dir
-  OBJECT_FILE_DIR = CMakeFiles\MyAppImGUI.dir\src\OpenGL
-  TARGET_COMPILE_PDB = CMakeFiles\MyAppImGUI.dir\
-  TARGET_PDB = MyAppImGUI.pdb
-  dyndep = CMakeFiles/MyAppImGUI.dir/CXX.dd
-
 build CMakeFiles/MyAppImGUI.dir/src/FileDialog/FileDialog.cpp.obj.ddi: CXX_SCAN__MyAppImGUI_Debug D$:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/src/FileDialog/FileDialog.cpp || cmake_object_order_depends_target_MyAppImGUI
   DEFINES = -DPROJECT_ROOT_DIR=\"D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI\"
   DEP_FILE = CMakeFiles\MyAppImGUI.dir\src\FileDialog\FileDialog.cpp.obj.ddi.d
@@ -203,7 +181,7 @@ build CMakeFiles/MyAppImGUI.dir/src/main.cpp.obj: CXX_COMPILER__MyAppImGUI_scann
   TARGET_PDB = MyAppImGUI.pdb
   dyndep = CMakeFiles/MyAppImGUI.dir/CXX.dd
 
-build CMakeFiles/MyAppImGUI.dir/CXX.dd | CMakeFiles/MyAppImGUI.dir/CXXModules.json CMakeFiles/MyAppImGUI.dir/src/OpenGL/Render.cpp.obj.modmap CMakeFiles/MyAppImGUI.dir/src/FileDialog/FileDialog.cpp.obj.modmap CMakeFiles/MyAppImGUI.dir/src/Memory/Memory.cpp.obj.modmap CMakeFiles/MyAppImGUI.dir/src/App/Application.cpp.obj.modmap CMakeFiles/MyAppImGUI.dir/src/Editor/Editor.cpp.obj.modmap CMakeFiles/MyAppImGUI.dir/src/Window/Window.cpp.obj.modmap CMakeFiles/MyAppImGUI.dir/src/main.cpp.obj.modmap: CXX_DYNDEP__MyAppImGUI_Debug CMakeFiles/MyAppImGUI.dir/src/OpenGL/Render.cpp.obj.ddi CMakeFiles/MyAppImGUI.dir/src/FileDialog/FileDialog.cpp.obj.ddi CMakeFiles/MyAppImGUI.dir/src/Memory/Memory.cpp.obj.ddi CMakeFiles/MyAppImGUI.dir/src/App/Application.cpp.obj.ddi CMakeFiles/MyAppImGUI.dir/src/Editor/Editor.cpp.obj.ddi CMakeFiles/MyAppImGUI.dir/src/Window/Window.cpp.obj.ddi CMakeFiles/MyAppImGUI.dir/src/main.cpp.obj.ddi | D$:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/CMakeFiles/MyAppImGUI.dir/CXXDependInfo.json
+build CMakeFiles/MyAppImGUI.dir/CXX.dd | CMakeFiles/MyAppImGUI.dir/CXXModules.json CMakeFiles/MyAppImGUI.dir/src/FileDialog/FileDialog.cpp.obj.modmap CMakeFiles/MyAppImGUI.dir/src/Memory/Memory.cpp.obj.modmap CMakeFiles/MyAppImGUI.dir/src/App/Application.cpp.obj.modmap CMakeFiles/MyAppImGUI.dir/src/Editor/Editor.cpp.obj.modmap CMakeFiles/MyAppImGUI.dir/src/Window/Window.cpp.obj.modmap CMakeFiles/MyAppImGUI.dir/src/main.cpp.obj.modmap: CXX_DYNDEP__MyAppImGUI_Debug CMakeFiles/MyAppImGUI.dir/src/FileDialog/FileDialog.cpp.obj.ddi CMakeFiles/MyAppImGUI.dir/src/Memory/Memory.cpp.obj.ddi CMakeFiles/MyAppImGUI.dir/src/App/Application.cpp.obj.ddi CMakeFiles/MyAppImGUI.dir/src/Editor/Editor.cpp.obj.ddi CMakeFiles/MyAppImGUI.dir/src/Window/Window.cpp.obj.ddi CMakeFiles/MyAppImGUI.dir/src/main.cpp.obj.ddi | D$:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/CMakeFiles/MyAppImGUI.dir/CXXDependInfo.json
 
 
 # =============================================================================
@@ -213,7 +191,7 @@ build CMakeFiles/MyAppImGUI.dir/CXX.dd | CMakeFiles/MyAppImGUI.dir/CXXModules.js
 #############################################
 # Link the executable MyAppImGUI.exe
 
-build MyAppImGUI.exe: CXX_EXECUTABLE_LINKER__MyAppImGUI_Debug CMakeFiles/MyAppImGUI.dir/src/OpenGL/Render.cpp.obj CMakeFiles/MyAppImGUI.dir/src/FileDialog/FileDialog.cpp.obj CMakeFiles/MyAppImGUI.dir/src/Memory/Memory.cpp.obj CMakeFiles/MyAppImGUI.dir/src/App/Application.cpp.obj CMakeFiles/MyAppImGUI.dir/src/Editor/Editor.cpp.obj CMakeFiles/MyAppImGUI.dir/src/Window/Window.cpp.obj CMakeFiles/MyAppImGUI.dir/src/main.cpp.obj | opengl3imgui.lib imguilib.lib _deps/glfw-build/src/glfw3.lib _deps/nfd-build/src/nfd.lib || _deps/glfw-build/src/glfw3.lib _deps/nfd-build/src/nfd.lib imguilib.lib opengl3imgui.lib
+build MyAppImGUI.exe: CXX_EXECUTABLE_LINKER__MyAppImGUI_Debug CMakeFiles/MyAppImGUI.dir/src/FileDialog/FileDialog.cpp.obj CMakeFiles/MyAppImGUI.dir/src/Memory/Memory.cpp.obj CMakeFiles/MyAppImGUI.dir/src/App/Application.cpp.obj CMakeFiles/MyAppImGUI.dir/src/Editor/Editor.cpp.obj CMakeFiles/MyAppImGUI.dir/src/Window/Window.cpp.obj CMakeFiles/MyAppImGUI.dir/src/main.cpp.obj | opengl3imgui.lib imguilib.lib _deps/glfw-build/src/glfw3.lib _deps/nfd-build/src/nfd.lib || _deps/glfw-build/src/glfw3.lib _deps/nfd-build/src/nfd.lib imguilib.lib opengl3imgui.lib
   CONFIG = Debug
   FLAGS = -O0 -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -g -Xclang -gcodeview
   LINK_FLAGS = -Xlinker /subsystem:console -fuse-ld=lld-link

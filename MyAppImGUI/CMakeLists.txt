@@ -7,8 +7,6 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 add_compile_definitions(PROJECT_ROOT_DIR="${CMAKE_SOURCE_DIR}")
 
 add_executable(MyAppImGUI
-    src/OpenGL/Render.cpp
-    src/OpenGL/Render.h
     src/FileDialog/FileDialog.cpp
     src/FileDialog/FileDialog.h
     src/Memory/Memory.cpp

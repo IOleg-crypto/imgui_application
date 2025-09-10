@@ -1,12 +1,6 @@
 [
 {
   "directory": "D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build",
-  "command": "C:\\LLVM\\bin\\clang++.exe -DPROJECT_ROOT_DIR=\\\"D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI\\\" -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/stb-src -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/src -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui/backends -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui/misc/cpp -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/glfw-src/include -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/nfd-src/src/include -O0 -std=gnu++20 -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -g -Xclang -gcodeview @CMakeFiles\\MyAppImGUI.dir\\src\\OpenGL\\Render.cpp.obj.modmap -o CMakeFiles\\MyAppImGUI.dir\\src\\OpenGL\\Render.cpp.obj -c D:\\gitnext\\CppWithImGUI\\imgui_application\\MyAppImGUI\\src\\OpenGL\\Render.cpp",
-  "file": "D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/src/OpenGL/Render.cpp",
-  "output": "D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/CMakeFiles/MyAppImGUI.dir/src/OpenGL/Render.cpp.obj"
-},
-{
-  "directory": "D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build",
   "command": "C:\\LLVM\\bin\\clang++.exe -DPROJECT_ROOT_DIR=\\\"D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI\\\" -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/stb-src -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/src -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui/backends -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui/misc/cpp -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/glfw-src/include -ID:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/nfd-src/src/include -O0 -std=gnu++20 -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -g -Xclang -gcodeview @CMakeFiles\\MyAppImGUI.dir\\src\\FileDialog\\FileDialog.cpp.obj.modmap -o CMakeFiles\\MyAppImGUI.dir\\src\\FileDialog\\FileDialog.cpp.obj -c D:\\gitnext\\CppWithImGUI\\imgui_application\\MyAppImGUI\\src\\FileDialog\\FileDialog.cpp",
   "file": "D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/src/FileDialog/FileDialog.cpp",
   "output": "D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/CMakeFiles/MyAppImGUI.dir/src/FileDialog/FileDialog.cpp.obj"

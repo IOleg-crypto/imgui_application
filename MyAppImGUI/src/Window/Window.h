@@ -1,11 +1,12 @@
 #ifndef WINDOW_H 
 #define WINDOW_H
 
-#include <string>
 #include "imgui.h"
 #include "FileDialog/FileDialog.h"
 #include "Editor/UIState.h"
 #include "imgui_impl_glfw.h"
+
+#include <string>
 
 /**
  * @brief Encapsulates window creation and management for the ImGui Notepad app.

@@ -450,7 +450,13 @@ CMakeFiles\MyAppImGUI.dir\src\FileDialog\FileDialog.cpp.obj.ddi: \
   C:\Program\ Files\Microsoft\ Visual\ Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xsmf_control.h \
   C:\Program\ Files\Microsoft\ Visual\ Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\sstream \
   C:\Program\ Files\Microsoft\ Visual\ Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\vector \
+  D:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\build\_deps\nfd-src\src\include\nfd.h \
   C:\Program\ Files\Microsoft\ Visual\ Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\iostream \
   C:\Program\ Files\Microsoft\ Visual\ Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\ostream \
   C:\Program\ Files\Microsoft\ Visual\ Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\fstream \
-  C:\Program\ Files\Microsoft\ Visual\ Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\__msvc_filebuf.hpp
+  C:\Program\ Files\Microsoft\ Visual\ Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\__msvc_filebuf.hpp \
+  D:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\build\_deps\nfd-src\src\include\nfd_glfw3.h \
+  D:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\build\_deps\glfw-src\include\GLFW\glfw3.h \
+  D:\Windows\ Kits\10\Include\10.0.26100.0\um\GL\gl.h \
+  D:\gitnext\CppWithImGUI\imgui_application\MyAppImGUI\build\_deps\glfw-src\include\GLFW\glfw3native.h \
+  C:\LLVM\lib\clang\21\include\stdbool.h
