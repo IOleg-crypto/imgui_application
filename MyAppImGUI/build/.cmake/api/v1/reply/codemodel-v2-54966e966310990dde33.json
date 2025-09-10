@@ -35,7 +35,7 @@
 					"jsonFile" : "directory-_deps.nfd-build-Debug-eedceac6a36fae7f31a8.json",
 					"minimumCMakeVersion" : 
 					{
-						"string" : "3.5"
+						"string" : "3.10"
 					},
 					"parentIndex" : 0,
 					"projectIndex" : 1,
@@ -46,7 +46,7 @@
 					"jsonFile" : "directory-_deps.nfd-build.src-Debug-67c403ecc57bbdda0e8b.json",
 					"minimumCMakeVersion" : 
 					{
-						"string" : "3.5"
+						"string" : "3.10"
 					},
 					"parentIndex" : 1,
 					"projectIndex" : 1,
@@ -170,7 +170,7 @@
 				{
 					"directoryIndex" : 2,
 					"id" : "nfd::@867e02254aa53ecc6986",
-					"jsonFile" : "target-nfd-Debug-93e5e46de4f8c5dea122.json",
+					"jsonFile" : "target-nfd-Debug-97ad3c8904a491f3f472.json",
 					"name" : "nfd",
 					"projectIndex" : 1
 				},

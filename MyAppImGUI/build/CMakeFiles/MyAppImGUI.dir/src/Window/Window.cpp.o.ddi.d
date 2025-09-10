@@ -257,6 +257,10 @@ CMakeFiles/MyAppImGUI.dir/src/Window/Window.cpp.o.ddi: \
   /usr/include/GL/gl.h /usr/include/GL/glext.h \
   /usr/include/KHR/khrplatform.h \
   /usr/bin/../lib/gcc/x86_64-linux-gnu/14/../../../../include/c++/14/iostream \
+  /home/kali/linux_project/imgui_application/MyAppImGUI/build/_deps/nfd-src/src/include/nfd.h \
+  /home/kali/linux_project/imgui_application/MyAppImGUI/build/_deps/nfd-src/src/include/nfd_glfw3.h \
+  /home/kali/linux_project/imgui_application/MyAppImGUI/build/_deps/glfw-src/include/GLFW/glfw3native.h \
+  /usr/lib/llvm-19/lib/clang/19/include/stdbool.h \
   /usr/include/X11/Xlib.h /usr/include/X11/X.h \
   /usr/include/X11/Xfuncproto.h /usr/include/X11/Xosdefs.h \
   /home/kali/linux_project/imgui_application/MyAppImGUI/build/_deps/stb-src/stb_image.h \

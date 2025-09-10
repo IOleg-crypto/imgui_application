@@ -4,6 +4,9 @@
 #include <GLFW/glfw3.h>
 #include <iostream>
 
+#include <nfd.h>
+#include <nfd_glfw3.h>
+
 #ifdef _WIN32
 #define GLFW_EXPOSE_NATIVE_WIN32
 #include <GLFW/glfw3native.h>
@@ -33,6 +36,7 @@ Window::~Window()
 
     // Destroy ImGui context
     ImGui::DestroyContext();
+    NFD_Quit();
 
     delete m_io;
 
@@ -57,6 +61,8 @@ void Window::Init()
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
     glfwWindowHint(GLFW_TRANSPARENT_FRAMEBUFFER, GLFW_TRUE);
     glfwWindowHint(GLFW_DECORATED, GLFW_FALSE);
+
+    
 
 #ifdef __APPLE__
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
@@ -125,12 +131,10 @@ void Window::Init()
     XMapWindow(display, x11Window);
     XFlush(display);
     LoadIconWindow();
-
-#else
-                         // fallback для Wayland
-    //glfwHideWindow(m_window);
 #endif
-
+    if (NFD_Init() != NFD_OKAY) {
+        std::cerr << "Failed to init NFD: " << NFD_GetError() << std::endl;
+    }
 #endif
     
 }
@@ -177,7 +181,7 @@ void Window::InitImGui()
     }
 
     ImGui_ImplGlfw_InitForOpenGL(m_window, true);
-    const char *glsl_version = "#version 450";
+    const char *glsl_version = "#version 410";
     ImGui_ImplOpenGL3_Init(glsl_version);
     m_io = &io;
 }

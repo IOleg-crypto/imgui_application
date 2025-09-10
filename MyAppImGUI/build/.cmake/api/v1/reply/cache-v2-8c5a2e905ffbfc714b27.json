@@ -2486,12 +2486,36 @@
 			"value" : "OFF"
 		},
 		{
+			"name" : "NFD_CASE_SENSITIVE_FILTER",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : "Make filters case sensitive"
+				}
+			],
+			"type" : "BOOL",
+			"value" : "OFF"
+		},
+		{
 			"name" : "NFD_INSTALL",
 			"properties" : 
 			[
 				{
 					"name" : "HELPSTRING",
 					"value" : "Generate install target for nfd"
+				}
+			],
+			"type" : "BOOL",
+			"value" : "OFF"
+		},
+		{
+			"name" : "NFD_OVERRIDE_RECENT_WITH_DEFAULT",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : "Use defaultPath instead of recent folder on Windows"
 				}
 			],
 			"type" : "BOOL",

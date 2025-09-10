@@ -22,7 +22,7 @@ TabManager::~TabManager() = default;
 
 void TabManager::RenderMenuTab()
 {
-    bool earlyExit = false; // Для виходу з меню, якщо потрібно
+    bool earlyExit = false; 
 
     if (ImGui::BeginMenuBar())
     {

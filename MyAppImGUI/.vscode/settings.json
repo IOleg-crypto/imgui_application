@@ -2,6 +2,7 @@
     "files.associations": {
         "*.embeddedhtml": "html",
         "iostream": "cpp",
-        "xiosbase": "cpp"
+        "xiosbase": "cpp",
+        "iosfwd": "cpp"
     }
 }
