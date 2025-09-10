@@ -1,0 +1,52 @@
+{
+	"bmi-installation" : null,
+	"compiler-frontend-variant" : "GNU",
+	"compiler-id" : "Clang",
+	"compiler-simulate-id" : "",
+	"config" : "Debug",
+	"cxx-modules" : {},
+	"database-info" : null,
+	"dir-cur-bld" : "/home/kali/linux_project/imgui_application/MyAppImGUI/build",
+	"dir-cur-src" : "/home/kali/linux_project/imgui_application/MyAppImGUI",
+	"dir-top-bld" : "/home/kali/linux_project/imgui_application/MyAppImGUI/build",
+	"dir-top-src" : "/home/kali/linux_project/imgui_application/MyAppImGUI",
+	"exports" : [],
+	"forward-modules-from-target-dirs" : [],
+	"include-dirs" : 
+	[
+		"_deps/stb-src",
+		"/home/kali/linux_project/imgui_application/MyAppImGUI/vendor/imgui",
+		"/home/kali/linux_project/imgui_application/MyAppImGUI/vendor/imgui/misc/cpp"
+	],
+	"language" : "CXX",
+	"linked-target-dirs" : [],
+	"module-dir" : "/home/kali/linux_project/imgui_application/MyAppImGUI/build/CMakeFiles/imguilib.dir",
+	"sources" : 
+	{
+		"CMakeFiles/imguilib.dir/vendor/imgui/imgui.cpp.o" : 
+		{
+			"language" : "CXX",
+			"source" : "/home/kali/linux_project/imgui_application/MyAppImGUI/vendor/imgui/imgui.cpp"
+		},
+		"CMakeFiles/imguilib.dir/vendor/imgui/imgui_draw.cpp.o" : 
+		{
+			"language" : "CXX",
+			"source" : "/home/kali/linux_project/imgui_application/MyAppImGUI/vendor/imgui/imgui_draw.cpp"
+		},
+		"CMakeFiles/imguilib.dir/vendor/imgui/imgui_tables.cpp.o" : 
+		{
+			"language" : "CXX",
+			"source" : "/home/kali/linux_project/imgui_application/MyAppImGUI/vendor/imgui/imgui_tables.cpp"
+		},
+		"CMakeFiles/imguilib.dir/vendor/imgui/imgui_widgets.cpp.o" : 
+		{
+			"language" : "CXX",
+			"source" : "/home/kali/linux_project/imgui_application/MyAppImGUI/vendor/imgui/imgui_widgets.cpp"
+		},
+		"CMakeFiles/imguilib.dir/vendor/imgui/misc/cpp/imgui_stdlib.cpp.o" : 
+		{
+			"language" : "CXX",
+			"source" : "/home/kali/linux_project/imgui_application/MyAppImGUI/vendor/imgui/misc/cpp/imgui_stdlib.cpp"
+		}
+	}
+}

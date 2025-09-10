@@ -10,14 +10,18 @@
 #include <Windows.h>
 #endif
 
+#ifdef __linux__
+#include <X11/Xlib.h>
+#endif
+
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
-
+namespace ImGui{
 bool Window::m_fullscreen = false;
 
 Window::Window()
     : m_window(nullptr), m_iconPath(PROJECT_ROOT_DIR "/assets/icon/icon_window.png"),
-      m_fontPath(R"(C:\Windows\Fonts\Arial.ttf)")
+      m_fontPath()
 {
 }
 
@@ -57,9 +61,25 @@ void Window::Init()
 #ifdef __APPLE__
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 #endif
-
+#ifdef _WIN32
     m_window = glfwCreateWindow(GetSystemMetrics(SM_CXSCREEN), GetSystemMetrics(SM_CYSCREEN),
                                 "ImGui Notepad", nullptr, nullptr);
+#endif
+#ifdef __linux__
+    Display* display = XOpenDisplay(NULL);
+    if (display == nullptr) {
+        // Handle error: could not open display
+        return;
+    }
+    Screen* screen = DefaultScreenOfDisplay(display);
+    if (screen == nullptr) {
+        // Handle error: could not get screen
+        XCloseDisplay(display);
+        return;
+    }
+    m_window = glfwCreateWindow(screen->width, screen->height,
+                                "ImGui Notepad", nullptr, nullptr);
+#endif
 
     if (!m_window)
     {
@@ -108,7 +128,7 @@ void Window::Init()
 
 #else
                          // fallback для Wayland
-    glfwHideWindow(m_window);
+    //glfwHideWindow(m_window);
 #endif
 
 #endif
@@ -148,7 +168,7 @@ void Window::InitImGui()
 
     if (!m_fontPath.empty())
     {
-        io.Fonts->AddFontFromFileTTF(m_fontPath.c_str(), 20, nullptr,
+        io.Fonts->AddFontFromFileTTF(R"(C:\Windows\Fonts\Arial.ttf)", 20, nullptr,
                                      io.Fonts->GetGlyphRangesCyrillic());
     }
     else
@@ -157,7 +177,7 @@ void Window::InitImGui()
     }
 
     ImGui_ImplGlfw_InitForOpenGL(m_window, true);
-    const char *glsl_version = "#version 460";
+    const char *glsl_version = "#version 450";
     ImGui_ImplOpenGL3_Init(glsl_version);
     m_io = &io;
 }
@@ -247,4 +267,5 @@ void Window::LoadIconWindow()
     {
         std::cerr << "Failed to load window icon!" << std::endl;
     }
+}
 }

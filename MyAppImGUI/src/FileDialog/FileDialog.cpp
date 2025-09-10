@@ -1,126 +1,116 @@
 #include "FileDialog.h"
+#include "nfd.h"
 
 #include <iostream>
 #include <fstream>
+#include "nfd_glfw3.h"
+#include "nfd.h"
 
 
-void SaveFileDialog(const HWND& hwnd, const std::string& CurrentTabInfo, std::string& path)
+void SaveFileDialog(const std::string& CurrentTabInfo, std::string& path)
 {
-    OPENFILENAMEA ofn;  // Structure for the file dialog
-    char sz_file[MAX_PATH] = ("\0");  // Buffer to store the selected file name
+    NFD_Init();
 
-    ZeroMemory(&ofn, sizeof(ofn));
-    ofn.lStructSize = sizeof(ofn);
-    ofn.hwndOwner = hwnd;
-    ofn.lpstrFilter = "Text Files (*.txt)\0*.txt\0Binary Files (*.bin)\0*.bin\0All Files (*.*)\0*.*\0";
-    ofn.lpstrFile = sz_file;
-    ofn.nMaxFile = MAX_PATH;
-    ofn.Flags = OFN_OVERWRITEPROMPT | OFN_PATHMUSTEXIST;
-    ofn.lpstrDefExt = "txt";
+    nfdu8char_t* outPath = nullptr;
+    nfdu8filteritem_t filters[] = { { "Text/Binary files", "txt,bin" } };
 
-    if (GetSaveFileNameA(&ofn))
+    nfdresult_t result = NFD_SaveDialogU8(&outPath, filters, 1, nullptr , nullptr);
+
+    if (result == NFD_OKAY)
     {
-        path = std::string(sz_file);
-        bool isBinary = strstr(sz_file, (".bin"));
+        std::string path = outPath;
+        bool isBinary = (path.find(".bin") != std::string::npos);
 
-        std::ofstream outFile(sz_file, isBinary ? (std::ios::binary | std::ios::trunc) : std::ios::trunc);
+        std::ofstream outFile(path, isBinary ? (std::ios::binary | std::ios::trunc) : std::ios::trunc);
         if (outFile)
         {
             if (isBinary)
-            {
-                outFile.write(CurrentTabInfo.c_str(), 4 + CurrentTabInfo.size());
-            }
+                outFile.write(CurrentTabInfo.c_str(), CurrentTabInfo.size());
             else
-            {
-                outFile << CurrentTabInfo; // Writing text normally
-            }
+                outFile << CurrentTabInfo;
 
             outFile.close();
-            MessageBoxA(hwnd, sz_file, "File Saved", MB_OK);
+            std::cout << "File saved: " << path << std::endl;
         }
         else
         {
-            MessageBoxA(hwnd, "Error saving file", "File not saved", MB_OK);
+            std::cerr << "Error saving file: " << path << std::endl;
         }
+
+        NFD_FreePathU8(outPath);
     }
+    else if (result == NFD_CANCEL)
+    {
+        std::cout << "User canceled save dialog" << std::endl;
+    }
+    else
+    {
+        std::cerr << "NFD error: " << NFD_GetError() << std::endl;
+    }
+
+    NFD_Quit();
 }
 
-void ShowOpenFileDialog(const HWND &hwnd, std::string &tabContents , std::string &pathFile)
+void ShowOpenFileDialog(std::string& tabContents, std::string& pathFile)
 {
-    OPENFILENAMEA ofn;                // Structure for the file dialog
-    char szFile[MAX_PATH] = (""); // Buffer to store the selected file name
+    NFD_Init();
 
-    ZeroMemory(&ofn, sizeof(ofn));
-    ofn.lStructSize = sizeof(ofn);
-    ofn.hwndOwner = hwnd;
-    ofn.lpstrFilter = ("Text Files (*.txt)\0*.txt\0Binary Files (*.bin)\0*.bin\0All Files (*.*)\0*.*\0");
-    ofn.lpstrFile = szFile;
-    ofn.nMaxFile = MAX_PATH;
-    ofn.Flags = OFN_PATHMUSTEXIST | OFN_FILEMUSTEXIST;
-    ofn.lpstrDefExt = ("txt"); // Default extension is .txt
+    nfdu8char_t* outPath = nullptr;
+    nfdu8filteritem_t filters[] = { { "Text/Binary files", "txt,bin" } };
 
-    
+    nfdresult_t result = NFD_OpenDialogU8(&outPath, filters, 1, nullptr);
 
-    if (GetOpenFileNameA(&ofn))
+    if (result == NFD_OKAY)
     {
-        // For save file func
-        pathFile = std::string(szFile);
+        pathFile = outPath;
+        bool isBinary = (pathFile.find(".bin") != std::string::npos);
 
-        if (bool isBinary = (strstr(szFile, ".bin") != nullptr))
+        if (isBinary)
         {
-            // Open and read binary file
-            std::ifstream inFile(szFile, std::ios::binary | std::ios::in | std::ios::ate);
+            std::ifstream inFile(pathFile, std::ios::binary | std::ios::ate);
             if (inFile)
             {
-                inFile.seekg(0, std::ios::end);
                 size_t fileSize = inFile.tellg();
                 inFile.seekg(0, std::ios::beg);
-                //+ 2 for cyrilic symbols
-                std::string content(fileSize + 4, '\0'); // Resize string to fit the content
-                inFile.read(&content[0], fileSize);
-                // Assign the read data to tabContents
-                tabContents = content.substr(0, fileSize);
-
-#if _DEBUG
-                std::cout << "Reading file binary"; // Just for debugging
-                std::cout << "TabContents : " << tabContents << std::endl;
-#endif
-                
+                tabContents.resize(fileSize);
+                inFile.read(&tabContents[0], fileSize);
                 inFile.close();
             }
         }
         else
         {
-            // Open and read text file
-            std::ifstream inFile(szFile);
+            std::ifstream inFile(pathFile);
             if (inFile)
             {
-                std::string line;
-                while (std::getline(inFile, line))
-                {
-                    tabContents += line + "\n";
-                }
+                tabContents.assign((std::istreambuf_iterator<char>(inFile)),
+                                    std::istreambuf_iterator<char>());
                 inFile.close();
             }
         }
+
+        std::cout << "File opened: " << pathFile << std::endl;
+        NFD_FreePathU8(outPath);
+    }
+    else if (result == NFD_CANCEL)
+    {
+        std::cout << "User canceled open dialog" << std::endl;
+    }
+    else
+    {
+        std::cerr << "NFD error: " << NFD_GetError() << std::endl;
     }
 
-    if (szFile[0] != '\0')
-    {
-        MessageBoxA(hwnd, szFile, ("File opened"), MB_OK);
-    }
+    NFD_Quit();
 }
 
 /*
 *  Additional function to save file(binary or text) - for not save as button(opening filedialog);
 */
-void SaveFile(const HWND& hwnd,const std::string& path, const std::string& content)
+void SaveFile(const std::string& path, const std::string& content)
 {
-    if (!std::filesystem::exists(std::filesystem::path(path).parent_path())) { // Check directory instead
-#if _DEBUG
-        std::cerr << "Directory doesn't exist: " << std::filesystem::path(path).parent_path() << std::endl;
-#endif
-        MessageBoxA(hwnd, "No valid directory found", "File not saved", MB_OK);
+    if (path.empty())
+    {
+        std::cerr << "SaveFile: empty path, file not saved" << std::endl;
         return;
     }
 
@@ -128,20 +118,21 @@ void SaveFile(const HWND& hwnd,const std::string& path, const std::string& conte
 
     std::ofstream outFile(path, isBinary ? (std::ios::binary | std::ios::trunc) : std::ios::trunc);
 
-    if (outFile)
+    if (!outFile)
     {
-        if (isBinary) {
-            outFile.write(content.c_str(), content.size());
-        }
-        else {
-            outFile << content;
-        }
+        std::cerr << "SaveFile: failed to open file: " << path << std::endl;
+        return;
+    }
 
-        outFile.close();
-        MessageBoxA(hwnd, path.c_str(), "File Saved", MB_OK);
+    if (isBinary)
+    {
+        outFile.write(content.c_str(), content.size());
     }
     else
     {
-        MessageBoxA(hwnd, "Error saving file", "File not saved", MB_OK);
+        outFile << content;
     }
+
+    outFile.close();
+    std::cout << "File saved: " << path << std::endl;
 }

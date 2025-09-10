@@ -5,7 +5,9 @@
 #define CRTDBG_MAP_ALLOC
 #include <memory>     // (Optional) For smart pointers if needed
 #include <iostream>   // (Optional) For logging/debug output
+#ifdef _WIN32
 #include <crtdbg.h>   // For memory leak detection and debugging
+#endif
 #include "imgui.h"
 
 #if CHECK_MEMORYALLOC

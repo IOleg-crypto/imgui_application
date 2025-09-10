@@ -1,0 +1,15 @@
+ninja_dyndep_version = 1.0
+build CMakeFiles/MyAppImGUI.dir/src/OpenGL/Render.cpp.o: dyndep
+
+build CMakeFiles/MyAppImGUI.dir/src/FileDialog/FileDialog.cpp.o: dyndep
+
+build CMakeFiles/MyAppImGUI.dir/src/Memory/Memory.cpp.o: dyndep
+
+build CMakeFiles/MyAppImGUI.dir/src/App/Application.cpp.o: dyndep
+
+build CMakeFiles/MyAppImGUI.dir/src/Editor/Editor.cpp.o: dyndep
+
+build CMakeFiles/MyAppImGUI.dir/src/Window/Window.cpp.o: dyndep
+
+build CMakeFiles/MyAppImGUI.dir/src/main.cpp.o: dyndep
+

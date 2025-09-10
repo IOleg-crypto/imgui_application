@@ -13,6 +13,7 @@
  * Handles window class registration, icon loading, fullscreen toggle, message polling,
  * resize and occlusion events, and applying fullscreen layouts.
  */
+namespace ImGui{
 class Window {
 public:
     Window();
@@ -91,6 +92,7 @@ private:
 public:
     /// Default window flags: menu bar and horizontal scrollbar.
     ImGuiWindowFlags windowFlags = ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_HorizontalScrollbar;
+};
 };
 
 #endif // WINDOW_H

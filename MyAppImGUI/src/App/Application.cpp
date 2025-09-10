@@ -4,9 +4,11 @@
 #include "imgui_impl_opengl3.h"
 
 #include <GLFW/glfw3.h>
+#ifdef _WIN32
 #include <gl/GL.h>
+#endif
+#include <GL/gl.h>
 
-#include <gl/gl.h>
 
 
 Application::Application() {}
@@ -72,7 +74,7 @@ void Application::DrawUI()
         // Stop program
         if (!s_state.hideWindow)
         {
-            ::PostQuitMessage(0);
+            std::exit(0);
         }
         m_TabManager.RenderMenuTab();
         m_TabManager.RenderInputTextField();
