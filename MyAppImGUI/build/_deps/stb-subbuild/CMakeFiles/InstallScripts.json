@@ -1,7 +1,0 @@
-{
-	"InstallScripts" : 
-	[
-		"D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/stb-subbuild/cmake_install.cmake"
-	],
-	"Parallel" : false
-}

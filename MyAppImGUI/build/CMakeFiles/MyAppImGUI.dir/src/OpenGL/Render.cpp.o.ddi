@@ -1,0 +1,9 @@
+{
+  "revision": 0,
+  "rules": [
+    {
+      "primary-output": "CMakeFiles/MyAppImGUI.dir/src/OpenGL/Render.cpp.o"
+    }
+  ],
+  "version": 1
+}

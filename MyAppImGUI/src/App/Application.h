@@ -12,24 +12,26 @@
 #include "imgui.h"
 #include "imgui_impl_dx11.h"
 #include "imgui_impl_win32.h"
-#include <ShlObj.h>
 #include <filesystem>
 
 // Standard C++ and Windows includes
+#ifdef _WIN32
+#include <ShlObj.h>
 #include <Windows.h>
+#endif
 #include <iostream>
 #include <vector>
 #ifdef _DEBUG
 #include <locale>
+#include <tchar.h>
 #endif
 #include <string>
-#include <tchar.h>
 
 // File dialog support
 #include "FileDialog/FileDialog.h"
 
 // Memory handling for ImGui input buffers
-#include "Memory.h"
+#include "Memory/Memory.h"
 
 /**
  * @brief Main application class for the ImGui Notepad app.
@@ -68,7 +70,7 @@ private:
     void DrawUI();
 
 private:
-    Window m_Window;          ///< Main window wrapper (handles window events, fullscreen, etc.).
+    ImGui::Window m_Window;          ///< Main window wrapper (handles window events, fullscreen, etc.).
     TabManager m_TabManager;  ///< Manages tabs and text editing functionality.
 private:
     bool m_done = false;      ///< Main loop exit flag.

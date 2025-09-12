@@ -1,5 +1,5 @@
 ninja_dyndep_version = 1.0
-build CMakeFiles/opengl3imgui.dir/vendor/imgui/backends/imgui_impl_opengl3.cpp.obj: dyndep
+build CMakeFiles/opengl3imgui.dir/vendor/imgui/backends/imgui_impl_opengl3.cpp.o: dyndep
 
-build CMakeFiles/opengl3imgui.dir/vendor/imgui/backends/imgui_impl_glfw.cpp.obj: dyndep
+build CMakeFiles/opengl3imgui.dir/vendor/imgui/backends/imgui_impl_glfw.cpp.o: dyndep
 

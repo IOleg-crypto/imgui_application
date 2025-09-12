@@ -1,8 +1,11 @@
 ﻿#include "Editor.h"
 #include "Memory/Memory.h"
 #include "Window/Window.h"
+#include <stdlib.h>
+#ifdef _WIN32
 #include <d3d11.h>
 #include <ShlObj.h>
+#endif
 #include <filesystem>
 #include <print>
 
@@ -19,124 +22,131 @@ TabManager::~TabManager() = default;
 
 void TabManager::RenderMenuTab()
 {
-	bool earlyExit = false; // To exit the loop
-	if (ImGui::BeginMenuBar())
-	{
-		if (ImGui::BeginMenu("Menu"))
-		{
-			if (ImGui::MenuItem("ReadOnly", "Ctrl+M", &s_state.readOnly))
-			{
-				if (s_state.readOnly)
-					inputFlags |= ImGuiInputTextFlags_ReadOnly;
-				else
-					inputFlags &= ~ImGuiInputTextFlags_ReadOnly;
-			}
-			if (ImGui::MenuItem("Save file", "Ctrl+F"))
-			{
-				if (pathFile.empty())
-				{
-					pathFile = TabPages[selectedTab];
-					// MessageBoxA(m_Window.GetHWND(), "No valid directory found", "File not saved", MB_OK);
-					earlyExit = true;
-				}
+    bool earlyExit = false; 
 
-				SaveFile(pathFile, currentTabInfo);
-				TabPages[selectedTab] = std::filesystem::path(pathFile).filename().string();
-			}
+    if (ImGui::BeginMenuBar())
+    {
+        // ===== MENU =====
+        if (ImGui::BeginMenu("Menu"))
+        {
+            // ReadOnly
+            if (ImGui::MenuItem("ReadOnly", "Ctrl+M", &s_state.readOnly))
+            {
+                if (s_state.readOnly)
+                    inputFlags |= ImGuiInputTextFlags_ReadOnly;
+                else
+                    inputFlags &= ~ImGuiInputTextFlags_ReadOnly;
+            }
 
-			if (ImGui::MenuItem("Save file as", "Ctrl+Shift+S"))
-			{
-				SaveFileDialog(currentTabInfo, pathFile);
-				if (!pathFile.empty()) {
-					TabPages[selectedTab] = std::filesystem::path(pathFile).filename().string();
-				}
-			}
-			if (ImGui::MenuItem("Open file", "Ctrl+O"))
-			{
+            // Save file
+            if (ImGui::MenuItem("Save file", "Ctrl+F"))
+            {
+                if (pathFile.empty())
+                {
+                    pathFile = TabPages[selectedTab];
+                    earlyExit = true;
+                }
+                SaveFile(pathFile, currentTabInfo);
+                TabPages[selectedTab] = std::filesystem::path(pathFile).filename().string();
+            }
+
+            // Save file as
+            if (ImGui::MenuItem("Save file as", "Ctrl+Shift+S"))
+            {
+                if (!pathFile.empty())
+                {
+                    TabPages[selectedTab] = std::filesystem::path(pathFile).filename().string();
+                }
+            }
+
+            // Open file
+            if (ImGui::MenuItem("Open file", "Ctrl+O"))
+            {
 				ShowOpenFileDialog(currentTabInfo, pathFile);
-				// To prevent add file, when tab don`t exist
-				if (!TabPages.empty())
-				{
-					if (!pathFile.empty())
-					{
-						// Only takes the file name
-						std::filesystem::path filePath(pathFile);
-						TabPages[selectedTab] = filePath.filename().string();
-						//TabContent[selectedTab].resize(currentTabInfo.size() + 1); // +1 for null terminator
-						std::memcpy(TabContent[selectedTab].data(), currentTabInfo.c_str(), currentTabInfo.size() + 1);
-					}
-				}
-			}
-			if (ImGui::MenuItem("Remove page", "Delete"))
-			{
-				if (selectedTab >= 0 && selectedTab <= static_cast<int>(TabPages.size())) // Ensure selectedTab is within valid range
-				{
-					TabPages.erase(TabPages.begin() + selectedTab);
-					TabContent.erase(TabContent.begin() + selectedTab);
+                if (!TabPages.empty() && !pathFile.empty())
+                {
+					TabPages[selectedTab] = std::filesystem::path(pathFile).filename().string();
+                    memcpy(TabContent[selectedTab].data(), currentTabInfo.c_str(), currentTabInfo.size() + 1);
+                }
+            }
 
-					// Optionally, update the selectedTab index to a valid one after deletion
-					if (selectedTab <= static_cast<int>(TabPages.size()))
-					{
-						selectedTab = static_cast<int>(TabPages.size() - 1); // Move to the last tab if the deleted tab was the last one
-					}
-					// Added fix
-					if (TabPages.empty())
-					{
-						TabPages.emplace_back("Page" + std::to_string(TabPages.size() + 1));
-						TabContent.emplace_back();
-					}
-				}
-			}
-			if (ImGui::MenuItem("Fullscreen", "3"))
-			{
-				m_Window.ToggleFullscreen();				
-			}
-			if (ImGui::MenuItem("Exit", "Alt+F4"))
-			{
-				::PostQuitMessage(0);
-			}
-			if (ImGui::MenuItem("Help"))
-			{
-				s_state.showInfoWindow = !s_state.showInfoWindow;
+            // Remove page
+            if (ImGui::MenuItem("Remove page", "Delete"))
+            {
+                if (selectedTab >= 0 && selectedTab < static_cast<int>(TabPages.size()))
+                {
+                    TabPages.erase(TabPages.begin() + selectedTab);
+                    TabContent.erase(TabContent.begin() + selectedTab);
 
-			}
-			ImGui::EndMenu();
-		}
-		
-		if (ImGui::BeginMenu("Font and size"))
-		{
-			if (ImGui::MenuItem("Font"))
-			{
-				showFontWindow = true;
-			}
-			ImGui::EndMenu();
-		}
-		if (ImGui::BeginMenu("Theme"))
-		{
-			if (ImGui::MenuItem("Theme light/dark", "CTRL+R"))
-			{
-				s_state.themeChange = !s_state.themeChange;
-				if (s_state.themeChange)
-					ImGui::StyleColorsLight();
-				else
-					ImGui::StyleColorsDark();
-			}
-			ImGui::EndMenu();
-		}
-		
-	}
-	ImGui::EndMenuBar();
+                    if (selectedTab >= static_cast<int>(TabPages.size()))
+                        selectedTab = static_cast<int>(TabPages.size() - 1);
 
-	if (s_state.showInfoWindow)
-	{
-		m_Window.AboutWindow(s_state.showInfoWindow);
-	}
+                    if (TabPages.empty())
+                    {
+                        TabPages.emplace_back("Page1");
+                        TabContent.emplace_back();
+                    }
+                }
+            }
 
-	if (earlyExit)
-	{
-		return;
-	}
+            // Fullscreen
+            if (ImGui::MenuItem("Fullscreen", "3"))
+            {
+                m_Window.ToggleFullscreen();
+            }
+
+            // Exit
+            if (ImGui::MenuItem("Exit", "Alt+F4"))
+            {
+                std::exit(0);
+            }
+
+            // Help
+            if (ImGui::MenuItem("Help"))
+            {
+                s_state.showInfoWindow = !s_state.showInfoWindow;
+            }
+
+            ImGui::EndMenu();
+        }
+
+        // ===== FONT AND SIZE =====
+        if (ImGui::BeginMenu("Font and size"))
+        {
+            if (ImGui::MenuItem("Font"))
+                showFontWindow = true;
+
+            ImGui::EndMenu();
+        }
+
+        // ===== THEME =====
+        if (ImGui::BeginMenu("Theme"))
+        {
+            if (ImGui::MenuItem("Theme light/dark", "CTRL+R"))
+            {
+                s_state.themeChange = !s_state.themeChange;
+                if (s_state.themeChange)
+                    ImGui::StyleColorsLight();
+                else
+                    ImGui::StyleColorsDark();
+            }
+
+            ImGui::EndMenu();
+        }
+
+        ImGui::EndMenuBar();
+    }
+
+    // ===== INFO WINDOW =====
+    if (s_state.showInfoWindow)
+    {
+        m_Window.AboutWindow(s_state.showInfoWindow);
+    }
+
+    if (earlyExit)
+        return;
 }
+
 
 void TabManager::RenderInputTextField()
 {
@@ -239,11 +249,11 @@ void TabManager::RenderInputTextField()
 
 	ImGuiIO& io = ImGui::GetIO();
 	if (ImGui::IsKeyPressed(ImGuiKey_F) && io.KeyCtrl) {
-		SaveFile(pathFile, currentTabInfo);
+		// SaveFile(m_Window.GetWindow(), pathFile, currentTabInfo);
 	}
 
 	if (ImGui::IsKeyPressed(ImGuiKey_S) && io.KeyCtrl && io.KeyShift) {
-		SaveFileDialog(currentTabInfo, pathFile);
+		// SaveFileDialog(m_Window.GetWindow(), currentTabInfo, pathFile);
 	}
 
 	if (ImGui::IsKeyPressed(ImGuiKey_Delete)) {
@@ -260,7 +270,7 @@ void TabManager::RenderInputTextField()
 				TabPages.emplace_back("Page" + std::to_string(TabPages.size() + 1));
 				TabContent.emplace_back();
 			}
-			selectedTab = min(selectedTab, static_cast<int>(TabPages.size()) - 1);
+			selectedTab = std::min(selectedTab, static_cast<int>(TabPages.size()) - 1);
 		}
 	}
 
@@ -275,7 +285,7 @@ void TabManager::RenderInputTextField()
 	}
 
 	if (ImGui::IsKeyPressed(ImGuiKey_F4) && io.KeyAlt) {
-		::PostQuitMessage(0);
+		 std::exit(0);
 	}
 
 	if (ImGui::IsKeyDown(ImGuiKey_LeftCtrl) && ImGui::IsKeyPressed(ImGuiKey_F, false))
@@ -357,41 +367,41 @@ void TabManager::UpdateFontBeforeFrame() {
 
 std::string TabManager::GetFontPath()
 {
-	IFileOpenDialog* pFileOpen = nullptr;
-	if (FAILED(CoCreateInstance(CLSID_FileOpenDialog, nullptr, CLSCTX_ALL, IID_IFileOpenDialog, reinterpret_cast<void**>(&pFileOpen))))
-		return "Failed to open file dialog";
+	// IFileOpenDialog* pFileOpen = nullptr;
+	// if (FAILED(CoCreateInstance(CLSID_FileOpenDialog, nullptr, CLSCTX_ALL, IID_IFileOpenDialog, reinterpret_cast<void**>(&pFileOpen))))
+	// 	return "Failed to open file dialog";
 
-	COMDLG_FILTERSPEC fileTypes[] = {
-		{L"TrueType Fonts (*.ttf)", L"*.ttf"},
-	};
+	// COMDLG_FILTERSPEC fileTypes[] = {
+	// 	{L"TrueType Fonts (*.ttf)", L"*.ttf"},
+	// };
 
-	pFileOpen->SetFileTypes(ARRAYSIZE(fileTypes), fileTypes);
+	// pFileOpen->SetFileTypes(ARRAYSIZE(fileTypes), fileTypes);
 
-	DWORD dwFlags;
-	if (FAILED(pFileOpen->GetOptions(&dwFlags)) || FAILED(pFileOpen->SetOptions(dwFlags | FOS_FORCEFILESYSTEM)) || FAILED(pFileOpen->Show(nullptr)))
-	{
-		pFileOpen->Release();
-		return "Failed to get file path";
-	}
+	// DWORD dwFlags;
+	// if (FAILED(pFileOpen->GetOptions(&dwFlags)) || FAILED(pFileOpen->SetOptions(dwFlags | FOS_FORCEFILESYSTEM)) || FAILED(pFileOpen->Show(nullptr)))
+	// {
+	// 	pFileOpen->Release();
+	// 	return "Failed to get file path";
+	// }
 
-	IShellItem* pItem = nullptr;
-	if (FAILED(pFileOpen->GetResult(&pItem)))
-	{
-		pFileOpen->Release();
-		return "Failed to get file item";
-	}
+	// IShellItem* pItem = nullptr;
+	// if (FAILED(pFileOpen->GetResult(&pItem)))
+	// {
+	// 	pFileOpen->Release();
+	// 	return "Failed to get file item";
+	// }
 
-	PWSTR pszFilePath = nullptr;
-	if (FAILED(pItem->GetDisplayName(SIGDN_FILESYSPATH, &pszFilePath)))
-	{
-		pItem->Release();
-		pFileOpen->Release();
-		return "Failed to get file path";
-	}
+	// PWSTR pszFilePath = nullptr;
+	// if (FAILED(pItem->GetDisplayName(SIGDN_FILESYSPATH, &pszFilePath)))
+	// {
+	// 	pItem->Release();
+	// 	pFileOpen->Release();
+	// 	return "Failed to get file path";
+	// }
 
-	// Convert to std::string
-	std::wstring wideFilePath(pszFilePath);
-	return std::string(wideFilePath.begin(), wideFilePath.end());
+	// // Convert to std::string
+	// std::wstring wideFilePath(pszFilePath);
+	// return std::string(wideFilePath.begin(), wideFilePath.end());
 }
 
 std::string TabManager::GetCurrentInfo()
@@ -403,6 +413,3 @@ std::string TabManager::GetCurrentFilePath()
 {
 	return pathFile;
 }
-
-
-

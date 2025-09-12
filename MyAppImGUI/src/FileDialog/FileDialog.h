@@ -1,8 +1,9 @@
 #ifndef FILEDIALOG_H 
 #define FILEDIALOG_H
 
+#ifdef _WIN32
 #include <d3d11.h> // Includes DirectX 11 header (also brings in definitions like IFileOpenDialog)
-
+#endif
 // Include standard C++ libraries
 #include <string>       // For using std::string
 #include <filesystem>   // For handling file system paths (C++17 and later)

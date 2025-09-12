@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.29) 
+cmake_minimum_required(VERSION 3.29)
 project(MyAppImGUI)
 
 set(CMAKE_CXX_STANDARD 20)
@@ -23,13 +23,15 @@ add_executable(MyAppImGUI
 
 include(FetchContent)
 
+# Native File Dialog
 FetchContent_Declare(
   nfd
   GIT_REPOSITORY https://github.com/btzy/nativefiledialog-extended.git
-  GIT_TAG        v1.2.1
+  GIT_TAG        master
 )
 FetchContent_MakeAvailable(nfd)
 
+# GLFW
 FetchContent_Declare(
   glfw
   GIT_REPOSITORY https://github.com/glfw/glfw.git
@@ -40,6 +42,7 @@ set(GLFW_BUILD_TESTS OFF CACHE BOOL "" FORCE)
 set(GLFW_BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
 FetchContent_MakeAvailable(glfw)
 
+# stb
 FetchContent_Declare(
   stb
   GIT_REPOSITORY https://github.com/nothings/stb.git
@@ -48,6 +51,7 @@ FetchContent_Declare(
 FetchContent_MakeAvailable(stb)
 include_directories(${stb_SOURCE_DIR})
 
+# ImGui core
 add_library(imguilib STATIC
     vendor/imgui/imgui.cpp
     vendor/imgui/imgui.h
@@ -56,19 +60,18 @@ add_library(imguilib STATIC
     vendor/imgui/imgui_widgets.cpp
     vendor/imgui/misc/cpp/imgui_stdlib.cpp
 )
-
 target_include_directories(imguilib PUBLIC
     vendor/imgui
     vendor/imgui/misc/cpp
 )
 
+# ImGui backends
 add_library(opengl3imgui STATIC
     vendor/imgui/backends/imgui_impl_opengl3.cpp
     vendor/imgui/backends/imgui_impl_opengl3.h
     vendor/imgui/backends/imgui_impl_glfw.cpp
     vendor/imgui/backends/imgui_impl_glfw.h
 )
-
 target_include_directories(opengl3imgui PUBLIC
     vendor/imgui
     vendor/imgui/backends
@@ -78,13 +81,26 @@ target_link_libraries(opengl3imgui PUBLIC imguilib glfw)
 
 target_include_directories(MyAppImGUI PUBLIC src)
 
-target_link_libraries(MyAppImGUI PUBLIC
-    opengl3imgui
-    imguilib
-    glfw
-    nfd
-    user32 gdi32 shell32 ole32 uuid comdlg32 opengl32
-)
+if(UNIX)
+    target_link_libraries(MyAppImGUI PUBLIC
+        opengl3imgui
+        imguilib
+        glfw
+        nfd
+        GL
+        X11
+        pthread
+        dl
+    )
+elseif(WIN32)
+    target_link_libraries(MyAppImGUI PUBLIC
+        opengl3imgui
+        imguilib
+        glfw
+        nfd
+        user32 gdi32 shell32 ole32 uuid comdlg32 opengl32
+    )
+endif()
 
 if (MSVC)
     target_link_options(MyAppImGUI PRIVATE

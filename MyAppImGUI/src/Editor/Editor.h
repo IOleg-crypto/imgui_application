@@ -2,7 +2,6 @@
 #define EDITOR_H
 
 #include "imgui.h"
-#include "Memory.h"
 #include "UIState.h"
 #include "FileDialog/FileDialog.h"
 #include "Window/Window.h"
@@ -35,7 +34,7 @@ private:
     std::string pendingFontPath;            ///< Path to a font that is pending to be loaded.
 
 private:
-    Window m_Window;                        ///< Main application window object.
+    ImGui::Window m_Window;                        ///< Main application window object.
 
 public:
     bool showFontWindow = false;            ///< Visibility flag for the font settings window.

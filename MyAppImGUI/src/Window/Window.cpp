@@ -69,7 +69,7 @@ void Window::Init()
     }
 
     glfwMakeContextCurrent(m_window);
-    glfwSwapInterval(1); // VSync
+    glfwSwapInterval(0); // VSync
 
 #if defined(_WIN32)
 

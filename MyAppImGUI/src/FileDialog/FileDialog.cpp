@@ -7,18 +7,17 @@
 #include "nfd.h"
 
 
-void SaveFileDialog(const std::string& CurrentTabInfo, std::string& path)
+void SaveFileDialog(const std::string& CurrentTabInfo, std::string& path) 
 {
-    NFD_Init();
 
     nfdu8char_t* outPath = nullptr;
-    nfdu8filteritem_t filters[] = { { "Text file", "txt" } ,{ "Binary file", "bin" } };
+    nfdu8filteritem_t filters[] = { { "Text/Binary files", "txt,bin" } };
 
-    nfdresult_t result = NFD_SaveDialogU8(&outPath, filters, 2, nullptr , nullptr);
+    nfdresult_t result = NFD_SaveDialogU8(&outPath, filters , 1 ,  ".", "untitled.txt");  
 
     if (result == NFD_OKAY)
     {
-        std::string path = outPath;
+        path = outPath; 
         bool isBinary = (path.find(".bin") != std::string::npos);
 
         std::ofstream outFile(path, isBinary ? (std::ios::binary | std::ios::trunc) : std::ios::trunc);
@@ -48,17 +47,17 @@ void SaveFileDialog(const std::string& CurrentTabInfo, std::string& path)
         std::cerr << "NFD error: " << NFD_GetError() << std::endl;
     }
 
-    NFD_Quit();
 }
+
 
 void ShowOpenFileDialog(std::string& tabContents, std::string& pathFile)
 {
-    NFD_Init();
+
 
     nfdu8char_t* outPath = nullptr;
-    nfdu8filteritem_t filters[] = { { "Text file", "txt" } , { "Binary file", "bin" } };
+    nfdu8filteritem_t filters[] = { { "Text/Binary files", "txt,bin" } };
 
-    nfdresult_t result = NFD_OpenDialogU8(&outPath, filters, 2, nullptr);
+    nfdresult_t result = NFD_OpenDialogU8(&outPath, filters, 1, nullptr);
 
     if (result == NFD_OKAY)
     {
@@ -99,8 +98,6 @@ void ShowOpenFileDialog(std::string& tabContents, std::string& pathFile)
     {
         std::cerr << "NFD error: " << NFD_GetError() << std::endl;
     }
-
-    NFD_Quit();
 }
 
 /*
