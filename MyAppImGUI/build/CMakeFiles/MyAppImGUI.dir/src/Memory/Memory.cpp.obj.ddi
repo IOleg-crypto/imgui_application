@@ -1,0 +1,9 @@
+{
+  "revision": 0,
+  "rules": [
+    {
+      "primary-output": "CMakeFiles\\MyAppImGUI.dir\\src\\Memory\\Memory.cpp.obj"
+    }
+  ],
+  "version": 1
+}

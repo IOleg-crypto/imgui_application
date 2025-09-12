@@ -13,6 +13,7 @@
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
 
+namespace ImGui{
 bool Window::m_fullscreen = false;
 
 Window::Window()
@@ -106,11 +107,7 @@ void Window::Init()
     XFlush(display);
     LoadIconWindow();
 
-#else
-                         // fallback для Wayland
-    glfwHideWindow(m_window);
 #endif
-
 #endif
     
 }
@@ -247,4 +244,5 @@ void Window::LoadIconWindow()
     {
         std::cerr << "Failed to load window icon!" << std::endl;
     }
+}
 }

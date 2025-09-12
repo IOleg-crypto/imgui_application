@@ -2,38 +2,38 @@
 	"bmi-installation" : null,
 	"compiler-frontend-variant" : "GNU",
 	"compiler-id" : "Clang",
-	"compiler-simulate-id" : "",
+	"compiler-simulate-id" : "MSVC",
 	"config" : "Debug",
 	"cxx-modules" : {},
 	"database-info" : null,
-	"dir-cur-bld" : "/home/kali/linux_project/imgui_application/MyAppImGUI/build",
-	"dir-cur-src" : "/home/kali/linux_project/imgui_application/MyAppImGUI",
-	"dir-top-bld" : "/home/kali/linux_project/imgui_application/MyAppImGUI/build",
-	"dir-top-src" : "/home/kali/linux_project/imgui_application/MyAppImGUI",
+	"dir-cur-bld" : "D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build",
+	"dir-cur-src" : "D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI",
+	"dir-top-bld" : "D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build",
+	"dir-top-src" : "D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI",
 	"exports" : [],
 	"forward-modules-from-target-dirs" : [],
 	"include-dirs" : 
 	[
-		"_deps/stb-src",
-		"/home/kali/linux_project/imgui_application/MyAppImGUI/vendor/imgui",
-		"/home/kali/linux_project/imgui_application/MyAppImGUI/vendor/imgui/backends",
-		"/home/kali/linux_project/imgui_application/MyAppImGUI/vendor/imgui/misc/cpp",
-		"_deps/glfw-src/include"
+		"_deps\\stb-src",
+		"D:\\gitnext\\CppWithImGUI\\imgui_application\\MyAppImGUI\\vendor\\imgui",
+		"D:\\gitnext\\CppWithImGUI\\imgui_application\\MyAppImGUI\\vendor\\imgui\\backends",
+		"D:\\gitnext\\CppWithImGUI\\imgui_application\\MyAppImGUI\\vendor\\imgui\\misc\\cpp",
+		"_deps\\glfw-src\\include"
 	],
 	"language" : "CXX",
 	"linked-target-dirs" : [],
-	"module-dir" : "/home/kali/linux_project/imgui_application/MyAppImGUI/build/CMakeFiles/opengl3imgui.dir",
+	"module-dir" : "D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/CMakeFiles/opengl3imgui.dir",
 	"sources" : 
 	{
-		"CMakeFiles/opengl3imgui.dir/vendor/imgui/backends/imgui_impl_glfw.cpp.o" : 
+		"CMakeFiles/opengl3imgui.dir/vendor/imgui/backends/imgui_impl_glfw.cpp.obj" : 
 		{
 			"language" : "CXX",
-			"source" : "/home/kali/linux_project/imgui_application/MyAppImGUI/vendor/imgui/backends/imgui_impl_glfw.cpp"
+			"source" : "D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui/backends/imgui_impl_glfw.cpp"
 		},
-		"CMakeFiles/opengl3imgui.dir/vendor/imgui/backends/imgui_impl_opengl3.cpp.o" : 
+		"CMakeFiles/opengl3imgui.dir/vendor/imgui/backends/imgui_impl_opengl3.cpp.obj" : 
 		{
 			"language" : "CXX",
-			"source" : "/home/kali/linux_project/imgui_application/MyAppImGUI/vendor/imgui/backends/imgui_impl_opengl3.cpp"
+			"source" : "D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui/backends/imgui_impl_opengl3.cpp"
 		}
 	}
 }

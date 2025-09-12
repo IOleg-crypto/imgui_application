@@ -1,27 +1,27 @@
 # Distributed under the OSI-approved BSD 3-Clause License.  See accompanying
-# file Copyright.txt or https://cmake.org/licensing for details.
+# file LICENSE.rst or https://cmake.org/licensing for details.
 
 cmake_minimum_required(VERSION ${CMAKE_VERSION}) # this file comes with cmake
 
 # If CMAKE_DISABLE_SOURCE_CHANGES is set to true and the source directory is an
 # existing directory in our source tree, calling file(MAKE_DIRECTORY) on it
 # would cause a fatal error, even though it would be a no-op.
-if(NOT EXISTS "/home/kali/linux_project/imgui_application/MyAppImGUI/build/_deps/nfd-src")
-  file(MAKE_DIRECTORY "/home/kali/linux_project/imgui_application/MyAppImGUI/build/_deps/nfd-src")
+if(NOT EXISTS "D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/nfd-src")
+  file(MAKE_DIRECTORY "D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/nfd-src")
 endif()
 file(MAKE_DIRECTORY
-  "/home/kali/linux_project/imgui_application/MyAppImGUI/build/_deps/nfd-build"
-  "/home/kali/linux_project/imgui_application/MyAppImGUI/build/_deps/nfd-subbuild/nfd-populate-prefix"
-  "/home/kali/linux_project/imgui_application/MyAppImGUI/build/_deps/nfd-subbuild/nfd-populate-prefix/tmp"
-  "/home/kali/linux_project/imgui_application/MyAppImGUI/build/_deps/nfd-subbuild/nfd-populate-prefix/src/nfd-populate-stamp"
-  "/home/kali/linux_project/imgui_application/MyAppImGUI/build/_deps/nfd-subbuild/nfd-populate-prefix/src"
-  "/home/kali/linux_project/imgui_application/MyAppImGUI/build/_deps/nfd-subbuild/nfd-populate-prefix/src/nfd-populate-stamp"
+  "D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/nfd-build"
+  "D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/nfd-subbuild/nfd-populate-prefix"
+  "D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/nfd-subbuild/nfd-populate-prefix/tmp"
+  "D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/nfd-subbuild/nfd-populate-prefix/src/nfd-populate-stamp"
+  "D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/nfd-subbuild/nfd-populate-prefix/src"
+  "D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/nfd-subbuild/nfd-populate-prefix/src/nfd-populate-stamp"
 )
 
 set(configSubDirs )
 foreach(subDir IN LISTS configSubDirs)
-    file(MAKE_DIRECTORY "/home/kali/linux_project/imgui_application/MyAppImGUI/build/_deps/nfd-subbuild/nfd-populate-prefix/src/nfd-populate-stamp/${subDir}")
+    file(MAKE_DIRECTORY "D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/nfd-subbuild/nfd-populate-prefix/src/nfd-populate-stamp/${subDir}")
 endforeach()
 if(cfgdir)
-  file(MAKE_DIRECTORY "/home/kali/linux_project/imgui_application/MyAppImGUI/build/_deps/nfd-subbuild/nfd-populate-prefix/src/nfd-populate-stamp${cfgdir}") # cfgdir has leading slash
+  file(MAKE_DIRECTORY "D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/nfd-subbuild/nfd-populate-prefix/src/nfd-populate-stamp${cfgdir}") # cfgdir has leading slash
 endif()
