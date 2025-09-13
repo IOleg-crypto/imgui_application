@@ -13,12 +13,15 @@
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
 
-namespace ImGui{
+#include <nfd.h>
+
+namespace ImGui
+{
 bool Window::m_fullscreen = false;
 
 Window::Window()
     : m_window(nullptr), m_iconPath(PROJECT_ROOT_DIR "/assets/icon/icon_window.png"),
-      m_fontPath(R"(C:\Windows\Fonts\Arial.ttf)")
+      m_fontPath("")
 {
 }
 
@@ -33,6 +36,7 @@ Window::~Window()
 
     delete m_io;
 
+    NFD_Quit();
     // Destroy GLFW window
     if (m_window)
         glfwDestroyWindow(m_window);
@@ -49,6 +53,8 @@ void Window::Init()
         exit(EXIT_FAILURE);
     }
 
+   
+    
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
@@ -58,9 +64,13 @@ void Window::Init()
 #ifdef __APPLE__
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 #endif
+    GLFWmonitor *primaryMonitor = glfwGetPrimaryMonitor();
+    const GLFWvidmode *mode = glfwGetVideoMode(primaryMonitor);
 
-    m_window = glfwCreateWindow(GetSystemMetrics(SM_CXSCREEN), GetSystemMetrics(SM_CYSCREEN),
-                                "ImGui Notepad", nullptr, nullptr);
+    int screenWidth = mode->width;
+    int screenHeight = mode->height;
+
+    m_window = glfwCreateWindow(screenWidth, screenHeight, "ImGui Notepad", nullptr, nullptr);
 
     if (!m_window)
     {
@@ -70,7 +80,7 @@ void Window::Init()
     }
 
     glfwMakeContextCurrent(m_window);
-    glfwSwapInterval(0); // VSync
+    glfwSwapInterval(0);
 
 #if defined(_WIN32)
 
@@ -93,7 +103,7 @@ void Window::Init()
 
 #if defined(GLFW_EXPOSE_NATIVE_X11)
     Display *display = glfwGetX11Display();
-    Window x11Window = glfwGetX11Window(m_window);
+    ::Window x11Window = glfwGetX11Window(m_window);
 
     XSetWindowAttributes attrs;
     attrs.colormap = XCreateColormap(display, DefaultRootWindow(display),
@@ -105,11 +115,11 @@ void Window::Init()
 
     XMapWindow(display, x11Window);
     XFlush(display);
-    LoadIconWindow();
 
+    LoadIconWindow();
 #endif
+    NFD_Init();
 #endif
-    
 }
 
 // OLD : Don`t use
@@ -143,106 +153,127 @@ void Window::InitImGui()
     io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;
     io.WantCaptureMouse = true;
 
-    if (!m_fontPath.empty())
+#ifdef _WIN32
+    std::string fontPath = m_font.GetFontWindowsFolder() + "\\Arial.ttf";
+#else
+    std::string fontPath = m_font.GetFontLinuxFolder() + "/truetype/dejavu/DejaVuSerif.ttf";
+#endif
+    m_fontPath = fontPath;
+    if (!fontPath.empty())
     {
-        io.Fonts->AddFontFromFileTTF(m_fontPath.c_str(), 20, nullptr,
-                                     io.Fonts->GetGlyphRangesCyrillic());
+        ImFont *font = io.Fonts->AddFontFromFileTTF(fontPath.c_str(), 20.0f, nullptr,
+                                                    io.Fonts->GetGlyphRangesCyrillic());
+        if (!font)
+        {
+            std::cerr << "Failed to load font: " << fontPath << std::endl;
+            io.Fonts->AddFontDefault();
+        }
     }
     else
     {
         io.Fonts->AddFontDefault();
     }
-
     ImGui_ImplGlfw_InitForOpenGL(m_window, true);
-    const char *glsl_version = "#version 460";
-    ImGui_ImplOpenGL3_Init(glsl_version);
-    m_io = &io;
-}
 
-void Window::ToggleFullscreen() { m_fullscreen = !m_fullscreen; }
+#if defined(_WIN32)
+        const char *glsl_version = "#version 460";
+#elif defined(__linux__)
+        const char *glsl_version = "#version 410";
+#elif defined(__APPLE__)
+        const char *glsl_version = "#version 410";
+#else
+        const char *glsl_version = "#version 410";
+#endif
 
-void Window::ApplyFullscreenLayout(ImGuiWindowFlags &windowFlags)
-{
-    static bool prev_fullscreen = false;
-    static ImGuiCond pos_cond = ImGuiCond_Appearing;
-    static ImGuiCond size_cond = ImGuiCond_Appearing;
-
-    ImGuiIO &io = ImGui::GetIO();
-    if (m_fullscreen != prev_fullscreen)
-    {
-        pos_cond = ImGuiCond_Always;
-        size_cond = ImGuiCond_Always;
-    }
-    else
-    {
-        pos_cond = ImGuiCond_Appearing;
-        size_cond = ImGuiCond_Appearing;
+        ImGui_ImplOpenGL3_Init(glsl_version);
+        m_io = &io;
     }
 
-    prev_fullscreen = m_fullscreen;
-
-    if (m_fullscreen)
+    void Window::ApplyFullscreenLayout(ImGuiWindowFlags & windowFlags)
     {
-        ImGui::SetNextWindowPos(ImVec2(0, 0), pos_cond);
-        ImGui::SetNextWindowSize(io.DisplaySize, size_cond);
-        windowFlags = ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoResize |
-                      ImGuiWindowFlags_NoMove | ImGuiWindowFlags_MenuBar;
-    }
-    else
-    {
-        ImVec2 windowSize(420, 200);
-        ImVec2 centerPos((io.DisplaySize.x - windowSize.x) * 0.5f,
-                         (io.DisplaySize.y - windowSize.y) * 0.5f);
+        static bool prev_fullscreen = false;
+        static ImGuiCond pos_cond = ImGuiCond_Appearing;
+        static ImGuiCond size_cond = ImGuiCond_Appearing;
 
-        ImGui::SetNextWindowPos(centerPos, pos_cond);
-        ImGui::SetNextWindowSize(windowSize, size_cond);
-        windowFlags = ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_HorizontalScrollbar;
-    }
-}
+        ImGuiIO &io = ImGui::GetIO();
+        if (m_fullscreen != prev_fullscreen)
+        {
+            pos_cond = ImGuiCond_Always;
+            size_cond = ImGuiCond_Always;
+        }
+        else
+        {
+            pos_cond = ImGuiCond_Appearing;
+            size_cond = ImGuiCond_Appearing;
+        }
 
-void Window::AboutWindow(bool &showDemoWindow)
-{
-    ImGuiIO &io = ImGui::GetIO();
-    if (ImGui::Begin("##About", &showDemoWindow))
-    {
-        ImGui::Text("The notepad made by I#Oleg");
-        ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / io.Framerate,
-                    io.Framerate);
-    }
-    ImGui::End();
-}
+        prev_fullscreen = m_fullscreen;
 
-GLFWwindow *Window::GetWindow() { return m_window; }
-ImGuiIO &Window::GetImGuiIO() { return *m_io; }
+        if (m_fullscreen)
+        {
+            ImGui::SetNextWindowPos(ImVec2(0, 0), pos_cond);
+            ImGui::SetNextWindowSize(io.DisplaySize, size_cond);
+            windowFlags = ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoResize |
+                          ImGuiWindowFlags_NoMove | ImGuiWindowFlags_MenuBar;
+        }
+        else
+        {
+            ImVec2 windowSize(420, 200);
+            ImVec2 centerPos((io.DisplaySize.x - windowSize.x) * 0.5f,
+                             (io.DisplaySize.y - windowSize.y) * 0.5f);
 
-void Window::setFontPath(const std::string &fontPath) { m_fontPath = fontPath; }
-std::string Window::getFontPath() { return m_fontPath; }
-bool Window::isFullscreen() { return m_fullscreen; }
-
-void Window::LoadIconWindow()
-{
-    int iconWidth, iconHeight, channels;
-    unsigned char *pixels = stbi_load(m_iconPath.c_str(), &iconWidth, &iconHeight, &channels, 4);
-    if (!pixels)
-    {
-        std::cerr << "Failed to load window icon!" << std::endl;
-        return;
+            ImGui::SetNextWindowPos(centerPos, pos_cond);
+            ImGui::SetNextWindowSize(windowSize, size_cond);
+            windowFlags = ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_HorizontalScrollbar;
+        }
     }
 
-    if (pixels)
-    {
-        GLFWimage images[1];
-        images[0].width = iconWidth;
-        images[0].height = iconHeight;
-        images[0].pixels = pixels;
+    void Window::ToggleFullscreen() {m_fullscreen != m_fullscreen; }
 
-        glfwSetWindowIcon(m_window, 1, images);
-
-        stbi_image_free(pixels);
-    }
-    else
+    void Window::AboutWindow(bool &showDemoWindow)
     {
-        std::cerr << "Failed to load window icon!" << std::endl;
+        ImGuiIO &io = ImGui::GetIO();
+        if (ImGui::Begin("##About", &showDemoWindow))
+        {
+            ImGui::Text("The notepad made by I#Oleg");
+            ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / io.Framerate,
+                        io.Framerate);
+        }
+        ImGui::End();
     }
-}
+
+    GLFWwindow *Window::GetWindow() { return m_window; }
+    ImGuiIO &Window::GetImGuiIO() { return *m_io; }
+
+    void Window::setFontPath(const std::string &fontPath) { m_fontPath = fontPath; }
+    std::string Window::getFontPath() { return m_fontPath; }
+    bool Window::isFullscreen() { return m_fullscreen; }
+
+    void Window::LoadIconWindow()
+    {
+        int iconWidth, iconHeight, channels;
+        unsigned char *pixels =
+            stbi_load(m_iconPath.c_str(), &iconWidth, &iconHeight, &channels, 4);
+        if (!pixels)
+        {
+            std::cerr << "Failed to load window icon!" << std::endl;
+            return;
+        }
+
+        if (pixels)
+        {
+            GLFWimage images[1];
+            images[0].width = iconWidth;
+            images[0].height = iconHeight;
+            images[0].pixels = pixels;
+
+            glfwSetWindowIcon(m_window, 1, images);
+
+            stbi_image_free(pixels);
+        }
+        else
+        {
+            std::cerr << "Failed to load window icon!" << std::endl;
+        }
+    }
 }

@@ -12,6 +12,7 @@
 #include "nfd.h"
 #include <filesystem>
 #include <print>
+#include <cmath>
 
 TabManager::TabManager() : selectedTab(0), TabPages{"Page 1"}, TabContent{""}
 {
@@ -215,7 +216,7 @@ void TabManager::RenderInputTextField()
         {
             if (TabPages.size() == 1)
             {
-                TabPages[0] = "Page1";
+                TabPages[0] = "Page 1";
                 TabContent[0].clear();
             }
             else
@@ -279,7 +280,7 @@ void TabManager::RenderInputTextField()
                 TabPages.emplace_back("Page" + std::to_string(TabPages.size() + 1));
                 TabContent.emplace_back();
             }
-            selectedTab = min(selectedTab, static_cast<int>(TabPages.size()) - 1);
+            selectedTab = std::min(selectedTab, static_cast<int>(TabPages.size()) - 1);
         }
     }
 

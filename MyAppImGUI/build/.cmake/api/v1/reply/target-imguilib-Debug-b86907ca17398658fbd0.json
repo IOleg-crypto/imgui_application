@@ -3,7 +3,7 @@
 	"artifacts" : 
 	[
 		{
-			"path" : "imguilib.lib"
+			"path" : "libimguilib.a"
 		}
 	],
 	"backtrace" : 1,
@@ -28,7 +28,7 @@
 			{
 				"command" : 0,
 				"file" : 0,
-				"line" : 55,
+				"line" : 57,
 				"parent" : 0
 			},
 			{
@@ -40,13 +40,13 @@
 			{
 				"command" : 2,
 				"file" : 0,
-				"line" : 52,
+				"line" : 54,
 				"parent" : 0
 			},
 			{
 				"command" : 3,
 				"file" : 0,
-				"line" : 63,
+				"line" : 65,
 				"parent" : 0
 			}
 		]
@@ -57,29 +57,29 @@
 			"compileCommandFragments" : 
 			[
 				{
-					"fragment" : "-O0 -std=gnu++20 -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -g -Xclang -gcodeview"
+					"fragment" : "-g -std=gnu++20"
 				}
 			],
 			"defines" : 
 			[
 				{
 					"backtrace" : 2,
-					"define" : "PROJECT_ROOT_DIR=\"D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI\""
+					"define" : "PROJECT_ROOT_DIR=\"/home/kali/linux_project/imgui_application/MyAppImGUI\""
 				}
 			],
 			"includes" : 
 			[
 				{
 					"backtrace" : 3,
-					"path" : "D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/stb-src"
+					"path" : "/home/kali/linux_project/imgui_application/MyAppImGUI/build/_deps/stb-src"
 				},
 				{
 					"backtrace" : 4,
-					"path" : "D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui"
+					"path" : "/home/kali/linux_project/imgui_application/MyAppImGUI/vendor/imgui"
 				},
 				{
 					"backtrace" : 4,
-					"path" : "D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui/misc/cpp"
+					"path" : "/home/kali/linux_project/imgui_application/MyAppImGUI/vendor/imgui/misc/cpp"
 				}
 			],
 			"language" : "CXX",
@@ -103,7 +103,7 @@
 	],
 	"id" : "imguilib::@6890427a1f51a3e7e1df",
 	"name" : "imguilib",
-	"nameOnDisk" : "imguilib.lib",
+	"nameOnDisk" : "libimguilib.a",
 	"paths" : 
 	{
 		"build" : ".",

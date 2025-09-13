@@ -30,7 +30,7 @@
 			"destination" : "lib",
 			"paths" : 
 			[
-				"_deps/glfw-build/src/glfw3.lib"
+				"_deps/glfw-build/src/libglfw3.a"
 			],
 			"targetId" : "glfw::@fa9f4482d3a2b070f206",
 			"targetIndex" : 1,

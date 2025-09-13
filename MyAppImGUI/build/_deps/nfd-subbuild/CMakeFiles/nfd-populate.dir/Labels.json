@@ -2,37 +2,37 @@
 	"sources" : 
 	[
 		{
-			"file" : "D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/nfd-subbuild/CMakeFiles/nfd-populate"
+			"file" : "/home/kali/linux_project/imgui_application/MyAppImGUI/build/_deps/nfd-subbuild/CMakeFiles/nfd-populate"
 		},
 		{
-			"file" : "D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/nfd-subbuild/CMakeFiles/nfd-populate.rule"
+			"file" : "/home/kali/linux_project/imgui_application/MyAppImGUI/build/_deps/nfd-subbuild/CMakeFiles/nfd-populate.rule"
 		},
 		{
-			"file" : "D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/nfd-subbuild/CMakeFiles/nfd-populate-complete.rule"
+			"file" : "/home/kali/linux_project/imgui_application/MyAppImGUI/build/_deps/nfd-subbuild/CMakeFiles/nfd-populate-complete.rule"
 		},
 		{
-			"file" : "D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/nfd-subbuild/nfd-populate-prefix/src/nfd-populate-stamp/nfd-populate-build.rule"
+			"file" : "/home/kali/linux_project/imgui_application/MyAppImGUI/build/_deps/nfd-subbuild/nfd-populate-prefix/src/nfd-populate-stamp/nfd-populate-build.rule"
 		},
 		{
-			"file" : "D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/nfd-subbuild/nfd-populate-prefix/src/nfd-populate-stamp/nfd-populate-configure.rule"
+			"file" : "/home/kali/linux_project/imgui_application/MyAppImGUI/build/_deps/nfd-subbuild/nfd-populate-prefix/src/nfd-populate-stamp/nfd-populate-configure.rule"
 		},
 		{
-			"file" : "D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/nfd-subbuild/nfd-populate-prefix/src/nfd-populate-stamp/nfd-populate-download.rule"
+			"file" : "/home/kali/linux_project/imgui_application/MyAppImGUI/build/_deps/nfd-subbuild/nfd-populate-prefix/src/nfd-populate-stamp/nfd-populate-download.rule"
 		},
 		{
-			"file" : "D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/nfd-subbuild/nfd-populate-prefix/src/nfd-populate-stamp/nfd-populate-install.rule"
+			"file" : "/home/kali/linux_project/imgui_application/MyAppImGUI/build/_deps/nfd-subbuild/nfd-populate-prefix/src/nfd-populate-stamp/nfd-populate-install.rule"
 		},
 		{
-			"file" : "D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/nfd-subbuild/nfd-populate-prefix/src/nfd-populate-stamp/nfd-populate-mkdir.rule"
+			"file" : "/home/kali/linux_project/imgui_application/MyAppImGUI/build/_deps/nfd-subbuild/nfd-populate-prefix/src/nfd-populate-stamp/nfd-populate-mkdir.rule"
 		},
 		{
-			"file" : "D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/nfd-subbuild/nfd-populate-prefix/src/nfd-populate-stamp/nfd-populate-patch.rule"
+			"file" : "/home/kali/linux_project/imgui_application/MyAppImGUI/build/_deps/nfd-subbuild/nfd-populate-prefix/src/nfd-populate-stamp/nfd-populate-patch.rule"
 		},
 		{
-			"file" : "D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/nfd-subbuild/nfd-populate-prefix/src/nfd-populate-stamp/nfd-populate-test.rule"
+			"file" : "/home/kali/linux_project/imgui_application/MyAppImGUI/build/_deps/nfd-subbuild/nfd-populate-prefix/src/nfd-populate-stamp/nfd-populate-test.rule"
 		},
 		{
-			"file" : "D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/nfd-subbuild/nfd-populate-prefix/src/nfd-populate-stamp/nfd-populate-update.rule"
+			"file" : "/home/kali/linux_project/imgui_application/MyAppImGUI/build/_deps/nfd-subbuild/nfd-populate-prefix/src/nfd-populate-stamp/nfd-populate-update.rule"
 		}
 	],
 	"target" : 

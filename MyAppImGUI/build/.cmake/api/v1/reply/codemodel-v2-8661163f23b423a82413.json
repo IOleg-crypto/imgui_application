@@ -12,7 +12,7 @@
 						3
 					],
 					"hasInstallRule" : true,
-					"jsonFile" : "directory-.-Debug-d0094a50bb2071803777.json",
+					"jsonFile" : "directory-.-Debug-f5ebdc15457944623624.json",
 					"minimumCMakeVersion" : 
 					{
 						"string" : "3.29"
@@ -32,7 +32,7 @@
 					[
 						2
 					],
-					"jsonFile" : "directory-_deps.nfd-build-Debug-bacd6633f0f14d9ee78f.json",
+					"jsonFile" : "directory-_deps.nfd-build-Debug-eedceac6a36fae7f31a8.json",
 					"minimumCMakeVersion" : 
 					{
 						"string" : "3.10"
@@ -43,7 +43,7 @@
 				},
 				{
 					"build" : "_deps/nfd-build/src",
-					"jsonFile" : "directory-_deps.nfd-build.src-Debug-225e2f6e302643251bc6.json",
+					"jsonFile" : "directory-_deps.nfd-build.src-Debug-67c403ecc57bbdda0e8b.json",
 					"minimumCMakeVersion" : 
 					{
 						"string" : "3.10"
@@ -63,7 +63,7 @@
 						4
 					],
 					"hasInstallRule" : true,
-					"jsonFile" : "directory-_deps.glfw-build-Debug-d439e298f010b95b0266.json",
+					"jsonFile" : "directory-_deps.glfw-build-Debug-5080ce4b5278840e02bf.json",
 					"minimumCMakeVersion" : 
 					{
 						"string" : "3.0"
@@ -79,7 +79,7 @@
 				{
 					"build" : "_deps/glfw-build/src",
 					"hasInstallRule" : true,
-					"jsonFile" : "directory-_deps.glfw-build.src-Debug-53cc900f12fcf71abff6.json",
+					"jsonFile" : "directory-_deps.glfw-build.src-Debug-5ee4c5652d534a70982d.json",
 					"minimumCMakeVersion" : 
 					{
 						"string" : "3.0"
@@ -149,49 +149,49 @@
 				{
 					"directoryIndex" : 0,
 					"id" : "MyAppImGUI::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-MyAppImGUI-Debug-c780dfea30e2bd14c792.json",
+					"jsonFile" : "target-MyAppImGUI-Debug-1c66d70ca1f4e3abb73b.json",
 					"name" : "MyAppImGUI",
 					"projectIndex" : 0
 				},
 				{
 					"directoryIndex" : 4,
 					"id" : "glfw::@fa9f4482d3a2b070f206",
-					"jsonFile" : "target-glfw-Debug-a744fb61f9aa3b54b9a9.json",
+					"jsonFile" : "target-glfw-Debug-df5dc1068725519d79ed.json",
 					"name" : "glfw",
 					"projectIndex" : 2
 				},
 				{
 					"directoryIndex" : 0,
 					"id" : "imguilib::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-imguilib-Debug-fc57e90edf53d5d3b051.json",
+					"jsonFile" : "target-imguilib-Debug-b86907ca17398658fbd0.json",
 					"name" : "imguilib",
 					"projectIndex" : 0
 				},
 				{
 					"directoryIndex" : 2,
 					"id" : "nfd::@867e02254aa53ecc6986",
-					"jsonFile" : "target-nfd-Debug-c1bab903675e43ed1986.json",
+					"jsonFile" : "target-nfd-Debug-97ad3c8904a491f3f472.json",
 					"name" : "nfd",
 					"projectIndex" : 1
 				},
 				{
 					"directoryIndex" : 0,
 					"id" : "opengl3imgui::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-opengl3imgui-Debug-28d50a8c7cb6c5d4324f.json",
+					"jsonFile" : "target-opengl3imgui-Debug-04806a6af24e85a3a6e5.json",
 					"name" : "opengl3imgui",
 					"projectIndex" : 0
 				},
 				{
 					"directoryIndex" : 3,
 					"id" : "uninstall::@369fad943889a5ec39c8",
-					"jsonFile" : "target-uninstall-Debug-d81109e015cf902e2dfb.json",
+					"jsonFile" : "target-uninstall-Debug-776c625770c8ded692f6.json",
 					"name" : "uninstall",
 					"projectIndex" : 2
 				},
 				{
 					"directoryIndex" : 4,
 					"id" : "update_mappings::@fa9f4482d3a2b070f206",
-					"jsonFile" : "target-update_mappings-Debug-4de7a70763d6e19a149d.json",
+					"jsonFile" : "target-update_mappings-Debug-349cce9c8d15ace672d8.json",
 					"name" : "update_mappings",
 					"projectIndex" : 2
 				}
@@ -201,12 +201,12 @@
 	"kind" : "codemodel",
 	"paths" : 
 	{
-		"build" : "D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build",
-		"source" : "D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI"
+		"build" : "/home/kali/linux_project/imgui_application/MyAppImGUI/build",
+		"source" : "/home/kali/linux_project/imgui_application/MyAppImGUI"
 	},
 	"version" : 
 	{
 		"major" : 2,
-		"minor" : 8
+		"minor" : 7
 	}
 }

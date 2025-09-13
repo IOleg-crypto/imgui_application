@@ -3,7 +3,7 @@
 	"artifacts" : 
 	[
 		{
-			"path" : "opengl3imgui.lib"
+			"path" : "libopengl3imgui.a"
 		}
 	],
 	"backtrace" : 1,
@@ -29,13 +29,13 @@
 			{
 				"command" : 0,
 				"file" : 0,
-				"line" : 69,
+				"line" : 71,
 				"parent" : 0
 			},
 			{
 				"command" : 1,
 				"file" : 0,
-				"line" : 80,
+				"line" : 82,
 				"parent" : 0
 			},
 			{
@@ -47,13 +47,13 @@
 			{
 				"command" : 3,
 				"file" : 0,
-				"line" : 52,
+				"line" : 54,
 				"parent" : 0
 			},
 			{
 				"command" : 4,
 				"file" : 0,
-				"line" : 75,
+				"line" : 77,
 				"parent" : 0
 			}
 		]
@@ -64,37 +64,37 @@
 			"compileCommandFragments" : 
 			[
 				{
-					"fragment" : "-O0 -std=gnu++20 -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -g -Xclang -gcodeview"
+					"fragment" : "-g -std=gnu++20"
 				}
 			],
 			"defines" : 
 			[
 				{
 					"backtrace" : 3,
-					"define" : "PROJECT_ROOT_DIR=\"D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI\""
+					"define" : "PROJECT_ROOT_DIR=\"/home/kali/linux_project/imgui_application/MyAppImGUI\""
 				}
 			],
 			"includes" : 
 			[
 				{
 					"backtrace" : 4,
-					"path" : "D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/stb-src"
+					"path" : "/home/kali/linux_project/imgui_application/MyAppImGUI/build/_deps/stb-src"
 				},
 				{
 					"backtrace" : 5,
-					"path" : "D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui"
+					"path" : "/home/kali/linux_project/imgui_application/MyAppImGUI/vendor/imgui"
 				},
 				{
 					"backtrace" : 5,
-					"path" : "D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui/backends"
+					"path" : "/home/kali/linux_project/imgui_application/MyAppImGUI/vendor/imgui/backends"
 				},
 				{
 					"backtrace" : 2,
-					"path" : "D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/vendor/imgui/misc/cpp"
+					"path" : "/home/kali/linux_project/imgui_application/MyAppImGUI/vendor/imgui/misc/cpp"
 				},
 				{
 					"backtrace" : 2,
-					"path" : "D:/gitnext/CppWithImGUI/imgui_application/MyAppImGUI/build/_deps/glfw-src/include"
+					"path" : "/home/kali/linux_project/imgui_application/MyAppImGUI/build/_deps/glfw-src/include"
 				}
 			],
 			"language" : "CXX",
@@ -126,7 +126,7 @@
 	],
 	"id" : "opengl3imgui::@6890427a1f51a3e7e1df",
 	"name" : "opengl3imgui",
-	"nameOnDisk" : "opengl3imgui.lib",
+	"nameOnDisk" : "libopengl3imgui.a",
 	"paths" : 
 	{
 		"build" : ".",

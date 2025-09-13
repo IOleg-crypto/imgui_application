@@ -11,6 +11,8 @@ add_executable(MyAppImGUI
     src/FileDialog/FileDialog.h
     src/Memory/Memory.cpp
     src/Memory/Memory.h
+    src/Font/Font.h
+    src/Font/Font.cpp
     src/App/Application.cpp
     src/App/Application.h
     src/Editor/Editor.cpp
